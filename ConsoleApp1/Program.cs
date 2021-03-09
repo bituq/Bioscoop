@@ -6,21 +6,17 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int num = 5;
-            string s = "";
-            int i = 0;
-            while (i < num)
+            Console.WriteLine("Hello World!");
+
+            for (int i = 0; i < 5; i++)
             {
-                int j = 0;
-                while (j < i)
-                {
-                    s += "*";
-                    j++;
-                }
-                s += "\n";
-                i++;
+                SayHello();
             }
-            Console.WriteLine(s);
+        }
+
+        static void SayHello()
+        {
+            Console.WriteLine("Hello!");
         }
     }
 }
