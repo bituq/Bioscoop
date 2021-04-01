@@ -6,7 +6,7 @@ namespace CinemaApplication
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Dr scrum!");
+            Console.WriteLine("Waros!");
         }
     }
 }
