@@ -7,9 +7,9 @@ namespace CinemaApplication
 
     public class Options
     {
-        public const bool USE_NUMBERS = false;
-        public const bool USE_BULLET_POINTS = true;
-        public const bool USE_PLACEHOLDERS = false;
+        public const bool USE_NUMBERS = true;
+        public const bool USE_BULLET_POINTS = false;
+        public const bool USE_PLACEHOLDERS = true;
         public static void Title(string name) { Console.Title = name; }
     }
 
@@ -17,10 +17,9 @@ namespace CinemaApplication
     {
         public string[] items;
 
-        public int activeItemIndex = -1;
-
+        public int activeItemIndex = 0;
+        
         public string activeValue => activeItemIndex != -1 ? items[activeItemIndex] : null;
-
         public MenuList(string[] arr)
         {
             items = arr;
@@ -50,33 +49,37 @@ namespace CinemaApplication
 
         string prefix;
         string name;
+        Point anchor;
+        Point titleAnchor = new Point(1, 1);
 
-        public MenuMaker(MenuList Menu, string Name)
+        public MenuMaker(MenuList Menu, string Name, Point Anchor)
         {
             this.menu = Menu;
             this.name = Name;
+            this.anchor = Anchor;
         }
-
-        private Point Margin(int m) => new Point(m, m);
 
         public void DrawSolution()
         {
-            Console.SetCursorPosition(1, 1);
+            Console.SetCursorPosition(titleAnchor.X, titleAnchor.Y);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(name);
             for (int i = 0; i < menu.items.Length; i++)
             {
-                Console.SetCursorPosition(2, 3 + i);
+                Console.SetCursorPosition(anchor.X, anchor.Y + i);
                 prefix = PrefixSelector(i);
                 if (menu.activeItemIndex == i)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.BackgroundColor = ConsoleColor.Gray;
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
                 }
                 Console.WriteLine($"{prefix}{menu.items[i]}");
+                Console.BackgroundColor = ConsoleColor.Black;
             }
         }
 
@@ -102,9 +105,9 @@ namespace CinemaApplication
             bool reset = false;
 
             MenuList menu = new MenuList(new string[] { "Zoek Films", "Bekijk Reservering" });
-            MenuMaker menuMaker = new MenuMaker(menu, "Project B Bioscoop Applicatie");
+            MenuMaker menuMaker = new MenuMaker(menu, "Project B Bioscoop Applicatie", new Point(2, 3));
 
-            menu.GeneratePlaceholders(10);
+            menu.GeneratePlaceholders(3);
 
             Options.Title("Bioscoop Applicatie");
 
