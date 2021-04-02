@@ -9,7 +9,6 @@ namespace CinemaApplication
         static void Main(string[] args)
         {
             var movies = File.ReadAllText("Movies.json");
-            var fs = File.CreateText("Movies.json");
 
             JsonDocument doc = JsonDocument.Parse(movies);
 
