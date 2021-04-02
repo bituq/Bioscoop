@@ -12,8 +12,6 @@ namespace CinemaApplication
             var movies = moviesFile.ReadToEnd();
 
             JsonDocument doc = JsonDocument.Parse(movies);
-            JsonElement root = doc.RootElement;
-
 
             foreach (JsonElement movie in doc.RootElement.EnumerateArray())
             {
