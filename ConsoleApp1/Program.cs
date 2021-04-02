@@ -7,9 +7,9 @@ namespace CinemaApplication
 
     public class Options
     {
-        public const bool USE_NUMBERS = true;
-        public const bool USE_BULLET_POINTS = false;
-        public const bool USE_PLACEHOLDERS = true;
+        public const bool USE_NUMBERS = false;
+        public const bool USE_BULLET_POINTS = true;
+        public const bool USE_PLACEHOLDERS = false;
         public static void Title(string name) { Console.Title = name; }
     }
 
@@ -28,12 +28,15 @@ namespace CinemaApplication
 
         public void GeneratePlaceholders(int amount)
         {
-            var temp = new string[amount + items.Length];
-            for (int i = 0; i < items.Length + amount; i++)
+            if (Options.USE_PLACEHOLDERS)
             {
-                temp[i] = i < items.Length ? items[i] : $"Option {i + 1}";
+                var temp = new string[amount + items.Length];
+                for (int i = 0; i < items.Length + amount; i++)
+                {
+                    temp[i] = i < items.Length ? items[i] : $"Option {i + 1}";
+                }
+                items = temp;
             }
-            items = temp;
         }
 
         public void KeyUp() { activeItemIndex = Math.Max(activeItemIndex - 1, 0); }
@@ -101,7 +104,7 @@ namespace CinemaApplication
             MenuList menu = new MenuList(new string[] { "Zoek Films", "Bekijk Reservering" });
             MenuMaker menuMaker = new MenuMaker(menu, "Project B Bioscoop Applicatie");
 
-            menu.GeneratePlaceholders(3);
+            menu.GeneratePlaceholders(10);
 
             Options.Title("Bioscoop Applicatie");
 
