@@ -8,21 +8,25 @@ namespace CinemaApplication
     {
         static void Main(string[] args)
         {
-            StreamReader moviesFile = new StreamReader("Movies.json");
-            var movies = moviesFile.ReadToEnd();
+            var movies = File.ReadAllText("Movies.json");
+            var fs = File.CreateText("Movies.json");
 
             JsonDocument doc = JsonDocument.Parse(movies);
 
             foreach (JsonElement movie in doc.RootElement.EnumerateArray())
             {
-                Console.WriteLine(movie.GetProperty("name"));
-                Console.WriteLine(movie.GetProperty("duration"));
-                foreach (JsonElement starring in movie.GetProperty("starring").EnumerateArray())
+                if (movie.GetProperty("description").ToString() == "This is a test")
                 {
-                    Console.WriteLine(starring);
+                    Console.WriteLine(movie.GetProperty("name"));
+                    Console.WriteLine(movie.GetProperty("duration"));
+                    foreach (JsonElement starring in movie.GetProperty("starring").EnumerateArray())
+                    {
+                        Console.WriteLine(starring);
+                    }
+                    Console.WriteLine(movie.GetProperty("rating"));
+                    Console.WriteLine(movie.GetProperty("description"));
+                    Console.WriteLine("");
                 }
-                Console.WriteLine(movie.GetProperty("rating"));
-                Console.WriteLine("");
             }
         }
     }
