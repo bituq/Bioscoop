@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json;
+using System.IO;
 
 namespace CinemaApplication
 {
@@ -7,20 +8,21 @@ namespace CinemaApplication
     {
         static void Main(string[] args)
         {
-            string movies = " [ {\"name\": \"Harry Potter and the Deathly Hallows Part 1\", \"duration\": \"   Duration: 90 minutes\", \"3D\": \"   3D: No\", \"genre\": \"   Genre: Fantasy\", \"rating\": \"   Rating: 4/5\"}" +
-                ", " + "{\"name\": \"Lord of the rings\", \"duration\": \"   Duration: 178 minutes\", \"3D\": \"   3D: No\", \"genre\": \"   Genre: Fantasy\", \"rating\": \"   Rating: 4/5\"}" +
-                ", " + "{\"name\": \"Lord of the rings\", \"duration\": \"   Duration: 178 minutes\", \"3D\": \"   3D: No\", \"genre\": \"   Genre: Fantasy\", \"rating\": \"   Rating: 4/5\"}" +
-                ", " + "{\"name\": \"Lord of the rings\", \"duration\": \"   Duration: 178 minutes\", \"3D\": \"   3D: No\", \"genre\": \"   Genre: Fantasy\", \"rating\": \"   Rating: 4/5\"}" +
-                ", " + "{\"name\": \"Lord of the rings\", \"duration\": \"   Duration: 178 minutes\", \"3D\": \"   3D: No\", \"genre\": \"   Genre: Fantasy\", \"rating\": \"   Rating: 4/5\"} ]";
+            StreamReader moviesFile = new StreamReader("Movies.json");
+            var movies = moviesFile.ReadToEnd();
 
-            using JsonDocument doc = JsonDocument.Parse(movies);
+            JsonDocument doc = JsonDocument.Parse(movies);
             JsonElement root = doc.RootElement;
+
 
             foreach (JsonElement movie in doc.RootElement.EnumerateArray())
             {
                 Console.WriteLine(movie.GetProperty("name"));
                 Console.WriteLine(movie.GetProperty("duration"));
-                Console.WriteLine(movie.GetProperty("genre"));
+                foreach (JsonElement starring in movie.GetProperty("starring").EnumerateArray())
+                {
+                    Console.WriteLine(starring);
+                }
                 Console.WriteLine(movie.GetProperty("rating"));
                 Console.WriteLine("");
             }
