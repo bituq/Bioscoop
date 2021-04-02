@@ -1,13 +1,11 @@
-{
-    "reserveringen" : {
-        "reservering1" : {
-            "voorNaam" : "VB",
-            "achterNaam" : "VB",
-            "reserveringNummer" : "0000000",
-            "zaal" : "1",
-            "film" : "The Matrix",
-            "datumVanReservatie" : "1617363411",
-            "stoel" : "0"
-        }
+[
+    {
+        "voorNaam" : "VB",
+        "achterNaam" : "VB",
+        "reserveringNummer" : "0000000",
+        "zaal" : "1",
+        "film" : "The Matrix",
+        "datumVanReservatie" : "1617363411",
+        "stoel" : "0"
     }
-}
+]
