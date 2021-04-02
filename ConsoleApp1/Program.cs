@@ -22,7 +22,7 @@ namespace CinemaApplication
             return time;
         }
 
-        public static string[] GetTimeSlots(string name)
+        public static JsonElement[] GetTimeSlots(string name)
         {
             var slotFile = File.ReadAllText("TimeSlot.json");
             JsonDocument timeSlotsDoc = JsonDocument.Parse(slotFile);
@@ -37,13 +37,13 @@ namespace CinemaApplication
                 }
             }
 
-            string[] availableTimeslots = new string[amountOfTimeslots];
+            JsonElement[] availableTimeslots = new JsonElement[amountOfTimeslots];
             int count = 0;
             foreach (var timeslot in timeslots)
             {
                 if (timeslot.GetProperty("movie").ToString() == name)
                 {
-                    availableTimeslots[count] = timeslot.GetProperty("time").ToString();
+                    availableTimeslots[count] = timeslot;
                     count++;
                 }
             }
@@ -60,7 +60,8 @@ namespace CinemaApplication
                 if (name == (movie.GetProperty("name").ToString()))
                 {
                     // show movie information
-                    Console.WriteLine(movie.GetProperty("name").ToString());
+                    Console.WriteLine("Name: " + movie.GetProperty("name").ToString());
+                    /*
                     Console.WriteLine(SecondsToTime(movie.GetProperty("duration")));
                     Console.WriteLine(UnixToDate(movie.GetProperty("releaseDate").GetInt32()).ToString("d MMMM yyyy")); // is in unix
                     Console.WriteLine(movie.GetProperty("rating").ToString());
@@ -69,15 +70,17 @@ namespace CinemaApplication
                     Console.WriteLine(movie.GetProperty("company").ToString());
                     Console.WriteLine(movie.GetProperty("starring").ToString()); // is not an array yet
                     Console.WriteLine(movie.GetProperty("description").ToString());
+                    */
 
                     // show timeslot information
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("Choose your time");
                     Console.ResetColor();
-                    foreach (string time in GetTimeSlots(name))
+                    foreach (JsonElement timeslot in GetTimeSlots(name))
                     {
-                        Console.WriteLine(time);
+                        Console.WriteLine(timeslot.GetProperty("time"));
                     }
+                    Console.WriteLine("BACK");
                 }
             }
         }
