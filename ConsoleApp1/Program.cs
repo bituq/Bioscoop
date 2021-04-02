@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 
 namespace CinemaApplication
 {
+
     public class Options
     {
         public const bool USE_NUMBERS = true;
         public const bool USE_BULLET_POINTS = false;
+        public const bool USE_PLACEHOLDERS = true;
         public static void Title(string name) { Console.Title = name; }
     }
 
@@ -44,17 +46,24 @@ namespace CinemaApplication
         MenuList menu;
 
         string prefix;
+        string name;
 
-        public MenuMaker(MenuList Menu)
+        public MenuMaker(MenuList Menu, string Name)
         {
             this.menu = Menu;
+            this.name = Name;
         }
+
+        private Point Margin(int m) => new Point(m, m);
 
         public void DrawSolution()
         {
+            Console.SetCursorPosition(1, 1);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(name);
             for (int i = 0; i < menu.items.Length; i++)
             {
-                Console.SetCursorPosition(0, i);
+                Console.SetCursorPosition(2, 3 + i);
                 prefix = PrefixSelector(i);
                 if (menu.activeItemIndex == i)
                 {
@@ -87,40 +96,45 @@ namespace CinemaApplication
         public static void Main()
         {
             bool selected = false;
+            bool reset = false;
 
             MenuList menu = new MenuList(new string[] { "Zoek Films", "Bekijk Reservering" });
-            MenuMaker menuMaker = new MenuMaker(menu);
+            MenuMaker menuMaker = new MenuMaker(menu, "Project B Bioscoop Applicatie");
 
-            menu.GeneratePlaceholders(4);
+            menu.GeneratePlaceholders(3);
 
             Options.Title("Bioscoop Applicatie");
 
-            while(!selected)
+            while (!reset)
             {
-                menuMaker.DrawSolution();
+                while (!selected)
+                {
+                    menuMaker.DrawSolution();
 
-                var info = Console.ReadKey();
+                    var info = Console.ReadKey();
 
-                if (info.Key == ConsoleKey.UpArrow)
-                {
-                    menu.KeyUp();
+                    if (info.Key == ConsoleKey.UpArrow)
+                    {
+                        menu.KeyUp();
+                    }
+                    else if (info.Key == ConsoleKey.DownArrow)
+                    {
+                        menu.KeyDown();
+                    }
+                    else if (info.Key == ConsoleKey.Enter)
+                    {
+                        selected = true;
+                    }
                 }
-                else if (info.Key == ConsoleKey.DownArrow)
-                {
-                    menu.KeyDown();
-                }
-                else if (info.Key == ConsoleKey.Enter)
-                {
-                    selected = true;
-                }
+
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\nVisiting page: {menu.activeValue}!");
+
+                Console.ReadKey();
+                Console.Clear();
+                selected = false;
             }
-
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\nVisiting page: {menu.activeValue}!");
-
-            Console.ReadKey();
-            Console.ForegroundColor = ConsoleColor.Black;
         }
     }
 }
