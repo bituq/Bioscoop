@@ -6,13 +6,22 @@ namespace AppComponents
 	public class InputHandler
 	{
 		public static List<Selectable> selectables = new List<Selectable>();
+		public static List<ItemList> itemLists = new List<ItemList>();
 		public static int index = 0;
-		public static void Wait()
-		{
+
+		public static void DrawContent()
+        {
 			foreach (Selectable selectable in selectables)
 			{
 				selectable.Draw();
 			}
+			foreach (ItemList list in itemLists)
+            {
+				list.Draw();
+            }
+		}
+		public static void WaitForInput()
+		{
 			var info = Console.ReadKey();
 			foreach (Selectable selectable in selectables)
 			{

@@ -28,7 +28,8 @@ namespace CinemaApplication
 
             while (true)
             {
-                InputHandler.Wait();
+                InputHandler.DrawContent();
+                InputHandler.WaitForInput();
             }
         }
     }
