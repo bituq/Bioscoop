@@ -12,8 +12,7 @@ namespace CinemaApplication
 
             var movies = File.ReadAllText("moviesadd.json");
             JsonDocument doc = JsonDocument.Parse(movies);
-            Console.WriteLine(doc);
-            string input = Console.ReadLine();
+            
 
             
             Console.WriteLine("Enter movie name: ");
@@ -26,28 +25,30 @@ namespace CinemaApplication
 
             static void addfunc(string name, string duration, string releasedate)
             {
-                string filePath = "moviesadd.json";
+                string filePath = "movies.json";
                 StreamReader reserveringFile = new StreamReader(filePath);
                 var reserveringen = reserveringFile.ReadToEnd();
 
                 JsonDocument doc = JsonDocument.Parse(reserveringen);
                 JsonElement root = doc.RootElement;
-            }
+              
 
-            foreach (JsonElement reservering in root.EnumerateArray())
-            {
-                string[] lijstReserveringen = reserveringen.Split('}');
-                int len = lijstReserveringen.Length;
-                for (int i = 0; i < len - 1; i++)
+                foreach (JsonElement reservering in root.EnumerateArray())
                 {
-                    if (i == (len - 2))
+                    string[] lijstReserveringen = reserveringen.Split('}');
+                    int len = lijstReserveringen.Length;
+                    for (int i = 0; i < len - 1; i++)
                     {
-                        lijstReserveringen[i] = lijstReserveringen[i] + "},\n";
+                        if (i == (len - 2))
+                        {
+                            lijstReserveringen[i] = lijstReserveringen[i] + "},\n";
+                        }
+                        else
+                        {
+                            lijstReserveringen[i] = lijstReserveringen[i] + "}";
+                        }
                     }
-                    else
-                    {
-                        lijstReserveringen[i] = lijstReserveringen[i] + "}";
-                    }
+                    Console.WriteLine(lijstReserveringen);
                 }
             }
 
