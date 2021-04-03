@@ -12,13 +12,15 @@ namespace CinemaApplication
 
             var movies = File.ReadAllText("moviesadd.json");
             JsonDocument doc = JsonDocument.Parse(movies);
+            Console.WriteLine(doc);
+            string input = Console.ReadLine();
 
             foreach (JsonElement movie in doc.RootElement.EnumerateArray())
             {
-                if (movie.GetProperty("description").ToString() == "This is a test")
+                if (movie.GetProperty("name").ToString() == input  )
                 {
-                    Console.WriteLine(movie.GetProperty("name"));
-                    Console.WriteLine(movie.GetProperty("duration"));
+                    //Console.WriteLine("movie name is: " + movie.GetProperty("name"));
+                    //Console.WriteLine("duration is: " + movie.GetProperty("duration"));
                     foreach (JsonElement starring in movie.GetProperty("starring").EnumerateArray())
                     {
                         Console.WriteLine(starring);
@@ -28,6 +30,7 @@ namespace CinemaApplication
                     Console.WriteLine("");
                 }
             }
+            
 
 
             /*{
