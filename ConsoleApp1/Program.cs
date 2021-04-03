@@ -100,6 +100,7 @@ namespace CinemaApplication
 
     public class Program
     {
+        /*
         public static void Main()
         {
             bool selected = false;
@@ -143,23 +144,24 @@ namespace CinemaApplication
                 selected = false;
             }
         }
-        /* public static void Main()
+        */
+        public static void Main()
          {
-             var list = new ListBuilder(
+             var list = new Builders.ListBuilder(
                  new Anchor(5, 2),
                  new string[] { "Hello", "World", "hey", "hoi", "sup" },
                  ListPrefix: ItemList.Options.Prefix.Number,
                  ListDirection: ItemList.Options.Direction.Vertical,
                  DefaultColor: new ItemColor(ConsoleColor.White, ConsoleColor.Black)
                  )
-                 .AsSelectable(new ItemColor(ConsoleColor.Yellow, ConsoleColor.Black))
+                 .AsSelectable(new ItemColor(ConsoleColor.Black, ConsoleColor.White))
                  .Done();
+            list.hover = true;
 
              while (true)
              {
                  InputHandler.Wait();
              }
          }
-         */
     }
 }

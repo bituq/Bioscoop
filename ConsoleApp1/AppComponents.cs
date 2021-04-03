@@ -6,6 +6,7 @@ namespace AppComponents
 	public class InputHandler
 	{
 		public static List<Selectable> selectables = new List<Selectable>();
+		public static List<NavigationMenu> navigationMenus = new List<NavigationMenu>();
 
 		public static void Wait()
 		{
@@ -30,9 +31,6 @@ namespace AppComponents
 			}
 		}
 	}
-
-	public class Components
-	{
 		public struct Anchor
 		{
 			public int x;
@@ -250,9 +248,9 @@ namespace AppComponents
 
 		public class Selectable : IEquatable<Selectable>
 		{
-			public int selectableId;
+			public int id;
 
-			public static int selectableCount = 0;
+			public static int count = 0;
 
 			private ItemList list;
 
@@ -262,15 +260,16 @@ namespace AppComponents
 
 			public ItemColor selectionColor;
 
-			public bool hover = false;
+			public bool hover { get; set; }
 
 			public Selectable(ItemList l, ItemColor SelectionColor = new ItemColor())
 			{
 				this.list = l;
 				this.selectionColor = SelectionColor;
-				this.selectableId = selectableCount;
+				this.id = count;
+				this.hover = false;
 				InputHandler.selectables.Add(this);
-				selectableCount++;
+				count++;
 			}
 
 			public void KeyUp() { selectedIndex = hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex; }
@@ -300,28 +299,48 @@ namespace AppComponents
 			public bool Equals(Selectable other)
 			{
 				if (other == null) return false;
-				return (this.selectableId.Equals(other.selectableId));
+				return (this.id.Equals(other.id));
 			}
 		}
 
-		public class NavigationMenu
+	public class NavigationMenu : IEquatable<NavigationMenu>
+	{
+		private Selectable menu;
+
+		public static int count = 0;
+
+		public int id;
+
+		public NavigationMenu(Selectable m)
 		{
-			Selectable menu;
+			this.menu = m;
+			this.hover = menu.hover;
+			this.id = count;
+			InputHandler.navigationMenus.Add(this);
+			count++;
+		}
 
-			public NavigationMenu(Selectable m)
+		public void KeyEnter()
+		{
+			if (menu.hover)
 			{
-				this.menu = m;
+				menu.selectedIndex = menu.defaultIndex;
 			}
+		}
 
-			public void KeyEnter()
-			{
-				if (menu.hover)
-				{
-					menu.selectedIndex = menu.defaultIndex;
-				}
-			}
 
-			public void Draw() => menu.Draw();
+		public bool hover { get; set; }
+
+		public void KeyUp() => menu.KeyUp();
+
+		public void KeyDown() => menu.KeyDown();
+
+		public void Draw() => menu.Draw();
+
+		public bool Equals(NavigationMenu other)
+		{
+			if (other == null) return false;
+			return (this.id.Equals(other.id));
 		}
 	}
 
@@ -329,11 +348,11 @@ namespace AppComponents
 	{
 		public class NavigationMenuBuilder
 		{
-			NavigationMenu menu;
+			private NavigationMenu menu;
 
 			public NavigationMenuBuilder(Selectable m)
 			{
-				menu = new NavigationMenu(m);
+				this.menu = new NavigationMenu(m);
 			}
 
 			public NavigationMenu Done() { return menu; }
@@ -341,7 +360,7 @@ namespace AppComponents
 
 		public class SelectableBuilder
 		{
-			Selectable selectable;
+			private Selectable selectable;
 
 			public SelectableBuilder(ItemList l, ItemColor SelectionColor = new ItemColor())
 			{
@@ -358,7 +377,7 @@ namespace AppComponents
 
 		public class ListBuilder
 		{
-			ItemList list;
+			private ItemList list;
 
 			public ListBuilder(Anchor position, string[] Items, ItemList.Options.Prefix ListPrefix = 0, ItemList.Options.Direction ListDirection = 0, ItemColor DefaultColor = new ItemColor(), string CustomPrefix = "")
 			{
