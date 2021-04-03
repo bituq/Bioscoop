@@ -10,7 +10,9 @@ namespace CinemaApplication
         {
 
 
-            //var movies = File.ReadAllText("moviesadd.json");
+            var movies = File.ReadAllText("moviesadd.json");
+
+
 
             /*{
             "movies" : {
