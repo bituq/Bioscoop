@@ -15,22 +15,27 @@ namespace CinemaApplication
             Console.WriteLine(doc);
             string input = Console.ReadLine();
 
-            foreach (JsonElement movie in doc.RootElement.EnumerateArray())
-            {
-                if (movie.GetProperty("name").ToString() == input  )
-                {
-                    //Console.WriteLine("movie name is: " + movie.GetProperty("name"));
-                    //Console.WriteLine("duration is: " + movie.GetProperty("duration"));
-                    foreach (JsonElement starring in movie.GetProperty("starring").EnumerateArray())
-                    {
-                        Console.WriteLine(starring);
-                    }
-                    Console.WriteLine(movie.GetProperty("rating"));
-                    Console.WriteLine(movie.GetProperty("description"));
-                    Console.WriteLine("");
-                }
-            }
             
+            Console.WriteLine("Enter movie name: ");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter duration: ");
+            string duration = Console.ReadLine();
+            Console.WriteLine("Enter release date: ");
+            string releasedate = Console.ReadLine();
+
+            static void addfunc(string name, string duration, string releasedate)
+            {
+                string filePath = "moviesadd.json";
+                StreamReader reserveringFile = new StreamReader(filePath);
+                var reserveringen = reserveringFile.ReadToEnd();
+
+                JsonDocument doc = JsonDocument.Parse(reserveringen);
+                JsonElement root = doc.RootElement;
+            }
+
+
+
+
 
 
             /*{
@@ -74,6 +79,23 @@ namespace CinemaApplication
             //Console.WriteLine("Enter genre: ");
             //var Genre = Console.ReadLine();
             //Console.WriteLine("...\n" + MovieName + " is saved");
+
+            
+            /*foreach (JsonElement movie in doc.RootElement.EnumerateArray())
+            {
+                if (movie.GetProperty("name").ToString() == input)
+                {
+                    //Console.WriteLine("movie name is: " + movie.GetProperty("name"));
+                    //Console.WriteLine("duration is: " + movie.GetProperty("duration"));
+                    foreach (JsonElement starring in movie.GetProperty("starring").EnumerateArray())
+                    {
+                        Console.WriteLine(starring);
+                    }
+                    Console.WriteLine(movie.GetProperty("rating"));
+                    Console.WriteLine(movie.GetProperty("description"));
+                    Console.WriteLine("");
+                }
+            }*/
         }
     }
 }
