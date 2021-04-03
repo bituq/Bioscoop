@@ -8,47 +8,51 @@ namespace CinemaApplication
     {
         static void Main(string[] args)
         {
+
+
+            //var movies = File.ReadAllText("moviesadd.json");
+
             /*{
-                "movies" : {
-                    "movie1" : 
-                        {
-                        "name" : "",
-                        "genre" : "",
-                        "duration" : "",
-                        "release date" : "",
-                        "description" : ""
-                        },
-                     "movie2" : 
-                        {
-                        "name" : "",
-                        "genre" : "",
-                        "duration" : "",
-                        "release date" : "",
-                        "description" : ""
-                        },
-                    "movie3" : 
-                        {
-                        "name" : "",
-                        "genre" : "",
-                        "duration" : "",
-                        "release date" : "",
-                        "description" : ""
-                        }
-                }
-            }*/
+            "movies" : {
+                "movie1" : 
+                    {
+                    "name" : "",
+                    "genre" : "",
+                    "duration" : "",
+                    "release date" : "",
+                    "description" : ""
+                    },
+                 "movie2" : 
+                    {
+                    "name" : "",
+                    "genre" : "",
+                    "duration" : "",
+                    "release date" : "",
+                    "description" : ""
+                    },
+                "movie3" : 
+                    {
+                    "name" : "",
+                    "genre" : "",
+                    "duration" : "",
+                    "release date" : "",
+                    "description" : ""
+                    }
+            }
+        }*/
 
-            //string[] movies = new string[] {};
+        //string[] movies = new string[] {};
 
-            //string data = " [ {\"name\": \"shrek\", \"occupation\": \"horror\"}, " +
-            //"{\"name\": \"Peter Novak\", \"occupation\": \"driver\"} ]";
-            //var A = data["B"];
+        //string data = " [ {\"name\": \"shrek\", \"occupation\": \"horror\"}, " +
+        //"{\"name\": \"Peter Novak\", \"occupation\": \"driver\"} ]";
+        //var A = data["B"];
 
 
-            //Console.WriteLine("Enter name of movie: ");
-            //var MovieName = Console.ReadLine();
-            //Console.WriteLine("Enter genre: ");
-            //var Genre = Console.ReadLine();
-            //Console.WriteLine("...\n" + MovieName + " is saved");
-        }
+        //Console.WriteLine("Enter name of movie: ");
+        //var MovieName = Console.ReadLine();
+        //Console.WriteLine("Enter genre: ");
+        //var Genre = Console.ReadLine();
+        //Console.WriteLine("...\n" + MovieName + " is saved");
+    }
     }
 }
