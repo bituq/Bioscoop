@@ -61,5 +61,21 @@ namespace AppComponents
             res.SetTabs(tabs);
             return res;
         }
+        public static NavigationMenu MoviesList(Tab tab, Anchor position, string[] items, Tab[] tabs, ColorPalette palette, string title = "")
+        {
+            var res = new Builders.ListBuilder(
+                tab,
+                position,
+                items,
+                ItemList.Options.Prefix.None,
+                DefaultColor: palette[0]
+                )
+                .AsSelectable(palette[1], title)
+                .ForNavigation(palette[2])
+                .Done();
+            res.SetTabs(tabs);
+            return res;
+        }
+
     }
 }
