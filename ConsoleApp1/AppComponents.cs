@@ -9,6 +9,7 @@ namespace AppComponents
 
 		public static void Wait()
 		{
+			int index = 0;
 			foreach (Selectable selectable in selectables)
 			{
 				selectable.Draw();
@@ -32,6 +33,10 @@ namespace AppComponents
 					}
 				}
 			}
+			if (info.Key == ConsoleKey.LeftArrow)
+            {
+
+            }
 		}
 	}
 	public struct Anchor

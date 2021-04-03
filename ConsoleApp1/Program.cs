@@ -12,10 +12,10 @@ namespace CinemaApplication
                 new string[] { "Hello", "World", "hey", "hoi", "sup" },
                 ListPrefix: ItemList.Options.Prefix.Number,
                 DefaultColor: new ItemColor(ConsoleColor.White, ConsoleColor.Black)
-                )
-                .AsSelectable(new ItemColor(ConsoleColor.Black, ConsoleColor.White))
-                .ForNavigation(new ItemColor(ConsoleColor.Green, ConsoleColor.Black))
-                .Done();
+            )
+            .AsSelectable(new ItemColor(ConsoleColor.Black, ConsoleColor.White))
+            .ForNavigation(new ItemColor(ConsoleColor.Green, ConsoleColor.Black))
+            .Done();
             list.Hover = true;
 
             while (true)
