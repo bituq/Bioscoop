@@ -176,6 +176,18 @@ namespace AppComponents
 		}
 	}
 
+	public class ListItem
+	{
+		public ItemColor color = new ItemColor();
+		public string value;
+		public bool active = false;
+		public Tab tab;
+		public ListItem(string text)
+		{
+			this.value = text;
+		}
+	}
+
 	public class ItemList
 	{
 		public class Options
@@ -191,17 +203,6 @@ namespace AppComponents
 			{
 				Vertical,
 				Horizontal
-			}
-		}
-
-		public class ListItem
-		{
-			public ItemColor color = new ItemColor();
-			public string value;
-			public bool active = false;
-			public ListItem(string text)
-			{
-				this.value = text;
 			}
 		}
 
@@ -320,7 +321,7 @@ namespace AppComponents
 
 		public static int count = 0;
 
-		protected readonly ItemList list;
+		public readonly ItemList list;
 
 		public int defaultIndex = 0;
 
@@ -408,7 +409,8 @@ namespace AppComponents
 				{
 					if (list[index].active)
                     {
-						list[index].color = activeColor;
+						//list[index].color = activeColor;
+						list[index].color = selectionColor;
                     }
                     else
                     {
@@ -442,10 +444,42 @@ namespace AppComponents
 
 		public override void KeyEnter()
 		{
-			if (Hover)
+			if (Hover && list[selectedIndex].tab != null)
 			{
+				Console.Clear();
 				list[selectedIndex].active = true;
+				tab.active = false;
+				list[selectedIndex].tab.active = true;
 			}
+		}
+
+		public void SetTabs(Tab[] tabs)
+		{
+			if (tabs.Length > list.Length)
+				throw new ArgumentException($"ListItem[] contains too many ListItems. ({tabs.Length}/{list.Length})");
+			else
+			{
+				for (int i = 0; i < tabs.Length; i++)
+				{
+					list[i].tab = tabs[i];
+				}
+			}
+		}
+
+		public void SetTab(Tab tab, string value)
+		{
+			foreach (ListItem item in list.items)
+			{
+				if (item.value == value)
+				{
+					item.tab = tab;
+				}
+			}
+		}
+
+		public void SetTab(ListItem item, Tab tab)
+		{
+			item.tab = tab;
 		}
 
 	}
