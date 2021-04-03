@@ -62,6 +62,7 @@ namespace AppComponents
 									break;
 								case ConsoleKey.Enter:
 									selectable.KeyEnter();
+									index = 0;
 									break;
 							}
 						}

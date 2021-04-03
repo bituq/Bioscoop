@@ -15,12 +15,13 @@ namespace AppComponents
             public static ItemColor YellowBlack = new ItemColor(ConsoleColor.Yellow, ConsoleColor.Black);
             public static ItemColor DarkyellowBlack = new ItemColor(ConsoleColor.DarkYellow, ConsoleColor.Black);
             public static ItemColor WhiteDarkred = new ItemColor(ConsoleColor.White, ConsoleColor.DarkRed);
+            public static ItemColor GrayBlack = new ItemColor(ConsoleColor.Gray, ConsoleColor.Black);
         }
 
         public static class ColorPalettes
         {
-            public static ColorPalette CasualMonochrome = new ColorPalette(Colors.BlackWhite, Colors.WhiteBlack, Colors.BlackBlue);
-            public static ColorPalette FadedMonochrome = new ColorPalette(Colors.DarkgrayBlack, Colors.WhiteBlack, Colors.BlackBlue);
+            public static ColorPalette CasualMonochrome = new ColorPalette(Colors.WhiteBlack, Colors.BlackWhite, Colors.BlackBlue);
+            public static ColorPalette FadedMonochrome = new ColorPalette(Colors.DarkgrayBlack, Colors.BlackBlue, Colors.BlackBlue);
             public static ColorPalette FieryDragon = new ColorPalette(Colors.DarkyellowBlack, Colors.WhiteDarkred, Colors.BlackBlue);
         }
 
