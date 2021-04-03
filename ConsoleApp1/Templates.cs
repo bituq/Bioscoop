@@ -52,7 +52,7 @@ namespace AppComponents
                 tab,
                 position,
                 items,
-                ItemList.Options.Prefix.Number,
+                ItemList.Options.Prefix.Dash,
                 DefaultColor: palette[0]
                 )
                 .AsSelectable(palette[1], title)
