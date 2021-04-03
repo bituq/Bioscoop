@@ -34,20 +34,22 @@ namespace CinemaApplication
                 JsonElement root = doc.RootElement;
             }
 
-            string[] lijstReserveringen = reserveringen.Split('}');
-            int len = lijstReserveringen.Length;
-            for (int i = 0; i < len - 1; i++)
+            foreach (JsonElement reservering in root.EnumerateArray())
             {
-                if (i == (len - 2))
+                string[] lijstReserveringen = reserveringen.Split('}');
+                int len = lijstReserveringen.Length;
+                for (int i = 0; i < len - 1; i++)
                 {
-                    lijstReserveringen[i] = lijstReserveringen[i] + "},\n";
-                }
-                else
-                {
-                    lijstReserveringen[i] = lijstReserveringen[i] + "}";
+                    if (i == (len - 2))
+                    {
+                        lijstReserveringen[i] = lijstReserveringen[i] + "},\n";
+                    }
+                    else
+                    {
+                        lijstReserveringen[i] = lijstReserveringen[i] + "}";
+                    }
                 }
             }
-
 
 
 
