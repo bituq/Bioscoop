@@ -6,10 +6,9 @@ namespace AppComponents
 	public class InputHandler
 	{
 		public static List<Selectable> selectables = new List<Selectable>();
-
+		public static int index = 0;
 		public static void Wait()
 		{
-			int index = 0;
 			foreach (Selectable selectable in selectables)
 			{
 				selectable.Draw();
@@ -19,24 +18,38 @@ namespace AppComponents
 			{
 				if (selectable.Hover)
 				{
-					if (info.Key == ConsoleKey.UpArrow)
-					{
-						selectable.KeyUp();
-					}
-					else if (info.Key == ConsoleKey.DownArrow)
-					{
-						selectable.KeyDown();
-					}
-					else if (info.Key == ConsoleKey.Enter)
-					{
-						selectable.KeyEnter();
-					}
+					switch (info.Key)
+                    {
+						case ConsoleKey.UpArrow:
+							selectable.KeyUp();
+							break;
+						case ConsoleKey.DownArrow:
+							selectable.KeyDown();
+							break;
+						case ConsoleKey.LeftArrow:
+							selectable.KeyLeft();
+							break;
+						case ConsoleKey.RightArrow:
+							selectable.KeyRight();
+							break;
+						case ConsoleKey.Enter:
+							selectable.KeyEnter();
+							break;
+                    }
 				}
 			}
 			if (info.Key == ConsoleKey.LeftArrow)
             {
-
+				selectables[index].Hover = false;
+				index = Math.Max(index - 1, 0);
+				selectables[index].Hover = true;
             }
+            else if (info.Key == ConsoleKey.RightArrow)
+            {
+				selectables[index].Hover = false;
+				index = Math.Min(index + 1, selectables.Count - 1);
+				selectables[index].Hover = true;
+			}
 		}
 	}
 	public struct Anchor
@@ -256,13 +269,18 @@ namespace AppComponents
 
 	public class Selectable : IEquatable<Selectable>
 	{
+		public class Options
+        {
+			public static bool SavePosition = false;
+        }
+
 		public int id;
 
 		public static int count = 0;
 
 		protected readonly ItemList list;
 
-		public int defaultIndex = -1;
+		public int defaultIndex = 0;
 
 		public int selectedIndex = 0;
 
@@ -302,6 +320,12 @@ namespace AppComponents
 			list[selectedIndex].active = false;
 			selectedIndex = Hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex;
 		}
+		public void KeyLeft()
+		{
+			list[selectedIndex].active = false;
+			selectedIndex = Options.SavePosition ? selectedIndex : defaultIndex;
+		}
+		public void KeyRight() => KeyLeft();
 		public virtual void KeyEnter() { }
 
 		public void Draw()
@@ -322,7 +346,7 @@ namespace AppComponents
 			{
 				Console.SetCursorPosition(list.cursorPosition.x, list.cursorPosition.y + index + (title.Length > 0 ? 1 : 0));
 				list.currentItemIndex = index;
-				if (selectedIndex == index)
+				if (selectedIndex == index && Hover)
 				{
 					if (list[index].active)
                     {

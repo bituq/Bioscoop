@@ -7,16 +7,25 @@ namespace CinemaApplication
     {
         public static void Main()
         {
-            var list = new Builders.ListBuilder(
-                new Anchor(4, 4),
-                new string[] { "Hello", "World", "hey", "hoi", "sup" },
-                ListPrefix: ItemList.Options.Prefix.Number,
-                DefaultColor: new ItemColor(ConsoleColor.White, ConsoleColor.Black)
-            )
-            .AsSelectable(new ItemColor(ConsoleColor.Black, ConsoleColor.White), "Bioscoop Applicatie")
-            .ForNavigation(new ItemColor(ConsoleColor.Green, ConsoleColor.Black))
-            .Done();
-            list.Hover = true;
+            var listArr = new Selectable[5];
+            for (int i = 0; i < listArr.Length; i++)
+            {
+                string[] items = new string[5];
+                for (int j = 0; j < items.Length; j++)
+                {
+                    items[j] = $"Item {j}";
+                }
+                listArr[i] = new Builders.ListBuilder(
+                        new Anchor(2 + i * 15, 3),
+                        items,
+                        ItemList.Options.Prefix.Number,
+                        DefaultColor: new ItemColor(ConsoleColor.DarkGray, ConsoleColor.Black)
+                    )
+                    .AsSelectable(new ItemColor(ConsoleColor.White, ConsoleColor.Black), $"Menu {i}")
+                    .ForNavigation(new ItemColor(ConsoleColor.Green, ConsoleColor.Black))
+                    .Done();
+            }
+            listArr[0].Hover = true;
 
             while (true)
             {
