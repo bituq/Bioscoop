@@ -80,7 +80,7 @@ namespace CinemaApplication
                     }
                     Console.WriteLine(listmovies);
 
-                    string toevoegen = "\t{\n" + $"\t\t\"name\" : \"{name}\",\n" + $"\t\t\"duration\" : \"{duration}\",\n" + $"\t\t\"releasedate\" : \"{releasedate}\",\n"
+                    string add = "\t{\n" + $"\t\t\"name\" : \"{name}\",\n" + $"\t\t\"duration\" : \"{duration}\",\n" + $"\t\t\"releasedate\" : \"{releasedate}\",\n"
                         + $"\t\t\"rating\" : \"{null}\",\n" + 
                         ((genres.Length == 1) ?
                         $"\t\t\"genre\" : [\n\t\t\t\"{genres[0]}\"\n\t\t], \n" :
@@ -94,7 +94,7 @@ namespace CinemaApplication
                     {
                         newJson = newJson + listmovies[j];
                     }
-                    newJson = newJson + toevoegen + listmovies[len - 1];
+                    newJson = newJson + add + listmovies[len - 1];
                     movieFile.Close();
                     File.WriteAllText(filePath, newJson);
                 }
