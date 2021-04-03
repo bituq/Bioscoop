@@ -272,6 +272,7 @@ namespace AppComponents
 		public class Options
         {
 			public static bool SavePosition = false;
+			public static bool InfiniteScroll = true;
         }
 
 		public int id;
@@ -313,12 +314,26 @@ namespace AppComponents
 		public void KeyUp()
 		{
 			list[selectedIndex].active = false;
-			selectedIndex = Hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex;
+			if (!Options.InfiniteScroll)
+			{
+				selectedIndex = Hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex;
+			}
+            else
+            {
+				selectedIndex = Hover ? (selectedIndex == 0 ? list.Length - 1 : selectedIndex - 1) : defaultIndex;
+            }
 		}
 		public void KeyDown()
 		{
 			list[selectedIndex].active = false;
-			selectedIndex = Hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex;
+			if (!Options.InfiniteScroll)
+			{
+				selectedIndex = Hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex;
+			}
+			else
+            {
+				selectedIndex = Hover ? (selectedIndex == list.Length - 1 ? 0 : selectedIndex + 1) : defaultIndex;
+			}
 		}
 		public void KeyLeft()
 		{

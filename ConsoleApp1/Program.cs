@@ -22,7 +22,6 @@ namespace CinemaApplication
                         DefaultColor: new ItemColor(ConsoleColor.DarkGray, ConsoleColor.Black)
                     )
                     .AsSelectable(new ItemColor(ConsoleColor.White, ConsoleColor.Black), $"Menu {i}")
-                    .ForNavigation(new ItemColor(ConsoleColor.Green, ConsoleColor.Black))
                     .Done();
             }
             listArr[0].Hover = true;
