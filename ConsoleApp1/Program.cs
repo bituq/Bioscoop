@@ -30,74 +30,47 @@ namespace CinemaApplication
             static void addfunc(string name, string duration, string releasedate, string[] genres)
             {
                 string filePath = "moviesadd.json";
-                StreamReader reserveringFile = new StreamReader(filePath);
-                var reserveringen = reserveringFile.ReadToEnd();
+                StreamReader movieFile = new StreamReader(filePath);
+                var movies = movieFile.ReadToEnd();
 
-                JsonDocument doc = JsonDocument.Parse(reserveringen);
+                JsonDocument doc = JsonDocument.Parse(movies);
                 JsonElement root = doc.RootElement;
 
 
                 foreach (JsonElement reservering in root.EnumerateArray())
                 {
-                    string[] lijstReserveringen = reserveringen.Split('}');
-                    int len = lijstReserveringen.Length;
+                    string[] listmovies = movies.Split('}');
+                    int len = listmovies.Length;
                     for (int i = 0; i < len - 1; i++)
                     {
                         if (i == (len - 2))
                         {
-                            lijstReserveringen[i] = lijstReserveringen[i] + "},\n";
+                            listmovies[i] = listmovies[i] + "},\n";
                         }
                         else
                         {
-                            lijstReserveringen[i] = lijstReserveringen[i] + "}";
+                            listmovies[i] = listmovies[i] + "}";
                         }
                     }
-                    Console.WriteLine(lijstReserveringen);
+                    Console.WriteLine(listmovies);
 
                     string toevoegen = "\t{\n" + $"\t\t\"name\" : \"{name}\",\n" + $"\t\t\"duration\" : \"{duration}\",\n" + $"\t\t\"releasedate\" : \"{releasedate}\",\n"
-                        + $"\t\t\"rating\" : \"{null}\",\n";
+                        + $"\t\t\"rating\" : \"{null}\"\n" + "\t}";
                     
                     string newJson = "";
                     for (int j = 0; j < len - 1; j++)
                     {
-                        newJson = newJson + lijstReserveringen[j];
+                        newJson = newJson + listmovies[j];
                     }
-                    newJson = newJson + toevoegen + lijstReserveringen[len - 1];
-                    reserveringFile.Close();
+                    newJson = newJson + toevoegen + listmovies[len - 1];
+                    movieFile.Close();
                     File.WriteAllText(filePath, newJson);
                 }
             }
 
 
 
-            /*{
-            "movies" : {
-                "movie1" : 
-                    {
-                    "name" : "",
-                    "genre" : "",
-                    "duration" : "",
-                    "release date" : "",
-                    "description" : ""
-                    },
-                 "movie2" : 
-                    {
-                    "name" : "",
-                    "genre" : "",
-                    "duration" : "",
-                    "release date" : "",
-                    "description" : ""
-                    },
-                "movie3" : 
-                    {
-                    "name" : "",
-                    "genre" : "",
-                    "duration" : "",
-                    "release date" : "",
-                    "description" : ""
-                    }
-            }
-        }*/
+          
 
             //string[] movies = new string[] {};
 
