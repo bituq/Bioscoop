@@ -259,7 +259,7 @@ namespace AppComponents
 
 		public int defaultIndex = -1;
 
-		public int selectedIndex = -1;
+		public int selectedIndex = 0;
 
 		public ItemColor selectionColor;
 
@@ -279,8 +279,16 @@ namespace AppComponents
 			count++;
 		}
 
-		public void KeyUp() { selectedIndex = Hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex; }
-		public void KeyDown() { selectedIndex = Hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex; }
+		public void KeyUp()
+		{
+			list[selectedIndex].active = false;
+			selectedIndex = Hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex;
+		}
+		public void KeyDown()
+		{
+			list[selectedIndex].active = false;
+			selectedIndex = Hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex;
+		}
 		public virtual void KeyEnter() { }
 
 		public void Draw()

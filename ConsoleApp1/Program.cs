@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Drawing;
 using AppComponents;
 
 namespace CinemaApplication
@@ -10,7 +8,7 @@ namespace CinemaApplication
         public static void Main()
         {
             var list = new Builders.ListBuilder(
-                new Anchor(5, 2),
+                new Anchor(4, 4),
                 new string[] { "Hello", "World", "hey", "hoi", "sup" },
                 ListPrefix: ItemList.Options.Prefix.Number,
                 DefaultColor: new ItemColor(ConsoleColor.White, ConsoleColor.Black)
