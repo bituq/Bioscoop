@@ -27,320 +27,301 @@ namespace AppComponents
 					{
 						selectable.KeyDown();
 					}
+					else if (info.Key == ConsoleKey.Enter)
+                    {
+						selectable.KeyEnter();
+                    }
 				}
 			}
 		}
 	}
-		public struct Anchor
+	public struct Anchor
+	{
+		public int x;
+		public int y;
+
+		public Anchor(int X = 0, int Y = 0)
 		{
-			public int x;
-			public int y;
-
-			public Anchor(int X = 0, int Y = 0)
-			{
-				this.x = X;
-				this.y = Y;
-			}
-
-			public int this[int index]
-			{
-				get
-				{
-					switch (index)
-					{
-						case 0:
-							return x;
-							break;
-						case 1:
-							return y;
-							break;
-						default:
-							throw new IndexOutOfRangeException("Index out of range");
-							break;
-					}
-				}
-
-				set
-				{
-					switch (index)
-					{
-						case 0:
-							x = value;
-							break;
-						case 1:
-							y = value;
-							break;
-						default:
-							throw new IndexOutOfRangeException("Index out of range");
-							break;
-					}
-				}
-			}
+			this.x = X;
+			this.y = Y;
 		}
 
-		public struct ItemColor
+		public int this[int index]
 		{
-			public ConsoleColor foreground;
-			public ConsoleColor background;
-
-			public ItemColor(ConsoleColor f, ConsoleColor b)
+			get
 			{
-				this.foreground = f;
-				this.background = b;
-			}
-
-			public ConsoleColor this[int index]
-			{
-				get
+				switch (index)
 				{
-					switch (index)
-					{
-						case 0:
-							return foreground;
-							break;
-						case 1:
-							return background;
-							break;
-						default:
-							throw new IndexOutOfRangeException("Index out of range");
-							break;
-					}
-				}
-
-				set
-				{
-					switch (index)
-					{
-						case 0:
-							foreground = value;
-							break;
-						case 1:
-							background = value;
-							break;
-						default:
-							throw new IndexOutOfRangeException("Index out of range");
-							break;
-					}
-				}
-			}
-		}
-
-		public class ItemList
-		{
-			public class Options
-			{
-				public enum Prefix
-				{
-					None,
-					Number,
-					Dash,
-					Custom
-				}
-				public enum Direction
-				{
-					Vertical,
-					Horizontal
-				}
-			}
-
-			public class ListItem
-			{
-				public ItemColor color = new ItemColor();
-				public string value;
-				public ListItem(string text)
-				{
-					this.value = text;
-				}
-			}
-
-			public ListItem[] items;
-
-			public readonly Anchor cursorPosition;
-
-			public readonly Options.Prefix listPrefix;
-
-			public readonly Options.Direction listDirection;
-
-			public ItemColor defaultColor;
-
-			public string customPrefix;
-
-			public int currentItemIndex = 0;
-
-			public int Length => items.Length;
-
-			public string GetPrefix()
-			{
-				switch (listPrefix)
-				{
-					case Options.Prefix.None:
-						return "";
+					case 0:
+						return x;
 						break;
-					case Options.Prefix.Number:
-						return $"{currentItemIndex + 1}. ";
-						break;
-					case Options.Prefix.Dash:
-						return $"- ";
-						break;
-					case Options.Prefix.Custom:
-						return customPrefix;
+					case 1:
+						return y;
 						break;
 					default:
-						return "";
+						throw new IndexOutOfRangeException("Index out of range");
 						break;
 				}
 			}
 
-			public ItemList(Anchor position, string[] Items, Options.Prefix ListPrefix = Options.Prefix.None, Options.Direction ListDirection = Options.Direction.Vertical, ItemColor DefaultColor = new ItemColor(), string CustomPrefix = "")
+			set
 			{
-				this.listPrefix = ListPrefix;
-				this.listDirection = ListDirection;
-				this.cursorPosition = position;
-				this.customPrefix = CustomPrefix;
-				this.defaultColor = DefaultColor;
-				items = new ListItem[Items.Length];
-				for (int i = 0; i < Items.Length; i++)
+				switch (index)
 				{
-					items[i] = new ListItem(Items[i]);
-					items[i].color = defaultColor;
-				}
-			}
-
-			public ListItem this[int index]
-			{
-				get
-				{
-					if (index < 0 || index >= items.Length)
+					case 0:
+						x = value;
+						break;
+					case 1:
+						y = value;
+						break;
+					default:
 						throw new IndexOutOfRangeException("Index out of range");
-
-					return items[index];
+						break;
 				}
-
-				set
-				{
-					if (index < 0 || index >= items.Length)
-						throw new IndexOutOfRangeException("Index out of range");
-
-					items[index] = value;
-				}
-			}
-
-			public void SetColor(ConsoleColor f, ConsoleColor b) { defaultColor = new ItemColor(f, b); }
-
-			public void DrawColor(ListItem item)
-			{
-				Console.ForegroundColor = item.color[0];
-				Console.BackgroundColor = item.color[1];
-			}
-
-			public void Draw()
-			{
-				for (int index = 0; index < items.Length; index++)
-				{
-					Console.SetCursorPosition(cursorPosition.x, cursorPosition.y + index);
-					currentItemIndex = index;
-					DrawColor(items[index]);
-					Console.Write($"{GetPrefix()}{items[index].value}{(listDirection == Options.Direction.Vertical ? "\n" : " ")}");
-				}
-				Console.ResetColor();
 			}
 		}
+	}
 
-		public class Selectable : IEquatable<Selectable>
-		{
-			public int id;
-
-			public static int count = 0;
-
-			private ItemList list;
-
-			public int defaultIndex = -1;
-
-			public int selectedIndex = -1;
-
-			public ItemColor selectionColor;
-
-			public bool hover { get; set; }
-
-			public Selectable(ItemList l, ItemColor SelectionColor = new ItemColor())
-			{
-				this.list = l;
-				this.selectionColor = SelectionColor;
-				this.id = count;
-				this.hover = false;
-				InputHandler.selectables.Add(this);
-				count++;
-			}
-
-			public void KeyUp() { selectedIndex = hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex; }
-
-			public void KeyDown() { selectedIndex = hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex; }
-
-			public void Draw()
-			{
-				for (int index = 0; index < list.Length; index++)
-				{
-					Console.SetCursorPosition(list.cursorPosition.x, list.cursorPosition.y + index);
-					list.currentItemIndex = index;
-					if (selectedIndex == index)
-					{
-						list[index].color = selectionColor;
-					}
-					else
-					{
-						list[index].color = list.defaultColor;
-					}
-					list.DrawColor(list[index]);
-					Console.Write($"{list.GetPrefix()}{list[index].value}{(list.listDirection == ItemList.Options.Direction.Vertical ? "\n" : " ")}");
-				}
-				Console.ResetColor();
-			}
-
-			public bool Equals(Selectable other)
-			{
-				if (other == null) return false;
-				return (this.id.Equals(other.id));
-			}
-		}
-
-	public class NavigationMenu : IEquatable<NavigationMenu>
+	public struct ItemColor
 	{
-		private Selectable menu;
+		public ConsoleColor foreground;
+		public ConsoleColor background;
+
+		public ItemColor(ConsoleColor f, ConsoleColor b)
+		{
+			this.foreground = f;
+			this.background = b;
+		}
+
+		public ConsoleColor this[int index]
+		{
+			get
+			{
+				switch (index)
+				{
+					case 0:
+						return foreground;
+						break;
+					case 1:
+						return background;
+						break;
+					default:
+						throw new IndexOutOfRangeException("Index out of range");
+						break;
+				}
+			}
+
+			set
+			{
+				switch (index)
+				{
+					case 0:
+						foreground = value;
+						break;
+					case 1:
+						background = value;
+						break;
+					default:
+						throw new IndexOutOfRangeException("Index out of range");
+						break;
+				}
+			}
+		}
+	}
+
+	public class ItemList
+	{
+		public class Options
+		{
+			public enum Prefix
+			{
+				None,
+				Number,
+				Dash,
+				Custom
+			}
+			public enum Direction
+			{
+				Vertical,
+				Horizontal
+			}
+		}
+
+		public class ListItem
+		{
+			public ItemColor color = new ItemColor();
+			public string value;
+			public ListItem(string text)
+			{
+				this.value = text;
+			}
+		}
+
+		public ListItem[] items;
+
+		public readonly Anchor cursorPosition;
+
+		public readonly Options.Prefix listPrefix;
+
+		public readonly Options.Direction listDirection;
+
+		public ItemColor defaultColor;
+
+		public string customPrefix;
+
+		public int currentItemIndex = 0;
+
+		public int Length => items.Length;
+
+		public string GetPrefix()
+		{
+			switch (listPrefix)
+			{
+				case Options.Prefix.None:
+					return "";
+					break;
+				case Options.Prefix.Number:
+					return $"{currentItemIndex + 1}. ";
+					break;
+				case Options.Prefix.Dash:
+					return $"- ";
+					break;
+				case Options.Prefix.Custom:
+					return customPrefix;
+					break;
+				default:
+					return "";
+					break;
+			}
+		}
+
+		public ItemList(Anchor position, string[] Items, Options.Prefix ListPrefix = Options.Prefix.None, Options.Direction ListDirection = Options.Direction.Vertical, ItemColor DefaultColor = new ItemColor(), string CustomPrefix = "")
+		{
+			this.listPrefix = ListPrefix;
+			this.listDirection = ListDirection;
+			this.cursorPosition = position;
+			this.customPrefix = CustomPrefix;
+			this.defaultColor = DefaultColor;
+			items = new ListItem[Items.Length];
+			for (int i = 0; i < Items.Length; i++)
+			{
+				items[i] = new ListItem(Items[i]);
+				items[i].color = defaultColor;
+			}
+		}
+
+		public ListItem this[int index]
+		{
+			get
+			{
+				if (index < 0 || index >= items.Length)
+					throw new IndexOutOfRangeException("Index out of range");
+
+				return items[index];
+			}
+
+			set
+			{
+				if (index < 0 || index >= items.Length)
+					throw new IndexOutOfRangeException("Index out of range");
+
+				items[index] = value;
+			}
+		}
+
+		public void SetColor(ConsoleColor f, ConsoleColor b) { defaultColor = new ItemColor(f, b); }
+
+		public void DrawColor(ListItem item)
+		{
+			Console.ForegroundColor = item.color[0];
+			Console.BackgroundColor = item.color[1];
+		}
+
+		public void Draw()
+		{
+			for (int index = 0; index < items.Length; index++)
+			{
+				Console.SetCursorPosition(cursorPosition.x, cursorPosition.y + index);
+				currentItemIndex = index;
+				DrawColor(items[index]);
+				Console.Write($"{GetPrefix()}{items[index].value}{(listDirection == Options.Direction.Vertical ? "\n" : " ")}");
+			}
+			Console.ResetColor();
+		}
+	}
+
+	public class Selectable : IEquatable<Selectable>
+	{
+		public int id;
 
 		public static int count = 0;
 
-		public int id;
+		private ItemList list;
 
-		public NavigationMenu(Selectable m)
-		{
-			this.menu = m;
-			this.hover = menu.hover;
-			this.id = count;
-			InputHandler.navigationMenus.Add(this);
-			count++;
-		}
+		public int defaultIndex = -1;
 
-		public void KeyEnter()
-		{
-			if (menu.hover)
-			{
-				menu.selectedIndex = menu.defaultIndex;
-			}
-		}
+		public int selectedIndex = -1;
 
+		public ItemColor selectionColor;
 
 		public bool hover { get; set; }
 
-		public void KeyUp() => menu.KeyUp();
+		public Selectable(ItemList l, ItemColor SelectionColor = new ItemColor())
+		{
+			this.list = l;
+			this.selectionColor = SelectionColor;
+			this.id = count;
+			this.hover = false;
+			InputHandler.selectables.Add(this);
+			count++;
+		}
 
-		public void KeyDown() => menu.KeyDown();
+		public void KeyUp() { selectedIndex = hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex; }
+		public void KeyDown() { selectedIndex = hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex; }
+		public virtual void KeyEnter() { }
 
-		public void Draw() => menu.Draw();
+		public void Draw()
+		{
+			for (int index = 0; index < list.Length; index++)
+			{
+				Console.SetCursorPosition(list.cursorPosition.x, list.cursorPosition.y + index);
+				list.currentItemIndex = index;
+				if (selectedIndex == index)
+				{
+					list[index].color = selectionColor;
+				}
+				else
+				{
+					list[index].color = list.defaultColor;
+				}
+				list.DrawColor(list[index]);
+				Console.Write($"{list.GetPrefix()}{list[index].value}{(list.listDirection == ItemList.Options.Direction.Vertical ? "\n" : " ")}");
+			}
+			Console.ResetColor();
+		}
 
-		public bool Equals(NavigationMenu other)
+		public bool Equals(Selectable other)
 		{
 			if (other == null) return false;
 			return (this.id.Equals(other.id));
+		}
+	}
+
+	public class NavigationMenu : Selectable
+	{
+		public int activeIndex = -1;
+
+		public NavigationMenu(ItemList l, ItemColor SelectionColor): base(l, SelectionColor)
+		{
+
+		}
+
+		public override void KeyEnter()
+		{
+			if (hover)
+			{
+				selectedIndex = defaultIndex;
+			}
 		}
 	}
 
@@ -350,9 +331,9 @@ namespace AppComponents
 		{
 			private NavigationMenu menu;
 
-			public NavigationMenuBuilder(Selectable m)
+			public NavigationMenuBuilder(ItemList l, ItemColor SelectionColor = new ItemColor())
 			{
-				this.menu = new NavigationMenu(m);
+				this.menu = new NavigationMenu(l, SelectionColor);
 			}
 
 			public NavigationMenu Done() { return menu; }
@@ -360,16 +341,20 @@ namespace AppComponents
 
 		public class SelectableBuilder
 		{
+			private ItemList list;
+			private ItemColor selectionColor;
 			private Selectable selectable;
 
 			public SelectableBuilder(ItemList l, ItemColor SelectionColor = new ItemColor())
 			{
+				this.list = l;
+				this.selectionColor = SelectionColor;
 				this.selectable = new Selectable(l, SelectionColor);
 			}
 
 			public NavigationMenuBuilder ForNavigation()
 			{
-				return new NavigationMenuBuilder(selectable);
+				return new NavigationMenuBuilder(list, selectionColor);
 			}
 
 			public Selectable Done() { return selectable; }

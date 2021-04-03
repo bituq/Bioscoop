@@ -155,6 +155,7 @@ namespace CinemaApplication
                  DefaultColor: new ItemColor(ConsoleColor.White, ConsoleColor.Black)
                  )
                  .AsSelectable(new ItemColor(ConsoleColor.Black, ConsoleColor.White))
+                 .ForNavigation()
                  .Done();
             list.hover = true;
 
