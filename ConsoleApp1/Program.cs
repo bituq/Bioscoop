@@ -24,6 +24,13 @@ namespace CinemaApplication
 
     public class Program
     {
+        public static class Screens
+        {
+            public static Tab mainMenu = new Tab(true);
+            public static Tab movieScreen = new Tab();
+            public static Tab adminScreen = new Tab();
+            public static Tab editScreen = new Tab();
+        }
         public class Movie
         {
             public Tab tab = new Tab();
@@ -55,9 +62,8 @@ namespace CinemaApplication
                 .AsSelectable(Templates.Colors.WhiteBlack, "Informatie over deze film")
                 .Done();
         }
-        public static void MovieScreen()
+        public static void MovieScreen(Tab tab)
         {
-            Tab tab = new Tab(true);
 
             string movies = File.ReadAllText("Movies.json");
             JsonDocument doc = JsonDocument.Parse(movies);
@@ -69,17 +75,11 @@ namespace CinemaApplication
             for (int i = 0; i < moviesArray.Length; i++)
             {
                 var movie = JsonSerializer.Deserialize<Movie>(root[i].ToString());
-                var navMenuMovie = new Builders.ListBuilder(
-                        movie.tab,
-                        new Anchor(0, 1),
-                        new string[] { "Hoofdmenu", "Bekijk uw reservering", "Terug naar films" },
-                        ItemList.Options.Prefix.Dash,
-                        DefaultColor: Templates.ColorPalettes.FadedMonochrome[0]
-                    )
-                    .AsSelectable(Templates.ColorPalettes.FadedMonochrome[1], "Navigeren")
-                    .ForNavigation(Templates.ColorPalettes.FadedMonochrome[2])
-                    .Done();
-                navMenuMovie.SetTabs(new Tab[] { tab, tab, tab });
+                var navMenuMovie = Defaults.DefaultNavMenu(
+                movie.tab,
+                new string[] { "Hoofdmenu", "Bekijk reservering", "Terug naar films" },
+                new Tab[] { Screens.mainMenu, tab, tab }
+                );
                 movie.saveMovieInfo();
                 moviesArray[i] =
                     $"{root[i].GetProperty("name")}\t\t" +
@@ -89,8 +89,8 @@ namespace CinemaApplication
             }
             var navMenu = Defaults.DefaultNavMenu(
                 tab,
-                new string[] { "Hoofdmenu", "Bekijk uw reservering"},
-                new Tab[] { tab, tab}
+                new string[] { "Hoofdmenu", "Bekijk reservering"},
+                new Tab[] { Screens.mainMenu, tab}
                 );
             var list = Templates.MoviesList(
                 tab,
@@ -101,9 +101,31 @@ namespace CinemaApplication
                 "NAAM\t\t\t\tRATING\tRELEASE"
                 );
         }
+        public static void MainMenu(Tab tab)
+        {
+            var menu = Templates.EasyNavigationMenu(
+                    tab,
+                    new Anchor(3, 1),
+                    new string[] { "Bekijk films", "Bekijk reservering", "Admin paneel" },
+                    new Tab[] { Screens.movieScreen, tab, Screens.adminScreen },
+                    Templates.ColorPalettes.CasualMonochrome,
+                    "Project B Bioscoop Applicatie"
+                );
+        }
+        public static void AdminPanel(Tab tab)
+        {
+            var navMenu = Defaults.DefaultNavMenu(
+                tab,
+                new string[] { "Hoofdmenu", "Voeg film toe" },
+                new Tab[] { Screens.mainMenu, tab }
+                );
+        }
         public static void Main()
         {
-            MovieScreen();
+
+            MainMenu(Screens.mainMenu);
+            MovieScreen(Screens.movieScreen);
+            AdminPanel(Screens.adminScreen);
             while (true)
             {
                 InputHandler.WaitForInput();
