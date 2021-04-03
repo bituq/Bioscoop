@@ -49,7 +49,8 @@ namespace CinemaApplication
             }
             return availableTimeslots;
         }
-        public static void Draw(string name) 
+        static int selected = 0;
+        public static void Draw(string name, ConsoleKey key) 
         {
             var movies = File.ReadAllText("Movies.json");
 
@@ -76,9 +77,29 @@ namespace CinemaApplication
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("Choose your time");
                     Console.ResetColor();
-                    foreach (JsonElement timeslot in GetTimeSlots(name))
+
+                    JsonElement[] timeslotArray = GetTimeSlots(name);
+
+                    if (key == ConsoleKey.UpArrow && selected > 0)
                     {
+                        selected--;
+                    }
+                    else if (key == ConsoleKey.DownArrow && selected < timeslotArray.Length - 1)
+                    {
+                        selected++;
+                    }
+                    for (int i = 0; i < timeslotArray.Length; i++)
+                    {
+                        JsonElement timeslot = timeslotArray[i];
+                        // color
+                        if (selected == i)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.BackgroundColor = ConsoleColor.White;
+                        }
+                        // text
                         Console.WriteLine(timeslot.GetProperty("time"));
+                        Console.ResetColor();
                     }
                     Console.WriteLine("BACK");
                 }
@@ -86,7 +107,20 @@ namespace CinemaApplication
         }
         static void Main(string[] args)
         {
-            Draw("Placeholder (The Movie)");           
+            bool firstRun = true;
+            string movieName = "Placeholder (The Movie)";
+            while (true)
+            {
+                if (firstRun) 
+                {
+                    ConsoleKey key = ConsoleKey.UpArrow;
+                    Draw(movieName, key);
+                    firstRun = false;
+                }
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+                Console.Clear();
+                Draw(movieName, keyInfo.Key);
+            }
         }
     }
 }
