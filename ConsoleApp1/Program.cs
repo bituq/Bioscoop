@@ -13,7 +13,7 @@ namespace CinemaApplication
                 ListPrefix: ItemList.Options.Prefix.Number,
                 DefaultColor: new ItemColor(ConsoleColor.White, ConsoleColor.Black)
             )
-            .AsSelectable(new ItemColor(ConsoleColor.Black, ConsoleColor.White))
+            .AsSelectable(new ItemColor(ConsoleColor.Black, ConsoleColor.White), "Bioscoop Applicatie")
             .ForNavigation(new ItemColor(ConsoleColor.Green, ConsoleColor.Black))
             .Done();
             list.Hover = true;

@@ -270,16 +270,24 @@ namespace AppComponents
 
 		public ItemColor activeColor;
 
+		public string title;
+
+		public Tuple<ItemColor, ItemColor> titleColor = Tuple.Create(
+				new ItemColor(ConsoleColor.Yellow, ConsoleColor.Black),
+				new ItemColor(ConsoleColor.DarkYellow, ConsoleColor.Black)
+			);
+
 		public bool active = false;
 
 		public bool Hover { get; set; }
 
-		public Selectable(ItemList l, ItemColor SelectionColor = new ItemColor())
+		public Selectable(ItemList l, string Title = "", ItemColor SelectionColor = new ItemColor())
 		{
 			this.list = l;
 			this.selectionColor = SelectionColor;
 			this.id = count;
 			this.Hover = false;
+			this.title = Title;
 			InputHandler.selectables.Add(this);
 			count++;
 		}
@@ -298,9 +306,21 @@ namespace AppComponents
 
 		public void Draw()
 		{
+			Console.SetCursorPosition(list.cursorPosition.x, list.cursorPosition.y);
+			if (Hover)
+            {
+				Console.ForegroundColor = titleColor.Item1[0];
+				Console.BackgroundColor = titleColor.Item1[1];
+			}
+            else
+            {
+				Console.ForegroundColor = titleColor.Item2[0];
+				Console.BackgroundColor = titleColor.Item2[1];
+			}
+			Console.Write(title);
 			for (int index = 0; index < list.Length; index++)
 			{
-				Console.SetCursorPosition(list.cursorPosition.x, list.cursorPosition.y + index);
+				Console.SetCursorPosition(list.cursorPosition.x, list.cursorPosition.y + index + (title.Length > 0 ? 1 : 0));
 				list.currentItemIndex = index;
 				if (selectedIndex == index)
 				{
@@ -333,7 +353,7 @@ namespace AppComponents
 	public class NavigationMenu : Selectable
 	{
 
-		public NavigationMenu(ItemList l, ItemColor SelectionColor, ItemColor ActiveColor) : base(l, SelectionColor)
+		public NavigationMenu(ItemList l, string Title, ItemColor SelectionColor, ItemColor ActiveColor) : base(l, Title, SelectionColor)
 		{
 			this.activeColor = ActiveColor;
 		}
@@ -354,9 +374,9 @@ namespace AppComponents
 		{
             private readonly NavigationMenu menu;
 
-			public NavigationMenuBuilder(ItemList l, ItemColor SelectionColor, ItemColor activeColor)
+			public NavigationMenuBuilder(ItemList l, string Title, ItemColor SelectionColor, ItemColor activeColor)
 			{
-				this.menu = new NavigationMenu(l, SelectionColor, activeColor);
+				this.menu = new NavigationMenu(l, Title, SelectionColor, activeColor);
 			}
 
 			public NavigationMenu Done() { return menu; }
@@ -366,18 +386,20 @@ namespace AppComponents
 		{
             private readonly ItemList list;
             private ItemColor selectionColor;
+			private string title;
 			private readonly Selectable selectable;
 
-			public SelectableBuilder(ItemList l, ItemColor SelectionColor = new ItemColor())
+			public SelectableBuilder(ItemList l, string Title = "", ItemColor SelectionColor = new ItemColor())
 			{
 				this.list = l;
 				this.selectionColor = SelectionColor;
-				this.selectable = new Selectable(l, SelectionColor);
+				this.title = Title;
+				this.selectable = new Selectable(l, Title, SelectionColor);
 			}
 
 			public NavigationMenuBuilder ForNavigation(ItemColor activeColor = new ItemColor())
 			{
-				return new NavigationMenuBuilder(list, selectionColor, activeColor);
+				return new NavigationMenuBuilder(list, title, selectionColor, activeColor);
 			}
 
 			public Selectable Done() { return selectable; }
@@ -392,9 +414,9 @@ namespace AppComponents
 				list = new ItemList(position, Items, ListPrefix, ListDirection, DefaultColor, CustomPrefix);
 			}
 
-			public SelectableBuilder AsSelectable(ItemColor SelectionColor)
+			public SelectableBuilder AsSelectable(ItemColor SelectionColor, string Title = "")
 			{
-				return new SelectableBuilder(list, SelectionColor);
+				return new SelectableBuilder(list, Title, SelectionColor);
 			}
 
 			public ItemList Done() { return list; }
