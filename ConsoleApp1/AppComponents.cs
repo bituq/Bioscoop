@@ -150,6 +150,7 @@ namespace AppComponents
 		{
 			public ItemColor color = new ItemColor();
 			public string value;
+			public bool active = false;
 			public ListItem(string text)
 			{
 				this.value = text;
@@ -254,13 +255,17 @@ namespace AppComponents
 
 		public static int count = 0;
 
-		private readonly ItemList list;
+		protected readonly ItemList list;
 
 		public int defaultIndex = -1;
 
 		public int selectedIndex = -1;
 
 		public ItemColor selectionColor;
+
+		public ItemColor activeColor;
+
+		public bool active = false;
 
 		public bool Hover { get; set; }
 
@@ -286,7 +291,14 @@ namespace AppComponents
 				list.currentItemIndex = index;
 				if (selectedIndex == index)
 				{
-					list[index].color = selectionColor;
+					if (list[index].active)
+                    {
+						list[index].color = activeColor;
+                    }
+                    else
+                    {
+						list[index].color = selectionColor;
+                    }
 				}
 				else
 				{
@@ -307,20 +319,20 @@ namespace AppComponents
 
 	public class NavigationMenu : Selectable
 	{
-		public int activeIndex = -1;
 
-		public NavigationMenu(ItemList l, ItemColor SelectionColor, ItemColor activeColor) : base(l, SelectionColor)
+		public NavigationMenu(ItemList l, ItemColor SelectionColor, ItemColor ActiveColor) : base(l, SelectionColor)
 		{
-
+			this.activeColor = ActiveColor;
 		}
 
 		public override void KeyEnter()
 		{
 			if (Hover)
 			{
-				selectedIndex = defaultIndex;
+				list[selectedIndex].active = true;
 			}
 		}
+
 	}
 
 	public class Builders
