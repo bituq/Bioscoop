@@ -23,9 +23,14 @@ namespace CinemaApplication
             string releasedate = Console.ReadLine();
             Console.WriteLine("Enter first genre: ");
             string genre1 = Console.ReadLine();
-            Console.WriteLine("Enter second genre: ");
+            Console.WriteLine("Enter second genre (if no second genre, press enter): ");
             string genre2 = Console.ReadLine();
-            string[] genres = new string[] { genre1, genre2};
+            string genre3 = "";
+            if(genre2 != ""){
+                Console.WriteLine("Enter second genre (if no third genre, press enter): ");
+                genre3 = Console.ReadLine();
+            }
+            string[] genres = ((genre2 == "") ? new string[] { genre1 } : ((genre3 == "") ? new string[] { genre1, genre2 } : new string[] { genre1, genre2, genre3}));
             addfunc(name, duration, releasedate, genres);
 
             static void addfunc(string name, string duration, string releasedate, string[] genres)
@@ -56,7 +61,13 @@ namespace CinemaApplication
                     Console.WriteLine(listmovies);
 
                     string toevoegen = "\t{\n" + $"\t\t\"name\" : \"{name}\",\n" + $"\t\t\"duration\" : \"{duration}\",\n" + $"\t\t\"releasedate\" : \"{releasedate}\",\n"
-                        + $"\t\t\"rating\" : \"{null}\",\n" + $"\t\t\"genre\" : \"{genres[0] + "\n" + genres[1]}\"\n" + "\t}";
+                        + $"\t\t\"rating\" : \"{null}\",\n" + 
+                        ((genres.Length == 1) ?
+                        $"\t\t\"genre\" : [\n\t\t\t\"{genres[0]}\"\n\t\t] \n" :
+                        ((genres.Length == 2) ?
+                        $"\t\t\"genre\" : [\n\t\t\t\"{genres[0]}\",\n\t\t\t\"{genres[1]}\"\n\t\t] \n" :
+                        $"\t\t\"genre\" : [\n\t\t\t\"{genres[0]}\",\n\t\t\t\"{genres[1]}\",\n\t\t\t\"{genres[2]}\"\n\t\t] \n"))
+                        + "\t}";
                     
                     string newJson = "";
                     for (int j = 0; j < len - 1; j++)
