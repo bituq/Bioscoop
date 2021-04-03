@@ -22,6 +22,7 @@ namespace CinemaApplication
             string duration = Console.ReadLine();
             Console.WriteLine("Enter release date: ");
             string releasedate = Console.ReadLine();
+            addfunc(name, duration, releasedate);
 
             static void addfunc(string name, string duration, string releasedate)
             {
@@ -33,7 +34,19 @@ namespace CinemaApplication
                 JsonElement root = doc.RootElement;
             }
 
-
+            string[] lijstReserveringen = reserveringen.Split('}');
+            int len = lijstReserveringen.Length;
+            for (int i = 0; i < len - 1; i++)
+            {
+                if (i == (len - 2))
+                {
+                    lijstReserveringen[i] = lijstReserveringen[i] + "},\n";
+                }
+                else
+                {
+                    lijstReserveringen[i] = lijstReserveringen[i] + "}";
+                }
+            }
 
 
 
@@ -80,7 +93,7 @@ namespace CinemaApplication
             //var Genre = Console.ReadLine();
             //Console.WriteLine("...\n" + MovieName + " is saved");
 
-            
+
             /*foreach (JsonElement movie in doc.RootElement.EnumerateArray())
             {
                 if (movie.GetProperty("name").ToString() == input)
