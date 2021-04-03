@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Drawing;
+using AppComponents;
 
 namespace CinemaApplication
 {
-
     public class Options
     {
         public const bool USE_NUMBERS = true;
@@ -12,6 +12,7 @@ namespace CinemaApplication
         public const bool USE_PLACEHOLDERS = true;
         public static void Title(string name) { Console.Title = name; }
     }
+
 
     public class MenuList
     {
@@ -59,7 +60,7 @@ namespace CinemaApplication
             this.anchor = Anchor;
         }
 
-        public void DrawSolution()
+        public void Draw()
         {
             Console.SetCursorPosition(titleAnchor.X, titleAnchor.Y);
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -115,7 +116,7 @@ namespace CinemaApplication
             {
                 while (!selected)
                 {
-                    menuMaker.DrawSolution();
+                    menuMaker.Draw();
 
                     var info = Console.ReadKey();
 
@@ -142,5 +143,23 @@ namespace CinemaApplication
                 selected = false;
             }
         }
+        /* public static void Main()
+         {
+             var list = new ListBuilder(
+                 new Anchor(5, 2),
+                 new string[] { "Hello", "World", "hey", "hoi", "sup" },
+                 ListPrefix: ItemList.Options.Prefix.Number,
+                 ListDirection: ItemList.Options.Direction.Vertical,
+                 DefaultColor: new ItemColor(ConsoleColor.White, ConsoleColor.Black)
+                 )
+                 .AsSelectable(new ItemColor(ConsoleColor.Yellow, ConsoleColor.Black))
+                 .Done();
+
+             while (true)
+             {
+                 InputHandler.Wait();
+             }
+         }
+         */
     }
 }
