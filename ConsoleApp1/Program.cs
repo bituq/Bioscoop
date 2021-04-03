@@ -5,10 +5,9 @@ namespace CinemaApplication
 {
     public class Program
     {
-        public static void Main()
+        public static void MakeMenus(int amount, Anchor position, Tab tab)
         {
-            Tab MainScreen = new Tab(true);
-            var listArr = new Selectable[5];
+            var listArr = new Selectable[amount];
             for (int i = 0; i < listArr.Length; i++)
             {
                 string[] items = new string[5];
@@ -17,8 +16,8 @@ namespace CinemaApplication
                     items[j] = $"Item {j}";
                 }
                 listArr[i] = new Builders.ListBuilder(
-                        MainScreen,
-                        new Anchor(2 + i * 15, 3),
+                        tab,
+                        new Anchor(position.x + i * 15, position.y),
                         items,
                         ItemList.Options.Prefix.Number,
                         DefaultColor: new ItemColor(ConsoleColor.DarkGray, ConsoleColor.Black)
@@ -27,6 +26,14 @@ namespace CinemaApplication
                     .Done();
             }
             listArr[0].Hover = true;
+        }
+        public static void Main()
+        {
+            Tab MainScreen = new Tab(false);
+            Tab SecondScreen = new Tab(true);
+            MakeMenus(5, new Anchor(4, 4), MainScreen);
+            MakeMenus(3, new Anchor(2, 2), SecondScreen);
+            MakeMenus(4, new Anchor(2, 10), SecondScreen);
 
             while (true)
             {
