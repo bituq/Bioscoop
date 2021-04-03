@@ -21,17 +21,21 @@ namespace CinemaApplication
             string duration = Console.ReadLine();
             Console.WriteLine("Enter release date: ");
             string releasedate = Console.ReadLine();
-            addfunc(name, duration, releasedate);
+            Console.WriteLine("Enter genre: ");
+            string genre = Console.ReadLine();
+            string gen = Console.ReadLine();
+            string[] genres = new string[] { genre, gen };
+            addfunc(name, duration, releasedate, genres);
 
-            static void addfunc(string name, string duration, string releasedate)
+            static void addfunc(string name, string duration, string releasedate, string[] genres)
             {
-                string filePath = "movies.json";
+                string filePath = "moviesadd.json";
                 StreamReader reserveringFile = new StreamReader(filePath);
                 var reserveringen = reserveringFile.ReadToEnd();
 
                 JsonDocument doc = JsonDocument.Parse(reserveringen);
                 JsonElement root = doc.RootElement;
-              
+
 
                 foreach (JsonElement reservering in root.EnumerateArray())
                 {
@@ -49,6 +53,18 @@ namespace CinemaApplication
                         }
                     }
                     Console.WriteLine(lijstReserveringen);
+
+                    string toevoegen = "\t{\n" + $"\t\t\"name\" : \"{name}\",\n" + $"\t\t\"duration\" : \"{duration}\",\n" + $"\t\t\"releasedate\" : \"{releasedate}\",\n"
+                        + $"\t\t\"rating\" : \"{null}\",\n";
+                    
+                    string newJson = "";
+                    for (int j = 0; j < len - 1; j++)
+                    {
+                        newJson = newJson + lijstReserveringen[j];
+                    }
+                    newJson = newJson + toevoegen + lijstReserveringen[len - 1];
+                    reserveringFile.Close();
+                    File.WriteAllText(filePath, newJson);
                 }
             }
 
