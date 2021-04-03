@@ -6,7 +6,6 @@ namespace AppComponents
 	public class InputHandler
 	{
 		public static List<Selectable> selectables = new List<Selectable>();
-		public static List<NavigationMenu> navigationMenus = new List<NavigationMenu>();
 
 		public static void Wait()
 		{
@@ -17,7 +16,7 @@ namespace AppComponents
 			var info = Console.ReadKey();
 			foreach (Selectable selectable in selectables)
 			{
-				if (selectable.hover)
+				if (selectable.Hover)
 				{
 					if (info.Key == ConsoleKey.UpArrow)
 					{
@@ -28,9 +27,9 @@ namespace AppComponents
 						selectable.KeyDown();
 					}
 					else if (info.Key == ConsoleKey.Enter)
-                    {
+					{
 						selectable.KeyEnter();
-                    }
+					}
 				}
 			}
 		}
@@ -205,9 +204,8 @@ namespace AppComponents
 			items = new ListItem[Items.Length];
 			for (int i = 0; i < Items.Length; i++)
 			{
-				items[i] = new ListItem(Items[i]);
-				items[i].color = defaultColor;
-			}
+                items[i] = new ListItem(Items[i]) { color = defaultColor };
+            }
 		}
 
 		public ListItem this[int index]
@@ -256,7 +254,7 @@ namespace AppComponents
 
 		public static int count = 0;
 
-		private ItemList list;
+		private readonly ItemList list;
 
 		public int defaultIndex = -1;
 
@@ -264,20 +262,20 @@ namespace AppComponents
 
 		public ItemColor selectionColor;
 
-		public bool hover { get; set; }
+		public bool Hover { get; set; }
 
 		public Selectable(ItemList l, ItemColor SelectionColor = new ItemColor())
 		{
 			this.list = l;
 			this.selectionColor = SelectionColor;
 			this.id = count;
-			this.hover = false;
+			this.Hover = false;
 			InputHandler.selectables.Add(this);
 			count++;
 		}
 
-		public void KeyUp() { selectedIndex = hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex; }
-		public void KeyDown() { selectedIndex = hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex; }
+		public void KeyUp() { selectedIndex = Hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex; }
+		public void KeyDown() { selectedIndex = Hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex; }
 		public virtual void KeyEnter() { }
 
 		public void Draw()
@@ -311,14 +309,14 @@ namespace AppComponents
 	{
 		public int activeIndex = -1;
 
-		public NavigationMenu(ItemList l, ItemColor SelectionColor): base(l, SelectionColor)
+		public NavigationMenu(ItemList l, ItemColor SelectionColor, ItemColor activeColor) : base(l, SelectionColor)
 		{
 
 		}
 
 		public override void KeyEnter()
 		{
-			if (hover)
+			if (Hover)
 			{
 				selectedIndex = defaultIndex;
 			}
@@ -329,11 +327,11 @@ namespace AppComponents
 	{
 		public class NavigationMenuBuilder
 		{
-			private NavigationMenu menu;
+            private readonly NavigationMenu menu;
 
-			public NavigationMenuBuilder(ItemList l, ItemColor SelectionColor = new ItemColor())
+			public NavigationMenuBuilder(ItemList l, ItemColor SelectionColor, ItemColor activeColor)
 			{
-				this.menu = new NavigationMenu(l, SelectionColor);
+				this.menu = new NavigationMenu(l, SelectionColor, activeColor);
 			}
 
 			public NavigationMenu Done() { return menu; }
@@ -341,9 +339,9 @@ namespace AppComponents
 
 		public class SelectableBuilder
 		{
-			private ItemList list;
-			private ItemColor selectionColor;
-			private Selectable selectable;
+            private readonly ItemList list;
+            private ItemColor selectionColor;
+			private readonly Selectable selectable;
 
 			public SelectableBuilder(ItemList l, ItemColor SelectionColor = new ItemColor())
 			{
@@ -352,9 +350,9 @@ namespace AppComponents
 				this.selectable = new Selectable(l, SelectionColor);
 			}
 
-			public NavigationMenuBuilder ForNavigation()
+			public NavigationMenuBuilder ForNavigation(ItemColor activeColor = new ItemColor())
 			{
-				return new NavigationMenuBuilder(list, selectionColor);
+				return new NavigationMenuBuilder(list, selectionColor, activeColor);
 			}
 
 			public Selectable Done() { return selectable; }
@@ -362,7 +360,7 @@ namespace AppComponents
 
 		public class ListBuilder
 		{
-			private ItemList list;
+            private readonly ItemList list;
 
 			public ListBuilder(Anchor position, string[] Items, ItemList.Options.Prefix ListPrefix = 0, ItemList.Options.Direction ListDirection = 0, ItemColor DefaultColor = new ItemColor(), string CustomPrefix = "")
 			{

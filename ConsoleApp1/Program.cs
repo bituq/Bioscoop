@@ -19,7 +19,7 @@ namespace CinemaApplication
         public string[] items;
 
         public int activeItemIndex = 0;
-        
+
         public string activeValue => activeItemIndex != -1 ? items[activeItemIndex] : null;
         public MenuList(string[] arr)
         {
@@ -146,23 +146,23 @@ namespace CinemaApplication
         }
         */
         public static void Main()
-         {
-             var list = new Builders.ListBuilder(
-                 new Anchor(5, 2),
-                 new string[] { "Hello", "World", "hey", "hoi", "sup" },
-                 ListPrefix: ItemList.Options.Prefix.Number,
-                 ListDirection: ItemList.Options.Direction.Vertical,
-                 DefaultColor: new ItemColor(ConsoleColor.White, ConsoleColor.Black)
-                 )
-                 .AsSelectable(new ItemColor(ConsoleColor.Black, ConsoleColor.White))
-                 .ForNavigation()
-                 .Done();
-            list.hover = true;
+        {
+            var list = new Builders.ListBuilder(
+                new Anchor(5, 2),
+                new string[] { "Hello", "World", "hey", "hoi", "sup" },
+                ListPrefix: ItemList.Options.Prefix.Number,
+                ListDirection: ItemList.Options.Direction.Vertical,
+                DefaultColor: new ItemColor(ConsoleColor.White, ConsoleColor.Black)
+                )
+                .AsSelectable(new ItemColor(ConsoleColor.Black, ConsoleColor.White))
+                .ForNavigation()
+                .Done();
+            list.Hover = true;
 
-             while (true)
-             {
-                 InputHandler.Wait();
-             }
-         }
+            while (true)
+            {
+                InputHandler.Wait();
+            }
+        }
     }
 }
