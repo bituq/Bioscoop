@@ -7,6 +7,7 @@ namespace CinemaApplication
     {
         public static void Main()
         {
+            Tab MainScreen = new Tab(true);
             var listArr = new Selectable[5];
             for (int i = 0; i < listArr.Length; i++)
             {
@@ -16,6 +17,7 @@ namespace CinemaApplication
                     items[j] = $"Item {j}";
                 }
                 listArr[i] = new Builders.ListBuilder(
+                        MainScreen,
                         new Anchor(2 + i * 15, 3),
                         items,
                         ItemList.Options.Prefix.Number,
@@ -28,7 +30,6 @@ namespace CinemaApplication
 
             while (true)
             {
-                InputHandler.DrawContent();
                 InputHandler.WaitForInput();
             }
         }

@@ -3,61 +3,82 @@ using System.Collections.Generic;
 
 namespace AppComponents
 {
-	public class InputHandler
-	{
-		public static List<Selectable> selectables = new List<Selectable>();
-		public static List<ItemList> itemLists = new List<ItemList>();
-		public static int index = 0;
+	public class Tab
+    {
+		public bool active = true;
+		public List<Selectable> selectables = new List<Selectable>();
+		public List<ItemList> itemLists = new List<ItemList>();
 
-		public static void DrawContent()
+		public Tab(bool IsMain = false)
         {
-			foreach (Selectable selectable in selectables)
-			{
-				selectable.Draw();
-			}
-			foreach (ItemList list in itemLists)
+			this.active = IsMain;
+			InputHandler.environments.Add(this);
+        }
+		public void DrawContent()
+        {
+			if (active)
             {
-				list.Draw();
-            }
-		}
-		public static void WaitForInput()
-		{
-			var info = Console.ReadKey();
-			foreach (Selectable selectable in selectables)
-			{
-				if (selectable.Hover)
+				foreach (Selectable selectable in selectables)
 				{
-					switch (info.Key)
-                    {
-						case ConsoleKey.UpArrow:
-							selectable.KeyUp();
-							break;
-						case ConsoleKey.DownArrow:
-							selectable.KeyDown();
-							break;
-						case ConsoleKey.LeftArrow:
-							selectable.KeyLeft();
-							break;
-						case ConsoleKey.RightArrow:
-							selectable.KeyRight();
-							break;
-						case ConsoleKey.Enter:
-							selectable.KeyEnter();
-							break;
-                    }
+					selectable.Draw();
+				}
+				foreach (ItemList list in itemLists)
+				{
+					list.Draw();
 				}
 			}
-			if (info.Key == ConsoleKey.LeftArrow)
-            {
-				selectables[index].Hover = false;
-				index = Math.Max(index - 1, 0);
-				selectables[index].Hover = true;
-            }
-            else if (info.Key == ConsoleKey.RightArrow)
-            {
-				selectables[index].Hover = false;
-				index = Math.Min(index + 1, selectables.Count - 1);
-				selectables[index].Hover = true;
+        }
+	}
+	public class InputHandler
+	{
+		public static List<Tab> environments = new List<Tab>();
+		public static int index = 0;
+
+		public static void WaitForInput()
+		{
+			foreach (Tab env in environments)
+			{
+				if (env.active)
+				{
+					env.DrawContent();
+					var info = Console.ReadKey();
+					foreach (Selectable selectable in env.selectables)
+					{
+						if (selectable.Hover)
+						{
+							switch (info.Key)
+							{
+								case ConsoleKey.UpArrow:
+									selectable.KeyUp();
+									break;
+								case ConsoleKey.DownArrow:
+									selectable.KeyDown();
+									break;
+								case ConsoleKey.LeftArrow:
+									selectable.KeyLeft();
+									break;
+								case ConsoleKey.RightArrow:
+									selectable.KeyRight();
+									break;
+								case ConsoleKey.Enter:
+									selectable.KeyEnter();
+									break;
+							}
+						}
+					}
+					if (info.Key == ConsoleKey.LeftArrow)
+					{
+						env.selectables[index].Hover = false;
+						index = Math.Max(index - 1, 0);
+						env.selectables[index].Hover = true;
+					}
+					else if (info.Key == ConsoleKey.RightArrow)
+					{
+						env.selectables[index].Hover = false;
+						index = Math.Min(index + 1, env.selectables.Count - 1);
+						env.selectables[index].Hover = true;
+					}
+				}
 			}
 		}
 	}
@@ -186,6 +207,12 @@ namespace AppComponents
 
 		public ListItem[] items;
 
+		public Tab tab;
+
+		public int id;
+
+		public static int count = 0;
+
 		public readonly Anchor cursorPosition;
 
 		public readonly Options.Prefix listPrefix;
@@ -222,8 +249,9 @@ namespace AppComponents
 			}
 		}
 
-		public ItemList(Anchor position, string[] Items, Options.Prefix ListPrefix = Options.Prefix.None, Options.Direction ListDirection = Options.Direction.Vertical, ItemColor DefaultColor = new ItemColor(), string CustomPrefix = "")
+		public ItemList(Tab tab, Anchor position, string[] Items, Options.Prefix ListPrefix = Options.Prefix.None, Options.Direction ListDirection = Options.Direction.Vertical, ItemColor DefaultColor = new ItemColor(), string CustomPrefix = "")
 		{
+			this.tab = tab;
 			this.listPrefix = ListPrefix;
 			this.listDirection = ListDirection;
 			this.cursorPosition = position;
@@ -234,6 +262,8 @@ namespace AppComponents
 			{
                 items[i] = new ListItem(Items[i]) { color = defaultColor };
             }
+
+			tab.itemLists.Add(this);
 		}
 
 		public ListItem this[int index]
@@ -284,6 +314,8 @@ namespace AppComponents
 			public static bool InfiniteScroll = true;
         }
 
+		public Tab tab;
+
 		public int id;
 
 		public static int count = 0;
@@ -309,14 +341,16 @@ namespace AppComponents
 
 		public bool Hover { get; set; }
 
-		public Selectable(ItemList l, string Title = "", ItemColor SelectionColor = new ItemColor())
+		public Selectable(Tab tab, ItemList l, string Title = "", ItemColor SelectionColor = new ItemColor())
 		{
+			this.tab = tab;
 			this.list = l;
 			this.selectionColor = SelectionColor;
 			this.id = count;
 			this.Hover = false;
 			this.title = Title;
-			InputHandler.selectables.Add(this);
+			tab.itemLists.Remove(l);
+			tab.selectables.Add(this);
 			count++;
 		}
 
@@ -401,7 +435,7 @@ namespace AppComponents
 	public class NavigationMenu : Selectable
 	{
 
-		public NavigationMenu(ItemList l, string Title, ItemColor SelectionColor, ItemColor ActiveColor) : base(l, Title, SelectionColor)
+		public NavigationMenu(Tab tab, ItemList l, string Title, ItemColor SelectionColor, ItemColor ActiveColor) : base(tab, l, Title, SelectionColor)
 		{
 			this.activeColor = ActiveColor;
 		}
@@ -422,9 +456,9 @@ namespace AppComponents
 		{
             private readonly NavigationMenu menu;
 
-			public NavigationMenuBuilder(ItemList l, string Title, ItemColor SelectionColor, ItemColor activeColor)
+			public NavigationMenuBuilder(Tab tab, ItemList l, string Title, ItemColor SelectionColor, ItemColor activeColor)
 			{
-				this.menu = new NavigationMenu(l, Title, SelectionColor, activeColor);
+				this.menu = new NavigationMenu(tab, l, Title, SelectionColor, activeColor);
 			}
 
 			public NavigationMenu Done() { return menu; }
@@ -435,19 +469,21 @@ namespace AppComponents
             private readonly ItemList list;
             private ItemColor selectionColor;
 			private string title;
+			private Tab tab;
 			private readonly Selectable selectable;
 
-			public SelectableBuilder(ItemList l, string Title = "", ItemColor SelectionColor = new ItemColor())
+			public SelectableBuilder(Tab tab, ItemList l, string Title = "", ItemColor SelectionColor = new ItemColor())
 			{
+				this.tab = tab;
 				this.list = l;
 				this.selectionColor = SelectionColor;
 				this.title = Title;
-				this.selectable = new Selectable(l, Title, SelectionColor);
+				this.selectable = new Selectable(tab, l, Title, SelectionColor);
 			}
 
 			public NavigationMenuBuilder ForNavigation(ItemColor activeColor = new ItemColor())
 			{
-				return new NavigationMenuBuilder(list, title, selectionColor, activeColor);
+				return new NavigationMenuBuilder(tab, list, title, selectionColor, activeColor);
 			}
 
 			public Selectable Done() { return selectable; }
@@ -456,15 +492,17 @@ namespace AppComponents
 		public class ListBuilder
 		{
             private readonly ItemList list;
+			private Tab tab;
 
-			public ListBuilder(Anchor position, string[] Items, ItemList.Options.Prefix ListPrefix = 0, ItemList.Options.Direction ListDirection = 0, ItemColor DefaultColor = new ItemColor(), string CustomPrefix = "")
+			public ListBuilder(Tab tab, Anchor position, string[] Items, ItemList.Options.Prefix ListPrefix = 0, ItemList.Options.Direction ListDirection = 0, ItemColor DefaultColor = new ItemColor(), string CustomPrefix = "")
 			{
-				list = new ItemList(position, Items, ListPrefix, ListDirection, DefaultColor, CustomPrefix);
+				this.tab = tab;
+				list = new ItemList(tab, position, Items, ListPrefix, ListDirection, DefaultColor, CustomPrefix);
 			}
 
 			public SelectableBuilder AsSelectable(ItemColor SelectionColor, string Title = "")
 			{
-				return new SelectableBuilder(list, Title, SelectionColor);
+				return new SelectableBuilder(tab, list, Title, SelectionColor);
 			}
 
 			public ItemList Done() { return list; }
