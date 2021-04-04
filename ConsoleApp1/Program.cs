@@ -30,11 +30,11 @@ namespace CinemaApplication
             public static Tab mainMenu = new Tab(true);
             public static Tab movieScreen = new Tab();
             public static Tab adminScreen = new Tab();
-            public static Tab editScreen = new Tab();
         }
         public class Movie
         {
             public Tab tab = new Tab();
+            public Tab reservationTab = new Tab();
             public string name { get; set; }
             public int duration { get; set; }
             public int releaseDate { get; set; }
@@ -78,8 +78,8 @@ namespace CinemaApplication
                 var movie = JsonSerializer.Deserialize<Movie>(root[i].ToString());
                 var navMenuMovie = Defaults.DefaultNavMenu(
                 movie.tab,
-                new string[] { "Hoofdmenu", "Bekijk reservering", "Terug naar films" },
-                new Tab[] { Screens.mainMenu, tab, tab }
+                new string[] { "Hoofdmenu", "Terug naar films", "Plaats reservering" },
+                new Tab[] { Screens.mainMenu, tab, movie.reservationTab }
                 );
                 movie.saveMovieInfo();
                 moviesArray[i] =
@@ -87,6 +87,12 @@ namespace CinemaApplication
                     $"{root[i].GetProperty("rating")}/5\t" +
                     $"{DateTime.UnixEpoch.AddSeconds(root[i].GetProperty("releaseDate").GetInt32()):dd MMMM yyyy}";
                 tabs[i] = movie.tab;
+                var navMenuReservation = Defaults.DefaultNavMenu(
+                    movie.reservationTab,
+                    new string[] { "Hoofdmenu", "Terug naar films", $"Terug naar {movie.name}" },
+                    new Tab[] { Screens.mainMenu, tab, movie.tab }
+                    );
+
             }
             var navMenu = Defaults.DefaultNavMenu(
                 tab,
