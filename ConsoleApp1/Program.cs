@@ -123,12 +123,6 @@ namespace CinemaApplication
         }
         public static void Main()
         {
-            var m = new Movie();
-            m.name = "Test naam hallelujah";
-
-            var mList = new List<Movie>();
-            mList.Add(m);
-            JsonFile.AppendToFile(mList, "Movies.json");
             MainMenu(Screens.mainMenu);
             MovieScreen(Screens.movieScreen);
             AdminPanel(Screens.adminScreen);
