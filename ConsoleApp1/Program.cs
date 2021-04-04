@@ -50,7 +50,7 @@ namespace CinemaApplication
                     new string[]
                     {
                         $"Naam: {name}",
-                        $"Lengte: {DateTime.UnixEpoch.AddSeconds(duration).ToString($"HH {"uur"} m {"minuten"}")}",
+                        $"Lengte: {DateTime.UnixEpoch.AddSeconds(duration).ToString($"HH uur m")} minuten",
                         $"Publicatie: {DateTime.UnixEpoch.AddSeconds(releasedate).ToString("dd MMMM yyyy")}",
                         $"Rating: {rating}/5",
                         $"Taal: {language}",
