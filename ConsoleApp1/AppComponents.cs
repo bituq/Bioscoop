@@ -33,10 +33,6 @@ namespace AppComponents
 			for (int i = 0; i < selectables.Count; i++)
             {
 				selectables[i].Hover = false;
-				if (selectables[i].SavePosition)
-                {
-					selectables[i].selectedIndex = 0;
-                }
             }
 			active = false;
         }
@@ -506,7 +502,7 @@ namespace AppComponents
             private ItemColor selectionColor;
 			private string title;
 			private Tab tab;
-			private readonly Selectable selectable;
+			private Selectable selectable;
 
 			public SelectableBuilder(Tab tab, ItemList l, string Title = "", ItemColor SelectionColor = new ItemColor())
 			{
@@ -514,7 +510,6 @@ namespace AppComponents
 				this.list = l;
 				this.selectionColor = SelectionColor;
 				this.title = Title;
-				this.selectable = new Selectable(tab, l, Title, SelectionColor);
 			}
 
 			public NavigationMenuBuilder ForNavigation(ItemColor activeColor = new ItemColor())
@@ -522,7 +517,11 @@ namespace AppComponents
 				return new NavigationMenuBuilder(tab, list, title, selectionColor, activeColor);
 			}
 
-			public Selectable Done() { return selectable; }
+			public Selectable Done()
+			{
+				selectable = new Selectable(tab, list, title, selectionColor);
+				return selectable;
+			}
 		}
 
 		public class ListBuilder
