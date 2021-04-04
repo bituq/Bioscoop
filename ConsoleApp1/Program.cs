@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using AppComponents;
+using JsonHandler;
 
 namespace CinemaApplication
 {
@@ -36,7 +37,7 @@ namespace CinemaApplication
             public Tab tab = new Tab();
             public string name { get; set; }
             public int duration { get; set; }
-            public int releasedate { get; set; }
+            public int releaseDate { get; set; }
             public int rating { get; set; }
             public string[] genres { get; set; }
             public string language { get; set; }
@@ -51,7 +52,7 @@ namespace CinemaApplication
                     {
                         $"Naam: {name}",
                         $"Lengte: {DateTime.UnixEpoch.AddSeconds(duration).ToString($"HH uur m")} minuten",
-                        $"Publicatie: {DateTime.UnixEpoch.AddSeconds(releasedate).ToString("dd MMMM yyyy")}",
+                        $"Publicatie: {DateTime.UnixEpoch.AddSeconds(releaseDate).ToString("dd MMMM yyyy")}",
                         $"Rating: {rating}/5",
                         $"Taal: {language}",
                         $"Bedrijf: {company}",
@@ -122,7 +123,12 @@ namespace CinemaApplication
         }
         public static void Main()
         {
+            var m = new Movie();
+            m.name = "Test naam hallelujah";
 
+            var mList = new List<Movie>();
+            mList.Add(m);
+            JsonFile.AppendToFile(mList, "Movies.json");
             MainMenu(Screens.mainMenu);
             MovieScreen(Screens.movieScreen);
             AdminPanel(Screens.adminScreen);
