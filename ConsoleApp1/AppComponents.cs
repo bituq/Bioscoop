@@ -28,6 +28,18 @@ namespace AppComponents
 				}
 			}
         }
+		public void Stop()
+        {
+			for (int i = 0; i < selectables.Count; i++)
+            {
+				selectables[i].Hover = false;
+				if (selectables[i].SavePosition)
+                {
+					selectables[i].selectedIndex = 0;
+                }
+            }
+			active = false;
+        }
 	}
 	public class InputHandler
 	{
@@ -310,11 +322,8 @@ namespace AppComponents
 
 	public class Selectable : IEquatable<Selectable>
 	{
-		public class Options
-        {
-			public static bool SavePosition = false;
-			public static bool InfiniteScroll = true;
-        }
+		public bool SavePosition = false;
+		public bool InfiniteScroll = true;
 
 		public Tab tab;
 
@@ -359,7 +368,7 @@ namespace AppComponents
 		public void KeyUp()
 		{
 			list[selectedIndex].active = false;
-			if (!Options.InfiniteScroll)
+			if (!InfiniteScroll)
 				selectedIndex = Hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex;
             else
 				selectedIndex = Hover ? (selectedIndex == 0 ? list.Length - 1 : selectedIndex - 1) : defaultIndex;
@@ -367,7 +376,7 @@ namespace AppComponents
 		public void KeyDown()
 		{
 			list[selectedIndex].active = false;
-			if (!Options.InfiniteScroll)
+			if (!InfiniteScroll)
 				selectedIndex = Hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex;
 			else
 				selectedIndex = Hover ? (selectedIndex == list.Length - 1 ? 0 : selectedIndex + 1) : defaultIndex;
@@ -375,7 +384,7 @@ namespace AppComponents
 		public void KeyLeft()
 		{
 			list[selectedIndex].active = false;
-			selectedIndex = Options.SavePosition ? selectedIndex : defaultIndex;
+			selectedIndex = SavePosition ? selectedIndex : defaultIndex;
 		}
 		public void KeyRight() => KeyLeft();
 		public virtual void KeyEnter() { }
@@ -441,7 +450,7 @@ namespace AppComponents
 			{
 				Console.Clear();
 				list[selectedIndex].active = true;
-				tab.active = false;
+				tab.Stop();
 				list[selectedIndex].tab.active = true;
 			}
 		}
