@@ -51,9 +51,20 @@ namespace CinemaApplication
             string language = Console.ReadLine();
             Console.WriteLine("Enter company: ");
             string company = Console.ReadLine();
-            addfunc(name, duration, releasedate, genres, language, company);
+            Console.WriteLine("Enter starring (example: person 1, person 2, person 3, person 4)");
+            string starring = Console.ReadLine();
+            Console.WriteLine("Enter your description: ");
+            string description = Console.ReadLine();
+            char[] forbiddenstarring = {'/'};
+            string[] starringsplitted = starring.Split(forbiddenstarring);
+            foreach (var word in starringsplitted)
+            {
+                System.Console.WriteLine($"<{word}>");
+            }
+            
+            addfunc(name, duration, releasedate, genres, language, company, starringsplitted, description);
 
-            static void addfunc(string name, string duration, string releasedate, string[] genres, string language, string company)
+            static void addfunc(string name, string duration, string releasedate, string[] genres, string language, string company, string[] starringsplitted, string description)
             {
                 string filePath = "moviesadd.json";
                 StreamReader movieFile = new StreamReader(filePath);
@@ -87,8 +98,20 @@ namespace CinemaApplication
                         ((genres.Length == 2) ?
                         $"\t\t\"genre\" : [\n\t\t\t\"{genres[0]}\",\n\t\t\t\"{genres[1]}\"\n\t\t], \n" :
                         $"\t\t\"genre\" : [\n\t\t\t\"{genres[0]}\",\n\t\t\t\"{genres[1]}\",\n\t\t\t\"{genres[2]}\"\n\t\t], \n"))
-                        + $"\t\t\"language\" : \"{language}\",\n" + $"\t\t\"company\" : \"{company}\"\n" + "\t}";
-
+                        + $"\t\t\"language\" : \"{language}\",\n" + $"\t\t\"company\" : \"{company}\",\n" + $"\t\t\"starring\" : [";
+                    int starringlen = starringsplitted.Length;
+                    foreach (var word in starringsplitted)
+                    {
+                        if (starringsplitted[starringlen - 1] == word)
+                        {
+                            add += ($"\n\t\t\t\"{word}\"");
+                        }
+                        else
+                        {
+                            add += ($"\n\t\t\t\"{word}\",");
+                        }
+                    }
+                    add += "\n\t\t],\n" + $"\t\t\"description\" : \"{description}\"\n"+ "\t}";
                     string newJson = "";
                     for (int j = 0; j < len - 1; j++)
                     {
