@@ -360,25 +360,17 @@ namespace AppComponents
 		{
 			list[selectedIndex].active = false;
 			if (!Options.InfiniteScroll)
-			{
 				selectedIndex = Hover ? Math.Max(selectedIndex - 1, 0) : defaultIndex;
-			}
             else
-            {
 				selectedIndex = Hover ? (selectedIndex == 0 ? list.Length - 1 : selectedIndex - 1) : defaultIndex;
-            }
 		}
 		public void KeyDown()
 		{
 			list[selectedIndex].active = false;
 			if (!Options.InfiniteScroll)
-			{
 				selectedIndex = Hover ? Math.Min(selectedIndex + 1, list.Length - 1) : defaultIndex;
-			}
 			else
-            {
 				selectedIndex = Hover ? (selectedIndex == list.Length - 1 ? 0 : selectedIndex + 1) : defaultIndex;
-			}
 		}
 		public void KeyLeft()
 		{
