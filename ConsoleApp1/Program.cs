@@ -90,8 +90,8 @@ namespace CinemaApplication
             }
             var navMenu = Defaults.DefaultNavMenu(
                 tab,
-                new string[] { "Hoofdmenu", "Bekijk reservering"},
-                new Tab[] { Screens.mainMenu, tab}
+                new string[] { "Hoofdmenu", "Bekijk reservering", "Admin paneel" },
+                new Tab[] { Screens.mainMenu, tab, Screens.adminScreen}
                 );
             var list = Templates.MoviesList(
                 tab,
@@ -112,29 +112,40 @@ namespace CinemaApplication
                     Templates.ColorPalettes.CasualMonochrome,
                     "Project B Bioscoop Applicatie"
                 );
+            
         }
         public static void AdminPanel(Tab tab)
         {
             var navMenu = Defaults.DefaultNavMenu(
                 tab,
-                new string[] { "Hoofdmenu", "Voeg film toe" },
-                new Tab[] { Screens.mainMenu, tab }
+                new string[] { "Hoofdmenu", "Bekijk films" },
+                new Tab[] { Screens.mainMenu, Screens.movieScreen }
                 );
         }
         public static void Main()
         {
-            var m = new Movie();
-            m.name = "Test naam hallelujah";
-
-            var mList = new List<Movie>();
-            mList.Add(m);
-            JsonFile.AppendToFile(mList, "Movies.json");
-            MainMenu(Screens.mainMenu);
-            MovieScreen(Screens.movieScreen);
-            AdminPanel(Screens.adminScreen);
             while (true)
             {
-                InputHandler.WaitForInput();
+                var movie = new Movie();
+                Console.WriteLine("Voeg hier een film toe");
+                Console.Write("Naam: ");
+                movie.name = Console.ReadLine();
+                Console.Write("Lengte (seconden): ");
+                movie.duration = Int32.Parse(Console.ReadLine());
+                Console.Write("Publicatiedatum (unix): ");
+                movie.releaseDate = Int32.Parse(Console.ReadLine());
+                Console.Write("Rating: ");
+                movie.rating = Int32.Parse(Console.ReadLine());
+                Console.Write("Taal: ");
+                movie.language = Console.ReadLine();
+                Console.Write("Bedrijf: ");
+                movie.company = Console.ReadLine();
+                Console.Write("Beschrijving: ");
+                movie.description = Console.ReadLine();
+                JsonHandler.JsonFile.AppendToFile(new List<Movie> { movie }, "Movies.json");
+                Console.WriteLine($"Successfully added \"{movie.name}\"");
+                Console.WriteLine("\nPress any key to continue");
+                Console.ReadKey();
             }
         }
     }

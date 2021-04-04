@@ -432,57 +432,57 @@ namespace AppComponents
 		}
 	}
 
-	public class NavigationMenu : Selectable
-	{
+    public class NavigationMenu : Selectable
+    {
 
-		public NavigationMenu(Tab tab, ItemList l, string Title, ItemColor SelectionColor, ItemColor ActiveColor) : base(tab, l, Title, SelectionColor)
-		{
-			this.activeColor = ActiveColor;
-		}
+        public NavigationMenu(Tab tab, ItemList l, string Title, ItemColor SelectionColor, ItemColor ActiveColor) : base(tab, l, Title, SelectionColor)
+        {
+            this.activeColor = ActiveColor;
+        }
 
-		public override void KeyEnter()
-		{
-			if (Hover && list[selectedIndex].tab != null)
-			{
-				Console.Clear();
-				list[selectedIndex].active = true;
-				tab.Stop();
-				list[selectedIndex].tab.active = true;
-			}
-		}
+        public override void KeyEnter()
+        {
+            if (Hover && list[selectedIndex].tab != null)
+            {
+                Console.Clear();
+                list[selectedIndex].active = true;
+                tab.Stop();
+                list[selectedIndex].tab.active = true;
+            }
+        }
 
-		public void SetTabs(Tab[] tabs)
-		{
-			if (tabs.Length > list.Length)
-				throw new ArgumentException($"ListItem[] contains too many ListItems. ({tabs.Length}/{list.Length})");
-			else
-			{
-				for (int i = 0; i < tabs.Length; i++)
-				{
-					list[i].tab = tabs[i];
-				}
-			}
-		}
+        public void SetTabs(Tab[] tabs)
+        {
+            if (tabs.Length > list.Length)
+                throw new ArgumentException($"ListItem[] contains too many ListItems. ({tabs.Length}/{list.Length})");
+            else
+            {
+                for (int i = 0; i < tabs.Length; i++)
+                {
+                    list[i].tab = tabs[i];
+                }
+            }
+        }
 
-		public void SetTab(Tab tab, string value)
-		{
-			foreach (ListItem item in list.items)
-			{
-				if (item.value == value)
-				{
-					item.tab = tab;
-				}
-			}
-		}
+        public void SetTab(Tab tab, string value)
+        {
+            foreach (ListItem item in list.items)
+            {
+                if (item.value == value)
+                {
+                    item.tab = tab;
+                }
+            }
+        }
 
-		public void SetTab(ListItem item, Tab tab)
-		{
-			item.tab = tab;
-		}
+        public void SetTab(ListItem item, Tab tab)
+        {
+            item.tab = tab;
+        }
 
-	}
+    }
 
-	public class Builders
+    public class Builders
 	{
 		public class NavigationMenuBuilder
 		{
