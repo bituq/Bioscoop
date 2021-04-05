@@ -171,8 +171,8 @@ namespace CinemaApplication
         {
             var navMenu = Defaults.DefaultNavMenu(
                 tab,
-                new string[] { "Hoofdmenu", "Voeg film toe" },
-                new Tab[] { Screens.mainMenu, tab }
+                new string[] { "Hoofdmenu", "Voeg film toe", "Voeg tijdslot toe" },
+                new Tab[] { Screens.mainMenu, tab, tab }
                 );
         }
         public static void Main()
