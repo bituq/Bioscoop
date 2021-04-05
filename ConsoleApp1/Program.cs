@@ -31,6 +31,23 @@ namespace CinemaApplication
             public static Tab movieScreen = new Tab();
             public static Tab adminScreen = new Tab();
         }
+        public struct Seat
+        {
+            public int row;
+            public int column;
+            public Seat(int row, int column)
+            {
+                this.row = row;
+                this.column = column;
+            }
+        }
+        public class TimeSlot
+        {
+            public Tab tab = new Tab();
+            public int time { get; set; }
+            public int hall { get; set; }
+            public List<Seat> occupiedSeats {get; set;}
+        }
         public class Movie
         {
             public Tab tab = new Tab();
@@ -44,6 +61,7 @@ namespace CinemaApplication
             public string company { get; set; }
             public string[] starring { get; set; }
             public string description { get; set; }
+            public TimeSlot[] timeSlots { get; set; } = new TimeSlot[0];
 
             public Selectable saveMovieInfo() => new Builders.ListBuilder(
                     this.tab,
@@ -62,6 +80,36 @@ namespace CinemaApplication
                 )
                 .AsSelectable(Templates.Colors.WhiteBlack, "Informatie over deze film")
                 .Done();
+
+            public void LoadTimeSlots()
+            {
+                string[] times;
+                if (timeSlots.Length <= 0)
+                {
+                    times = new string[] { "Geen beschikbare zitplekken" };
+                }
+                else
+                {
+                    times = new string[timeSlots.Length];
+                for (int i = 0; i < times.Length; i++)
+                    {
+                        times[i] =
+                            $"{DateTime.UnixEpoch.AddSeconds(timeSlots[i].time).ToString("f")}\t\t" +
+                            $"{timeSlots[i].occupiedSeats.Count}";
+                    }
+                }
+                var list = new Builders.ListBuilder(
+                    reservationTab,
+                    new Anchor(30, 1),
+                    times,
+                    ItemList.Options.Prefix.Dash,
+                    DefaultColor: Templates.ColorPalettes.CasualMonochrome[0]
+                    )
+                    .AsSelectable(Templates.ColorPalettes.CasualMonochrome[1], $"Datum/tijd\t\tBezette zitplekken")
+                    .ForNavigation(Templates.ColorPalettes.CasualMonochrome[2])
+                    .Done();
+            }
+
         }
         public static void MovieScreen(Tab tab)
         {
@@ -87,6 +135,7 @@ namespace CinemaApplication
                     $"{root[i].GetProperty("rating")}/5\t" +
                     $"{DateTime.UnixEpoch.AddSeconds(root[i].GetProperty("releaseDate").GetInt32()):dd MMMM yyyy}";
                 tabs[i] = movie.tab;
+                movie.LoadTimeSlots();
                 var navMenuReservation = Defaults.DefaultNavMenu(
                     movie.reservationTab,
                     new string[] { "Hoofdmenu", "Terug naar films", $"Terug naar {movie.name}" },
