@@ -23,21 +23,28 @@ namespace CinemaApplication
             if (movieList.Contains("1") == true)
             {
                 Console.WriteLine(u1.GetProperty("name"));
-                Console.WriteLine(u1.GetProperty("duration"));
-                Console.WriteLine(u1.GetProperty("language"));
-                Console.WriteLine(u1.GetProperty("company"));
-                Console.WriteLine("starring:");
+                Console.WriteLine("");
+                Console.WriteLine($"   Duration: {u1.GetProperty("duration")} minutes");
+                Console.WriteLine("");
+                Console.WriteLine($"   Language: {u1.GetProperty("language")}");
+                Console.WriteLine("");
+                Console.WriteLine($"   Company: {u1.GetProperty("company")}");
+                Console.WriteLine("");
+                Console.WriteLine("   Starring:");
                 foreach (JsonElement starring in u1.GetProperty("starring").EnumerateArray())
                 {
-                    Console.WriteLine(starring);
+                    Console.WriteLine($"   {starring}");
                 }
-                Console.WriteLine("genre(s):");
+                Console.WriteLine("");
+                Console.WriteLine("   Genre(s):");
                 foreach (JsonElement starring in u1.GetProperty("genres").EnumerateArray())
                 {
-                    Console.WriteLine(starring);
+                    Console.WriteLine($"   {starring}");
                 }
-                Console.WriteLine(u1.GetProperty("releaseDate"));
-                Console.WriteLine(u1.GetProperty("rating"));
+                Console.WriteLine("");
+                Console.WriteLine($"   Release Date: {u1.GetProperty("releaseDate")}");
+                Console.WriteLine("");
+                Console.WriteLine($"   Rating: {u1.GetProperty("rating")}");
             }
             else if (movieList.Contains("2") == true)
             {
