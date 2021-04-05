@@ -25,10 +25,15 @@ namespace CinemaApplication
                 string film = Console.ReadLine();
                 reserveringMaken(voornaam, achternaam, film);
             }
+            else if (antwoord.Contains("5") == true) {
+                Console.Write("Wat is uw hele naam? (inclusief tussenvoegsel): ");
+                string naam = Console.ReadLine();
+                reserveringDoorNaam(naam);
+            }
         }
 
         static void reserveringDoorNaam(string heleNaam) { // reserveringdoornaam mag eigenlijk alleen in het adminscherm staan.
-            string filePath = "C:/Users/Brent/.vscode/Bioscoop/Bioscoop/ConsoleApp1/bin/Debug/netcoreapp3.1/Reserveringen.json"; // ik laat hem hier voor nu
+            string filePath = @"bin\Debug\netcoreapp3.1\Reserveringen.json"; // ik laat hem hier voor nu
             StreamReader reserveringFile = new StreamReader(filePath);                        //tot we beginnen aan het adminscherm.
             var reserveringen = reserveringFile.ReadToEnd();
 
@@ -46,7 +51,7 @@ namespace CinemaApplication
             reserveringFile.Close();       
         }
         static void zoekDoorCode(string code) {
-            string filePath = "Reserveringen.json";
+            string filePath = @"bin\Debug\netcoreapp3.1\Reserveringen.json";
             StreamReader reserveringFile = new StreamReader(filePath);
             var reserveringen = reserveringFile.ReadToEnd();
 
@@ -67,54 +72,54 @@ namespace CinemaApplication
             reserveringFile.Close();
         }
     
-        static void reserveringMaken(string VoorNaam, string AchterNaam, string film) {
-            string filePath = "C:/Users/Brent/.vscode/Bioscoop/Bioscoop/ConsoleApp1/bin/Debug/netcoreapp3.1/Reserveringen.json";
-            StreamReader reserveringFile = new StreamReader(filePath);
-            var reserveringen = reserveringFile.ReadToEnd();
+        static void reserveringMaken(string VoorNaam, string AchterNaam, string film) { // functie voor het maken van reserveringen.
+            string filePath = @"bin\Debug\netcoreapp3.1\Reserveringen.json"; // pakt de filepath.
+            StreamReader reserveringFile = new StreamReader(filePath); // leest het json bestand.
+            var reserveringen = reserveringFile.ReadToEnd(); // maakt een string van het jsonbestand.
 
-            JsonDocument doc = JsonDocument.Parse(reserveringen);
-            JsonElement root = doc.RootElement;
+            JsonDocument doc = JsonDocument.Parse(reserveringen); // omzetten in JsonDocument.
+            JsonElement root = doc.RootElement; // root ofzo.
 
-            Random rd = new Random();
-            string CreateString(int Length) {
-                const string allowedChars = "0123456789";
-                char[] chars = new char[Length];
-                for (int i = 0; i < Length; i++) {
-                    chars[i] = allowedChars[rd.Next(0, allowedChars.Length)];
+            Random rd = new Random(); // random, zorgt ervoor dat string creatie mogelijk is.
+            string CreateString(int Length) { // maakt een string met gegeven lengte.
+                const string allowedChars = "0123456789"; // karakters waar de string uit mag bestaan.
+                char[] chars = new char[Length]; // lijst van karakters met gegeven lengte.
+                for (int i = 0; i < Length; i++) { // loop die random karakters toevoegt aan de character array.
+                    chars[i] = allowedChars[rd.Next(0, allowedChars.Length)]; // voegt random karakter toe aan array.
                 }
-                return new string(chars);
+                return new string(chars); // zet de lijst om in een string en stuurt het terug naar de functioncall.
             }
 
-            string randomCode = CreateString(7);
+            string randomCode = CreateString(7); // maakt een random string uit nummers met lengte van 7.
             
-            foreach (JsonElement reservering in root.EnumerateArray()) {
-                if ((reservering.GetProperty("reserveringNummer").ToString()) == randomCode) {
-                    reserveringMaken(VoorNaam, AchterNaam, film);
-                    return;
+            foreach (JsonElement reservering in root.EnumerateArray()) { // gaat door alle reserveringen heen.
+                if ((reservering.GetProperty("reserveringNummer").ToString()) == randomCode) { // kijkt of nieuwe code gelijk is aan een oudere.
+                    reserveringMaken(VoorNaam, AchterNaam, film); // stuurt de data terug als de reserveringscode hetzelfde is zodat er een nieuwe gemaakt kan worden.
+                    return; // stopt de functie zodat die niet op wonderbaarlijke wijze doorgaat.
                 }
-                else {
-                    Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-                    string unixTime = unixTimestamp.ToString();
-                    string datum = "11 april 2021 om 16:00";
-                    string[] lijstReserveringen = reserveringen.Split('}');
-                    int len = lijstReserveringen.Length;
-                    for (int i = 0; i < len-1; i++) {
-                        if (i == (len-2)) {
-                            lijstReserveringen[i] = lijstReserveringen[i] + "},\n";
+                else { // nieuwe reserveringscode is niet hetzelfde als een voorgaande, dus kan doorgaan.
+                    Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds; // unixtijd.
+                    string unixTime = unixTimestamp.ToString(); // tijd in unix formaat op dit huidige moment, omgezet in een string.
+                    string datum = "11 april 2021 om 16:00"; // datum
+                    string[] lijstReserveringen = reserveringen.Split('}'); // splitst de json string naar een list per reservering.
+                    int len = lijstReserveringen.Length; // pakt de lengte van de array.
+                    for (int i = 0; i < len-1; i++) { // loop om de curly brackets terug toe te voegen.
+                        if (i == (len-2)) { // pakt de laatste reservering (niet degene die nu word gemaakt)
+                            lijstReserveringen[i] = lijstReserveringen[i] + "},\n"; // voegt een curly bracket toe aan de laatste reservering samen met een komma.
                         }
                         else {
-                            lijstReserveringen[i] = lijstReserveringen[i] + "}";
+                            lijstReserveringen[i] = lijstReserveringen[i] + "}"; // geeft een curly bracket aan de reserveringen terug
                         }
                     }
-
+                    // string toevoegen gooit alle data die opgepakt is van de reservering in het reservering formaat van het json bestand.
                     string toevoegen = "\t{\n" + $"\t\t\"voorNaam\" : \"{VoorNaam}\",\n" + $"\t\t\"achterNaam\" : \"{AchterNaam}\",\n" + $"\t\t\"reserveringNummer\" : \"{randomCode}\",\n" + $"\t\t\"zaal\" : \"{1}\",\n" + $"\t\t\"film\" : \"{film}\",\n" + $"\t\t\"datumVanReservatie\" : \"{unixTime}\",\n" + $"\t\t\"stoel\" : \"{0}\",\n" + $"\t\t\"datum\" : \"{datum}\"\n" + "\t}";
-                    string newJson = "";
+                    string newJson = ""; // definiert de string waar het bestand uit gaat bestaan.
                     for (int j = 0; j < len-1; j++) {
-                        newJson = newJson + lijstReserveringen[j];
+                        newJson = newJson + lijstReserveringen[j]; // voegt de oude reserveringen weer samen.
                     }
-                    newJson = newJson + toevoegen + lijstReserveringen[len-1];
-                    reserveringFile.Close();
-                    File.WriteAllText(filePath, newJson);
+                    newJson = newJson + toevoegen + lijstReserveringen[len-1]; // voegt de nieuwe reservering aan de oude reserveringen toe.
+                    reserveringFile.Close(); // sluit het bestand zodat de data geschreven kan worden naar het bestand.
+                    File.WriteAllText(filePath, newJson); // herschrijft het bestand met niewe reserveringsinformatie.
                 }
             }
         }
