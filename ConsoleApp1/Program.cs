@@ -14,13 +14,13 @@ namespace CinemaApplication
 
             foreach (JsonElement movie in doc.RootElement.EnumerateArray())
             {
-                if (movie.GetProperty("description").ToString() == "This is a test")
+                
                 {
                     Console.WriteLine(movie.GetProperty("name"));
-                    Console.WriteLine(movie.GetProperty("duration"));
+                    Console.WriteLine($"{movie.GetProperty("duration")}");
                     foreach (JsonElement starring in movie.GetProperty("starring").EnumerateArray())
                     {
-                        Console.WriteLine(starring);
+                        Console.WriteLine($"\t{starring}");
                     }
                     Console.WriteLine(movie.GetProperty("rating"));
                     Console.WriteLine(movie.GetProperty("description"));
