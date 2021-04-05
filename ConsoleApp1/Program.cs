@@ -105,11 +105,10 @@ namespace CinemaApplication
                     ItemList.Options.Prefix.Dash,
                     DefaultColor: Templates.ColorPalettes.CasualMonochrome[0]
                     )
-                    .AsSelectable(Templates.ColorPalettes.CasualMonochrome[1], $"Datum/tijd\t\tBezette zitplekken")
+                    .AsSelectable(Templates.ColorPalettes.CasualMonochrome[1], $"Datum/tijd\t\t\tBezette zitplekken")
                     .ForNavigation(Templates.ColorPalettes.CasualMonochrome[2])
                     .Done();
             }
-
         }
         public static void MovieScreen(Tab tab)
         {
@@ -135,12 +134,12 @@ namespace CinemaApplication
                     $"{root[i].GetProperty("rating")}/5\t" +
                     $"{DateTime.UnixEpoch.AddSeconds(root[i].GetProperty("releaseDate").GetInt32()):dd MMMM yyyy}";
                 tabs[i] = movie.tab;
-                movie.LoadTimeSlots();
                 var navMenuReservation = Defaults.DefaultNavMenu(
                     movie.reservationTab,
                     new string[] { "Hoofdmenu", "Terug naar films", $"Terug naar {movie.name}" },
                     new Tab[] { Screens.mainMenu, tab, movie.tab }
                     );
+                movie.LoadTimeSlots();
 
             }
             var navMenu = Defaults.DefaultNavMenu(
