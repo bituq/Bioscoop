@@ -34,7 +34,10 @@ namespace JsonHandler
             foreach (JsonElement obj in oldList)
             {
                 if (obj.GetProperty(key).ToString() == value)
+                {
                     newList.Remove(obj);
+                    break;
+                }
             }
             OverwriteFile(filePath, newList, options);
         }
