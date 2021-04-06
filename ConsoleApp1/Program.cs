@@ -22,6 +22,7 @@ namespace CinemaApplication
             string movieList = Console.ReadLine();
             if (movieList.Contains("1") == true)
             {
+                Console.WriteLine("");
                 Console.WriteLine(u1.GetProperty("name"));
                 Console.WriteLine("");
                 Console.WriteLine($"   Duration: {u1.GetProperty("duration")} minutes");
@@ -48,6 +49,7 @@ namespace CinemaApplication
             }
             else if (movieList.Contains("2") == true)
             {
+                Console.WriteLine("");
                 Console.WriteLine(u2.GetProperty("name"));
                 Console.WriteLine("");
                 Console.WriteLine($"   Duration: {u2.GetProperty("duration")} minutes");
@@ -74,6 +76,7 @@ namespace CinemaApplication
             }
             else if (movieList.Contains("3") == true)
             {
+                Console.WriteLine("");
                 Console.WriteLine(u3.GetProperty("name"));
                 Console.WriteLine("");
                 Console.WriteLine($"   Duration: {u3.GetProperty("duration")} minutes");
