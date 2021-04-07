@@ -1,4 +1,5 @@
 ﻿using System;
+using CinemaUI;
 
 namespace CinemaApplication
 {
@@ -6,7 +7,11 @@ namespace CinemaApplication
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            Console.SetCursorPosition(50, 50);
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Black;
+
         }
     }
 }
