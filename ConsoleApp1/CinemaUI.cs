@@ -32,7 +32,7 @@ namespace CinemaUI
         public int Y { get; set; }
         public bool IsEmpty
         {
-            get { return X == 0 && Y == 0; }
+            get => X == 0 && Y == 0;
         }
         public Color Color { get; set; }
 
