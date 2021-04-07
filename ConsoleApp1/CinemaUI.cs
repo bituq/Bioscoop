@@ -53,11 +53,8 @@ namespace CinemaUI
         public static Point operator *(Point a, Point b) => new Point(a.X * b.X, a.Y * b.Y);
         public static Point operator /(Point a, Point b) => new Point(a.X / b.X, a.Y / b.Y);
         public static Point operator -(Point a, Point b) => new Point(a.X - b.X, a.Y - b.Y);
-
     }
     public struct Color
-#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
-#pragma warning restore CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
     {
         public ConsoleColor Foreground { get; set; }
         public ConsoleColor Background { get; set; }
