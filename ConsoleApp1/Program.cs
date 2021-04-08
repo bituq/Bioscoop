@@ -21,42 +21,36 @@ namespace CinemaApplication
         }
         public static void Main()
         {
-            var movie = new Movie();
-            movie.name = "Hacksaw Ridge";
-            movie.duration = 5000;
-            movie.releaseDate = 1478127600;
-            movie.rating = 5;
-            movie.language = "Engels";
-            movie.company = "Lionsgate";
-            movie.description = "Nothing to see here...";
+            var movies = new List<Movie>();
+            bool stop = false;
+            while (!stop)
+            {
+                var movie = new Movie();
+                Console.WriteLine("Voeg hier een film toe");
+                Console.Write("Naam: ");
+                movie.name = Console.ReadLine();
+                Console.Write("Lengte (seconden): ");
+                movie.duration = Int32.Parse(Console.ReadLine());
+                Console.Write("Publicatiedatum (unix): ");
+                movie.releaseDate = Int32.Parse(Console.ReadLine());
+                Console.Write("Rating: ");
+                movie.rating = Int32.Parse(Console.ReadLine());
+                Console.Write("Taal: ");
+                movie.language = Console.ReadLine();
+                Console.Write("Bedrijf: ");
+                movie.company = Console.ReadLine();
+                Console.Write("Beschrijving: ");
+                movie.description = Console.ReadLine();
+                Console.WriteLine("Toegevoegd! Stoppen? Druk op 'RightArrow'");
+                movies.Add(movie);
+                stop = Console.ReadKey().Key == ConsoleKey.RightArrow;
+            }
 
-            JsonFile.AppendToFile(new List<Movie> { movie }, "Movies.json");
-            Console.WriteLine($"Successfully added \"{movie.name}\"");
+
+            JsonFile.AppendToFile(movies, "Movies.json");
+            Console.WriteLine($"Successfully added {movies.Count} movies.");
             Console.WriteLine("\nPress any key to continue");
             Console.ReadKey();
-
-            JsonFile.RemoveFromFile("name", "Hacksaw Ridge", "Movies.json");
-            Console.WriteLine($"Successfully removed \"{movie.name}\"");
-
-            /*Console.WriteLine("Voeg hier een film toe");
-            Console.Write("Naam: ");
-            movie.name = Console.ReadLine();
-            Console.Write("Lengte (seconden): ");
-            movie.duration = Int32.Parse(Console.ReadLine());
-            Console.Write("Publicatiedatum (unix): ");
-            movie.releaseDate = Int32.Parse(Console.ReadLine());
-            Console.Write("Rating: ");
-            movie.rating = Int32.Parse(Console.ReadLine());
-            Console.Write("Taal: ");
-            movie.language = Console.ReadLine();
-            Console.Write("Bedrijf: ");
-            movie.company = Console.ReadLine();
-            Console.Write("Beschrijving: ");
-            movie.description = Console.ReadLine();
-            JsonHandler.JsonFile.AppendToFile(new List<Movie> { movie }, "Movies.json");
-            Console.WriteLine($"Successfully added \"{movie.name}\"");
-            Console.WriteLine("\nPress any key to continue");
-            Console.ReadKey();*/
         }
     }
 }

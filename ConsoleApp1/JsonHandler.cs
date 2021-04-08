@@ -21,9 +21,10 @@ namespace JsonHandler
 
         public static void AppendToFile(object value, string filePath)
         {
-            var newItem = JsonDocument.Parse(JsonSerializer.Serialize(value, options));
             var docList = FileAsList(filePath);
-            docList.Add(newItem.RootElement[0]);
+            var newItem = JsonDocument.Parse(JsonSerializer.Serialize(value, options));
+            foreach (JsonElement root in newItem.RootElement.EnumerateArray())
+                docList.Add(root);
             OverwriteFile(filePath, docList, options);
         }
 
