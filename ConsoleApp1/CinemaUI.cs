@@ -4,28 +4,6 @@ using System.IO;
 
 namespace CinemaUI
 {
-    public interface IComponent
-    {
-        enum Space
-        {
-            Absolute,
-            Relative
-        }
-        public static class Options
-        {
-            public static bool AutoDraw = true;
-        }
-
-        Space PositionSpace { get; set; }
-        bool Active { get; set; }
-
-        Container GetParent();
-        void SetParent(Container value);
-        Point GetPosition();
-        void SetPosition(Point value);
-
-        void Draw();
-    }
     public struct Point
     {
         public int X { get; set; }
@@ -76,17 +54,28 @@ namespace CinemaUI
         public override bool Equals(object obj) => this.Equals(obj);
         public override string ToString() => $"({Foreground}, {Background})";
     }
-    public class Container : IComponent
+    public interface IComponent
     {
-        public IComponent.Space ScaleSpace { get; set; } = IComponent.Space.Absolute;
-        public IComponent.Space PositionSpace { get; set; } = IComponent.Space.Relative;
+        enum Space
+        {
+            Absolute,
+            Relative
+        }
+        public static class Options
+        {
+            public static bool AutoDraw = true;
+        }
+
+        Space PositionSpace { get; set; }
+        bool Active { get; set; }
+    }
+    public class Instance : IComponent
+    {
         public List<IComponent> Children = new List<IComponent>();
-        public List<Point> PointMap = new List<Point>();
-        private Container Parent;
-        private Point Position;
-        private Point Scale;
+        public Instance Parent { get; private set; }
+        private Point Position { get; set; }
+        public IComponent.Space PositionSpace { get; set; }
         public bool Active { get; set; } = false;
-        public Color Color { get; set; }
 
         public Point GetPosition()
         {
@@ -95,11 +84,25 @@ namespace CinemaUI
             else
                 return Position + (GetParent()?.Position ?? new Point());
         }
-        public void SetPosition(Point value)
+        public virtual void SetPosition(Point value)
         {
             Position = value;
-            Reset();
         }
+        public Instance GetParent() => Parent;
+        public virtual void SetParent(Instance value)
+        {
+            value.Children.Add(this);
+            Parent = value;
+        }
+    }
+    public class Container : Instance
+    {
+        public IComponent.Space ScaleSpace { get; set; } = IComponent.Space.Absolute;
+        public List<Point> PointMap = new List<Point>();
+        public Color Color { get; set; }
+        private Point Scale;
+        public Container Parent { get; private set; }
+
         public Point GetScale()
         {
             if (ScaleSpace == IComponent.Space.Absolute)
@@ -112,15 +115,11 @@ namespace CinemaUI
             Scale = value;
             Reset();
         }
-        public Container GetParent()
-        {
-            return Parent;
-        }
-        public void SetParent(Container value)
+        public Container GetParent() => Parent;
+        public virtual void SetParent(Container value)
         {
             value.Children.Add(this);
             Parent = value;
-            Reset();
         }
 
         public Container(Point Position, Point Scale)
@@ -195,17 +194,14 @@ namespace CinemaUI
     }
     public class Paragraph : IComponent
     {
-        private Container Parent;
+        private IComponent Parent;
         private Point Position;
         private Point Scale;
         public Color Color { get; set; }
         public IComponent.Space PositionSpace { get; set; } = IComponent.Space.Relative;
         public bool Active { get; set; } = false;
 
-        public Container GetParent()
-        {
-            throw new NotImplementedException();
-        }
+        public IComponent GetParent() => Parent;
 
         public Point GetPosition()
         {
