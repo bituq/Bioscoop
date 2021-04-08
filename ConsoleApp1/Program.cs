@@ -13,17 +13,21 @@ namespace CinemaApplication
             JsonDocument doc = JsonDocument.Parse(movies);
             JsonElement root = doc.RootElement;
 
-            var u1 = root[0];
-            var u2 = root[1];
-            var u3 = root[2];
 
-            Console.WriteLine("1 : Harry Potter and the Deathly Hallows: Part 1\n2 : Lord of the Rings: Fellowship of the Ring\n3 : 1917");
-            Console.Write("Maak uw Keuze: ");
-            string movieList = Console.ReadLine();
-            if (movieList.Contains("1") == true)
+            string[] movieNames = new string[root.GetArrayLength()];
+            for (int i = 0; i < movieNames.Length; i++)
+            {
+                movieNames[i] = root[i].GetProperty("name").ToString();
+                Console.WriteLine($"{i + 1} : {movieNames[i]}");
+            }
+
+            
+            Console.Write("\nMaak uw Keuze: ");
+            int movieNumber = Int32.Parse(Console.ReadLine());
+            if (root[movieNumber] != null)
             {
                 Console.WriteLine("");
-                Console.WriteLine(u1.GetProperty("name"));
+                Console.WriteLine(root[movieNumber - 1].GetProperty("name"));
                 Console.WriteLine("");
                 Console.WriteLine($"   Duration: {u1.GetProperty("duration")} minutes");
                 Console.WriteLine("");
