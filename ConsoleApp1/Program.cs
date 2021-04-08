@@ -11,7 +11,6 @@ namespace CinemaApplication
             Console.SetCursorPosition(50, 50);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.Black;
-
         }
     }
 }
