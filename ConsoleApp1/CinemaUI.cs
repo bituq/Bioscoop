@@ -13,24 +13,37 @@ namespace CinemaUI
             get => X == 0 && Y == 0;
         }
         public Color Color { get; set; }
-
-        public Point(int xy, ConsoleColor foreground = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
+        #region Constructors
+        public Point(int xy)
         {
-            X = xy;
-            Y = xy;
-            Color = new Color(foreground, background);
+            X = Y = xy;
+            Color = new Color(ConsoleColor.White, ConsoleColor.Black);
         }
-        public Point(int x, int y, ConsoleColor foreground = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
+        public Point(int x, int y)
         {
             X = x;
             Y = y;
-            Color = new Color(foreground, background);
+            Color = new Color(ConsoleColor.White, ConsoleColor.Black);
         }
-
+        public Point(int xy, Color color)
+        {
+            X = Y = xy;
+            Color = color;
+        }
+        public Point(int x, int y, Color color)
+        {
+            X = x;
+            Y = y;
+            Color = color;
+        }
+        #endregion
+        #region Overloaders
         public static Point operator +(Point a, Point b) => new Point(a.X + b.X, a.Y + b.Y);
         public static Point operator *(Point a, Point b) => new Point(a.X * b.X, a.Y * b.Y);
         public static Point operator /(Point a, Point b) => new Point(a.X / b.X, a.Y / b.Y);
         public static Point operator -(Point a, Point b) => new Point(a.X - b.X, a.Y - b.Y);
+        #endregion
+        public override string ToString() => $"({X}, {Y})";
     }
     public struct Color
     {
@@ -51,175 +64,174 @@ namespace CinemaUI
         public static bool operator ==(Color a, Color b) => a.Foreground == b.Foreground && a.Background == b.Background;
         public static bool operator !=(Color a, Color b) => a.Foreground != b.Foreground && a.Background != b.Background;
 
-        public override bool Equals(object obj) => this.Equals(obj);
         public override string ToString() => $"({Foreground}, {Background})";
     }
-    public interface IComponent
-    {
-        enum Space
-        {
-            Absolute,
-            Relative
-        }
-        public static class Options
-        {
-            public static bool AutoDraw = true;
-        }
 
-        Space PositionSpace { get; set; }
-        bool Active { get; set; }
+    public enum Space
+    {
+        Absolute,
+        Relative
     }
-    public class Instance : IComponent
-    {
-        public List<IComponent> Children = new List<IComponent>();
-        public Instance Parent { get; private set; }
-        private Point Position { get; set; }
-        public IComponent.Space PositionSpace { get; set; }
-        public bool Active { get; set; } = false;
 
-        public Point GetPosition()
+    public class Instance
+    {
+        private bool _active { get; set; }
+        private List<UIElement> _children = new List<UIElement>();
+
+        public virtual Point Position { get; set; }
+        public virtual Point Size { get; set; }
+        public string Name { get; set; }
+        public string ClassName { get => this.GetType().Name; }
+        public bool Active
         {
-            if (PositionSpace == IComponent.Space.Absolute)
-                return Position;
-            else
-                return Position + (GetParent()?.Position ?? new Point());
+            get => _active;
+            set
+            {
+                _active = value;
+                foreach (Instance child in Children)
+                {
+                    child.Active = value;
+                }
+            }
         }
-        public virtual void SetPosition(Point value)
+        public UIElement[] Children
         {
-            Position = value;
+            get
+            {
+                UIElement[] res = new UIElement[_children.Count];
+                for (int i = 0; i < res.Length; i++)
+                    res[i] = _children[i];
+                return res;
+            }
         }
-        public Instance GetParent() => Parent;
-        public virtual void SetParent(Instance value)
-        {
-            value.Children.Add(this);
-            Parent = value;
-        }
+
+        public void AddChild(UIElement child) => _children.Add(child);
+        public void RemoveChild(UIElement child) => _children.Remove(child);
+        public void ClearAllChildren() => _children.Clear();
+        public bool IsA(string otherName) => ClassName == otherName;
     }
-    public class Container : Instance
+
+    public class Window : Instance
     {
-        public IComponent.Space ScaleSpace { get; set; } = IComponent.Space.Absolute;
-        public List<Point> PointMap = new List<Point>();
-        public Color Color { get; set; }
-        private Point Scale;
-        public Container Parent { get; private set; }
-
-        public Point GetScale()
-        {
-            if (ScaleSpace == IComponent.Space.Absolute)
-                return Scale;
-            else
-                return Scale + (GetParent()?.Scale ?? new Point());
-        }
-        public void SetScale(Point value)
-        {
-            Scale = value;
-            Reset();
-        }
-        public Container GetParent() => Parent;
-        public virtual void SetParent(Container value)
-        {
-            value.Children.Add(this);
-            Parent = value;
-        }
-
-        public Container(Point Position, Point Scale)
-        {
-            this.SetPosition(Position);
-            this.SetScale(Scale);
-            Init();
-        }
-        public Container(Point Position)
-        {
-            this.SetPosition(Position);
-            this.SetScale(new Point(1, 1));
-            Init();
-        }
-        public Container()
-        {
-            this.SetPosition(new Point(0, 0));
-            this.SetScale(new Point(1, 1));
-            Init();
-        }
+        public List<Tuple<Point, string>> PointMap { get; set; } = new List<Tuple<Point, string>>();
 
         public void Draw()
         {
-            foreach (Point point in PointMap)
+            if (Children.Length > 0)
+                Init();
+            foreach (Tuple<Point, string> buffer in PointMap)
             {
-                Console.ForegroundColor = Color.Foreground;
-                Console.BackgroundColor = Color.Background;
-                Console.SetCursorPosition(point.X, point.Y);
-                Console.Write(" ");
-            }
-        }
-        public void Draw(Func<int, int, bool> check)
-        {
-            foreach (Point point in PointMap)
-            {
-                if (check(point.X, point.Y))
-                {
-                    Console.ForegroundColor = Color.Foreground;
-                    Console.BackgroundColor = Color.Background;
-                    Console.SetCursorPosition(point.X, point.Y);
-                    Console.Write(" ");
-                   
-                }
+                Console.SetCursorPosition(buffer.Item1.X, buffer.Item1.Y);
+                Console.ForegroundColor = buffer.Item1.Color.Foreground;
+                Console.BackgroundColor = buffer.Item1.Color.Background;
+                Console.Write(buffer.Item2);
             }
         }
         private void Init()
         {
-            for (int row = GetPosition().X; row < GetPosition().X + GetScale().X; row++)
+            foreach (UIElement child in Children)
             {
-                for (int column = GetPosition().Y; column < GetPosition().Y + GetScale().Y; column++)
-                {
-                    PointMap.Add(new Point(row, column, Color.Foreground, Color.Background));
-                }
+                child.Init();
             }
         }
-        private void Init(Func<int, int, bool> check, ConsoleColor backgroundColor)
-        {
-            for (int row = GetPosition().X; row < GetPosition().X + GetScale().X; row++)
-            {
-                for (int column = GetPosition().Y; column < GetPosition().Y + GetScale().Y; column++)
-                {
-                    PointMap.Add(new Point(row, column, Color.Foreground, check(column, row) ? backgroundColor : Color.Background));
-                }
-            }
-        }
-        private void Reset()
-        {
-            PointMap.Clear();
-            Init();
-        }
-
     }
-    public class Paragraph : IComponent
+
+    public class UIElement : Instance
     {
-        private IComponent Parent;
-        private Point Position;
-        private Point Scale;
-        public Color Color { get; set; }
-        public IComponent.Space PositionSpace { get; set; } = IComponent.Space.Relative;
-        public bool Active { get; set; } = false;
+        private Point _position { get; set; }
+        private UIElement _parent { get; set; }
+        private Window _window { get; set; }
 
-        public IComponent GetParent() => Parent;
-
-        public Point GetPosition()
+        public UIElement Parent
         {
-            throw new NotImplementedException();
+            get => _parent;
+            set
+            {
+                if (value == null)
+                    _parent = null;
+                else
+                {
+                    if (_parent != null)
+                        _parent.RemoveChild(this);
+                    if (value == this)
+                        _parent = null;
+                    else
+                    {
+                        value.AddChild(this);
+                        _parent = value;
+                    }
+                }
+            }
         }
+        public Window Window
+        {
+            get => _window;
+            set
+            {
+                if (value == null)
+                    _window = null;
+                else
+                {
+                    if (_window != null)
+                        _window.RemoveChild(this);
+                    value.AddChild(this);
+                    _window = value;
+                }
+            }
 
-        public void SetParent(Container value)
-        {
-            throw new NotImplementedException();
         }
+        public Space PositionSpace { get; set; } = Space.Absolute;
+        public override Point Position
+        {
+            get => _position;
+            set
+            {
+                if (PositionSpace == Space.Absolute)
+                    _position = value;
+                else if (PositionSpace == Space.Relative)
+                    _position = value + Parent?.Position ?? new Point(0, 0);
+            }
+        }
+        public virtual void Init() { }
 
-        public void SetPosition(Point value)
+        public void Destroy()
         {
-            throw new NotImplementedException();
+            if (Parent != null)
+                Parent.RemoveChild(this);
+            foreach (UIElement child in Children)
+                child.Parent = null;
+            Parent = null;
+            ClearAllChildren();
         }
-        public void Draw()
+    }
+
+    public class Container : UIElement
+    {
+        private Point _size { get; set; }
+
+        public Space ScaleSpace { get; set; } = Space.Absolute;
+        public override Point Size
         {
-            throw new NotImplementedException();
+            get => _size.X > 0 && _size.Y > 0 ? _size : new Point(1,1);
+            set
+            {
+                if (ScaleSpace == Space.Absolute)
+                    _size = value;
+                else if (ScaleSpace == Space.Relative)
+                    _size = value + Parent?.Size ?? new Point(0, 0);
+            }
+        }
+        public Color Color { get; set; } = new Color(ConsoleColor.Red, ConsoleColor.Red);
+
+        public override void Init()
+        {
+            for (int row = Position.Y; row < Position.Y + Size.Y; row++)
+            {
+                for (int column = Position.X; column < Position.X + Size.X; column++)
+                {
+                    Window.PointMap.Add(Tuple.Create(new Point(column, row, Color), " "));
+                }
+            }
         }
     }
 }
