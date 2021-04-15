@@ -12,29 +12,15 @@ namespace CinemaUI
         {
             get => X == 0 && Y == 0;
         }
-        public Color Color { get; set; }
         #region Constructors
         public Point(int xy)
         {
             X = Y = xy;
-            Color = new Color(ConsoleColor.White, ConsoleColor.Black);
         }
         public Point(int x, int y)
         {
             X = x;
             Y = y;
-            Color = new Color(ConsoleColor.White, ConsoleColor.Black);
-        }
-        public Point(int xy, Color color)
-        {
-            X = Y = xy;
-            Color = color;
-        }
-        public Point(int x, int y, Color color)
-        {
-            X = x;
-            Y = y;
-            Color = color;
         }
         #endregion
         #region Overloaders
@@ -113,18 +99,18 @@ namespace CinemaUI
 
     public class Window : Instance
     {
-        public List<Tuple<Point, string>> PointMap { get; set; } = new List<Tuple<Point, string>>();
+        internal Dictionary<string, Tuple<int, int, string, Color>> Buffer { get; set; } = new Dictionary<string, Tuple<int, int, string, Color>>();
 
         public void Draw()
         {
             if (Children.Length > 0)
                 Init();
-            foreach (Tuple<Point, string> buffer in PointMap)
+            foreach (Tuple<int, int, string, Color> cell in Buffer.Values)
             {
-                Console.SetCursorPosition(buffer.Item1.X, buffer.Item1.Y);
-                Console.ForegroundColor = buffer.Item1.Color.Foreground;
-                Console.BackgroundColor = buffer.Item1.Color.Background;
-                Console.Write(buffer.Item2);
+                Console.SetCursorPosition(cell.Item1, cell.Item2);
+                Console.ForegroundColor = cell.Item4.Foreground;
+                Console.BackgroundColor = cell.Item4.Background;
+                Console.Write(cell.Item3);
             }
         }
         private void Init()
@@ -134,6 +120,7 @@ namespace CinemaUI
                 child.Init();
             }
         }
+        internal void CreateCell(string key, Tuple<int, int, string, Color> value) => Buffer[key] = value;
     }
 
     public class UIElement : Instance
@@ -252,7 +239,7 @@ namespace CinemaUI
             {
                 for (int column = Position.X; column < Position.X + Size.X; column++)
                 {
-                    Window.PointMap.Add(Tuple.Create(new Point(column, row, Color), " "));
+                    Window.CreateCell(new Point(column, row).ToString(), Tuple.Create(column, row, " ", Color));
                 }
             }
         }
@@ -264,32 +251,66 @@ namespace CinemaUI
 
         public string Text
         {
-            get => _text;
-            set
-            {
-                _text = @value;
-            }
+            get => $"{Prefix}{_text}{Suffix}";
+            set => _text = $@"{value}";
         }
+        public string Suffix { get; set; }
+        public string Prefix { get; set; }
+        public ConsoleColor TextColor { get; set; } = ConsoleColor.White;
 
         public Paragraph(Window window, int x = 0, int y = 0) : base(window, x, y) { }
         public Paragraph(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute) : base(window, parent, x, y, positionSpace) { }
 
         public override void Init()
         {
-            int line = 0;
-            int offset = 0;
+            int line = Position.Y;
+            int offset = Position.X;
             for (int i = 0; i < Text.Length; i++)
             {
+                Point point = new Point(offset, line);
+                Color color = new Color(TextColor, Window.Buffer.ContainsKey(point.ToString()) ? Window.Buffer[point.ToString()].Item4.Background : ConsoleColor.Black);
                 if (Text[i] == '\n')
                 {
-                    Window.PointMap.Add(Tuple.Create(new Point(offset, ++line), " "));
+                    Window.CreateCell(point.ToString(), Tuple.Create(offset, line, " ", color));
                     offset = 0;
+                    line++;
                 }
                 else
                 {
-                    Window.PointMap.Add(Tuple.Create(new Point(offset, line), Text[offset].ToString()));
+                    Window.CreateCell(point.ToString(), Tuple.Create(offset, line, Text[i].ToString(), color));
                     offset++;
                 }
+            }
+        }
+    }
+
+    public class TextList : UIElement
+    {
+        public List<Paragraph> Items { get; set; } = new List<Paragraph>();
+        public ConsoleColor TextColor { get; set; } = ConsoleColor.White;
+        public TextList(Window window, int x = 0, int y = 0) : base(window, x, y) { }
+        public TextList(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute) : base(window, parent, x, y, positionSpace) { }
+
+        public void SetItems(string[] arr, string prefix = "", string suffix = "")
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Items.Add(new Paragraph(Window, Position.X, Position.Y + i));
+                Items[i].TextColor = TextColor;
+                Items[i].Text = arr[i];
+                Items[i].Prefix = prefix;
+                Items[i].Suffix = suffix;
+            }
+        }
+        public void SetItems(string[] arr, bool UseNumbers, string suffix = "")
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Items.Add(new Paragraph(Window, Position.X, Position.Y + i));
+                Items[i].TextColor = TextColor;
+                Items[i].Text = arr[i];
+                Items[i].Prefix = $"{i+1}. ";
+                Items[i].Suffix = suffix;
             }
         }
     }
