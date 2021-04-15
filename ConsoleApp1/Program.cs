@@ -8,7 +8,7 @@ namespace CinemaApplication
     {
         static void Main(string[] args)
         {
-
+            // sinds 1996 al
 
             var movies = File.ReadAllText("moviesadd.json");
             JsonDocument doc = JsonDocument.Parse(movies);
