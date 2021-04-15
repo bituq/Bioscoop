@@ -51,7 +51,7 @@ namespace CinemaApplication
             string language = Console.ReadLine();
             Console.WriteLine("Enter company: ");
             string company = Console.ReadLine();
-            Console.WriteLine("Enter starring (example: person 1, person 2, person 3, person 4)");
+            Console.WriteLine("Enter starring (example: person 1/person 2/person 3/person 4)");
             string starring = Console.ReadLine();
             Console.WriteLine("Enter your description: ");
             string description = Console.ReadLine();
