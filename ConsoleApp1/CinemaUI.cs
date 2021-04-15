@@ -142,7 +142,7 @@ namespace CinemaUI
         private UIElement _parent { get; set; }
         private Window _window { get; set; }
 
-        public UIElement Parent
+        protected UIElement Parent
         {
             get => _parent;
             set
@@ -163,7 +163,7 @@ namespace CinemaUI
                 }
             }
         }
-        public Window Window
+        protected Window Window
         {
             get => _window;
             set
@@ -192,8 +192,21 @@ namespace CinemaUI
                     _position = value + Parent?.Position ?? new Point(0, 0);
             }
         }
-        public virtual void Init() { }
 
+        public UIElement(Window window, int x = 0, int y = 0)
+        {
+            Position = new Point(x, y);
+            Window = window;
+        }
+        public UIElement(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute)
+        {
+            PositionSpace = positionSpace;
+            Window = window;
+            Parent = parent;
+            Position = new Point(x, y);
+        }
+
+        public virtual void Init() { }
         public void Destroy()
         {
             if (Parent != null)
@@ -221,7 +234,17 @@ namespace CinemaUI
                     _size = value + Parent?.Size ?? new Point(0, 0);
             }
         }
-        public Color Color { get; set; } = new Color(ConsoleColor.Red, ConsoleColor.Red);
+        public Color Color { get; set; } = new Color(ConsoleColor.White, ConsoleColor.Black);
+
+        public Container(Window window, int x = 0, int y = 0, int width = 1, int height = 1) : base(window, x, y)
+        {
+            Size = new Point(width, height);
+        }
+        public Container(Window window, UIElement parent, int x = 0, int y = 0, int width = 1, int height = 1, Space positionSpace = Space.Absolute, Space scaleSpace = Space.Absolute) : base(window, parent, x, y, positionSpace)
+        {
+            ScaleSpace = scaleSpace;
+            Size = new Point(width, height);
+        }
 
         public override void Init()
         {
@@ -230,6 +253,42 @@ namespace CinemaUI
                 for (int column = Position.X; column < Position.X + Size.X; column++)
                 {
                     Window.PointMap.Add(Tuple.Create(new Point(column, row, Color), " "));
+                }
+            }
+        }
+    }
+
+    public class Paragraph : UIElement
+    {
+        private string _text { get; set; }
+
+        public string Text
+        {
+            get => _text;
+            set
+            {
+                _text = @value;
+            }
+        }
+
+        public Paragraph(Window window, int x = 0, int y = 0) : base(window, x, y) { }
+        public Paragraph(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute) : base(window, parent, x, y, positionSpace) { }
+
+        public override void Init()
+        {
+            int line = 0;
+            int offset = 0;
+            for (int i = 0; i < Text.Length; i++)
+            {
+                if (Text[i] == '\n')
+                {
+                    Window.PointMap.Add(Tuple.Create(new Point(offset, ++line), " "));
+                    offset = 0;
+                }
+                else
+                {
+                    Window.PointMap.Add(Tuple.Create(new Point(offset, line), Text[offset].ToString()));
+                    offset++;
                 }
             }
         }
