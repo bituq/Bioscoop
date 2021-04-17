@@ -52,12 +52,16 @@ namespace CinemaUI
 
     public class Window : Instance
     {
+        private bool Temporary { get; set; }
+
+        public bool IsActiveWindow => !Temporary && Active;
+
         internal Dictionary<string, Tuple<int, int, string, Color>> Buffer { get; set; } = new Dictionary<string, Tuple<int, int, string, Color>>();
+
+        public Window(bool temporary = false) => this.Temporary = temporary;
 
         public void Draw()
         {
-            if (Children.Length > 0)
-                Init();
             foreach (Tuple<int, int, string, Color> cell in Buffer.Values)
             {
                 Console.SetCursorPosition(cell.Item1, cell.Item2);
@@ -66,7 +70,7 @@ namespace CinemaUI
                 Console.Write(cell.Item3);
             }
         }
-        private void Init()
+        public void Init()
         {
             foreach (UIElement child in Children)
             {
@@ -103,7 +107,7 @@ namespace CinemaUI
                 }
             }
         }
-        protected Window Window
+        public Window Window
         {
             get => _window;
             set
@@ -214,14 +218,15 @@ namespace CinemaUI
         public Paragraph(Window window, int x = 0, int y = 0) : base(window, x, y) { }
         public Paragraph(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute) : base(window, parent, x, y, positionSpace) { }
 
-        public override void Init()
+        public override void Init() => ChangeTextCells(TextColor, ConsoleColor.Black);
+        public void ChangeTextCells(ConsoleColor foreground, ConsoleColor background, bool overwrite = false)
         {
             int line = Position.Y;
             int offset = Position.X;
             for (int i = 0; i < Text.Length; i++)
             {
                 Point point = new Point(offset, line);
-                Color color = new Color(TextColor, Window.Buffer.ContainsKey(point.ToString()) ? Window.Buffer[point.ToString()].Item4.Background : ConsoleColor.Black);
+                Color color = new Color(foreground, Window.Buffer.ContainsKey(point.ToString()) && overwrite == false ? Window.Buffer[point.ToString()].Item4.Background : background);
                 if (Text[i] == '\n')
                 {
                     Window.CreateCell(point.ToString(), Tuple.Create(offset, line, " ", color));
@@ -297,7 +302,11 @@ namespace CinemaUI.Builder
             this.Reset();
         }
 
-        public SelectableTextBuilder Selectable(Color color) => new SelectableTextBuilder(_product, color);
+        public SelectableTextBuilder Selectable(ConsoleColor textColor, Color selectionColor)
+        {
+            _product.TextColor = textColor;
+            return new SelectableTextBuilder(_product, selectionColor);
+        }
 
         public Paragraph Result(string text)
         {

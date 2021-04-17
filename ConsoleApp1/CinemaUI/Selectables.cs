@@ -6,12 +6,14 @@ using CinemaUI.Builder;
 
 namespace CinemaUI.Selectable
 {
-    public abstract class Selectable
+    public class Selectable
     {
         public bool Selected { get; protected set; } = false;
         protected int PriorityIndex { get; set; } = 0;
 
-        public void Unselect() => Selected = false;
+        public virtual void Unselect() => Selected = false;
+        public virtual void Select() => Selected = true;
+
     }
 
     public class SelectableText : Selectable
@@ -29,8 +31,18 @@ namespace CinemaUI.Selectable
         {
             this._paragraph = paragraph;
             Foreground = color.Foreground;
-            if (color.Background != color.Foreground)
-                Background = color.Background;
+            Background = color.Background;
+        }
+
+        public override void Unselect()
+        {
+            Selected = false;
+            _paragraph.Init();
+        }
+        public override void Select()
+        {
+            Selected = true;
+            _paragraph.ChangeTextCells(Foreground, Background, Background != Foreground);
         }
     }
 }
