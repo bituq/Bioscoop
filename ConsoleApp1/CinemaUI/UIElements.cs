@@ -52,13 +52,14 @@ namespace CinemaUI
 
     public class Window : Instance
     {
-        private bool Temporary { get; set; }
-
-        public bool IsActiveWindow => !Temporary && Active;
 
         internal Dictionary<string, Tuple<int, int, string, Color>> Buffer { get; set; } = new Dictionary<string, Tuple<int, int, string, Color>>();
 
-        public Window(bool temporary = false) => this.Temporary = temporary;
+        public Window(bool setAsActive = false)
+        {
+            if (setAsActive)
+                InputHandler.ActiveWindow = this;
+        }
 
         public void Draw()
         {

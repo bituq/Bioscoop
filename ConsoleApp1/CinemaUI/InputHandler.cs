@@ -11,6 +11,13 @@ namespace CinemaUI
         public static void WaitForInput()
         {
             ActiveWindow.Init();
+            ActiveWindow.Draw();
+            while (true)
+            {
+                ActiveWindow.Init();
+                var input = Console.ReadKey();
+                ActiveWindow.Draw();
+            }
         }
         private static void DefaultDialog()
         {
