@@ -1,58 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using CinemaUI.Utility;
+using CinemaUI.Selectable.Builder;
 
 namespace CinemaUI
 {
-    public struct Point
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public bool IsEmpty
-        {
-            get => X == 0 && Y == 0;
-        }
-        #region Constructors
-        public Point(int xy)
-        {
-            X = Y = xy;
-        }
-        public Point(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
-        #endregion
-        #region Overloaders
-        public static Point operator +(Point a, Point b) => new Point(a.X + b.X, a.Y + b.Y);
-        public static Point operator *(Point a, Point b) => new Point(a.X * b.X, a.Y * b.Y);
-        public static Point operator /(Point a, Point b) => new Point(a.X / b.X, a.Y / b.Y);
-        public static Point operator -(Point a, Point b) => new Point(a.X - b.X, a.Y - b.Y);
-        #endregion
-        public override string ToString() => $"({X}, {Y})";
-    }
-    public struct Color
-    {
-        public ConsoleColor Foreground { get; set; }
-        public ConsoleColor Background { get; set; }
-
-        public Color(ConsoleColor color)
-        {
-            Foreground = color;
-            Background = color;
-        }
-        public Color(ConsoleColor foreground, ConsoleColor background)
-        {
-            Foreground = foreground;
-            Background = background;
-        }
-
-        public static bool operator ==(Color a, Color b) => a.Foreground == b.Foreground && a.Background == b.Background;
-        public static bool operator !=(Color a, Color b) => a.Foreground != b.Foreground && a.Background != b.Background;
-
-        public override string ToString() => $"({Foreground}, {Background})";
-    }
-
     public enum Space
     {
         Absolute,
@@ -312,6 +265,48 @@ namespace CinemaUI
                 Items[i].Prefix = $"{i+1}. ";
                 Items[i].Suffix = suffix;
             }
+        }
+    }
+}
+
+namespace CinemaUI.Builder
+{
+    public interface IBuilder
+    {
+        public void Reset();
+    }
+
+    public class TextBuilder : IBuilder
+    {
+        private Paragraph _product { get; set; }
+        private Tuple<Window, UIElement, int, int, Space> _params { get; set; }
+
+        public void Reset()
+        {
+            this._product = new Paragraph(_params.Item1, _params.Item2, _params.Item3, _params.Item4, _params.Item5);
+        }
+
+        public TextBuilder(Window window, int x = 0, int y = 0)
+        {
+            this._params = new Tuple<Window, UIElement, int, int, Space>(window, null, x, y, Space.Absolute);
+            this.Reset();
+        }
+        public TextBuilder(Window window, UIElement parent, int x, int y, Space positionSpace)
+        {
+            this._params = new Tuple<Window, UIElement, int, int, Space>(window, parent, x, y, positionSpace);
+            this.Reset();
+        }
+
+        public SelectableTextBuilder Selectable(Color color) => new SelectableTextBuilder(_product, color);
+
+        public Paragraph Result(string text)
+        {
+            Paragraph result = this._product;
+            result.Text = text;
+
+            this.Reset();
+
+            return result;
         }
     }
 }
