@@ -136,7 +136,7 @@ namespace CinemaApplication
                 tabs[i] = movie.tab;
                 var navMenuReservation = Defaults.DefaultNavMenu(
                     movie.reservationTab,
-                    new string[] { "Hoofdmenu", "Terug naar films", $"Terug naar {movie.name}" },
+                    new string[] { "Hoofdmenu", "Terug naar films", $"Terug naar {(movie.name.Length > 12 ? movie.name.Substring(0, 12) + "..." : movie.name)}" },
                     new Tab[] { Screens.mainMenu, tab, movie.tab }
                     );
                 movie.LoadTimeSlots();
