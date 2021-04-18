@@ -2,27 +2,35 @@
 using System.Collections.Generic;
 using System.Text;
 using CinemaUI.Builder;
+using CinemaUI.Utility;
 
 namespace CinemaUI
 {
     public static class InputHandler
     {
-        public static Window ActiveWindow { get; set; }
+        internal static Dictionary<string, Tuple<int, int, string, Color>>  _bufferCache = new Dictionary<string, Tuple<int, int, string, Color>>();
+
+        public static List<Window> Windows = new List<Window>();
         public static void WaitForInput()
         {
-            ActiveWindow.Init();
-            ActiveWindow.Draw();
+            Window activeWindow = Windows?.Find(w => w.Active) ?? DefaultDialog();
+            activeWindow.Init();
+            activeWindow.Draw();
             while (true)
             {
-                ActiveWindow.Init();
-                var input = Console.ReadKey();
-                ActiveWindow.Draw();
+                activeWindow.Init();
+                activeWindow.ActiveSelectable.KeyResponse(Console.ReadKey());
+                _bufferCache = activeWindow.Buffer;
+                activeWindow.Draw();
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
         }
-        private static void DefaultDialog()
+        private static Window DefaultDialog()
         {
             Window defaultWindow = new Window(true);
             Paragraph _ = new TextBuilder(defaultWindow).Result("This is the default window. No other windows have been made.");
+            return defaultWindow;
         }
     }
 }

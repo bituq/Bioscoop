@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using CinemaUI.Utility;
-using CinemaUI.Selectable.Builder;
+using CinemaUI.Selectables.Builder;
+using CinemaUI.Selectables;
 
 namespace CinemaUI
 {
@@ -54,25 +55,29 @@ namespace CinemaUI
     {
 
         internal Dictionary<string, Tuple<int, int, string, Color>> Buffer { get; set; } = new Dictionary<string, Tuple<int, int, string, Color>>();
+        internal List<SelectableList> SelectionOrder { get; set; } = new List<SelectableList>();
+        internal SelectableList ActiveSelectable { get; set; }
 
         public Window(bool setAsActive = false)
         {
-            if (setAsActive)
-                InputHandler.ActiveWindow = this;
+            Active = setAsActive;
+            InputHandler.Windows.Add(this);
         }
 
         public void Draw()
         {
             foreach (Tuple<int, int, string, Color> cell in Buffer.Values)
             {
-                Console.SetCursorPosition(cell.Item1, cell.Item2);
-                Console.ForegroundColor = cell.Item4.Foreground;
-                Console.BackgroundColor = cell.Item4.Background;
-                Console.Write(cell.Item3);
+                    Console.SetCursorPosition(cell.Item1, cell.Item2);
+                    Console.ForegroundColor = cell.Item4.Foreground;
+                    Console.BackgroundColor = cell.Item4.Background;
+                    Console.Write(cell.Item3);
             }
         }
         public void Init()
         {
+            if (ActiveSelectable == null && SelectionOrder.Count != 0)
+                ActiveSelectable = SelectionOrder[0];
             foreach (UIElement child in Children)
             {
                 child.Init();
@@ -313,6 +318,46 @@ namespace CinemaUI.Builder
         {
             Paragraph result = this._product;
             result.Text = text;
+
+            this.Reset();
+
+            return result;
+        }
+    }
+
+    public class TextListBuilder : IBuilder
+    {
+        private TextList _product { get; set; }
+        private Tuple<Window, UIElement, int, int, Space> _params { get; set; }
+
+        public void Reset()
+        {
+            this._product = new TextList(_params.Item1, _params.Item2, _params.Item3, _params.Item4, _params.Item5);
+        }
+
+        public TextListBuilder(Window window, int x = 0, int y = 0)
+        {
+            this._params = new Tuple<Window, UIElement, int, int, Space>(window, null, x, y, Space.Absolute);
+            this.Reset();
+        }
+        public TextListBuilder(Window window, UIElement parent, int x, int y, Space positionSpace)
+        {
+            this._params = new Tuple<Window, UIElement, int, int, Space>(window, parent, x, y, positionSpace);
+            this.Reset();
+        }
+
+        public SelectableGroupBuilder Selectable(ConsoleColor textColor, Color selectionColor, bool useNumbers, params string[] items)
+        {
+            _product.TextColor = textColor;
+            _product.SetItems(items, useNumbers);
+            return new SelectableGroupBuilder(_product, selectionColor);
+        }
+
+        public TextList Result(ConsoleColor textColor, bool useNumbers, params string[] items)
+        {
+            _product.TextColor = textColor;
+            _product.SetItems(items, useNumbers);
+            TextList result = this._product;
 
             this.Reset();
 

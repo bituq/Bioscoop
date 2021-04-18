@@ -10,15 +10,12 @@ namespace CinemaApplication
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
-            var w1 = new Window();
-
-            var testTextBuilder = new TextBuilder(w1).Selectable(ConsoleColor.White, new Color(ConsoleColor.Blue));
-            var testText = testTextBuilder.Result("Hello world!");
-            w1.Init();
-            w1.Draw();
-            w1.Init();
-            testText.Select();
-            w1.Draw();
+            var w1 = new Window(true);
+            var testList = new TextListBuilder(w1, 5, 5)
+                .Selectable(ConsoleColor.White, new Color(ConsoleColor.White, ConsoleColor.DarkBlue), true,
+                "test1", "test2", "test3", "test4"
+                ).Result();
+            InputHandler.WaitForInput();
             Console.SetCursorPosition(0, 10);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.Black;
