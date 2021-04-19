@@ -19,21 +19,39 @@ namespace CinemaApplication
             for (int i = 0; i < movieNames.Length; i++)
             {
                 movieNames[i] = root[i].GetProperty("name").ToString();
-                Console.WriteLine($"{i + 1} : {movieNames[i]}");
+                Console.WriteLine($"{i} : {movieNames[i]}");
             }
 
 
-            Console.Write("\nMaak uw Keuze: ");
+            Console.Write("\nMake your choice: ");
             int movieNumber = Int32.Parse(Console.ReadLine());
             if (!root[movieNumber].Equals(null))
             {
+                Console.WriteLine("");
                 Console.WriteLine(
-                    $"Naam: {root[movieNumber].GetProperty("name")}\n" +
-                    $"Rating: {root[movieNumber].GetProperty("rating")}\n"
+                    $"{root[movieNumber].GetProperty("name")}\n\n" +
+                    $"   Duration: {root[movieNumber].GetProperty("duration")} minutes\n" +
+                    $"   Release Date: {root[movieNumber].GetProperty("releaseDate")}\n" +
+                    $"   Rating: {root[movieNumber].GetProperty("rating")}\n" +
+                    $"   Language: {root[movieNumber].GetProperty("language")}\n" +
+                    $"   Company: {root[movieNumber].GetProperty("company")}"
                     );
+                Console.WriteLine("   Genre(s):");
+                foreach (JsonElement genres in root[movieNumber].GetProperty("genres").EnumerateArray())
+                {
+                    
+                    Console.WriteLine($"\t{genres}");
+                }
+                Console.WriteLine("   Starring:");
+                foreach (JsonElement starring in root[movieNumber].GetProperty("starring").EnumerateArray())
+                {
+                    
+                    Console.WriteLine($"\t{starring}");
+                }
+
             }
             else
-                Console.WriteLine($"Film {movieNumber} bestaat niet!");
+                Console.WriteLine($"Film {movieNumber} does not exist!");
 
         }
     }
