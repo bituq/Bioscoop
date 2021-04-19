@@ -39,16 +39,17 @@ namespace CinemaApplication
                 Console.WriteLine("   Genre(s):");
                 foreach (JsonElement genres in root[movieNumber].GetProperty("genres").EnumerateArray())
                 {
-                    
+
                     Console.WriteLine($"\t{genres}");
                 }
                 Console.WriteLine("   Starring:");
                 foreach (JsonElement starring in root[movieNumber].GetProperty("starring").EnumerateArray())
                 {
-                    
+
                     Console.WriteLine($"\t{starring}");
                 }
-
+                Console.WriteLine("   Description:");
+                Console.WriteLine($"   {root[movieNumber].GetProperty("description")}");
             }
             else
                 Console.WriteLine($"Film {movieNumber} does not exist!");
