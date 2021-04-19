@@ -14,7 +14,9 @@ namespace CinemaApplication
             JsonDocument doc = JsonDocument.Parse(movies);
             JsonElement root = doc.RootElement;
 
-
+            Console.ForegroundColor
+             = ConsoleColor.DarkMagenta;
+      
             string[] movieNames = new string[root.GetArrayLength()];
             for (int i = 0; i < movieNames.Length; i++)
             {
@@ -27,6 +29,8 @@ namespace CinemaApplication
             int movieNumber = Int32.Parse(Console.ReadLine());
             if (!root[movieNumber].Equals(null))
             {
+                Console.ForegroundColor
+                 = ConsoleColor.Green;
                 Console.WriteLine("");
                 Console.WriteLine(
                     $"{root[movieNumber].GetProperty("name")}\n\n" +
@@ -53,6 +57,9 @@ namespace CinemaApplication
             }
             else
                 Console.WriteLine($"Film {movieNumber} does not exist!");
+           
+            Console.ForegroundColor
+             = ConsoleColor.White;
 
         }
     }
