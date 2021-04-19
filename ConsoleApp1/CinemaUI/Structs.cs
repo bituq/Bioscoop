@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CinemaUI.Utility
+namespace CinemaUI
 {
     public struct Point
     {

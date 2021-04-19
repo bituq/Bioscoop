@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using CinemaUI.Builder;
-using CinemaUI.Utility;
 
 namespace CinemaUI
 {
@@ -13,12 +12,12 @@ namespace CinemaUI
         public static List<Window> Windows = new List<Window>();
         public static void WaitForInput()
         {
+            Console.CursorVisible = false;
             Window activeWindow = Windows?.Find(w => w.Active) ?? DefaultDialog();
             activeWindow.Init();
             activeWindow.Draw();
             while (true)
             {
-                activeWindow.Init();
                 activeWindow.ActiveSelectable.KeyResponse(Console.ReadKey());
                 _bufferCache = activeWindow.Buffer;
                 activeWindow.Draw();
