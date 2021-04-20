@@ -6,6 +6,71 @@ namespace CinemaApplication
 {
     class Program
     {
+        public static Tuple<string, string>[] GetAllMovies(string category)
+        {
+            var slotFile = File.ReadAllText("Movies.json");
+            JsonDocument timeSlotsDoc = JsonDocument.Parse(slotFile);
+            var movies = timeSlotsDoc.RootElement.EnumerateArray();
+
+            int amountOfMovies = 0;
+
+            foreach (var movie in movies)
+            {
+                amountOfMovies++;
+            }
+            Tuple<string, string>[] movieArr = new Tuple<string, string>[amountOfMovies];
+            int index = 0;
+
+            foreach (var movie in movies)
+            {
+                movieArr[index++] = new Tuple<string, string>(movie.GetProperty("name").ToString(), movie.GetProperty(category).ToString());
+            }
+            return movieArr;
+        }
+        public static string[] FilterByName(Tuple<string,string>[] arr, string part) 
+        {
+            int size = 0;
+            for (int i = 0; i < arr.Length; i++)
+			{
+                if (arr[i].Item2.ToLower().Contains(part.ToLower()))
+                {
+                    size++;
+                }
+			}
+            string[] newArr = new string[size];
+
+            for (int i = 0, index = 0; i < arr.Length; i++)
+			{
+                if (arr[i].Item2.ToLower().Contains(part.ToLower()))
+                {
+                    newArr[index++] = arr[i].Item1;
+                }
+			}
+            return newArr;
+        }
+
+        public static string[] FilterMovies(string[] arr, string part, string category)
+        {
+            int size = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i].ToLower().Contains(part.ToLower()))
+                {
+                    size++;
+                }
+            }
+            string[] newArr = new string[size];
+
+            for (int i = 0, index = 0; i < arr.Length; i++)
+            {
+                if (arr[i].ToLower().Contains(part.ToLower()))
+                {
+                    newArr[index++] = arr[i];
+                }
+            }
+            return newArr;
+        }
+
         public static DateTime UnixToDate(int unix) 
         {
             DateTime date = DateTime.UnixEpoch;
@@ -61,7 +126,7 @@ namespace CinemaApplication
                 if (name == (movie.GetProperty("name").ToString()))
                 {
                     // show movie information
-                    Console.WriteLine("Name: " + movie.GetProperty("name").ToString());
+                    // Console.WriteLine("Name: " + movie.GetProperty("name").ToString());
                     /*
                     Console.WriteLine(SecondsToTime(movie.GetProperty("duration")));
                     Console.WriteLine(UnixToDate(movie.GetProperty("releaseDate").GetInt32()).ToString("d MMMM yyyy")); // is in unix
@@ -75,7 +140,7 @@ namespace CinemaApplication
 
                     // show timeslot information
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Choose your time");
+                    Console.WriteLine("At what time would you like to see the movie?");
                     Console.ResetColor();
 
                     JsonElement[] timeslotArray = GetTimeSlots(name);
@@ -98,13 +163,19 @@ namespace CinemaApplication
                             Console.BackgroundColor = ConsoleColor.White;
                         }
                         // text
-                        Console.WriteLine(timeslot.GetProperty("time"));
+                        Console.WriteLine("- " + timeslot.GetProperty("time"));
                         Console.ResetColor();
                     }
-                    Console.WriteLine("BACK");
+                    Console.WriteLine("Movies: ");
+                    string[] list = FilterByName(GetAllMovies("language"), "german");
+                    for (int i = 0; i < list.Length; i++)
+                    {
+                        Console.WriteLine(list[i]);
+                    }
                 }
             }
         }
+
         static void Main(string[] args)
         {
             bool firstRun = true;
@@ -122,5 +193,7 @@ namespace CinemaApplication
                 Draw(movieName, keyInfo.Key);
             }
         }
+
+
     }
 }
