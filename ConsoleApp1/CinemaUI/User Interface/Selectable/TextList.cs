@@ -46,13 +46,24 @@ namespace CinemaUI
                     Unselect();
                     TextList.Window.ActiveSelectable.Select();
                     break;
+                case ConsoleKey.Enter:
+                    if (activeItem.Referral != null)
+                    {
+                        Unselect();
+                        Console.Clear();
+                        TextList.Window.Active = false;
+                        activeItem.Referral.Active = true;
+                    }
+                    break;
             }
         }
 
         public override void Unselect()
         {
+            var activeItem = Items.Find(item => item.Selected);
             Selected = false;
-            Items.Find(item => item.Selected).Unselect();
+            if (activeItem != null)
+                activeItem.Unselect();
         }
         public override void Select()
         {
@@ -81,6 +92,13 @@ namespace CinemaUI.Builder
         {
             this._params = new Tuple<TextList, Color>(textList, color);
             this.Reset();
+        }
+
+        public SelectableGroupBuilder LinkWindows(params Window[] windows)
+        {
+            for (int i = 0; i < Math.Min(_product.Items.Count, windows.Length); i++)
+                _product.Items[i].Referral = windows[i];
+            return this;
         }
         public SelectableList Result()
         {

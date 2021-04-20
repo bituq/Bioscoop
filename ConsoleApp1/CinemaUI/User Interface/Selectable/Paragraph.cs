@@ -7,8 +7,8 @@ namespace CinemaUI
     public class SelectableText : Selectable
     {
         internal ConsoleColor _defaultTextColor;
-        private Window _redirect { get; set; }
         private Paragraph _paragraph { get; set; }
+        internal Window Referral { get; set; }
         public string Text
         {
             get => _paragraph.Text;
