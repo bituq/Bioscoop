@@ -59,9 +59,14 @@ namespace CinemaUI.Builder
             this.Reset();
         }
 
-        public SelectableGroupBuilder Selectable(ConsoleColor textColor, Color selectionColor, bool useNumbers, params string[] items)
+        public TextListBuilder Color(ConsoleColor textColor)
         {
             _product.TextColor = textColor;
+            return this;
+        }
+
+        public SelectableGroupBuilder Selectable(Color selectionColor, bool useNumbers, params string[] items)
+        {
             _product.SetItems(items, useNumbers);
             return new SelectableGroupBuilder(_product, selectionColor);
         }

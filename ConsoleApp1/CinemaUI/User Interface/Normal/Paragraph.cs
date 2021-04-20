@@ -32,7 +32,7 @@ namespace CinemaUI
                 if (Text[i] == '\n')
                 {
                     Window.CreateCell(point.ToString(), Tuple.Create(offset, line, " ", color));
-                    offset = 0;
+                    offset = Position.X;
                     line++;
                 }
                 else
@@ -72,6 +72,12 @@ namespace CinemaUI.Builder
         {
             _product.TextColor = textColor;
             return new SelectableTextBuilder(_product, selectionColor);
+        }
+
+        public TextBuilder Color(ConsoleColor textColor)
+        {
+            _product.TextColor = textColor;
+            return this;
         }
 
         public Paragraph Result(string text)

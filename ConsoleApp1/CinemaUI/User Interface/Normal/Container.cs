@@ -22,14 +22,10 @@ namespace CinemaUI
         }
         public Color Color { get; set; } = new Color(ConsoleColor.White, ConsoleColor.Black);
 
-        public Container(Window window, int x = 0, int y = 0, int width = 1, int height = 1) : base(window, x, y)
-        {
-            Size = new Point(width, height);
-        }
-        public Container(Window window, UIElement parent, int x = 0, int y = 0, int width = 1, int height = 1, Space positionSpace = Space.Absolute, Space scaleSpace = Space.Absolute) : base(window, parent, x, y, positionSpace)
+        public Container(Window window, int x = 0, int y = 0) : base(window, x, y) { }
+        public Container(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute, Space scaleSpace = Space.Absolute) : base(window, parent, x, y, positionSpace)
         {
             ScaleSpace = scaleSpace;
-            Size = new Point(width, height);
         }
 
         public override void Init()
@@ -50,29 +46,39 @@ namespace CinemaUI.Builder
     public class ContainerBuilder : IBuilder
     {
         private Container _product { get; set; }
-        private Tuple<Window, UIElement, int, int, int, int, Space, Space> _params { get; set; }
+        private Tuple<Window, UIElement, int, int, Space, Space> _params { get; set; }
 
         public void Reset()
         {
-            this._product = new Container(_params.Item1, _params.Item2, _params.Item3, _params.Item4, _params.Item5, _params.Item6, _params.Item7);
+            this._product = new Container(_params.Item1, _params.Item2, _params.Item3, _params.Item4, _params.Item5, _params.Item6);
         }
 
-        public ContainerBuilder(Window window, int x = 0, int y = 0, int width = 1, int height = 1)
+        public ContainerBuilder(Window window, int x = 0, int y = 0)
         {
-            this._params = new Tuple<Window, UIElement, int, int, int, int, Space, Space>(window, null, x, y, width, height, Space.Absolute, Space.Absolute);
+            this._params = new Tuple<Window, UIElement, int, int, Space, Space>(window, null, x, y, Space.Absolute, Space.Absolute);
             this.Reset();
         }
-        public ContainerBuilder(Window window, UIElement parent, int x = 0, int y = 0, int width = 1, int height = 1, Space positionSpace = Space.Absolute, Space scaleSpace = Space.Absolute)
+        public ContainerBuilder(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute, Space scaleSpace = Space.Absolute)
         {
-            this._params = new Tuple<Window, UIElement, int, int, int, int, Space, Space>(window, parent, x, y, width, height, positionSpace, scaleSpace);
+            this._params = new Tuple<Window, UIElement, int, int, Space, Space>(window, parent, x, y, positionSpace, scaleSpace);
             this.Reset();
         }
 
-        public Container Result(string text)
+        public ContainerBuilder Size(int width, int height)
+        {
+            _product.Size = new Point(width, height);
+            return this;
+        }
+
+        public ContainerBuilder Color(ConsoleColor background)
+        {
+            _product.Color = new Color(background);
+            return this;
+        }
+
+        public Container Result()
         {
             Container result = this._product;
-
-            this.Reset();
 
             return result;
         }

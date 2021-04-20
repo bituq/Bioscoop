@@ -16,7 +16,7 @@ namespace CinemaUI
         private UIElement _parent { get; set; }
         private Window _window { get; set; }
 
-        protected UIElement Parent
+        public UIElement Parent
         {
             get => _parent;
             set

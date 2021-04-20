@@ -24,7 +24,8 @@ namespace CinemaUI
                 activeWindow.Draw();
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.Black;
-                activeWindow.ActiveSelectable.KeyResponse(Console.ReadKey());
+                if (activeWindow.SelectionOrder.Count != 0)
+                    activeWindow.ActiveSelectable.KeyResponse(Console.ReadKey());
                 _bufferCache = activeWindow.Buffer;
             }
         }
