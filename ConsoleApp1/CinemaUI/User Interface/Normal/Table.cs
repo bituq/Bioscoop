@@ -74,13 +74,13 @@ namespace CinemaUI.Builder
             {
                 for (int rowIndex = 0; rowIndex < _product.Items.Count; rowIndex++)
                 {
-                    var adjustment = Tuple.Create(_product.Position.X + (MaxLengthPerColumn[colIndex] + 2) * colIndex, _product.Position.Y + rowIndex + 2);
+                    var adjustment = Tuple.Create(_product.Position.X + (MaxLengthPerColumn[colIndex] + 0) * colIndex, _product.Position.Y + rowIndex + 2);
                     result.Items[rowIndex][colIndex].Position = new Point(adjustment.Item1, adjustment.Item2);
                 }
-                result.Headers[colIndex].Position = new Point(_product.Position.X + (MaxLengthPerColumn[colIndex] + 2) * colIndex, _product.Position.Y);
+                result.Headers[colIndex].Position = new Point(_product.Position.X + (MaxLengthPerColumn[colIndex] + 0) * colIndex, _product.Position.Y);
             }
 
-            this.Reset();
+            //this.Reset();
 
             return result;
         }
