@@ -21,6 +21,15 @@ namespace CinemaUI
         public Paragraph(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute) : base(window, parent, x, y, positionSpace) { }
 
         public override void Init() => ChangeTextCells(TextColor, ConsoleColor.Black);
+        public void Reset()
+        {
+            int len = Text.Length;
+            Text = "";
+            for (int i = 0; i < len; i++)
+                Text += " ";
+            ChangeTextCells(TextColor, ConsoleColor.Black);
+            Text = "";
+        }
         public void ChangeTextCells(ConsoleColor foreground, ConsoleColor background, bool overwrite = false)
         {
             int line = Position.Y;

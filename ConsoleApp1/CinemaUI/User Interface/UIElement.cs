@@ -4,12 +4,25 @@ using System.IO;
 
 namespace CinemaUI
 {
+    /* TO DO:
+     * - Add ability to link selectable paragraph with text list.
+     * - Update Table to consist of textlists instead.
+     * - Fix consistency of builder declaration. (i.e. text string and items string[] in .Result())
+     * - Fix selectable paragraph builder asking for textColor
+     * - Fix bugs on textinput
+     * - Store result of textinput into a variable
+     */
+
     public enum Space
     {
         Absolute,
         Relative
     }
-
+    public enum Direction
+    {
+        Vertical,
+        Horizontal
+    }
     public class UIElement : Instance
     {
         private Point _position { get; set; }

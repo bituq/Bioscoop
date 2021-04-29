@@ -71,6 +71,12 @@ namespace CinemaUI.Builder
             return new SelectableGroupBuilder(_product, selectionColor);
         }
 
+        public TextInputListBuilder AsInput(Color color, params string[] items)
+        {
+            this._product.SetItems(items);
+            return new TextInputListBuilder(this._product, color);
+        }
+
         public TextList Result(ConsoleColor textColor, bool useNumbers, params string[] items)
         {
             _product.TextColor = textColor;

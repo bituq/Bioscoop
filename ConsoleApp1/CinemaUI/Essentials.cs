@@ -45,8 +45,11 @@ namespace CinemaUI
     public class Window : Instance
     {
         internal Dictionary<string, Tuple<int, int, string, Color>> Buffer { get; set; } = new Dictionary<string, Tuple<int, int, string, Color>>();
-        internal List<SelectableList> SelectionOrder { get; set; } = new List<SelectableList>();
-        internal SelectableList ActiveSelectable { get; set; }
+        internal List<Selectable> SelectionOrder { get; set; } = new List<Selectable>();
+        internal Selectable ActiveSelectable { get; set; }
+        internal Point FinalCursorPosition { get; set; }
+        public Dictionary<string, string> Variables { get; set; } = new Dictionary<string, string>();
+        public Action ReadLine { get; set; } = () => { };
 
         public Window(bool setAsActive = false)
         {
@@ -63,18 +66,17 @@ namespace CinemaUI
                     Console.BackgroundColor = cell.Item4.Background;
                     Console.Write(cell.Item3);
             }
+            ReadLine();
+            Console.SetCursorPosition(FinalCursorPosition.X, FinalCursorPosition.Y);
         }
         public void Init()
         {
+            Console.CursorVisible = false;
             if (ActiveSelectable == null && SelectionOrder.Count != 0)
-            {
-                ActiveSelectable = SelectionOrder[0];
-            }
+                SelectionOrder[0].Select();
+
             foreach (UIElement child in Children)
-            {
                 child.Init();
-            }
-            ActiveSelectable?.Items?.Find(item => item.Selected)?.Select();
         }
         internal void CreateCell(string key, Tuple<int, int, string, Color> value) => Buffer[key] = value;
     }

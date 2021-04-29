@@ -8,8 +8,7 @@ namespace CinemaUI
     {
         internal TextList TextList { get; set; }
         internal List<SelectableText> Items { get; set; } = new List<SelectableText>();
-        private int OrderIndex { get => TextList.Window.SelectionOrder.IndexOf(this); }
-        protected int PriorityIndex { get; set; } = 0;
+        internal int OrderIndex { get => TextList.Window.SelectionOrder.IndexOf(this); }
 
         public ConsoleColor Foreground { get; set; }
         public ConsoleColor Background { get; set; }
@@ -21,7 +20,41 @@ namespace CinemaUI
             Background = color.Background;
         }
 
-        public void KeyResponse(ConsoleKeyInfo keyPressed)
+        private void UpArrow(SelectableText activeItem, int index)
+        {
+            activeItem.Unselect();
+            Items[index == 0 ? Items.Count - 1 : index - 1].Select();
+        }
+        private void DownArrow(SelectableText activeItem, int index)
+        {
+            activeItem.Unselect();
+            Items[index == Items.Count - 1 ? 0 : index + 1].Select();
+        }
+        private void LeftArrow(List<Selectable> selectionOrder)
+        {
+            TextList.Window.ActiveSelectable = selectionOrder[OrderIndex == 0 ? OrderIndex : OrderIndex - 1];
+            Unselect();
+            TextList.Window.ActiveSelectable.Select();
+        }
+        private void RightArrow(List<Selectable> selectionOrder)
+        {
+            TextList.Window.ActiveSelectable = selectionOrder[OrderIndex == selectionOrder.Count - 1 ? OrderIndex : OrderIndex + 1];
+            Unselect();
+            TextList.Window.ActiveSelectable.Select();
+        }
+        private void Enter(SelectableText activeItem)
+        {
+            if (activeItem.Referral != null)
+            {
+                Unselect();
+                Console.Clear();
+                TextList.Window.Active = false;
+                activeItem.Referral.Active = true;
+                activeItem.Referral.ActiveSelectable.Select();
+            }
+        }
+
+        public override void KeyResponse(ConsoleKeyInfo keyPressed)
         {
             var selectionOrder = TextList.Window.SelectionOrder;
             var activeItem = Items.Find(item => item.Selected) ?? Items[0];
@@ -29,31 +62,19 @@ namespace CinemaUI
             switch (keyPressed.Key)
             {
                 case ConsoleKey.UpArrow:
-                    activeItem.Unselect();
-                    Items[index == 0 ? Items.Count - 1 : index - 1].Select();
+                    UpArrow(activeItem, index);
                     break;
                 case ConsoleKey.DownArrow:
-                    activeItem.Unselect();
-                    Items[index == Items.Count - 1 ? 0 : index + 1].Select();
+                    DownArrow(activeItem, index);
                     break;
                 case ConsoleKey.LeftArrow:
-                    TextList.Window.ActiveSelectable = selectionOrder[OrderIndex == 0 ? OrderIndex : OrderIndex - 1];
-                    Unselect();
-                    TextList.Window.ActiveSelectable.Select();
+                    LeftArrow(selectionOrder);
                     break;
                 case ConsoleKey.RightArrow:
-                    TextList.Window.ActiveSelectable = selectionOrder[OrderIndex == selectionOrder.Count - 1 ? OrderIndex : OrderIndex + 1];
-                    Unselect();
-                    TextList.Window.ActiveSelectable.Select();
+                    RightArrow(selectionOrder);
                     break;
                 case ConsoleKey.Enter:
-                    if (activeItem.Referral != null)
-                    {
-                        Unselect();
-                        Console.Clear();
-                        TextList.Window.Active = false;
-                        activeItem.Referral.Active = true;
-                    }
+                    Enter(activeItem);
                     break;
             }
         }

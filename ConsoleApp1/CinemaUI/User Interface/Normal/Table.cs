@@ -45,7 +45,7 @@ namespace CinemaUI.Builder
             Paragraph par;
             for (int i = 0; i < arr.Length; i++)
             {
-                MaxLengthPerColumn.Add(arr[i].Length);
+                MaxLengthPerColumn.Add(Int32.MinValue);
                 par = new TextBuilder(_product.Window, _product.Position.X + (MaxLengthPerColumn[i] + 2) * i, _product.Position.Y).Result(arr[i]);
                 par.TextColor = textColor;
                 _product.Headers.Add(par);
@@ -63,21 +63,28 @@ namespace CinemaUI.Builder
 
         public Table Result(ConsoleColor textColor)
         {
+            int spacing = 2;
             _product.TextColor = textColor;
             Table result = this._product;
             for (int colIndex = 0; colIndex < _product.Headers.Count; colIndex++)
                 for (int rowIndex = 0; rowIndex < _product.Items.Count; rowIndex++)
-                    if (_product.Items[rowIndex][colIndex].Text.Length > MaxLengthPerColumn[colIndex])
-                        MaxLengthPerColumn[colIndex] = _product.Items[rowIndex][colIndex].Text.Length;
-
+                    MaxLengthPerColumn[colIndex] = Math.Max(
+                        _product.Items[rowIndex][colIndex].Text.Length,
+                        Math.Max(
+                            _product.Headers[colIndex].Text.Length,
+                            MaxLengthPerColumn[colIndex]
+                            )
+                        );
+            int s;
             for (int colIndex = 0; colIndex < _product.Headers.Count; colIndex++)
             {
+                s = colIndex == 0 ? 0 : spacing * colIndex;
                 for (int rowIndex = 0; rowIndex < _product.Items.Count; rowIndex++)
                 {
-                    var adjustment = Tuple.Create(_product.Position.X + (MaxLengthPerColumn[colIndex] + 0) * colIndex, _product.Position.Y + rowIndex + 2);
-                    result.Items[rowIndex][colIndex].Position = new Point(adjustment.Item1, adjustment.Item2);
+                    var adjustment = Tuple.Create(_product.Position.X + (MaxLengthPerColumn[Math.Max(colIndex - 1, 0)]) * colIndex, _product.Position.Y + rowIndex + 2);
+                    result.Items[rowIndex][colIndex].Position = new Point(adjustment.Item1 + s, adjustment.Item2);
                 }
-                result.Headers[colIndex].Position = new Point(_product.Position.X + (MaxLengthPerColumn[colIndex] + 0) * colIndex, _product.Position.Y);
+                result.Headers[colIndex].Position = new Point(_product.Position.X + (MaxLengthPerColumn[Math.Max(colIndex - 1, 0)] * colIndex) + s, _product.Position.Y);
             }
 
             //this.Reset();
