@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CinemaUI
 {
-    class TextInput : Selectable
+    public class TextInput : Selectable
     {
         private Paragraph Paragraph { get; set; }
         public bool IsActive { get; set; } = false;
@@ -23,6 +23,7 @@ namespace CinemaUI
             Paragraph = paragraph;
             Foreground = color.Foreground;
             Background = color.Background;
+            Window.Variables[Key] = "";
         }
 
         public override void Unselect()

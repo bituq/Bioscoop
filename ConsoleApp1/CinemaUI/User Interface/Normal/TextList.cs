@@ -29,7 +29,8 @@ namespace CinemaUI
                 Items.Add(new Paragraph(Window, Position.X, Position.Y + i));
                 Items[i].TextColor = TextColor;
                 Items[i].Text = arr[i];
-                Items[i].Prefix = $"{i + 1}. ";
+                if (UseNumbers)
+                    Items[i].Prefix = $"{i + 1}. ";
                 Items[i].Suffix = suffix;
             }
         }

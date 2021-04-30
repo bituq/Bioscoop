@@ -49,6 +49,7 @@ namespace CinemaUI
         internal Selectable ActiveSelectable { get; set; }
         internal Point FinalCursorPosition { get; set; }
         public Dictionary<string, string> Variables { get; set; } = new Dictionary<string, string>();
+        private Dictionary<TextInput, Paragraph> LinkedVariables { get; set; } = new Dictionary<TextInput, Paragraph>();
         public Action ReadLine { get; set; } = () => { };
 
         public Window(bool setAsActive = false)
@@ -57,8 +58,15 @@ namespace CinemaUI
             InputHandler.Windows.Add(this);
         }
 
+        public void LinkTextInput(TextInput textInput, Paragraph paragraph) => LinkedVariables[textInput] = paragraph;
         public void Draw()
         {
+            foreach (TextInput key in LinkedVariables.Keys)
+            {
+                LinkedVariables[key].Reset();
+                LinkedVariables[key].Text = Variables[key.Key];
+                LinkedVariables[key].Init();
+            }
             foreach (Tuple<int, int, string, Color> cell in Buffer.Values)
             {
                     Console.SetCursorPosition(cell.Item1, cell.Item2);
