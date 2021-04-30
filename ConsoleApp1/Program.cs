@@ -25,13 +25,12 @@ namespace CinemaApplication
             }
 
 
-            Console.Write("\nMake your choice: ");
+            Console.Write("\nMake your choice: \n");
             int movieNumber = Int32.Parse(Console.ReadLine());
             if (!root[movieNumber].Equals(null))
             {
                 Console.ForegroundColor
                  = ConsoleColor.Green;
-                Console.WriteLine("");
                 Console.WriteLine(
                     $"{root[movieNumber].GetProperty("name")}\n\n" +
                     $"   Duration: {root[movieNumber].GetProperty("duration")} minutes\n" +
@@ -40,18 +39,19 @@ namespace CinemaApplication
                     $"   Language: {root[movieNumber].GetProperty("language")}\n" +
                     $"   Company: {root[movieNumber].GetProperty("company")}"
                     );
+
                 Console.WriteLine("   Genre(s):");
                 foreach (JsonElement genres in root[movieNumber].GetProperty("genres").EnumerateArray())
                 {
-
                     Console.WriteLine($"\t{genres}");
                 }
+
                 Console.WriteLine("   Starring:");
                 foreach (JsonElement starring in root[movieNumber].GetProperty("starring").EnumerateArray())
                 {
-
                     Console.WriteLine($"\t{starring}");
                 }
+
                 Console.WriteLine("   Description:");
                 Console.WriteLine($"   {root[movieNumber].GetProperty("description")}");
             }
