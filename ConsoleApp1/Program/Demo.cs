@@ -4,10 +4,10 @@ using System.Text;
 using CinemaUI;
 using CinemaUI.Builder;
 
-namespace CinemaApplication.Program
+namespace CinemaApplication
 {
     partial class Program
     {
-        public static Window listOfMovies = new Window();
+
     }
 }

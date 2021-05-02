@@ -7,9 +7,37 @@ using CinemaUI.Builder;
 
 namespace CinemaApplication
 {
+    public class Movie
+    {
+        public Window Window = new Window();
+        public string Name { get; set; }
+
+        public Movie(string name, string duration, string releaseDate)
+        {
+            Name = name;
+            var title = new TextBuilder(Window, 3, 3)
+                .Color(ConsoleColor.Red)
+                .Result($"This is {name}");
+
+            var description = new TextBuilder(Window, 3, 4)
+                .Color(ConsoleColor.DarkGray)
+                .Result($"This is a description for {name}.");
+
+            var information = new TextListBuilder(Window, 3, 6)
+                .Color(ConsoleColor.White)
+                .Result(false, duration, releaseDate);
+
+            var _ = new TextListBuilder(Window, 3, 16)
+                .Color(ConsoleColor.White)
+                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), false, "Go back")
+                .LinkWindows(Program.listOfFilms)
+                .Result();
+        }
+    }
+
     partial class Program
     {
-        public static Window listOfFilms = new Window();
+        public static Window listOfFilms = new Window(false);
         static void ListOfFilms()
         {
             var movies = File.ReadAllText("Movies.json");
@@ -19,17 +47,27 @@ namespace CinemaApplication
 
             Console.ForegroundColor
              = ConsoleColor.DarkMagenta;
-      
+
+            var movieObjects = new Movie[root.GetArrayLength()];
+            var movieWindows = new Window[movieObjects.Length];
             string[] movieNames = new string[root.GetArrayLength()];
             for (int i = 0; i < movieNames.Length; i++)
             {
-                movieNames[i] = root[i].GetProperty("name").ToString();
-                Console.WriteLine($"{i} : {movieNames[i]}");
+                movieObjects[i] = new Movie(
+                    root[i].GetProperty("name").ToString(),
+                    $"Duration: {root[i].GetProperty("duration")} minutes",
+                    $"Release Date: {root[i].GetProperty("releaseDate")}"
+                    );
+                movieWindows[i] = movieObjects[i].Window;
+                movieNames[i] = movieObjects[i].Name;
+                //Console.WriteLine($"{i} : {movieNames[i]}");
             }
-
-
-            Console.Write("\nMake your choice: \n");
-            int movieNumber = Int32.Parse(Console.ReadLine());
+            var movieList = new TextListBuilder(listOfFilms, 4, 4)
+                .Color(ConsoleColor.DarkMagenta)
+                .Selectable(new Color(ConsoleColor.Cyan, ConsoleColor.DarkMagenta), true, movieNames)
+                .LinkWindows(movieWindows)
+                .Result();
+            /*
             if (!root[movieNumber].Equals(null))
             {
                 Console.ForegroundColor
@@ -63,6 +101,7 @@ namespace CinemaApplication
            
             Console.ForegroundColor
              = ConsoleColor.White;
+            */
         }
     }
 

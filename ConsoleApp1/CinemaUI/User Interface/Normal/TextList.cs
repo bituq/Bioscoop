@@ -78,9 +78,8 @@ namespace CinemaUI.Builder
             return new TextInputListBuilder(this._product, color);
         }
 
-        public TextList Result(ConsoleColor textColor, bool useNumbers, params string[] items)
+        public TextList Result(bool useNumbers, params string[] items)
         {
-            _product.TextColor = textColor;
             _product.SetItems(items, useNumbers);
             TextList result = this._product;
 

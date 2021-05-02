@@ -22,7 +22,7 @@ namespace CinemaApplication
             var menu = new TextListBuilder(mainMenu, 2, 5)
                 .Color(ConsoleColor.White)
                 .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), true, "Demonstratie", "Item 2", "Item 3")
-                .LinkWindows(listOfFilms)
+                .LinkWindows(null, listOfFilms)
                 .Result();
 
             var inputMenu = new TextListBuilder(mainMenu, 40, 5)
@@ -31,7 +31,7 @@ namespace CinemaApplication
                 .Result();
 
             var res = new TextListBuilder(mainMenu, 2, 10)
-                .Result(ConsoleColor.Yellow, false, "First Name:", "Last Name:");
+                .Result(false, "First Name:", "Last Name:");
 
             for (int i = 0; i < res.Items.Count; i++)
             {
@@ -45,10 +45,11 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
-            //MainMenu();
+            MainMenu();
             ListOfFilms();
+            //Demo();
 
-            //InputHandler.WaitForInput();
+            InputHandler.WaitForInput();
         }
     }
 }
