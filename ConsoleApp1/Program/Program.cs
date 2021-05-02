@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CinemaApplication
 {
-    class Program
+    partial class Program
     {
         static Window mainMenu = new Window(true);
         static void MainMenu()
