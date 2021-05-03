@@ -52,6 +52,7 @@ namespace CinemaUI
         }
         private void Enter(SelectableText activeItem)
         {
+            activeItem.OnClick();
             if (activeItem.Referral != null)
             {
                 Unselect();

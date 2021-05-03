@@ -63,20 +63,24 @@ namespace CinemaApplication
                 .AsInput(ConsoleColor.White, ConsoleColor.DarkRed)
                 .Result();
 
-            testList.OnChange = () =>
+            var doneButton = new TextListBuilder(startScreen, 22, 7)
+                .SetItems("Klaar")
+                .Color(ConsoleColor.DarkGreen)
+                .Selectable(ConsoleColor.Green, ConsoleColor.DarkGray)
+                .Result();
+
+            doneButton.Items[0].OnClick = () =>
             {
                 if (!testList.Items.Exists(item => item.Value == ""))
                 {
-                    var huizen2 = new List<House>(huizen);
+                    huizen.Add(new House(testList[0].Value, testList[1].Value, testList[2].Value, testList[3].Value));
 
-                    huizen2.Add(new House(testList[0].Value, testList[1].Value, testList[2].Value, testList[3].Value));
-
-                    var huisNamen = new string[huizen2.Count];
-                    var huisSchermen = new Window[huizen2.Count];
-                    for (int i = 0; i < huizen2.Count; i++)
+                    var huisNamen = new string[huizen.Count];
+                    var huisSchermen = new Window[huizen.Count];
+                    for (int i = 0; i < huizen.Count; i++)
                     {
                         huisNamen[i] = $"Huisnummer {i + 1}";
-                        huisSchermen[i] = huizen2[i].window;
+                        huisSchermen[i] = huizen[i].window;
                     }
 
                     huizenLijst.Replace(new TextListBuilder(startScreen, 2, 2)
