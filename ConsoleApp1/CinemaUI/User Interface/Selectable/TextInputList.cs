@@ -19,6 +19,8 @@ namespace CinemaUI
         public Action OnChange { get; set; } = () => { };
         private bool AfterSelection { get; set; } = false;
 
+        public TextInput this[int index] { get => Items[index]; }
+
         private void UpArrow(TextInput activeItem, int index)
         {
             activeItem.Unselect();

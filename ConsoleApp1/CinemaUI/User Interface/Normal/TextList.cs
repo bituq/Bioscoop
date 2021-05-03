@@ -38,6 +38,7 @@ namespace CinemaUI
                 if (UseNumbers)
                     Items[i].Prefix = $"{i + 1}. ";
                 Items[i].Suffix = suffix;
+                Items[i].Init();
             }
         }
     }

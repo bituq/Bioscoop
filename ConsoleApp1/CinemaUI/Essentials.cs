@@ -6,7 +6,7 @@ namespace CinemaUI
 {
     public class Instance
     {
-        private bool _active { get; set; }
+        private bool _active { get; set; } = true;
         private List<UIElement> _children = new List<UIElement>();
 
         public virtual Point Position { get; set; }
