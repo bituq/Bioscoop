@@ -20,6 +20,14 @@ namespace CinemaUI
             Background = color.Background;
         }
 
+        public void Replace(SelectableList selectable)
+        {
+            TextList.Window.SelectionOrder.Remove(selectable);
+            TextList.Replace(selectable.TextList);
+            Foreground = selectable.Foreground;
+            Background = selectable.Background;
+            Items = selectable.Items;
+        }
         private void UpArrow(SelectableText activeItem, int index)
         {
             activeItem.Unselect();
@@ -91,6 +99,13 @@ namespace CinemaUI
             Selected = true;
             TextList.Window.ActiveSelectable = this;
             Items[0].Select();
+        }
+
+        public void SetOrder(int index) => TextList.Window.SelectionOrder[index] = this;
+
+        public void Reset()
+        {
+            TextList.Window.SelectionOrder.Remove(this);
         }
     }
 }

@@ -16,6 +16,8 @@ namespace CinemaUI
             TextList = textList;
             ActiveColor = activeColor;
         }
+        public Action OnChange { get; set; } = () => { };
+        private bool Busy { get; set; } = false;
 
         private void UpArrow(TextInput activeItem, int index)
         {
@@ -53,26 +55,25 @@ namespace CinemaUI
             switch (keyPressed.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (!selectedItem.IsActive)
+                    if (!Busy)
                         UpArrow(selectedItem, selectedIndex);
                     break;
                 case ConsoleKey.DownArrow:
-                    if (!selectedItem.IsActive)
+                    if (!Busy)
                         DownArrow(selectedItem, selectedIndex);
                     break;
                 case ConsoleKey.LeftArrow:
-                    if (!selectedItem.IsActive)
+                    if (!Busy)
                         LeftArrow(selectionOrder);
                     break;
                 case ConsoleKey.RightArrow:
-                    if (!selectedItem.IsActive)
+                    if (!Busy)
                         RightArrow(selectionOrder);
                     break;
                 default:
-                    if (!selectedItem.IsActive)
-                        Enter(selectedItem);
-                    else if (selectedItem.IsActive && keyPressed.Key == ConsoleKey.Enter)
-                        Enter(selectedItem);
+                    Enter(selectedItem);
+                    OnChange();
+                    Window.Init();
                     break;
             }
         }

@@ -11,6 +11,11 @@ namespace CinemaUI
         public TextList(Window window, int x = 0, int y = 0) : base(window, x, y) { }
         public TextList(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute) : base(window, parent, x, y, positionSpace) { }
 
+        public void Replace(TextList textList)
+        {
+            Items = textList.Items;
+            TextColor = textList.TextColor;
+        }
         public void SetItems(string[] arr, string prefix = "", string suffix = "")
         {
             for (int i = 0; i < arr.Length; i++)
