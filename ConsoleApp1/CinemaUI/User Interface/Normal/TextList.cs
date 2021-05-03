@@ -24,6 +24,7 @@ namespace CinemaUI
         }
         public void SetItems(string[] arr, bool UseNumbers, string suffix = "")
         {
+            Items.Clear();
             for (int i = 0; i < arr.Length; i++)
             {
                 Items.Add(new Paragraph(Window, Position.X, Position.Y + i));
@@ -43,6 +44,8 @@ namespace CinemaUI.Builder
     {
         private TextList _product { get; set; }
         private Tuple<Window, UIElement, int, int, Space> _params { get; set; }
+        private bool useNumbers { get; set; } = false;
+        private string[] Items { get; set; } = new string[] { "" };
 
         public void Reset()
         {
@@ -66,21 +69,38 @@ namespace CinemaUI.Builder
             return this;
         }
 
-        public SelectableGroupBuilder Selectable(Color selectionColor, bool useNumbers, params string[] items)
+        public SelectableGroupBuilder Selectable(ConsoleColor foreground, ConsoleColor background)
         {
-            _product.SetItems(items, useNumbers);
-            return new SelectableGroupBuilder(_product, selectionColor);
+            _product.SetItems(Items, useNumbers);
+            return new SelectableGroupBuilder(_product, new Color(foreground, background));
         }
 
-        public TextInputListBuilder AsInput(Color color, params string[] items)
+        public TextInputListBuilder AsInput(ConsoleColor foreground, ConsoleColor background)
         {
-            this._product.SetItems(items);
-            return new TextInputListBuilder(this._product, color);
+            this._product.SetItems(Items, useNumbers);
+            return new TextInputListBuilder(this._product, new Color(foreground, background));
         }
 
-        public TextList Result(bool useNumbers, params string[] items)
+        public TextListBuilder UseNumbers(bool trueOrFalse)
         {
-            _product.SetItems(items, useNumbers);
+            useNumbers = trueOrFalse;
+            return this;
+        }
+        public TextListBuilder UseNumbers()
+        {
+            useNumbers = true;
+            return this;
+        }
+
+        public TextListBuilder SetItems(params string[] items)
+        {
+            Items = items;
+            return this;
+        }
+
+        public TextList Result()
+        {
+            _product.SetItems(Items, useNumbers);
             TextList result = this._product;
 
             this.Reset();
