@@ -25,6 +25,7 @@ namespace CinemaUI
                 Items[i].Text = arr[i];
                 Items[i].Prefix = prefix;
                 Items[i].Suffix = suffix;
+                Items[i].Init();
             }
         }
         public void SetItems(string[] arr, bool UseNumbers, string suffix = "")

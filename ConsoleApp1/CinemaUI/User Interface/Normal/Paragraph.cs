@@ -101,6 +101,7 @@ namespace CinemaUI.Builder
             Paragraph result = this._product;
             result.TextColor = textColor;
             result.Text = text;
+            result.Init();
 
             this.Reset();
 
