@@ -10,6 +10,7 @@ namespace CinemaUI
         internal Paragraph _paragraph { get; set; }
         internal Window Referral { get; set; }
         public Window Window { get => _paragraph.Window; set => _paragraph.Window = value; }
+        public Action OnClick { get; set; } = () => { };
         public string Text
         {
             get => _paragraph.Text;

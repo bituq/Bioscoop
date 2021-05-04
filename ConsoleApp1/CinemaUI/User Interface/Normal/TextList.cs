@@ -11,6 +11,11 @@ namespace CinemaUI
         public TextList(Window window, int x = 0, int y = 0) : base(window, x, y) { }
         public TextList(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute) : base(window, parent, x, y, positionSpace) { }
 
+        public void Replace(TextList textList)
+        {
+            Items = textList.Items;
+            TextColor = textList.TextColor;
+        }
         public void SetItems(string[] arr, string prefix = "", string suffix = "")
         {
             for (int i = 0; i < arr.Length; i++)
@@ -20,10 +25,12 @@ namespace CinemaUI
                 Items[i].Text = arr[i];
                 Items[i].Prefix = prefix;
                 Items[i].Suffix = suffix;
+                Items[i].Init();
             }
         }
         public void SetItems(string[] arr, bool UseNumbers, string suffix = "")
         {
+            Items.Clear();
             for (int i = 0; i < arr.Length; i++)
             {
                 Items.Add(new Paragraph(Window, Position.X, Position.Y + i));
@@ -32,6 +39,7 @@ namespace CinemaUI
                 if (UseNumbers)
                     Items[i].Prefix = $"{i + 1}. ";
                 Items[i].Suffix = suffix;
+                Items[i].Init();
             }
         }
     }
@@ -43,6 +51,8 @@ namespace CinemaUI.Builder
     {
         private TextList _product { get; set; }
         private Tuple<Window, UIElement, int, int, Space> _params { get; set; }
+        private bool useNumbers { get; set; } = false;
+        private string[] Items { get; set; } = new string[] { "" };
 
         public void Reset()
         {
@@ -66,22 +76,38 @@ namespace CinemaUI.Builder
             return this;
         }
 
-        public SelectableGroupBuilder Selectable(Color selectionColor, bool useNumbers, params string[] items)
+        public SelectableGroupBuilder Selectable(ConsoleColor foreground, ConsoleColor background)
         {
-            _product.SetItems(items, useNumbers);
-            return new SelectableGroupBuilder(_product, selectionColor);
+            _product.SetItems(Items, useNumbers);
+            return new SelectableGroupBuilder(_product, new Color(foreground, background));
         }
 
-        public TextInputListBuilder AsInput(Color color, params string[] items)
+        public TextInputListBuilder AsInput(ConsoleColor foreground, ConsoleColor background)
         {
-            this._product.SetItems(items);
-            return new TextInputListBuilder(this._product, color);
+            this._product.SetItems(Items, useNumbers);
+            return new TextInputListBuilder(this._product, new Color(foreground, background));
         }
 
-        public TextList Result(ConsoleColor textColor, bool useNumbers, params string[] items)
+        public TextListBuilder UseNumbers(bool trueOrFalse)
         {
-            _product.TextColor = textColor;
-            _product.SetItems(items, useNumbers);
+            useNumbers = trueOrFalse;
+            return this;
+        }
+        public TextListBuilder UseNumbers()
+        {
+            useNumbers = true;
+            return this;
+        }
+
+        public TextListBuilder SetItems(params string[] items)
+        {
+            Items = items;
+            return this;
+        }
+
+        public TextList Result()
+        {
+            _product.SetItems(Items, useNumbers);
             TextList result = this._product;
 
             this.Reset();
