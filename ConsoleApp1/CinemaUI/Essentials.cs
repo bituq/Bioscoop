@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CinemaUI
 {
@@ -84,10 +83,10 @@ namespace CinemaUI
             }
             foreach (Tuple<int, int, string, Color> cell in Buffer.Values)
             {
-                    Console.SetCursorPosition(cell.Item1, cell.Item2);
-                    Console.ForegroundColor = cell.Item4.Foreground;
-                    Console.BackgroundColor = cell.Item4.Background;
-                    Console.Write(cell.Item3);
+                Console.SetCursorPosition(cell.Item1, cell.Item2);
+                Console.ForegroundColor = cell.Item4.Foreground;
+                Console.BackgroundColor = cell.Item4.Background;
+                Console.Write(cell.Item3);
             }
             ReadLine();
             Console.SetCursorPosition(FinalCursorPosition.X, FinalCursorPosition.Y);
