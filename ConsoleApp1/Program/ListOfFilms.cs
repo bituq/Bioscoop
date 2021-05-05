@@ -11,10 +11,18 @@ namespace CinemaApplication
     {
         public Window Window = new Window();
         public string Name { get; set; }
+        public List<string> Starring { get; set; } = new List<string>();
+        public List<string> Genres { get; set; } = new List<string>();
 
-        public Movie(string name, string duration, string releaseDate, string descriptionText, string rating, string language, string company, string genres, string starring)
+        public Movie(string name, string duration, string releaseDate, string descriptionText, string rating, string language, string company, JsonElement genres, JsonElement starring)
         {
             Name = name;
+
+            foreach (JsonElement genre in genres.EnumerateArray())
+                Genres.Add(genre.ToString());
+            foreach (JsonElement star in starring.EnumerateArray())
+                Starring.Add(star.ToString());
+
             var title = new TextBuilder(Window, 3, 3)
                 .Color(ConsoleColor.Red)
                 .Result(name);
@@ -25,11 +33,19 @@ namespace CinemaApplication
 
             var information = new TextListBuilder(Window, 3, 12)
                 .Color(ConsoleColor.White)
-                .Result(false, duration, releaseDate, rating, language, company, genres);
+                .Result(false, duration, releaseDate, rating, language, company, "Genres: ");
 
-            var information2 = new TextListBuilder(Window, 3, 20)
+            var genresInformation = new TextListBuilder(Window, 3 + information.Items[5].Text.Length, 17)
                 .Color(ConsoleColor.White)
-                .Result(false, starring);
+                .Result(false, Genres.ToArray());
+
+            var information2 = new TextBuilder(Window, 3, 17 + Genres.Count)
+                .Color(ConsoleColor.White)
+                .Result("Starring: ");
+
+            var starringInformation = new TextListBuilder(Window, 3 + information2.Text.Length, information2.Position.Y)
+                .Color(ConsoleColor.White)
+                .Result(false, Starring.ToArray());
 
             var _ = new TextListBuilder(Window, 3, 1)
                 .Color(ConsoleColor.White)
@@ -65,8 +81,8 @@ namespace CinemaApplication
                     $"Rating: {root[i].GetProperty("rating")}",
                     $"Language: {root[i].GetProperty("language")}",
                     $"Company: {root[i].GetProperty("company") }",
-                    $"Genre(s): {root[i].GetProperty("genres")}",
-                    $"Starring: {root[i].GetProperty("starring")}"
+                    root[i].GetProperty("genres"),
+                    root[i].GetProperty("starring")
                     );
 
                 movieWindows[i] = movieObjects[i].Window;
