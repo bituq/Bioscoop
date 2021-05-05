@@ -9,7 +9,8 @@ namespace CinemaApplication
     {
         static void Main(string[] args)
         {
-            SeatScreen();
+            TimeSlotScreen();
+
             InputHandler.WaitForInput();
         }
     }

@@ -2,20 +2,11 @@
   {
     "id": 1,
     "rows": 5,
-    "columns": 15,
-    "seats": [
-      {
-        "row": 1,
-        "column": 1
-      },
-      {
-        "row": 1,
-        "column": 2
-      },
-      {
-        "row": 1,
-        "column": 3
-      }
-    ]
+    "columns": 15
+  },
+  {
+    "id": 2,
+    "rows": 6,
+    "columns": 8
   }
 ]

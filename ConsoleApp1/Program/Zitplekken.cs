@@ -38,39 +38,5 @@ namespace CinemaApplication
                         this.Seats.Add(new Seat(row, column));
             }
         }
-
-        public class TimeSlot
-        {
-            public string Movie { get; set; } // Wordt uiteindelijk een Movie object.
-            public int Time { get; set; }
-            public Hall Hall { get; set; }
-            public List<Seat> occupiedSeats { get; set; } = new List<Seat>();
-
-            public TimeSlot(string Movie, int Time, Hall Hall)
-            {
-                this.Movie = Movie;
-                this.Time = Time;
-                this.Hall = Hall;
-            }
-        }
-
-        static Window seatWindow = new Window(true);
-        static void SeatScreen()
-        {
-            var timeslotsFile = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
-            var hallsFile = JsonFile.FileAsList("..\\..\\..\\Halls.json");
-
-            var timeSlots = new List<TimeSlot>();
-
-            foreach (JsonElement timeSlot in timeslotsFile)
-            {
-                var hallElement = hallsFile.Find(hall => hall.GetProperty("id").GetInt32() == timeSlot.GetProperty("hall").GetInt32());
-                var hall = new Hall(hallElement.GetProperty("id").GetInt32(), hallElement.GetProperty("rows").GetInt32(), hallElement.GetProperty("columns").GetInt32());
-                timeSlots.Add(new TimeSlot(timeSlot.GetProperty("movie").GetString(), timeSlot.GetProperty("time").GetInt32(), hall));
-            }
-
-            var title = new TextBuilder(seatWindow, 1, 1)
-                .Color(ConsoleColor.Magenta);
-        }
     }
 }

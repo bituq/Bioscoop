@@ -17,7 +17,7 @@
   {
     "movie": "Placeholder (The Movie)",
     "time": 12,
-    "hall": 1,
+    "hall": 2,
     "occupiedSeats": [
       {
         "row": 1,
@@ -32,7 +32,7 @@
   {
     "movie": "Placeholder (The Movie)",
     "time": 13,
-    "hall": 1,
+    "hall": 2,
     "occupiedSeats": [
       {
         "row": 1,
