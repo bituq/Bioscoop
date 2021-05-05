@@ -1,11 +1,35 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
+using System.Net;
+using System.Net.Mail;
 
 namespace CinemaApplication
 {
     class Program
     {
+        public static void EmailUser(string recipient, string code) 
+        {
+            MailMessage msg = new MailMessage();
+
+            msg.From = new MailAddress("kappenmetspammennu@gmail.com");
+            msg.To.Add(recipient);
+            msg.Subject = "your reservation code";
+            msg.Body = "This email containts your reservation code.\n\n code: " + code;
+
+            using (SmtpClient client = new SmtpClient())
+            {
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential("kappenmetspammennu@gmail.com", "lol nah");
+                client.Host = "smtp.gmail.com";
+                client.Port = 587;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                client.Send(msg);
+            }
+        }
+
         public static Tuple<string, string>[] GetAllMovies(string category)
         {
             var slotFile = File.ReadAllText("Movies.json");
@@ -27,6 +51,7 @@ namespace CinemaApplication
             }
             return movieArr;
         }
+
         public static string[] FilterByName(Tuple<string,string>[] arr, string part) 
         {
             int size = 0;
@@ -178,6 +203,7 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
+            EmailUser("alumite10@gmail.com", "1111111");
             bool firstRun = true;
             string movieName = "Placeholder (The Movie)";
             while (true)
