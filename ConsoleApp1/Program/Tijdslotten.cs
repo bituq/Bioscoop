@@ -55,13 +55,21 @@ namespace CinemaApplication
                 {
                     string[] seats = new string[this.Hall.Rows];
                     for (int row = 0; row < this.Hall.Rows; row++)
-                    {
                         seats[row] = $"s{(column + 1) + (row * this.Hall.Columns)}";
+
+                    var reservations = new List<Reservation>();
+                    var reservationWindows = new List<Window>();
+                    for (int i = 0; i < seats.Length; i++)
+                    {
+                        reservations.Add(new Reservation(this, Window, Hall.Seats.Find(s => s.Column == column + 1 && s.Row == i + 1)));
+                        reservationWindows.Add(reservations[i].Window);
                     }
+
                     var _ = new TextListBuilder(this.Window, 9 + column * 4, 5)
                         .Color(ConsoleColor.White)
                         .SetItems(seats)
                         .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                        .LinkWindows(reservationWindows.ToArray())
                         .Result();
                 }
 
