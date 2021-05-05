@@ -2,12 +2,16 @@
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
+using CinemaUI;
+using CinemaUI.Builder;
 namespace CinemaApplication
 {
-    class Program
+    partial class Program
     {
         static void Main(string[] args)
         {
+            //InputHandler.WaitForInput();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("1 : reservering zoeken op reserveringscode\n2 : reservering aanmaken");
             Console.Write("Wat wilt U doen?: ");
