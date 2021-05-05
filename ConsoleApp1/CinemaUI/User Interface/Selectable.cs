@@ -13,6 +13,5 @@ namespace CinemaUI
         public virtual void Unselect() => Selected = false;
         public virtual void Select() => Selected = true;
         public virtual void KeyResponse(ConsoleKeyInfo keyPressed) { }
-
     }
 }

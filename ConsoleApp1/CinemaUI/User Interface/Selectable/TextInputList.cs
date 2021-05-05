@@ -16,6 +16,10 @@ namespace CinemaUI
             TextList = textList;
             ActiveColor = activeColor;
         }
+        public Action OnChange { get; set; } = () => { };
+        private bool AfterSelection { get; set; } = false;
+
+        public TextInput this[int index] { get => Items[index]; }
 
         private void UpArrow(TextInput activeItem, int index)
         {
@@ -50,29 +54,34 @@ namespace CinemaUI
             var selectedItem = Items.Find(item => item.Selected) ?? Items[0];
             int selectedIndex = Items.IndexOf(selectedItem);
             Console.CursorVisible = false;
+            if (AfterSelection)
+            {
+                OnChange();
+                Window.Init();
+                AfterSelection = false;
+            }
             switch (keyPressed.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (!selectedItem.IsActive)
-                        UpArrow(selectedItem, selectedIndex);
+                    UpArrow(selectedItem, selectedIndex);
                     break;
                 case ConsoleKey.DownArrow:
-                    if (!selectedItem.IsActive)
-                        DownArrow(selectedItem, selectedIndex);
+                    DownArrow(selectedItem, selectedIndex);
                     break;
                 case ConsoleKey.LeftArrow:
-                    if (!selectedItem.IsActive)
-                        LeftArrow(selectionOrder);
+                    LeftArrow(selectionOrder);
                     break;
                 case ConsoleKey.RightArrow:
-                    if (!selectedItem.IsActive)
-                        RightArrow(selectionOrder);
+                    RightArrow(selectionOrder);
                     break;
                 default:
+                    Enter(selectedItem);
                     if (!selectedItem.IsActive)
-                        Enter(selectedItem);
-                    else if (selectedItem.IsActive && keyPressed.Key == ConsoleKey.Enter)
-                        Enter(selectedItem);
+                    {
+                        AfterSelection = false;
+                    }
+                    else
+                        AfterSelection = true;
                     break;
             }
         }
