@@ -45,6 +45,7 @@ namespace CinemaApplication
                 string[] rows = new string[this.Hall.Rows];
                 for (int i = 0; i < rows.Length; i++)
                     rows[i] = $"Rij {i + 1} - ";
+
                 var rowList = new TextListBuilder(this.Window, 1, 5)
                     .Color(ConsoleColor.DarkGray)
                     .SetItems(rows)
