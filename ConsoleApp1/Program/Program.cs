@@ -2,7 +2,6 @@
 using CinemaUI;
 using CinemaUI.Builder;
 using System.IO;
-using System.Text;
 
 namespace CinemaApplication
 {
@@ -10,7 +9,7 @@ namespace CinemaApplication
     {
         static void Main(string[] args)
         {
-            var temp = new Hall(1, 5, 15);
+            SeatScreen();
             InputHandler.WaitForInput();
         }
     }

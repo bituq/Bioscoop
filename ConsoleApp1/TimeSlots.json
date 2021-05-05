@@ -1,0 +1,47 @@
+[
+  {
+    "movie": "Placeholder (The Movie)",
+    "time": 11,
+    "hall": 1,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 12,
+        "column": 5
+      }
+    ]
+  },
+  {
+    "movie": "Placeholder (The Movie)",
+    "time": 12,
+    "hall": 1,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 12,
+        "column": 5
+      }
+    ]
+  },
+  {
+    "movie": "Placeholder (The Movie)",
+    "time": 13,
+    "hall": 1,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 12,
+        "column": 5
+      }
+    ]
+  }
+]
