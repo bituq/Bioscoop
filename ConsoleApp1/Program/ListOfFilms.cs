@@ -27,7 +27,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.White)
                 .Result(false, duration, releaseDate, rating, language, company, genres);
 
-            var information2 = new TextListBuilder(Window, 3, 21)
+            var information2 = new TextListBuilder(Window, 3, 20)
                 .Color(ConsoleColor.White)
                 .Result(false, starring);
 
