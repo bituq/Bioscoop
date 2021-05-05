@@ -12,22 +12,26 @@ namespace CinemaApplication
         public Window Window = new Window();
         public string Name { get; set; }
 
-        public Movie(string name, string duration, string releaseDate)
+        public Movie(string name, string duration, string releaseDate, string descriptionText, string rating, string language, string company, string genres, string starring)
         {
             Name = name;
             var title = new TextBuilder(Window, 3, 3)
                 .Color(ConsoleColor.Red)
-                .Result($"This is {name}");
+                .Result(name);
 
             var description = new TextBuilder(Window, 3, 4)
                 .Color(ConsoleColor.DarkGray)
-                .Result($"This is a description for {name}.");
+                .Result(descriptionText);
 
-            var information = new TextListBuilder(Window, 3, 6)
+            var information = new TextListBuilder(Window, 3, 12)
                 .Color(ConsoleColor.White)
-                .Result(false, duration, releaseDate);
+                .Result(false, duration, releaseDate, rating, language, company, genres);
 
-            var _ = new TextListBuilder(Window, 3, 16)
+            var information2 = new TextListBuilder(Window, 3, 21)
+                .Color(ConsoleColor.White)
+                .Result(false, starring);
+
+            var _ = new TextListBuilder(Window, 3, 1)
                 .Color(ConsoleColor.White)
                 .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), false, "Go back")
                 .LinkWindows(Program.listOfFilms)
@@ -56,8 +60,15 @@ namespace CinemaApplication
                 movieObjects[i] = new Movie(
                     root[i].GetProperty("name").ToString(),
                     $"Duration: {root[i].GetProperty("duration")} minutes",
-                    $"Release Date: {root[i].GetProperty("releaseDate")}"
+                    $"Release Date: {root[i].GetProperty("releaseDate")}",
+                    $"   {root[i].GetProperty("description")}",
+                    $"Rating: {root[i].GetProperty("rating")}",
+                    $"Language: {root[i].GetProperty("language")}",
+                    $"Company: {root[i].GetProperty("company") }",
+                    $"Genre(s): {root[i].GetProperty("genres")}",
+                    $"Starring: {root[i].GetProperty("starring")}"
                     );
+
                 movieWindows[i] = movieObjects[i].Window;
                 movieNames[i] = movieObjects[i].Name;
                 //Console.WriteLine($"{i} : {movieNames[i]}");
