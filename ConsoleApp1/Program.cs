@@ -9,42 +9,13 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            //InputHandler.WaitForInput();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("1 : reservering zoeken op reserveringscode\n2 : reservering aanmaken");
-            Console.Write("Wat wilt U doen?: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            string antwoord = Console.ReadLine();
-            if (antwoord.Contains("1") == true) {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Wat is uw reserveringscode?: ");
-                Console.ForegroundColor = ConsoleColor.White;
-                string reserveringscode = Console.ReadLine();
-                Console.ForegroundColor = ConsoleColor.Green;
-                zoekDoorCode(reserveringscode);
-            }
-            else if (antwoord.Contains("2") == true) {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("Wat is uw voornaam?: ");
-                Console.ForegroundColor = ConsoleColor.White;
-                string voornaam = Console.ReadLine();
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("Wat is uw achternaam? (inclusief tussenvoegsel): ");
-                Console.ForegroundColor = ConsoleColor.White;
-                string achternaam = Console.ReadLine();
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("Welke film wilt U zien?: ");
-                Console.ForegroundColor = ConsoleColor.White;
-                string film = Console.ReadLine();
-                reserveringMaken(voornaam, achternaam, film);
-            }
-            else if (antwoord.Contains("5") == true) {
-                Console.Write("Wat is uw hele naam? (inclusief tussenvoegsel): ");
-                string naam = Console.ReadLine();
-                reserveringDoorNaam(naam);
-            }
+            selectieSchermBrent();
+            reserveringMaakScherm();
+            reserveringZoekScherm();
+
+            InputHandler.WaitForInput();
         }
 
         static void reserveringDoorNaam(string heleNaam) { // reserveringdoornaam mag eigenlijk alleen in het adminscherm staan.
@@ -63,9 +34,14 @@ namespace CinemaApplication
                     Console.WriteLine(reservering.GetProperty("reserveringNummer"));
                 }
             }
-            reserveringFile.Close();       
+            reserveringFile.Close();
         }
-        static void zoekDoorCode(string code) {
+        static void zoekDoorCode() {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("Wat is uw reserveringscode?");
+            Console.ForegroundColor = ConsoleColor.White;
+            string code = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Green;
             string filePath = @"bin\Debug\netcoreapp3.1\Reserveringen.json";
             StreamReader reserveringFile = new StreamReader(filePath);
             var reserveringen = reserveringFile.ReadToEnd();
@@ -88,7 +64,7 @@ namespace CinemaApplication
             Console.ForegroundColor = ConsoleColor.White;
         }
     
-        static void reserveringMaken(string VoorNaam, string AchterNaam, string film) { // functie voor het maken van reserveringen.
+        static void reserveringMaken() { // functie voor het maken van reserveringen.
             string filePath = @"bin\Debug\netcoreapp3.1\Reserveringen.json"; // pakt de filepath.
             StreamReader reserveringFile = new StreamReader(filePath); // leest het json bestand.
             var reserveringen = reserveringFile.ReadToEnd(); // maakt een string van het jsonbestand.
@@ -110,7 +86,7 @@ namespace CinemaApplication
             
             foreach (JsonElement reservering in root.EnumerateArray()) { // gaat door alle reserveringen heen.
                 if ((reservering.GetProperty("reserveringNummer").ToString()) == randomCode) { // kijkt of nieuwe code gelijk is aan een oudere.
-                    reserveringMaken(VoorNaam, AchterNaam, film); // stuurt de data terug als de reserveringscode hetzelfde is zodat er een nieuwe gemaakt kan worden.
+                    reserveringMaken(); // stuurt de data terug als de reserveringscode hetzelfde is zodat er een nieuwe gemaakt kan worden.
                     return; // stopt de functie zodat die niet op wonderbaarlijke wijze doorgaat.
                 }
             }
@@ -118,6 +94,22 @@ namespace CinemaApplication
             Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds; // unixtijd.
             string unixTime = unixTimestamp.ToString(); // tijd in unix formaat op dit huidige moment, omgezet in een string.
             string datum = "11 april 2021 om 16:00"; // datum
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("Wat is uw voornaam?: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            string VoorNaam = Console.ReadLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("Wat is uw achternaam (inclusief tussenvoegsel?: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            string AchterNaam = Console.ReadLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("Naar welke film wilt U heen gaan?: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            string film = Console.ReadLine();
+
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("Typ welke stoel U wilt reserveren (als U meerdere wilt, moet U ze onderschijden met spaties): "); // vragen welke stoelen.
             Console.ForegroundColor = ConsoleColor.White;
@@ -133,6 +125,7 @@ namespace CinemaApplication
                     stoelen2 = stoelen2 + stoelen[x] + ", "; // voegt een komma toe aan het einde van een stoelreservering.
                 }
             }
+
             string[] lijstReserveringen = reserveringen.Split('}'); // splitst de json string naar een list per reservering.
             int len = lijstReserveringen.Length; // pakt de lengte van de array.
             for (int i = 0; i < len-1; i++) { // loop om de curly brackets terug toe te voegen.
