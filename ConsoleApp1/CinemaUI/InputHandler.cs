@@ -15,9 +15,7 @@ namespace CinemaUI
         {
             foreach (Window window in Windows)
             {
-                Console.WriteLine($"Loading {(Windows.IndexOf(window) + 1) / Windows.Count * 100}%");
                 window.Init();
-                Console.Clear();
             }
             Console.CursorVisible = false;
             Window activeWindow = Windows?.Find(w => w.Active) ?? DefaultDialog();
