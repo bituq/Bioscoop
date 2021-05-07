@@ -28,6 +28,9 @@ namespace CinemaUI
             Background = selectable.Background;
             Items = selectable.Items;
         }
+
+        public SelectableText this[int index] { get => Items[index]; }
+
         private void UpArrow(SelectableText activeItem, int index)
         {
             activeItem.Unselect();
@@ -83,7 +86,8 @@ namespace CinemaUI
                     RightArrow(selectionOrder);
                     break;
                 case ConsoleKey.Enter:
-                    Enter(activeItem);
+                    if (!Disabled && !activeItem.Disabled)
+                        Enter(activeItem);
                     break;
             }
         }
