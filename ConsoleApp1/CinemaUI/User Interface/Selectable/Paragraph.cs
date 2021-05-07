@@ -9,7 +9,7 @@ namespace CinemaUI
         internal ConsoleColor _defaultTextColor;
         internal Paragraph _paragraph { get; set; }
         internal Window Referral { get; set; }
-        internal Color DisabledColor { get; set; } = new Color(ConsoleColor.DarkGray);
+        internal ConsoleColor DisabledColor { get; set; } = ConsoleColor.DarkGray;
         public Window Window { get => _paragraph.Window; set => _paragraph.Window = value; }
         public Action OnClick { get; set; } = () => { };
         public string Text
@@ -47,7 +47,7 @@ namespace CinemaUI
         public void Disable()
         {
             Disabled = true;
-            _paragraph.ChangeTextCells(DisabledColor.Foreground, DisabledColor.Background, DisabledColor.Background != DisabledColor.Foreground);
+            _paragraph.TextColor = DisabledColor;
         }
     }
 }

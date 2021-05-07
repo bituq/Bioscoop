@@ -71,6 +71,10 @@ namespace CinemaApplication
                         .Selectable(ConsoleColor.Black, ConsoleColor.White)
                         .LinkWindows(reservationWindows.ToArray())
                         .Result();
+
+                    for (int i = 0; i < _.Items.Count; i++)
+                        if (i % 2 == 0)
+                            _[i].Disable();
                 }
 
                 var goBack = new TextListBuilder(this.Window, 1, 7 + this.Hall.Rows)

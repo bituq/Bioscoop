@@ -7,7 +7,7 @@ namespace CinemaUI
     public class SelectableList : Selectable
     {
         internal TextList TextList { get; set; }
-        internal List<SelectableText> Items { get; set; } = new List<SelectableText>();
+        internal new List<SelectableText> Items { get; set; } = new List<SelectableText>();
         internal int OrderIndex { get => TextList.Window.SelectionOrder.IndexOf(this); }
 
         public ConsoleColor Foreground { get; set; }

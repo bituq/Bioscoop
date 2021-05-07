@@ -53,6 +53,10 @@ namespace CinemaUI
         public static bool operator !=(Color a, Color b) => a.Foreground != b.Foreground && a.Background != b.Background;
 
         public override string ToString() => $"({Foreground}, {Background})";
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
         #endregion
     }
 }

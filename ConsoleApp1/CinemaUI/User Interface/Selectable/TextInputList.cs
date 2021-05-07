@@ -7,7 +7,7 @@ namespace CinemaUI
     public class TextInputList : Selectable
     {
         internal TextList TextList { get; set; }
-        internal List<TextInput> Items { get; set; } = new List<TextInput>();
+        internal new List<TextInput> Items { get; set; } = new List<TextInput>();
         public Window Window { get => TextList.Window; set => TextList.Window = value; }
         internal int OrderIndex { get => TextList.Window.SelectionOrder.IndexOf(this); }
         private Color ActiveColor { get; set; }
