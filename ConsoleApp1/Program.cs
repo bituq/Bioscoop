@@ -96,32 +96,6 @@ namespace CinemaApplication
             string unixTime = unixTimestamp.ToString(); // tijd in unix formaat op dit huidige moment, omgezet in een string.
             string datum = "11 april 2021 om 16:00"; // datum
 
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("Wat is uw achternaam (inclusief tussenvoegsel?: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            string AchterNaam = Console.ReadLine();
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("Naar welke film wilt U heen gaan?: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            string film = Console.ReadLine();
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("Typ welke stoel U wilt reserveren (als U meerdere wilt, moet U ze onderschijden met spaties): "); // vragen welke stoelen.
-            Console.ForegroundColor = ConsoleColor.White;
-            string stringstoel = Console.ReadLine(); // leest welke stoelen iemand reserveerd.
-            string[] stoelen = stringstoel.Split(' '); // maakt een lijst met de gereserveerde stoelen.
-            int length2 = stoelen.Length; // pakt het aantal genoemde stoelen.
-            string stoelen2 = "["; // maakt de base voor het begin van de array.
-            for (int x = 0; x < length2; x++) { // loop die de gereserveerde stoelen in een lijst zet.
-                if (x == length2-1) {
-                    stoelen2 = stoelen2 + stoelen[x] + "]"; // einde van de loop.
-                }
-                else {
-                    stoelen2 = stoelen2 + stoelen[x] + ", "; // voegt een komma toe aan het einde van een stoelreservering.
-                }
-            }
-
             string[] lijstReserveringen = reserveringen.Split('}'); // splitst de json string naar een list per reservering.
             int len = lijstReserveringen.Length; // pakt de lengte van de array.
             for (int i = 0; i < len-1; i++) { // loop om de curly brackets terug toe te voegen.

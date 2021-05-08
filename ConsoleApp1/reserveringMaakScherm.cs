@@ -13,9 +13,10 @@ namespace CinemaApplication
         {
             var inputInformation = new TextListBuilder(maakScherm, 0, 1)
                 .Color(ConsoleColor.Cyan)
-                .SetItems("Voornaam:", "Achternaam:", "Film:");
+                .SetItems("Voornaam:", "Achternaam:")
+                .Result();
 
-            var inputList = new TextListBuilder(maakScherm, 7, 1)
+            var inputList = new TextListBuilder(maakScherm, 12, 1)
                 .SetItems("", "", "", "")
                 .AsInput(ConsoleColor.White, ConsoleColor.Black)
                 .Result();
@@ -25,6 +26,8 @@ namespace CinemaApplication
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
                 .LinkWindows(brentScherm)
                 .Result();
+
+
         }
     }
 }
