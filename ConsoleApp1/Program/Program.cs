@@ -46,8 +46,8 @@ namespace CinemaApplication
         static void Main(string[] args)
         {
             MainMenu();
-            ListOfFilms();
-            //Demo();
+            //ListOfFilms();
+            Demo();
 
             InputHandler.WaitForInput();
         }

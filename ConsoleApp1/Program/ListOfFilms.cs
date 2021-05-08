@@ -57,7 +57,7 @@ namespace CinemaApplication
 
     partial class Program
     {
-        public static Window listOfFilms = new Window(true);
+        public static Window listOfFilms = new Window(false);
         static void ListOfFilms()
         {
             var movies = File.ReadAllText("Movies.json");
