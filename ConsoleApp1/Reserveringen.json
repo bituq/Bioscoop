@@ -1,0 +1,92 @@
+[
+    {
+        "voorNaam" : "VB",
+        "achterNaam" : "VB",
+        "reserveringNummer" : "0000000",
+        "zaal" : "1",
+        "film" : "The Matrix",
+        "datumVanReservatie" : "1617363411",
+        "stoelen" : [1, 2, 3],
+        "datum" : "16 October 2021 om 16:00"
+	},
+	{
+		"voorNaam" : "Brent",
+		"achterNaam" : "de Brons",
+		"reserveringNummer" : "4482321",
+		"zaal" : "1",
+		"film" : "Finding Nemo",
+		"datumVanReservatie" : "1617702454",
+		"stoelen" : [1, 2, 3],
+		"datum" : "11 april 2021 om 16:00"
+	},
+	{
+		"voorNaam" : "Vincent",
+		"achterNaam" : "de Gans",
+		"reserveringNummer" : "3390415",
+		"zaal" : "1",
+		"film" : "Gansenbord",
+		"datumVanReservatie" : "1617702818",
+		"stoelen" : [1],
+		"datum" : "11 april 2021 om 16:00"
+	},
+	{
+		"voorNaam" : "Brent",
+		"achterNaam" : "de Brons",
+		"reserveringNummer" : "2253703",
+		"zaal" : "1",
+		"film" : "1917",
+		"datumVanReservatie" : "1618943052",
+		"stoelen" : [3, 4, 5],
+		"datum" : "11 april 2021 om 16:00"
+	},
+	{
+		"voorNaam" : "Brent",
+		"achterNaam" : "de Brons",
+		"reserveringNummer" : "0313217",
+		"zaal" : "1",
+		"film" : "Nemo",
+		"datumVanReservatie" : "1619787189",
+		"stoelen" : [1, 2, 3],
+		"datum" : "11 april 2021 om 16:00"
+	},
+	{
+		"voorNaam" : "Brent",
+		"achterNaam" : "de Brons",
+		"reserveringNummer" : "2799925",
+		"zaal" : "1",
+		"film" : "Finding Nemo",
+		"datumVanReservatie" : "1619787841",
+		"stoelen" : [1, 2, 3],
+		"datum" : "11 april 2021 om 16:00"
+	},
+	{
+		"voorNaam" : "Brent",
+		"achterNaam" : "de Bronss",
+		"reserveringNummer" : "5181378",
+		"zaal" : "1",
+		"film" : "Nemo",
+		"datumVanReservatie" : "1619787939",
+		"stoelen" : [1],
+		"datum" : "11 april 2021 om 16:00"
+	},
+	{
+		"voorNaam" : "Brent",
+		"achterNaam" : "de Brons",
+		"reserveringNummer" : "3188478",
+		"zaal" : "1",
+		"film" : "Finding Nemo",
+		"datumVanReservatie" : "1619788006",
+		"stoelen" : [1, 2],
+		"datum" : "11 april 2021 om 16:00"
+	},
+	{
+		"voorNaam" : "Brent",
+		"achterNaam" : "de Brons",
+		"reserveringNummer" : "1808991",
+		"zaal" : "1",
+		"film" : "Finding Nemo",
+		"datumVanReservatie" : "1620307732",
+		"stoelen" : [1, 2, 3],
+		"datum" : "11 april 2021 om 16:00"
+	}
+]

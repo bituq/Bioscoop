@@ -107,14 +107,12 @@ namespace CinemaApplication
                 }
             }
             // string toevoegen gooit alle data die opgepakt is van de reservering in het reservering formaat van het json bestand.
-            string toevoegen = "\t{\n" + $"\t\t\"voorNaam\" : \"{""}\",\n" + $"\t\t\"achterNaam\" : \"{AchterNaam}\",\n" + $"\t\t\"reserveringNummer\" : \"{randomCode}\",\n" + $"\t\t\"zaal\" : \"{1}\",\n" + $"\t\t\"film\" : \"{film}\",\n" + $"\t\t\"datumVanReservatie\" : \"{unixTime}\",\n" + $"\t\t\"stoelen\" : {stoelen2},\n" + $"\t\t\"datum\" : \"{datum}\"\n" + "\t}";
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"U gaat naar de film {film}. U heeft {stoelen.Length} stoel(en) met nummer(s) {stoelen2} onder uw naam staan. Uw reserveringscode is {randomCode}. Sla de code goed op!");
+            Console.WriteLine($"U gaat naar de film . U heeft  stoel(en) met nummer(s)  onder uw naam staan. Uw reserveringscode is {randomCode}. Sla de code goed op!");
             string newJson = ""; // definiert de string waar het bestand uit gaat bestaan.
             for (int j = 0; j < len-1; j++) {
                 newJson = newJson + lijstReserveringen[j]; // voegt de oude reserveringen weer samen.
             }
-            newJson = newJson + toevoegen + lijstReserveringen[len-1]; // voegt de nieuwe reservering aan de oude reserveringen toe.
             reserveringFile.Close(); // sluit het bestand zodat de data geschreven kan worden naar het bestand.
             File.WriteAllText(filePath, newJson); // herschrijft het bestand met niewe reserveringsinformatie.
             Console.ForegroundColor = ConsoleColor.White;
