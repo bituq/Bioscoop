@@ -14,6 +14,7 @@ namespace CinemaApplication
             selectieSchermBrent();
             reserveringMaakScherm();
             reserveringZoekScherm();
+            //reserveringMaken();
 
             InputHandler.WaitForInput();
         }
@@ -96,11 +97,6 @@ namespace CinemaApplication
             string datum = "11 april 2021 om 16:00"; // datum
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("Wat is uw voornaam?: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            string VoorNaam = Console.ReadLine();
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("Wat is uw achternaam (inclusief tussenvoegsel?: ");
             Console.ForegroundColor = ConsoleColor.White;
             string AchterNaam = Console.ReadLine();
@@ -137,7 +133,7 @@ namespace CinemaApplication
                 }
             }
             // string toevoegen gooit alle data die opgepakt is van de reservering in het reservering formaat van het json bestand.
-            string toevoegen = "\t{\n" + $"\t\t\"voorNaam\" : \"{VoorNaam}\",\n" + $"\t\t\"achterNaam\" : \"{AchterNaam}\",\n" + $"\t\t\"reserveringNummer\" : \"{randomCode}\",\n" + $"\t\t\"zaal\" : \"{1}\",\n" + $"\t\t\"film\" : \"{film}\",\n" + $"\t\t\"datumVanReservatie\" : \"{unixTime}\",\n" + $"\t\t\"stoelen\" : {stoelen2},\n" + $"\t\t\"datum\" : \"{datum}\"\n" + "\t}";
+            string toevoegen = "\t{\n" + $"\t\t\"voorNaam\" : \"{""}\",\n" + $"\t\t\"achterNaam\" : \"{AchterNaam}\",\n" + $"\t\t\"reserveringNummer\" : \"{randomCode}\",\n" + $"\t\t\"zaal\" : \"{1}\",\n" + $"\t\t\"film\" : \"{film}\",\n" + $"\t\t\"datumVanReservatie\" : \"{unixTime}\",\n" + $"\t\t\"stoelen\" : {stoelen2},\n" + $"\t\t\"datum\" : \"{datum}\"\n" + "\t}";
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"U gaat naar de film {film}. U heeft {stoelen.Length} stoel(en) met nummer(s) {stoelen2} onder uw naam staan. Uw reserveringscode is {randomCode}. Sla de code goed op!");
             string newJson = ""; // definiert de string waar het bestand uit gaat bestaan.
