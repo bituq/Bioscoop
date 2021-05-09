@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Class3.cs = Class3.cs
 		Class4.cs = Class4.cs
 		Class5.cs = Class5.cs
+		Class6.cs = Class6.cs
 	EndProjectSection
 EndProject
 Global
