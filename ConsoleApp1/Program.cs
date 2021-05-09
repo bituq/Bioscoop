@@ -32,6 +32,7 @@ namespace CinemaApplication
 
         public static Tuple<string, string>[] GetAllMovies(string category)
         {
+            // returns a list of tuples that contain the movie ID and the specified category
             var slotFile = File.ReadAllText("Movies.json");
             JsonDocument timeSlotsDoc = JsonDocument.Parse(slotFile);
             var movies = timeSlotsDoc.RootElement.EnumerateArray();
@@ -52,47 +53,28 @@ namespace CinemaApplication
             return movieArr;
         }
 
-        public static string[] FilterByName(Tuple<string,string>[] arr, string part) 
+        public static string[] FilterByCategory(string category, string part) 
         {
+            // returns the list of movies where the specified category matches the given part
             int size = 0;
-            for (int i = 0; i < arr.Length; i++)
+            Tuple<string, string>[] movieList = GetAllMovies(category);
+
+            for (int i = 0; i < movieList.Length; i++)
 			{
-                if (arr[i].Item2.ToLower().Contains(part.ToLower()))
+                if (movieList[i].Item2.ToLower().Contains(part.ToLower()))
                 {
                     size++;
                 }
 			}
             string[] newArr = new string[size];
 
-            for (int i = 0, index = 0; i < arr.Length; i++)
+            for (int i = 0, index = 0; i < movieList.Length; i++)
 			{
-                if (arr[i].Item2.ToLower().Contains(part.ToLower()))
+                if (movieList[i].Item2.ToLower().Contains(part.ToLower()))
                 {
-                    newArr[index++] = arr[i].Item1;
+                    newArr[index++] = movieList[i].Item1;
                 }
 			}
-            return newArr;
-        }
-
-        public static string[] FilterMovies(string[] arr, string part, string category)
-        {
-            int size = 0;
-            for (int i = 0; i < arr.Length; i++)
-            {
-                if (arr[i].ToLower().Contains(part.ToLower()))
-                {
-                    size++;
-                }
-            }
-            string[] newArr = new string[size];
-
-            for (int i = 0, index = 0; i < arr.Length; i++)
-            {
-                if (arr[i].ToLower().Contains(part.ToLower()))
-                {
-                    newArr[index++] = arr[i];
-                }
-            }
             return newArr;
         }
 
@@ -150,19 +132,6 @@ namespace CinemaApplication
             {
                 if (name == (movie.GetProperty("name").ToString()))
                 {
-                    // show movie information
-                    // Console.WriteLine("Name: " + movie.GetProperty("name").ToString());
-                    /*
-                    Console.WriteLine(SecondsToTime(movie.GetProperty("duration")));
-                    Console.WriteLine(UnixToDate(movie.GetProperty("releaseDate").GetInt32()).ToString("d MMMM yyyy")); // is in unix
-                    Console.WriteLine(movie.GetProperty("rating").ToString());
-                    Console.WriteLine(movie.GetProperty("genres").ToString()); // is not an array yet
-                    Console.WriteLine(movie.GetProperty("language").ToString());
-                    Console.WriteLine(movie.GetProperty("company").ToString());
-                    Console.WriteLine(movie.GetProperty("starring").ToString()); // is not an array yet
-                    Console.WriteLine(movie.GetProperty("description").ToString());
-                    */
-
                     // show timeslot information
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("At what time would you like to see the movie?");
@@ -192,7 +161,7 @@ namespace CinemaApplication
                         Console.ResetColor();
                     }
                     Console.WriteLine("Movies: ");
-                    string[] list = FilterByName(GetAllMovies("language"), "german");
+                    string[] list = FilterByCategory("genres", "comedy");
                     for (int i = 0; i < list.Length; i++)
                     {
                         Console.WriteLine(list[i]);
@@ -203,7 +172,7 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
-            EmailUser("alumite10@gmail.com", "1111111");
+            // EmailUser("alumite10@gmail.com", "1111111");
             bool firstRun = true;
             string movieName = "Placeholder (The Movie)";
             while (true)
@@ -219,7 +188,5 @@ namespace CinemaApplication
                 Draw(movieName, keyInfo.Key);
             }
         }
-
-
     }
 }
