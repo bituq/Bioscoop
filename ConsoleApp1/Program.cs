@@ -9,8 +9,9 @@ namespace CinemaApplication
 	{
 		static void Main()
 		{
-			PM();
+			Payments();
 			IDEAL();
+			PayPal();
 			InputHandler.WaitForInput();
 		}
 	}

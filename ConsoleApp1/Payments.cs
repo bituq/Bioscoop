@@ -8,16 +8,20 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window pm = new Window(true);
-        static void PM()
+        static Window payments = new Window(true);
+        static void Payments()
         {
             var MethodsList = new string[] {"IDEAL", "PayPal", "VISA", "Meastro", "MasterCard"};
 
-            var PMlist = new TextListBuilder(pm, 3, 2)
+            var title = new TextBuilder(payments, 3, 2)
+                .Color(ConsoleColor.DarkGreen)
+                .Text("Payment methods")
+                .Result();
+            var menu = new TextListBuilder(payments, 3, 4)
                 .Color(ConsoleColor.DarkYellow)
                 .SetItems(MethodsList)
                 .Selectable(ConsoleColor.DarkYellow, ConsoleColor.Yellow)
-                .LinkWindows(ideal)
+                .LinkWindows(ideal, paypal)
                 .Result();
         }
     }

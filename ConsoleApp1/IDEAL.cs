@@ -11,19 +11,20 @@ namespace CinemaApplication
 		static Window ideal = new Window();
 		static void IDEAL()
         {
-			var IDEALlist = new string[] {"ING", "ABN-AMRO", "Rabobank", "RegioBank", "SNS bank", "knab"};
-			var title = new TextBuilder(ideal, 2, 2)
+			var IDEALlist = new string[] {"ING", "ABN-AMRO", "Rabobank", "RegioBank", "SNS bank", "knab", "Go back"};
+			var title = new TextBuilder(ideal, 3, 2)
 				.Color(ConsoleColor.DarkGreen)
 				.Text("Choose your bank")
 				.Result();
 
-			var menu = new TextListBuilder(ideal, 2, 4)
+			var menu = new TextListBuilder(ideal, 3, 4)
 				.Color(ConsoleColor.Red)
 				.SetItems(IDEALlist)
 				.Selectable(ConsoleColor.Black, ConsoleColor.Yellow)
-				.LinkWindows(pm)
+				.LinkWindows(null, null, null, null, null, null, payments)
 				.Result();
-
-        }
+		
+			
+		}
 	}
 }
