@@ -10,7 +10,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        public class hall
+        public class hall(string name, string rows, string columns)
         {
             public string name { get; set; }
             public int rows { get; set; }
