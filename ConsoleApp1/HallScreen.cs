@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.Json;
+using System.IO;
 using CinemaUI;
 using CinemaUI.Builder;
 using JsonHandler;
@@ -11,6 +12,6 @@ namespace CinemaApplication
     {
         static Window hallscreen = new Window(true);
         static void HallScreen()
-        { }
+        {
     }
 }
