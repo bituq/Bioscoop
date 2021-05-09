@@ -15,7 +15,7 @@ namespace CinemaApplication
 		}
 		static void HallsScreen()
         {
-
+			HallScreen();
         }
 		static void Main()
 		{
