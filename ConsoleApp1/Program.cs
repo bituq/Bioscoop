@@ -7,11 +7,20 @@ namespace CinemaApplication
 {
 	partial class Program
 	{
-		static void Main()
-		{
+		static void PaymentScreen()
+        {
 			Payments();
 			IDEAL();
 			PayPal();
+		}
+		static void HallsScreen()
+        {
+
+        }
+		static void Main()
+		{
+			PaymentScreen();
+			HallsScreen();
 			InputHandler.WaitForInput();
 		}
 	}

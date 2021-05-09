@@ -20,7 +20,7 @@ namespace CinemaApplication
             var menu = new TextListBuilder(payments, 3, 4)
                 .Color(ConsoleColor.DarkYellow)
                 .SetItems(MethodsList)
-                .Selectable(ConsoleColor.DarkYellow, ConsoleColor.Yellow)
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(ideal, paypal)
                 .Result();
         }

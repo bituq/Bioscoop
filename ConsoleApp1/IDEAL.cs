@@ -20,7 +20,7 @@ namespace CinemaApplication
 			var menu = new TextListBuilder(ideal, 3, 4)
 				.Color(ConsoleColor.Red)
 				.SetItems(IDEALlist)
-				.Selectable(ConsoleColor.Black, ConsoleColor.Yellow)
+				.Selectable(ConsoleColor.Black, ConsoleColor.White)
 				.LinkWindows(null, null, null, null, null, null, payments)
 				.Result();
 		
