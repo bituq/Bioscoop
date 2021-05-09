@@ -8,9 +8,9 @@ namespace CinemaApplication
     partial class Program
     {
         static Window maakScherm = new Window();
-        static void reserveringMaakScherm() 
+        static void reserveringMaakScherm()
         {
-            string filePath = "..\\..\\..\\Reserveringen.json";
+            string filePath = @"C:\Users\brent\.vscode\repos\biosapp\Bioscoop\ConsoleApp1\Reserveringen.json";
             var root = JsonFile.FileAsList(filePath);
 
             var inputInformation = new TextListBuilder(maakScherm, 1, 1)
@@ -67,7 +67,7 @@ namespace CinemaApplication
                         .Color(ConsoleColor.Gray)
                         .SetItems($"U gaat naar de film. Uw reserveringscode is { randomCode }. Sla de code goed op!")
                         .Result()
-                        );
+                    );
                 }
             };
         }

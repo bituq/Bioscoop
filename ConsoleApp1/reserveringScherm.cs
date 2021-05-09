@@ -9,7 +9,7 @@ namespace CinemaApplication
     partial class Program
     {
         static Window brentScherm = new Window(true);
-        static void selectieSchermBrent() 
+        static void selectieSchermBrent()
         {
             var title = new TextBuilder(brentScherm, 5, 7)
                 .Color(ConsoleColor.Cyan)
