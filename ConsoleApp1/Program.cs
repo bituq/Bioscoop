@@ -13,14 +13,14 @@ namespace CinemaApplication
 			IDEAL();
 			PayPal();
 		}
-		static void HHallsScreen()
+		static void HallsScreen()
         {
-			HallScreen();
+			Halls();
         }
 		static void Main()
 		{
 			//PaymentScreen();
-			HHallsScreen();
+			HallsScreen();
 			InputHandler.WaitForInput();
 		}
 	}

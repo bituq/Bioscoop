@@ -13,7 +13,7 @@ namespace CinemaApplication
             public int rows { get; set; }
             public int columns { get; set; }
         }
-        public static void Main()
+        public static void Wain()
         {
             var hall = new halls();
             hall.name = "hall3";
