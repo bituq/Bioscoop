@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using CinemaUI;
 using CinemaUI.Builder;
+using JsonHandler;
 
 namespace CinemaApplication
 {
@@ -10,8 +11,6 @@ namespace CinemaApplication
     {
         static Window hallscreen = new Window(true);
         static void HallScreen()
-        {
-            var title = TextBuilder
-        }
+        { }
     }
 }
