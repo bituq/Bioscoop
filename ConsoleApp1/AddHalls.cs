@@ -5,7 +5,7 @@ using JsonHandler;
 
 namespace CinemaApplication
 {
-    public class Program
+    public class AddHalls
     {
         public class halls
         {
@@ -14,7 +14,7 @@ namespace CinemaApplication
             public int columns { get; set; }
             public int[][] seats { get; set; }
         }
-        public static void Main()
+        public static void erw()
         {
             var hall = new halls();
             hall.name = "hall3";
