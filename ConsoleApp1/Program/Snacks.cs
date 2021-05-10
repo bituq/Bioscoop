@@ -20,17 +20,17 @@ namespace CinemaApplication
             {
                 Name = name;
 
-                var title = new TextBuilder(Window, 3, 3)
+                var title = new TextBuilder(Window, 11, 1)
                     .Color(ConsoleColor.Red)
                     .Text(name)
                     .Result();
 
-                var information = new TextListBuilder(Window, 3, 4)
+                var information = new TextListBuilder(Window, 11, 3)
                     .Color(ConsoleColor.White)
                     .SetItems(price, vegetarian, stock)
                     .Result();
 
-                var _ = new TextListBuilder(Window, 3, 1)
+                var _ = new TextListBuilder(Window, 1, 1)
                    .Color(ConsoleColor.White)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -43,7 +43,7 @@ namespace CinemaApplication
         public static Window snacksWindow = new Window();
         static void SnacksWindow()
         {
-            var _ = new TextListBuilder(snacksWindow, 4, 1)
+            var _ = new TextListBuilder(snacksWindow, 1, 1)
                    .Color(ConsoleColor.White)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -74,7 +74,7 @@ namespace CinemaApplication
                 
             }
 
-            var snackList = new TextListBuilder(snacksWindow, 4, 4)
+            var snackList = new TextListBuilder(snacksWindow, 11, 1)
                 .Color(ConsoleColor.DarkMagenta)
                 .SetItems(snackNames)
                 .UseNumbers()

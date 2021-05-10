@@ -9,15 +9,19 @@ namespace CinemaApplication
 {
     partial class Program
     {
+        static List<JsonElement> timeslotsFile = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
+        static List<JsonElement> hallsFile = JsonFile.FileAsList("..\\..\\..\\Halls.json");
+        static List<JsonElement> moviesFile = JsonFile.FileAsList("..\\..\\..\\Movies.json");
+        static List<TimeSlot> timeSlots = new List<TimeSlot>();
         public class TimeSlot
         {
             public Window Window { get; set; } = new Window();
-            public string Movie { get; set; } // Wordt uiteindelijk een Movie object.
+            public Movie Movie { get; set; }
             public int Time { get; set; }
             public Hall Hall { get; set; }
             public List<Seat> occupiedSeats { get; set; } = new List<Seat>();
 
-            public TimeSlot(string Movie, int Time, Hall Hall, List<Seat> OccupiedSeats)
+            public TimeSlot(Movie Movie, int Time, Hall Hall, List<Seat> OccupiedSeats)
             {
                 this.occupiedSeats = OccupiedSeats;
                 this.Movie = Movie;
@@ -35,7 +39,7 @@ namespace CinemaApplication
 
                 var subtitle = new TextBuilder(this.Window, 1, 1)
                     .Color(ConsoleColor.DarkMagenta)
-                    .Text("Film: " + this.Movie)
+                    .Text("Film: " + this.Movie.Name)
                     .Result();
 
                 var subtitle2 = new TextBuilder(this.Window, 1, 2)
@@ -83,52 +87,39 @@ namespace CinemaApplication
                     .Color(ConsoleColor.Cyan)
                     .SetItems("Go back")
                     .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
-                    .LinkWindows(timeSlotWindow)
+                    .LinkWindows(Movie.timeSlotWindow)
                     .Result();
             }
         }
-
-        static List<JsonElement> timeslotsFile = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
-        static List<JsonElement> hallsFile = JsonFile.FileAsList("..\\..\\..\\Halls.json");
-        static List<JsonElement> moviesFile = JsonFile.FileAsList("..\\..\\..\\Movies.json");
-        static List<TimeSlot> timeSlots = new List<TimeSlot>();
-
-        static Window timeSlotWindow = new Window();
-        static void TimeSlotScreen()
+        public partial class Movie
         {
-            foreach (JsonElement timeSlot in timeslotsFile)
+            public Window timeSlotWindow = new Window();
+            public void TimeSlotScreen()
             {
-                var hallElement = hallsFile.Find(hall => hall.GetProperty("id").GetInt32() == timeSlot.GetProperty("hall").GetInt32());
-                var hall = new Hall(hallElement.GetProperty("id").GetInt32(), hallElement.GetProperty("rows").GetInt32(), hallElement.GetProperty("columns").GetInt32());
-                var occupiedSeats = new List<Seat>();
-                foreach (JsonElement seat in timeSlot.GetProperty("occupiedSeats").EnumerateArray())
-                    occupiedSeats.Add(new Seat(seat.GetProperty("row").GetInt32(), seat.GetProperty("column").GetInt32()));
-                timeSlots.Add(new TimeSlot(timeSlot.GetProperty("movie").GetString(), timeSlot.GetProperty("time").GetInt32(), hall, occupiedSeats));
-            }
-
-            var current = moviesFile[0].GetProperty("name").GetString();
-            var validTimeSlots = timeSlots.FindAll(t => t.Movie == current);
-            var validTimeSlotNames = new List<string>();
-            var validTimeSlotWindows = new List<Window>();
-            foreach (TimeSlot timeSlot in validTimeSlots)
-                if (timeSlot.Movie == current)
+                var validTimeSlots = timeSlots.FindAll(t => t.Movie == this);
+                var validTimeSlotNames = new List<string>();
+                var validTimeSlotWindows = new List<Window>();
+                foreach (TimeSlot timeSlot in validTimeSlots)
                 {
                     validTimeSlotNames.Add("Tijd: " + timeSlot.Time);
                     validTimeSlotWindows.Add(timeSlot.Window);
                 }
 
-            var title = new TextBuilder(timeSlotWindow, 1, 1)
-                .Color(ConsoleColor.Magenta)
-                .Text("Beschikbare tijdslotten voor " + current)
-                .Result();
+                var title = new TextBuilder(timeSlotWindow, 1, 1)
+                    .Color(ConsoleColor.Magenta)
+                    .Text("Beschikbare tijdslotten voor " + Name)
+                    .Result();
 
-            var listOfTimeslots = new TextListBuilder(timeSlotWindow, 1, 3)
-                .Color(ConsoleColor.White)
-                .SetItems(validTimeSlotNames.ToArray())
-                .UseNumbers()
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(validTimeSlotWindows.ToArray())
-                .Result();
+                SelectableList listOfTimeslots;
+                if (validTimeSlots.Count > 0)
+                    listOfTimeslots = new TextListBuilder(timeSlotWindow, 1, 3)
+                        .Color(ConsoleColor.White)
+                        .SetItems(validTimeSlotNames.ToArray())
+                        .UseNumbers()
+                        .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                        .LinkWindows(validTimeSlotWindows.ToArray())
+                        .Result();
+            }
         }
     }
 }

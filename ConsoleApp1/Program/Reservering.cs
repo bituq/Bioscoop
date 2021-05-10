@@ -26,7 +26,7 @@ namespace CinemaApplication
 
                 var title = new TextBuilder(Window, 1, 1)
                     .Color(ConsoleColor.Magenta)
-                    .Text("Maak een reservering voor " + TimeSlot.Movie)
+                    .Text("Maak een reservering voor " + TimeSlot.Movie.Name)
                     .Result();
 
                 var inputInformation = new TextListBuilder(Window, 1, 3)

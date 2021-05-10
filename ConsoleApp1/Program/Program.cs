@@ -2,13 +2,14 @@ using System;
 using CinemaUI;
 using CinemaUI.Builder;
 using System.IO;
-using System.Text;
+using System.Text.Json;
+using System.Collections.Generic;
 
 namespace CinemaApplication
 {
     partial class Program
     {
-        static Window mainMenu = new Window();
+        static Window mainMenu = new Window(true);
         static void MainMenu()
         {
             var title = new TextBuilder(mainMenu, 2, 2)
@@ -35,8 +36,7 @@ namespace CinemaApplication
             MainMenu();
             ListOfFilms();
             SnacksWindow();
-            //PaymentScreen();
-            Halls();
+            //Halls();
 
             InputHandler.WaitForInput();
         }
