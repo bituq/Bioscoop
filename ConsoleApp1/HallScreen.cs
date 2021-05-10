@@ -56,19 +56,19 @@ namespace CinemaApplication
 
 
 
-            var movieObjects = new hall[root.GetArrayLength()];
-            var movieWindows = new Window[movieObjects.Length];
-            string[] movieNames = new string[root.GetArrayLength()];
-            for (int i = 0; i < movieNames.Length; i++)
+            var hallObjects = new hall[root.GetArrayLength()];
+            var hallWindows = new Window[hallObjects.Length];
+            string[] hallNames = new string[root.GetArrayLength()];
+            for (int i = 0; i < hallNames.Length; i++)
             {
-                movieObjects[i] = new hall(
-                    root[i].GetProperty("name").ToString(),
-                    $"Duration: {root[i].GetProperty("rows")} minutes",
-                    $"Release Date: {root[i].GetProperty("columns")}"
+                hallObjects[i] = new hall(
+                    root[i].GetProperty("Name").ToString(),
+                    $"Rows : {root[i].GetProperty("rows")}",
+                    $"Columns : {root[i].GetProperty("columns")}"
                     );
 
-                movieWindows[i] = movieObjects[i].Window;
-                movieNames[i] = movieObjects[i].Name;
+                hallWindows[i] = hallObjects[i].Window;
+                hallNames[i] = hallObjects[i].Name;
                 //Console.WriteLine($"{i} : {movieNames[i]}");
             }
             var showhall = new TextListBuilder(hallscreen, 3, 2)
