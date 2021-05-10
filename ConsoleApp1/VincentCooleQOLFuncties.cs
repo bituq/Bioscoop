@@ -6,7 +6,7 @@ using System.Net.Mail;
 
 namespace CinemaApplication
 {
-    class Program
+    class VincentCooleQOLFuncties
     {
         public static void EmailUser(string recipient, string code) 
         {
