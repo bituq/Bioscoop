@@ -7,7 +7,7 @@ namespace CinemaUI
     public class TextInputList : Selectable
     {
         internal TextList TextList { get; set; }
-        internal List<TextInput> Items { get; set; } = new List<TextInput>();
+        internal new List<TextInput> Items { get; set; } = new List<TextInput>();
         public Window Window { get => TextList.Window; set => TextList.Window = value; }
         internal int OrderIndex { get => TextList.Window.SelectionOrder.IndexOf(this); }
         private Color ActiveColor { get; set; }
@@ -16,6 +16,10 @@ namespace CinemaUI
             TextList = textList;
             ActiveColor = activeColor;
         }
+        public Action OnChange { get; set; } = () => { };
+        private bool AfterSelection { get; set; } = false;
+
+        public TextInput this[int index] { get => Items[index]; }
 
         private void UpArrow(TextInput activeItem, int index)
         {
@@ -50,29 +54,34 @@ namespace CinemaUI
             var selectedItem = Items.Find(item => item.Selected) ?? Items[0];
             int selectedIndex = Items.IndexOf(selectedItem);
             Console.CursorVisible = false;
+            if (AfterSelection)
+            {
+                OnChange();
+                Window.Init();
+                AfterSelection = false;
+            }
             switch (keyPressed.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (!selectedItem.IsActive)
-                        UpArrow(selectedItem, selectedIndex);
+                    UpArrow(selectedItem, selectedIndex);
                     break;
                 case ConsoleKey.DownArrow:
-                    if (!selectedItem.IsActive)
-                        DownArrow(selectedItem, selectedIndex);
+                    DownArrow(selectedItem, selectedIndex);
                     break;
                 case ConsoleKey.LeftArrow:
-                    if (!selectedItem.IsActive)
-                        LeftArrow(selectionOrder);
+                    LeftArrow(selectionOrder);
                     break;
                 case ConsoleKey.RightArrow:
-                    if (!selectedItem.IsActive)
-                        RightArrow(selectionOrder);
+                    RightArrow(selectionOrder);
                     break;
                 default:
+                    Enter(selectedItem);
                     if (!selectedItem.IsActive)
-                        Enter(selectedItem);
-                    else if (selectedItem.IsActive && keyPressed.Key == ConsoleKey.Enter)
-                        Enter(selectedItem);
+                    {
+                        AfterSelection = false;
+                    }
+                    else
+                        AfterSelection = true;
                     break;
             }
         }

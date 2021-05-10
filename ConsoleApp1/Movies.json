@@ -1,0 +1,78 @@
+[
+	{
+		"name" : "Placeholder (The Movie)",
+		"duration" : 43560,
+		"releaseDate" : 1049876277,
+		"rating" : 4,
+		"genres" : [
+			"all",
+			"genres",
+			"drama"
+		],
+		"language" : "english",
+		"company" : "Walt Disney Pictures",
+		"starring" : [
+			"Brent",
+			"Mohammed"
+		],
+		"description" : "this is a story all about how my life got flipped turned upside down"
+
+	},
+	{
+		"name" : "Placeholder (The Movie) 2",
+		"duration" : 43560,
+		"releaseDate" : 1049876277,
+		"rating" : 2,
+		"genres" : [
+			"all",
+			"genres",
+			"drama"
+		],
+		"language" : "english",
+		"company" : "Walt Disney Pictures",
+		"starring" : [
+			"list", 
+			"hello"
+		],
+		"description" : "This is a test"
+
+	},
+	{
+		"name" : "Placeholder (The Movie) 3",
+		"duration" : 43560,
+		"releaseDate" : 1049876277,
+		"rating" : 1,
+		"genres" : [
+			"all",
+			"genres",
+			"drama"
+		],
+		"language" : "english",
+		"company" : "Walt Disney Pictures",
+		"starring" : [
+			"Daniel",
+			"Waros"
+		],
+		"description" : "This is another test"
+
+	},
+	{
+		"name" : "Placeholder (The Movie) 4",
+		"duration" : 43560,
+		"releaseDate" : 1049876277,
+		"rating" : 1,
+		"genres" : [
+			"all",
+			"genres",
+			"drama"
+		],
+		"language" : "english",
+		"company" : "Walt Disney Pictures",
+		"starring" : [
+			"Daniel",
+			"Waros"
+		],
+		"description" : "This is another test"
+
+	}
+]

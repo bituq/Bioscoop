@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CinemaUI
 {
     public class Instance
     {
-        private bool _active { get; set; }
+        private bool _active { get; set; } = true;
         private List<UIElement> _children = new List<UIElement>();
 
         public virtual Point Position { get; set; }
@@ -58,6 +57,21 @@ namespace CinemaUI
             InputHandler.Windows.Add(this);
         }
 
+        public void AddInFront(Selectable selectable)
+        {
+            var temp = new Selectable[SelectionOrder.Count + 1];
+            temp[0] = selectable;
+            for (int i = 0; i < SelectionOrder.Count; i++)
+                temp[i + 1] = SelectionOrder[i];
+            SelectionOrder = new List<Selectable>(temp);
+        }
+        public void ReplaceSelectable(Selectable a, Selectable b)
+        {
+            int index = SelectionOrder.IndexOf(a);
+            SelectionOrder.Remove(a);
+            SelectionOrder.Remove(b);
+            SelectionOrder.Insert(index, b);
+        }
         public void LinkTextInput(TextInput textInput, Paragraph paragraph) => LinkedVariables[textInput] = paragraph;
         public void Draw()
         {

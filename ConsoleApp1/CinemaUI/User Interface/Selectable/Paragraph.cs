@@ -9,7 +9,9 @@ namespace CinemaUI
         internal ConsoleColor _defaultTextColor;
         internal Paragraph _paragraph { get; set; }
         internal Window Referral { get; set; }
+        internal ConsoleColor DisabledColor { get; set; } = ConsoleColor.DarkGray;
         public Window Window { get => _paragraph.Window; set => _paragraph.Window = value; }
+        public Action OnClick { get; set; } = () => { };
         public string Text
         {
             get => _paragraph.Text;
@@ -40,6 +42,12 @@ namespace CinemaUI
         {
             Selected = true;
             _paragraph.ChangeTextCells(Foreground, Background, Background != Foreground);
+        }
+
+        public void Disable()
+        {
+            Disabled = true;
+            _paragraph.TextColor = DisabledColor;
         }
     }
 }

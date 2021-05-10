@@ -7,7 +7,7 @@ namespace CinemaUI
     public class SelectableList : Selectable
     {
         internal TextList TextList { get; set; }
-        internal List<SelectableText> Items { get; set; } = new List<SelectableText>();
+        internal new List<SelectableText> Items { get; set; } = new List<SelectableText>();
         internal int OrderIndex { get => TextList.Window.SelectionOrder.IndexOf(this); }
 
         public ConsoleColor Foreground { get; set; }
@@ -19,6 +19,17 @@ namespace CinemaUI
             Foreground = color.Foreground;
             Background = color.Background;
         }
+
+        public void Replace(SelectableList selectable)
+        {
+            TextList.Window.SelectionOrder.Remove(selectable);
+            TextList.Replace(selectable.TextList);
+            Foreground = selectable.Foreground;
+            Background = selectable.Background;
+            Items = selectable.Items;
+        }
+
+        public SelectableText this[int index] { get => Items[index]; }
 
         private void UpArrow(SelectableText activeItem, int index)
         {
@@ -44,6 +55,7 @@ namespace CinemaUI
         }
         private void Enter(SelectableText activeItem)
         {
+            activeItem.OnClick();
             if (activeItem.Referral != null)
             {
                 Unselect();
@@ -74,7 +86,8 @@ namespace CinemaUI
                     RightArrow(selectionOrder);
                     break;
                 case ConsoleKey.Enter:
-                    Enter(activeItem);
+                    if (!Disabled && !activeItem.Disabled)
+                        Enter(activeItem);
                     break;
             }
         }
@@ -92,6 +105,13 @@ namespace CinemaUI
             TextList.Window.ActiveSelectable = this;
             Items[0].Select();
         }
+
+        public void SetOrder(int index) => TextList.Window.SelectionOrder[index] = this;
+
+        public void Reset()
+        {
+            TextList.Window.SelectionOrder.Remove(this);
+        }
     }
 }
 
@@ -101,6 +121,7 @@ namespace CinemaUI.Builder
     {
         private SelectableList _product { get; set; }
         private Tuple<TextList, Color> _params { get; set; }
+        private ConsoleColor disabledColor { get; set; } = ConsoleColor.DarkGray;
 
         public void Reset()
         {
@@ -121,9 +142,16 @@ namespace CinemaUI.Builder
                 _product.Items[i].Referral = windows[i];
             return this;
         }
+        public SelectableGroupBuilder DisabledColor(ConsoleColor textColor)
+        {
+            this.disabledColor = textColor;
+            return this;
+        }
         public SelectableList Result()
         {
             SelectableList result = this._product;
+            foreach (SelectableText item in result.Items)
+                item.DisabledColor = disabledColor;
             this.Reset();
 
             result.TextList.Window.SelectionOrder.Add(result);

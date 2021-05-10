@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CinemaUI;
 using CinemaUI.Builder;
 using System.IO;
@@ -46,7 +46,7 @@ namespace CinemaApplication
         static void Main(string[] args)
         {
             MainMenu();
-            //ListOfFilms();
+            ListOfFilms();
             Demo();
 
             InputHandler.WaitForInput();

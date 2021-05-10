@@ -14,7 +14,9 @@ namespace CinemaUI
         public static void WaitForInput()
         {
             foreach (Window window in Windows)
+            {
                 window.Init();
+            }
             Console.CursorVisible = false;
             Window activeWindow = Windows?.Find(w => w.Active) ?? DefaultDialog();
             activeWindow.Draw();

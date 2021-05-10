@@ -43,9 +43,9 @@ namespace CinemaUI
         }
         public void Active()
         {
-            IsActive = true;
             Paragraph.Reset();
             Window.ReadLine = ReadLine;
+            IsActive = true;
         }
         public void ReadLine()
         {
