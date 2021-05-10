@@ -50,6 +50,9 @@ namespace CinemaUI.Builder
     {
         private TextList _product { get; set; }
         private Tuple<Window, UIElement, int, int, Space> _params { get; set; }
+        private bool useNumbers { get; set; } = false;
+        private string[] Items { get; set; }
+
 
         public void Reset()
         {
