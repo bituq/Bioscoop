@@ -33,11 +33,13 @@ namespace CinemaApplication
 
             var information = new TextListBuilder(Window, 3, 12)
                 .Color(ConsoleColor.White)
-                .Result(false, duration, releaseDate, rating, language, company, "Genres: ");
+                .SetItems(duration, releaseDate, rating, language, company, "Genres: ")
+                .Result();
 
             var genresInformation = new TextListBuilder(Window, 3 + information.Items[5].Text.Length, 17)
                 .Color(ConsoleColor.White)
-                .Result(false, Genres.ToArray());
+                .SetItems(Genres.ToArray())
+                .Result();
 
             var information2 = new TextBuilder(Window, 3, 17 + Genres.Count)
                 .Color(ConsoleColor.White)
@@ -45,7 +47,8 @@ namespace CinemaApplication
 
             var starringInformation = new TextListBuilder(Window, 3 + information2.Text.Length, information2.Position.Y)
                 .Color(ConsoleColor.White)
-                .Result(false, Starring.ToArray());
+                .SetItems(Starring.ToArray())
+                .Result();
 
             var _ = new TextListBuilder(Window, 3, 1)
                 .Color(ConsoleColor.White)

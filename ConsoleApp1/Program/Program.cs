@@ -22,7 +22,7 @@ namespace CinemaApplication
             var menu = new TextListBuilder(mainMenu, 2, 5)
                 .Color(ConsoleColor.White)
                 .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), true, "Lijst van films", "Lijst van snacks")
-                .LinkWindows(listOfFilms)
+                .LinkWindows(listOfFilms, snacksWindow)
                 .Result();
         }
 
@@ -30,7 +30,7 @@ namespace CinemaApplication
         {
             MainMenu();
             ListOfFilms();
-            Demo();
+            SnacksWindow();
 
             InputHandler.WaitForInput();
         }
