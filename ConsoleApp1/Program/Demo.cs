@@ -22,7 +22,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.Red)
                 .Result(name);
 
-            var information = new TextListBuilder(Window, 3, 10)
+            var information = new TextListBuilder(Window, 3, 8)
                 .Color(ConsoleColor.White)
                 .Result(false, price, vegetarian, stock);
 
