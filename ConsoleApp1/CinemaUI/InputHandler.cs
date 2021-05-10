@@ -34,7 +34,12 @@ namespace CinemaUI
         private static Window DefaultDialog()
         {
             Window defaultWindow = new Window(true);
-            Paragraph _ = new TextBuilder(defaultWindow).Text("This is the default window. No other windows have been made.").Result();
+            Paragraph temp = new TextBuilder(defaultWindow, 3, 3)
+                .Color(ConsoleColor.Red)
+                .Text("This is the default window. No other windows have been made.")
+                .Result();
+
+            defaultWindow.Init();
             return defaultWindow;
         }
     }

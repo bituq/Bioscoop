@@ -30,6 +30,7 @@ namespace CinemaUI
         }
         public void SetItems(string[] arr, bool UseNumbers, string suffix = "")
         {
+            Items.Clear();
             for (int i = 0; i < arr.Length; i++)
             {
                 Items.Add(new Paragraph(Window, Position.X, Position.Y + i));
@@ -51,8 +52,7 @@ namespace CinemaUI.Builder
         private TextList _product { get; set; }
         private Tuple<Window, UIElement, int, int, Space> _params { get; set; }
         private bool useNumbers { get; set; } = false;
-        private string[] Items { get; set; }
-
+        private string[] Items { get; set; } = new string[] { "" };
 
         public void Reset()
         {
@@ -76,16 +76,23 @@ namespace CinemaUI.Builder
             return this;
         }
 
-        public SelectableGroupBuilder Selectable(Color selectionColor, bool useNumbers)
+        public SelectableGroupBuilder Selectable(ConsoleColor foreground, ConsoleColor background)
         {
-            return new SelectableGroupBuilder(_product, selectionColor);
+            _product.SetItems(Items, useNumbers);
+            return new SelectableGroupBuilder(_product, new Color(foreground, background));
         }
 
-        public TextInputListBuilder AsInput(Color color)
+        public TextInputListBuilder AsInput(ConsoleColor foreground, ConsoleColor background)
         {
-            return new TextInputListBuilder(this._product, color);
+            this._product.SetItems(Items, useNumbers);
+            return new TextInputListBuilder(this._product, new Color(foreground, background));
         }
 
+        public TextListBuilder UseNumbers(bool trueOrFalse)
+        {
+            useNumbers = trueOrFalse;
+            return this;
+        }
         public TextListBuilder UseNumbers()
         {
             useNumbers = true;

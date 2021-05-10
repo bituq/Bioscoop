@@ -93,7 +93,7 @@ namespace CinemaApplication
         static List<JsonElement> moviesFile = JsonFile.FileAsList("..\\..\\..\\Movies.json");
         static List<TimeSlot> timeSlots = new List<TimeSlot>();
 
-        static Window timeSlotWindow = new Window(true);
+        static Window timeSlotWindow = new Window();
         static void TimeSlotScreen()
         {
             foreach (JsonElement timeSlot in timeslotsFile)

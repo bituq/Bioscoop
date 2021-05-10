@@ -55,7 +55,7 @@ namespace CinemaApplication
 
             var _ = new TextListBuilder(Window, 3, 1)
                 .Color(ConsoleColor.White)
-                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), false)
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(Program.listOfFilms)
                 .Result();
         }
@@ -63,10 +63,17 @@ namespace CinemaApplication
 
     partial class Program
     {
-        public static Window listOfFilms = new Window(false);
+        public static Window listOfFilms = new Window(true);
         static void ListOfFilms()
         {
-            var movies = File.ReadAllText("Movies.json");
+            var _ = new TextListBuilder(listOfFilms, 1, 1)
+                   .Color(ConsoleColor.Yellow)
+                   .SetItems("Go back")
+                   .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                   .LinkWindows(mainMenu)
+                   .Result();
+
+            var movies = File.ReadAllText("..\\..\\..\\Movies.json");
 
             JsonDocument doc = JsonDocument.Parse(movies);
             JsonElement root = doc.RootElement;
@@ -95,9 +102,16 @@ namespace CinemaApplication
                 movieNames[i] = movieObjects[i].Name;
                 //Console.WriteLine($"{i} : {movieNames[i]}");
             }
-            var movieList = new TextListBuilder(listOfFilms, 4, 4)
-                .Color(ConsoleColor.DarkMagenta)
-                .Selectable(new Color(ConsoleColor.Cyan, ConsoleColor.DarkMagenta), true)
+            var movieListTitle = new TextBuilder(listOfFilms, 11, 1)
+                .Color(ConsoleColor.Magenta)
+                .Text("Beschikbare films:")
+                .Result();
+
+            var movieList = new TextListBuilder(listOfFilms, 11, 3)
+                .Color(ConsoleColor.White)
+                .SetItems(movieNames)
+                .UseNumbers()
+                .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                 .LinkWindows(movieWindows)
                 .Result();
             /*

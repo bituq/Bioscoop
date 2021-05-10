@@ -23,7 +23,9 @@ namespace CinemaApplication
 
             var menu = new TextListBuilder(mainMenu, 2, 5)
                 .Color(ConsoleColor.White)
-                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), true, "Lijst van films", "Lijst van snacks")
+                .UseNumbers()
+                .SetItems("Lijst van films", "Lijst van snacks")
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(listOfFilms, snacksWindow)
                 .Result();
         }

@@ -1,78 +1,82 @@
 [
 	{
-		"name" : "Placeholder (The Movie)",
-		"duration" : 43560,
-		"releaseDate" : 1049876277,
-		"rating" : 4,
+		"id" : 0,
+	  "name" : "Harry Potter and the Deathly Hallows: Part 1",
+		"duration" : 90,
+		"releaseDate" : "17-11-2010",
+		"rating" : "3.5/5",
 		"genres" : [
-			"all",
-			"genres",
-			"drama"
+			"Action",
+			"Fantasy"
 		],
-		"language" : "english",
-		"company" : "Walt Disney Pictures",
+		"language" : "English",
+		"company" : "Warner Brothers",
 		"starring" : [
-			"Brent",
-			"Mohammed"
+			"Daniel Radcliffe",
+			"Emma Watson",
+			"Rupert Grint"
 		],
-		"description" : "this is a story all about how my life got flipped turned upside down"
+		"description" : "Harry Potter, with his closest friends\n   Hermione and Ron must avoid school and instead search\n   and destroy the Horcruxes. The keys to Voldemort's immortality."
 
 	},
 	{
-		"name" : "Placeholder (The Movie) 2",
-		"duration" : 43560,
-		"releaseDate" : 1049876277,
-		"rating" : 2,
+		"id" : 1,
+	  "name" : "Lord of the Rings: Fellowship of the Ring",
+		"duration" : 128,
+		"releaseDate" : "19-12-2001",
+		"rating" : "4/5",
 		"genres" : [
-			"all",
-			"genres",
-			"drama"
+			"Adventure",
+			"Fantasy"
+		
 		],
-		"language" : "english",
-		"company" : "Walt Disney Pictures",
+		"language" : "English",
+		"company" : "New Line Cinema",
 		"starring" : [
-			"list", 
-			"hello"
+			"Elijah Wood", 
+			"Ian McKellen"
 		],
-		"description" : "This is a test"
+		"description" : "In the Second Age of Middle-earth, the lords of Elves, Dwarves,\n   and Men are given Rings of Power. Unbeknownst to them,\n   the Dark Lord Sauron forges the One Ring in Mount Doom,\n   instilling into it a great part of his power,\n   in order to dominate the other Rings so he might conquer Middle-earth."
 
 	},
 	{
-		"name" : "Placeholder (The Movie) 3",
-		"duration" : 43560,
-		"releaseDate" : 1049876277,
-		"rating" : 1,
+		"id" : 2,
+	  "name" : "1917",
+		"duration" : 107,
+		"releaseDate" : "04-12-2019",
+		"rating" : "4,5/5",
 		"genres" : [
-			"all",
-			"genres",
-			"drama"
+			"War",
+			"Drama"
+		
 		],
-		"language" : "english",
-		"company" : "Walt Disney Pictures",
+		"language" : "English",
+		"company" : "DreamWorks Pictures",
 		"starring" : [
-			"Daniel",
-			"Waros"
+			"George MacKay",
+			"Dean Charles-Chapman"
 		],
-		"description" : "This is another test"
+		"description" : "April 6th, 1917. As a regiment assembles to wage war deep in enemy territory,\n   two soldiers are assigned to race against time and deliver a message\n   that will stop 1,600 men from walking straight into a deadly trap."
 
 	},
 	{
-		"name" : "Placeholder (The Movie) 4",
-		"duration" : 43560,
-		"releaseDate" : 1049876277,
-		"rating" : 1,
+		"id" : 3,
+	  "name" : "The Holiday",
+		"duration" : 77,
+		"releaseDate" : "07-08-2006",
+		"rating" : "3,5/5",
 		"genres" : [
-			"all",
-			"genres",
-			"drama"
+			"Romance",
+			"Comedy"
+			
 		],
-		"language" : "english",
-		"company" : "Walt Disney Pictures",
+		"language" : "English",
+		"company" : "Columbia Pictures",
 		"starring" : [
-			"Daniel",
-			"Waros"
+			"Kate Winslet",
+			"Cameron Diaz"
 		],
-		"description" : "This is another test"
+		"description" : "Two women troubled with guy-problems swap homes in each other's countries,\n   where they each meet a local guy and fall in love."
 
 	}
 ]
