@@ -8,11 +8,11 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window paypal = new Window(true);
+        static Window paypal = new Window();
         static void PayPal()
         {
             var title = new TextBuilder(paypal, 3, 2)
-                .Color(ConsoleColor.Blue)
+                .Color(ConsoleColor.Cyan)
                 .Text("Using PayPal...")
                 .Result();
             

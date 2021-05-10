@@ -12,6 +12,15 @@ namespace CinemaApplication
 			Payments();
 			IDEAL();
 			PayPal();
+			VISA();
+			Maestro();
+			MasterCard();
+			ING();
+			RABO();
+			ABN();
+			REGIO();
+			SNS();
+			KNAB();
 		}
 		static void HallsScreen()
         {
@@ -19,8 +28,8 @@ namespace CinemaApplication
         }
 		static void Main()
 		{
-			//PaymentScreen();
-			HallsScreen();
+			PaymentScreen();
+			//HallsScreen();
 			InputHandler.WaitForInput();
 		}
 	}

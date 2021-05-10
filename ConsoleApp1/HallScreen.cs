@@ -8,15 +8,40 @@ using JsonHandler;
 
 namespace CinemaApplication
 {
+     public class hall
+    {
+        public Window Window = new Window(true);
+        public string Name { get; set; }
+        public string Rows { get; set; }
+        public string Columns { get; set; }
+
+        public hall(string name, string rows, string columns)
+        {
+            var Name = name;
+            var Rows = rows;
+            var Columns = columns;
+
+            var title = new TextBuilder(Window, 3, 3)
+                .Color(ConsoleColor.Red)
+                .Text(name)
+                .Result();
+
+            var description = new TextBuilder(Window, 3, 4)
+                .Color(ConsoleColor.DarkGray)
+                .Text(rows)
+                .Result();
+
+            var information = new TextBuilder(Window, 3, 12)
+                .Color(ConsoleColor.White)
+                .Text(columns)
+                .Result();
+
+      
+        }
+    }
     partial class Program
     {
-        public class hall(string name, string rows, string columns)
-        {
-            public string name { get; set; }
-            public int rows { get; set; }
-            public int columns { get; set; }
-        }
-        static Window hallscreen = new Window(true);
+        static Window hallscreen = new Window();
         static void Halls()
         {
             var halls = File.ReadAllText("halls.json");
