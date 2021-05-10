@@ -13,7 +13,7 @@ namespace JsonHandler
         };
         private static void OverwriteFile(string filePath, List<JsonElement> docList, JsonSerializerOptions options) =>
             File.WriteAllText(filePath, JsonSerializer.Serialize(docList.ToArray(), options));
-        private static List<JsonElement> FileAsList(string filePath)
+        public static List<JsonElement> FileAsList(string filePath)
         {
             var doc = JsonDocument.Parse(File.ReadAllText(filePath));
             return new List<JsonElement>(doc.RootElement.EnumerateArray());
@@ -21,9 +21,10 @@ namespace JsonHandler
 
         public static void AppendToFile(object value, string filePath)
         {
-            var newItem = JsonDocument.Parse(JsonSerializer.Serialize(value, options));
             var docList = FileAsList(filePath);
-            docList.Add(newItem.RootElement[0]);
+            var newItem = JsonDocument.Parse(JsonSerializer.Serialize(value, options));
+            foreach (JsonElement root in newItem.RootElement.EnumerateArray())
+                docList.Add(root);
             OverwriteFile(filePath, docList, options);
         }
 
@@ -34,7 +35,10 @@ namespace JsonHandler
             foreach (JsonElement obj in oldList)
             {
                 if (obj.GetProperty(key).ToString() == value)
+                {
                     newList.Remove(obj);
+                    break;
+                }
             }
             OverwriteFile(filePath, newList, options);
         }
