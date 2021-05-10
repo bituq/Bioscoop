@@ -60,8 +60,6 @@ namespace CinemaUI.Builder
     {
         private Paragraph _product { get; set; }
         private Tuple<Window, UIElement, int, int, Space> _params { get; set; }
-        private string text { get; set; } = "";
-        private ConsoleColor textColor { get; set; } = ConsoleColor.White;
 
         public void Reset()
         {
@@ -79,27 +77,21 @@ namespace CinemaUI.Builder
             this.Reset();
         }
 
-        public SelectableTextBuilder Selectable(ConsoleColor foreground, ConsoleColor background)
+        public SelectableTextBuilder Selectable(ConsoleColor textColor, Color selectionColor)
         {
-            return new SelectableTextBuilder(_product, new Color(foreground, background));
+            _product.TextColor = textColor;
+            return new SelectableTextBuilder(_product, selectionColor);
         }
 
         public TextBuilder Color(ConsoleColor textColor)
         {
-            this.textColor = textColor;
+            _product.TextColor = textColor;
             return this;
         }
 
-        public TextBuilder Text(string text)
-        {
-            this.text = text;
-            return this;
-        }
-
-        public Paragraph Result()
+        public Paragraph Result(string text)
         {
             Paragraph result = this._product;
-            result.TextColor = textColor;
             result.Text = text;
             result.Init();
 

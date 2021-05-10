@@ -46,7 +46,7 @@ namespace CinemaUI.Builder
             for (int i = 0; i < arr.Length; i++)
             {
                 MaxLengthPerColumn.Add(Int32.MinValue);
-                par = new TextBuilder(_product.Window, _product.Position.X + (MaxLengthPerColumn[i] + 2) * i, _product.Position.Y).Text(arr[i]).Result();
+                par = new TextBuilder(_product.Window, _product.Position.X + (MaxLengthPerColumn[i] + 2) * i, _product.Position.Y).Result(arr[i]);
                 par.TextColor = textColor;
                 _product.Headers.Add(par);
             }
@@ -56,7 +56,7 @@ namespace CinemaUI.Builder
             var row = new List<Paragraph>();
             for (int i = 0; i < _product.Headers.Count; i++)
             {
-                row.Add(new TextBuilder(_product.Window, _product.Position.X, _product.Position.Y + _product.Items.Count + 1).Text(arr[i]).Result());
+                row.Add(new TextBuilder(_product.Window, _product.Position.X, _product.Position.Y + _product.Items.Count + 1).Result(arr[i]));
             }
             _product.Items.Add(row);
         }
