@@ -37,7 +37,7 @@ namespace CinemaApplication
                 var input = new TextListBuilder(Window, 13, 3)
                     .Color(ConsoleColor.White)
                     .SetItems("", "")
-                    .AsInput(new Color(ConsoleColor.White, ConsoleColor.DarkGray))
+                    .AsInput(ConsoleColor.White, ConsoleColor.DarkGray)
                     .Result();
 
                 var goBack = new TextListBuilder(Window, 1, 10)

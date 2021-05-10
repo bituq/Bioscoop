@@ -121,7 +121,6 @@ namespace CinemaUI.Builder
     {
         private SelectableList _product { get; set; }
         private Tuple<TextList, Color> _params { get; set; }
-        private ConsoleColor disabledColor { get; set; } = ConsoleColor.DarkGray;
 
         public void Reset()
         {
@@ -142,16 +141,9 @@ namespace CinemaUI.Builder
                 _product.Items[i].Referral = windows[i];
             return this;
         }
-        public SelectableGroupBuilder DisabledColor(ConsoleColor textColor)
-        {
-            this.disabledColor = textColor;
-            return this;
-        }
         public SelectableList Result()
         {
             SelectableList result = this._product;
-            foreach (SelectableText item in result.Items)
-                item.DisabledColor = disabledColor;
             this.Reset();
 
             result.TextList.Window.SelectionOrder.Add(result);

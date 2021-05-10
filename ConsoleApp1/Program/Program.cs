@@ -25,7 +25,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.White)
                 .UseNumbers()
                 .SetItems("Lijst van films", "Lijst van snacks")
-                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White))
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(listOfFilms, snacksWindow)
                 .Result();
         }

@@ -55,7 +55,7 @@ namespace CinemaApplication
 
             var _ = new TextListBuilder(Window, 3, 1)
                 .Color(ConsoleColor.White)
-                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White))
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(Program.listOfFilms)
                 .Result();
         }

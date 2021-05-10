@@ -69,7 +69,7 @@ namespace CinemaApplication
                     var _ = new TextListBuilder(this.Window, 9 + column * 4, 5)
                         .Color(ConsoleColor.DarkGreen)
                         .SetItems(seats)
-                        .Selectable(new Color(ConsoleColor.White, ConsoleColor.DarkGray))
+                        .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                         .LinkWindows(reservationWindows.ToArray())
                         .DisabledColor(ConsoleColor.DarkRed)
                         .Result();
@@ -82,7 +82,7 @@ namespace CinemaApplication
                 var goBack = new TextListBuilder(this.Window, 1, 7 + this.Hall.Rows)
                     .Color(ConsoleColor.Cyan)
                     .SetItems("Go back")
-                    .Selectable(new Color(ConsoleColor.White, ConsoleColor.DarkGreen))
+                    .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
                     .LinkWindows(timeSlotWindow)
                     .Result();
             }
@@ -126,7 +126,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.White)
                 .SetItems(validTimeSlotNames.ToArray())
                 .UseNumbers()
-                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White))
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(validTimeSlotWindows.ToArray())
                 .Result();
         }
