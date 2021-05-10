@@ -13,11 +13,11 @@ namespace CinemaApplication
         {
             public Window Window { get; set; } = new Window();
             public string Movie { get; set; } // Wordt uiteindelijk een Movie object.
-            public int Time { get; set; }
+            public string Time { get; set; }
             public Hall Hall { get; set; }
             public List<Seat> occupiedSeats { get; set; } = new List<Seat>();
 
-            public TimeSlot(string Movie, int Time, Hall Hall, List<Seat> OccupiedSeats)
+            public TimeSlot(string Movie, string Time, Hall Hall, List<Seat> OccupiedSeats)
             {
                 this.occupiedSeats = OccupiedSeats;
                 this.Movie = Movie;
@@ -81,7 +81,7 @@ namespace CinemaApplication
 
                 var goBack = new TextListBuilder(this.Window, 1, 7 + this.Hall.Rows)
                     .Color(ConsoleColor.Cyan)
-                    .SetItems("Go back")
+                    .SetItems("Ga terug")
                     .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
                     .LinkWindows(timeSlotWindow)
                     .Result();
@@ -103,7 +103,7 @@ namespace CinemaApplication
                 var occupiedSeats = new List<Seat>();
                 foreach (JsonElement seat in timeSlot.GetProperty("occupiedSeats").EnumerateArray())
                     occupiedSeats.Add(new Seat(seat.GetProperty("row").GetInt32(), seat.GetProperty("column").GetInt32()));
-                timeSlots.Add(new TimeSlot(timeSlot.GetProperty("movie").GetString(), timeSlot.GetProperty("time").GetInt32(), hall, occupiedSeats));
+                timeSlots.Add(new TimeSlot(timeSlot.GetProperty("movie").GetString(), timeSlot.GetProperty("time").GetString(), hall, occupiedSeats));
             }
 
             var current = moviesFile[0].GetProperty("name").GetString();

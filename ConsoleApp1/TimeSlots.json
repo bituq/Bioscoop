@@ -1,7 +1,7 @@
 [
   {
     "movie": "Placeholder (The Movie)",
-    "time": 11,
+    "time": "7 mei 15:00",
     "hall": 1,
     "occupiedSeats": [
       {
@@ -16,7 +16,7 @@
   },
   {
     "movie": "Placeholder (The Movie)",
-    "time": 12,
+    "time": "5 mei 17:00",
     "hall": 2,
     "occupiedSeats": [
       {
@@ -31,7 +31,7 @@
   },
   {
     "movie": "Placeholder (The Movie)",
-    "time": 13,
+    "time": "5 mei 13:00",
     "hall": 2,
     "occupiedSeats": [
       {

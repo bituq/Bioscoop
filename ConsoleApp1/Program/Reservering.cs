@@ -41,10 +41,10 @@ namespace CinemaApplication
                     .Result();
 
                 var goBack = new TextListBuilder(Window, 1, 10)
-                    .Color(ConsoleColor.Green)
-                    .SetItems("Go back")
+                    .Color(ConsoleColor.Cyan)
+                    .SetItems("Koop ticket", "Go back")
                     .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
-                    .LinkWindows(PreviousWindow)
+                    .LinkWindows(null, PreviousWindow)
                     .Result();
             }
         }
