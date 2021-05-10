@@ -13,11 +13,13 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(mainMenu, 2, 2)
                 .Color(ConsoleColor.Cyan)
-                .Result("Bioscoop Applicatie");
+                .Text("Bioscoop Applicatie")
+                .Result();
 
             var subtitle = new TextBuilder(mainMenu, 2, 3)
                 .Color(ConsoleColor.DarkGray)
-                .Result("Project B");
+                .Text("Project B")
+                .Result();
 
             var menu = new TextListBuilder(mainMenu, 2, 5)
                 .Color(ConsoleColor.White)

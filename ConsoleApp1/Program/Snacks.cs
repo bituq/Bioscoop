@@ -22,7 +22,8 @@ namespace CinemaApplication
 
                 var title = new TextBuilder(Window, 3, 3)
                     .Color(ConsoleColor.Red)
-                    .Result(name);
+                    .Text(name)
+                    .Result();
 
                 var information = new TextListBuilder(Window, 3, 4)
                     .Color(ConsoleColor.White)

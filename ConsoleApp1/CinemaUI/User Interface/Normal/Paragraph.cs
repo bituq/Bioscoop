@@ -60,6 +60,7 @@ namespace CinemaUI.Builder
     {
         private Paragraph _product { get; set; }
         private Tuple<Window, UIElement, int, int, Space> _params { get; set; }
+        private string text { get; set; } = "";
 
         public void Reset()
         {
@@ -89,7 +90,13 @@ namespace CinemaUI.Builder
             return this;
         }
 
-        public Paragraph Result(string text)
+        public TextBuilder Text(string text)
+        {
+            this.text = text;
+            return this;
+        }
+
+        public Paragraph Result()
         {
             Paragraph result = this._product;
             result.Text = text;

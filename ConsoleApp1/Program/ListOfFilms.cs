@@ -25,11 +25,13 @@ namespace CinemaApplication
 
             var title = new TextBuilder(Window, 3, 3)
                 .Color(ConsoleColor.Red)
-                .Result(name);
+                .Text(name)
+                .Result();
 
             var description = new TextBuilder(Window, 3, 4)
                 .Color(ConsoleColor.DarkGray)
-                .Result(descriptionText);
+                .Text(descriptionText)
+                .Result();
 
             var information = new TextListBuilder(Window, 3, 12)
                 .Color(ConsoleColor.White)
@@ -43,7 +45,8 @@ namespace CinemaApplication
 
             var information2 = new TextBuilder(Window, 3, 17 + Genres.Count)
                 .Color(ConsoleColor.White)
-                .Result("Starring: ");
+                .Text("Starring: ")
+                .Result();
 
             var starringInformation = new TextListBuilder(Window, 3 + information2.Text.Length, information2.Position.Y)
                 .Color(ConsoleColor.White)
@@ -52,7 +55,7 @@ namespace CinemaApplication
 
             var _ = new TextListBuilder(Window, 3, 1)
                 .Color(ConsoleColor.White)
-                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), false, "Go back")
+                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), false)
                 .LinkWindows(Program.listOfFilms)
                 .Result();
         }
@@ -94,7 +97,7 @@ namespace CinemaApplication
             }
             var movieList = new TextListBuilder(listOfFilms, 4, 4)
                 .Color(ConsoleColor.DarkMagenta)
-                .Selectable(new Color(ConsoleColor.Cyan, ConsoleColor.DarkMagenta), true, movieNames)
+                .Selectable(new Color(ConsoleColor.Cyan, ConsoleColor.DarkMagenta), true)
                 .LinkWindows(movieWindows)
                 .Result();
             /*
