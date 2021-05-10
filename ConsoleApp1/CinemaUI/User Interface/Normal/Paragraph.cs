@@ -37,7 +37,7 @@ namespace CinemaUI
             for (int i = 0; i < Text.Length; i++)
             {
                 Point point = new Point(offset, line);
-                Color color = new Color(foreground, Window.Buffer.ContainsKey(point.ToString()) && overwrite == false ? Window.Buffer[point.ToString()].Item4.Background : background);
+                Color color = new Color(foreground, Window.Buffer.ContainsKey(point.ToString()) && !overwrite ? Window.Buffer[point.ToString()].Item4.Background : background);
                 if (Text[i] == '\n')
                 {
                     Window.CreateCell(point.ToString(), Tuple.Create(offset, line, " ", color));

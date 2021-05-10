@@ -108,6 +108,7 @@ namespace CinemaUI.Builder
         public TextList Result()
         {
             _product.SetItems(Items, useNumbers);
+
             TextList result = this._product;
 
             this.Reset();
