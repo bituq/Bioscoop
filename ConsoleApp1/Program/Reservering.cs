@@ -43,7 +43,7 @@ namespace CinemaApplication
                 var goBack = new TextListBuilder(Window, 1, 10)
                     .Color(ConsoleColor.Green)
                     .SetItems("Go back")
-                    .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
+                    .Selectable(new Color(ConsoleColor.White, ConsoleColor.DarkGreen))
                     .LinkWindows(PreviousWindow)
                     .Result();
             }

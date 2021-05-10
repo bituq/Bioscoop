@@ -55,7 +55,7 @@ namespace CinemaApplication
 
             var _ = new TextListBuilder(Window, 3, 1)
                 .Color(ConsoleColor.White)
-                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), false)
+                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White))
                 .LinkWindows(Program.listOfFilms)
                 .Result();
         }
@@ -97,7 +97,8 @@ namespace CinemaApplication
             }
             var movieList = new TextListBuilder(listOfFilms, 4, 4)
                 .Color(ConsoleColor.DarkMagenta)
-                .Selectable(new Color(ConsoleColor.Cyan, ConsoleColor.DarkMagenta), true)
+                .UseNumbers()
+                .Selectable(new Color(ConsoleColor.Cyan, ConsoleColor.DarkMagenta))
                 .LinkWindows(movieWindows)
                 .Result();
             /*

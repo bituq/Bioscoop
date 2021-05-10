@@ -76,7 +76,7 @@ namespace CinemaUI.Builder
             return this;
         }
 
-        public SelectableGroupBuilder Selectable(Color selectionColor, bool useNumbers)
+        public SelectableGroupBuilder Selectable(Color selectionColor)
         {
             return new SelectableGroupBuilder(_product, selectionColor);
         }

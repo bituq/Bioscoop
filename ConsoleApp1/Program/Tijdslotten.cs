@@ -69,7 +69,7 @@ namespace CinemaApplication
                     var _ = new TextListBuilder(this.Window, 9 + column * 4, 5)
                         .Color(ConsoleColor.DarkGreen)
                         .SetItems(seats)
-                        .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
+                        .Selectable(new Color(ConsoleColor.White, ConsoleColor.DarkGray))
                         .LinkWindows(reservationWindows.ToArray())
                         .DisabledColor(ConsoleColor.DarkRed)
                         .Result();
@@ -82,7 +82,7 @@ namespace CinemaApplication
                 var goBack = new TextListBuilder(this.Window, 1, 7 + this.Hall.Rows)
                     .Color(ConsoleColor.Cyan)
                     .SetItems("Go back")
-                    .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
+                    .Selectable(new Color(ConsoleColor.White, ConsoleColor.DarkGreen))
                     .LinkWindows(timeSlotWindow)
                     .Result();
             }
@@ -93,7 +93,7 @@ namespace CinemaApplication
         static List<JsonElement> moviesFile = JsonFile.FileAsList("..\\..\\..\\Movies.json");
         static List<TimeSlot> timeSlots = new List<TimeSlot>();
 
-        static Window timeSlotWindow = new Window(true);
+        static Window timeSlotWindow = new Window();
         static void TimeSlotScreen()
         {
             foreach (JsonElement timeSlot in timeslotsFile)
@@ -126,7 +126,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.White)
                 .SetItems(validTimeSlotNames.ToArray())
                 .UseNumbers()
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White))
                 .LinkWindows(validTimeSlotWindows.ToArray())
                 .Result();
         }

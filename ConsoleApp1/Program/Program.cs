@@ -8,7 +8,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window mainMenu = new Window();
+        static Window mainMenu = new Window(true);
         static void MainMenu()
         {
             var title = new TextBuilder(mainMenu, 2, 2)
@@ -23,16 +23,18 @@ namespace CinemaApplication
 
             var menu = new TextListBuilder(mainMenu, 2, 5)
                 .Color(ConsoleColor.White)
-                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), true, "Lijst van films", "Lijst van snacks")
+                .UseNumbers()
+                .SetItems("Lijst van films", "Lijst van snacks")
+                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White))
                 .LinkWindows(listOfFilms, snacksWindow)
                 .Result();
         }
 
         static void Main(string[] args)
         {
-            MainMenu();
+            //MainMenu();
             ListOfFilms();
-            SnacksWindow();
+            //SnacksWindow();
 
             InputHandler.WaitForInput();
         }

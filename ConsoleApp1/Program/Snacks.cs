@@ -32,7 +32,8 @@ namespace CinemaApplication
 
                 var _ = new TextListBuilder(Window, 3, 1)
                    .Color(ConsoleColor.White)
-                   .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), false, "Go back")
+                   .SetItems("Go back")
+                   .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White))
                    .LinkWindows(snacksWindow)
                    .Result();
 
@@ -68,7 +69,9 @@ namespace CinemaApplication
 
             var snackList = new TextListBuilder(snacksWindow, 4, 4)
                 .Color(ConsoleColor.DarkMagenta)
-                .Selectable(new Color(ConsoleColor.Cyan, ConsoleColor.DarkMagenta), true, snackNames)
+                .SetItems(snackNames)
+                .UseNumbers()
+                .Selectable(new Color(ConsoleColor.Cyan, ConsoleColor.DarkMagenta))
                 .LinkWindows(snackWindows)
                 .Result();
 
