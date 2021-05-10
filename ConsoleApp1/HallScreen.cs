@@ -8,63 +8,57 @@ using JsonHandler;
 
 namespace CinemaApplication
 {
-     public class hall
-    {
-        public Window Window = new Window(true);
-        public string Name { get; set; }
-        public string Rows { get; set; }
-        public string Columns { get; set; }
-
-        public hall(string name, string rows, string columns)
-        {
-            var Name = name;
-            var Rows = rows;
-            var Columns = columns;
-
-            var title = new TextBuilder(Window, 3, 3)
-                .Color(ConsoleColor.Red)
-                .Text(name)
-                .Result();
-
-            var description = new TextBuilder(Window, 3, 4)
-                .Color(ConsoleColor.DarkGray)
-                .Text(rows)
-                .Result();
-
-            var information = new TextBuilder(Window, 3, 12)
-                .Color(ConsoleColor.White)
-                .Text(columns)
-                .Result();
-
-      
-        }
-    }
     partial class Program
     {
-        static Window hallscreen = new Window();
+        public class hall
+        {
+            public Window Window = new Window();
+            public string Name { get; set; }
+            public string Rows { get; set; }
+            public string Columns { get; set; }
+
+            public hall(string name, string rows, string columns)
+            {
+                Name = name;
+                Rows = rows;
+                Columns = columns;
+
+                var selectableList = new TextListBuilder(Window, 3, 1)
+                    .SetItems("Ga terug")
+                    .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                    .LinkWindows(hallscreen)
+                    .Result();
+
+                var title = new TextBuilder(Window, 3, 3)
+                    .Color(ConsoleColor.Red)
+                    .Text(name)
+                    .Result();
+
+                var description = new TextListBuilder(Window, 3, 5)
+                    .Color(ConsoleColor.Gray)
+                    .SetItems($"Rijen: {rows}", $"Kolommen: {columns}")
+                    .Result();
+            }
+        }
+        static Window hallscreen = new Window(true);
         static void Halls()
         {
-            var halls = File.ReadAllText("halls.json");
+            var halls = File.ReadAllText("..\\..\\..\\Halls.json");
 
             JsonDocument doc = JsonDocument.Parse(halls);
+
             JsonElement root = doc.RootElement;
 
-
-
-            Console.ForegroundColor
-             = ConsoleColor.DarkMagenta;
-
-
-
+            Console.ForegroundColor= ConsoleColor.DarkMagenta;
             var hallObjects = new hall[root.GetArrayLength()];
             var hallWindows = new Window[hallObjects.Length];
             string[] hallNames = new string[root.GetArrayLength()];
             for (int i = 0; i < hallNames.Length; i++)
             {
                 hallObjects[i] = new hall(
-                    root[i].GetProperty("Name").ToString(),
-                    $"Rows : {root[i].GetProperty("rows")}",
-                    $"Columns : {root[i].GetProperty("columns")}"
+                    "Zaal nummer " + root[i].GetProperty("id").ToString(),
+                    root[i].GetProperty("rows").ToString(),
+                    root[i].GetProperty("columns").ToString()
                     );
 
                 hallWindows[i] = hallObjects[i].Window;
@@ -73,8 +67,9 @@ namespace CinemaApplication
             }
             var showhall = new TextListBuilder(hallscreen, 3, 2)
                 .Color(ConsoleColor.Red)
-                .SetItems()
-                .Selectable(ConsoleColor.Yellow, ConsoleColor.White)
+                .SetItems(hallNames)
+                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                .LinkWindows(hallWindows)
                 .Result();
         }
     }

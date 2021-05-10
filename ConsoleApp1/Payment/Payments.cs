@@ -8,7 +8,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window payments = new Window(true);
+        static Window payments = new Window();
         static void Payments()
         {
             var MethodsList = new string[] {"IDEAL", "PayPal", "VISA", "Maestro", "MasterCard"};
