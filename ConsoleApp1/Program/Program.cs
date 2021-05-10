@@ -8,7 +8,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window mainMenu = new Window(true);
+        static Window mainMenu = new Window();
         static void MainMenu()
         {
             var title = new TextBuilder(mainMenu, 2, 2)
@@ -32,9 +32,9 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
-            //MainMenu();
+            MainMenu();
             ListOfFilms();
-            //SnacksWindow();
+            SnacksWindow();
 
             InputHandler.WaitForInput();
         }

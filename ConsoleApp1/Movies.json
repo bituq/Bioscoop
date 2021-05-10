@@ -1,7 +1,7 @@
 [
 	{
 		"id" : 0,
-	    "name" : "Harry Potter and the Deathly Hallows: Part 1",
+	  "name" : "Harry Potter and the Deathly Hallows: Part 1",
 		"duration" : 90,
 		"releaseDate" : "17-11-2010",
 		"rating" : "3.5/5",
@@ -21,7 +21,7 @@
 	},
 	{
 		"id" : 1,
-	    "name" : "Lord of the Rings: Fellowship of the Ring",
+	  "name" : "Lord of the Rings: Fellowship of the Ring",
 		"duration" : 128,
 		"releaseDate" : "19-12-2001",
 		"rating" : "4/5",
@@ -41,7 +41,7 @@
 	},
 	{
 		"id" : 2,
-	    "name" : "1917",
+	  "name" : "1917",
 		"duration" : 107,
 		"releaseDate" : "04-12-2019",
 		"rating" : "4,5/5",
@@ -61,7 +61,7 @@
 	},
 	{
 		"id" : 3,
-	    "name" : "The Holiday",
+	  "name" : "The Holiday",
 		"duration" : 77,
 		"releaseDate" : "07-08-2006",
 		"rating" : "3,5/5",

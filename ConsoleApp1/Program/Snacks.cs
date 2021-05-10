@@ -33,7 +33,7 @@ namespace CinemaApplication
                 var _ = new TextListBuilder(Window, 3, 1)
                    .Color(ConsoleColor.White)
                    .SetItems("Go back")
-                   .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White))
+                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
                    .LinkWindows(snacksWindow)
                    .Result();
 
@@ -43,7 +43,14 @@ namespace CinemaApplication
         public static Window snacksWindow = new Window();
         static void SnacksWindow()
         {
-            var snacksAndDrinks = File.ReadAllText("snacksAndDrinks.json");
+            var _ = new TextListBuilder(snacksWindow, 4, 1)
+                   .Color(ConsoleColor.White)
+                   .SetItems("Go back")
+                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                   .LinkWindows(mainMenu)
+                   .Result();
+
+            var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
 
             JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
             JsonElement root = doc.RootElement;
@@ -71,10 +78,9 @@ namespace CinemaApplication
                 .Color(ConsoleColor.DarkMagenta)
                 .SetItems(snackNames)
                 .UseNumbers()
-                .Selectable(new Color(ConsoleColor.Cyan, ConsoleColor.DarkMagenta))
+                .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                 .LinkWindows(snackWindows)
                 .Result();
-
         }
 
     }
