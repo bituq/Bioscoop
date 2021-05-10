@@ -21,17 +21,14 @@ namespace CinemaApplication
 
             var menu = new TextListBuilder(mainMenu, 2, 5)
                 .Color(ConsoleColor.White)
-                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), true, "Demonstratie", "Item 2", "Item 3")
-                .LinkWindows(null, listOfFilms)
+                .Selectable(new Color(ConsoleColor.Black, ConsoleColor.White), true, "Lijst van films", "Lijst van snacks")
+                .LinkWindows(listOfFilms)
                 .Result();
 
             var inputMenu = new TextListBuilder(mainMenu, 40, 5)
                 .Color(ConsoleColor.Gray)
                 .AsInput(new Color(ConsoleColor.White, ConsoleColor.DarkGray), "Insert first name", "Insert last name")
                 .Result();
-
-            var res = new TextListBuilder(mainMenu, 2, 10)
-                .Result(false, "First Name:", "Last Name:");
 
             for (int i = 0; i < res.Items.Count; i++)
             {
