@@ -35,6 +35,7 @@ namespace CinemaApplication
             MainMenu();
             ListOfFilms();
             SnacksWindow();
+            PaymentScreen();
 
             InputHandler.WaitForInput();
         }

@@ -169,24 +169,5 @@ namespace CinemaApplication
                 }
             }
         }
-
-        static void Main(string[] args)
-        {
-            // EmailUser("alumite10@gmail.com", "1111111");
-            bool firstRun = true;
-            string movieName = "Placeholder (The Movie)";
-            while (true)
-            {
-                if (firstRun) 
-                {
-                    ConsoleKey key = ConsoleKey.UpArrow;
-                    Draw(movieName, key);
-                    firstRun = false;
-                }
-                ConsoleKeyInfo keyInfo = Console.ReadKey();
-                Console.Clear();
-                Draw(movieName, keyInfo.Key);
-            }
-        }
     }
 }

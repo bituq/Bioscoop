@@ -26,11 +26,5 @@ namespace CinemaApplication
         {
 			Halls();
         }
-		static void Main()
-		{
-			PaymentScreen();
-			//HallsScreen();
-			InputHandler.WaitForInput();
-		}
 	}
 }

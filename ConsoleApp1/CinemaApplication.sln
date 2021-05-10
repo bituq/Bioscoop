@@ -8,12 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4C069394-5D8E-4171-90A8-2274007006E5}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		Class1.cs = Class1.cs
-		Class2.cs = Class2.cs
-		Class3.cs = Class3.cs
-		Class4.cs = Class4.cs
-		Class5.cs = Class5.cs
-		Class6.cs = Class6.cs
 	EndProjectSection
 EndProject
 Global
