@@ -22,7 +22,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.Red)
                 .Result(name);
 
-            var information = new TextListBuilder(Window, 3, 8)
+            var information = new TextListBuilder(Window, 3, 4)
                 .Color(ConsoleColor.White)
                 .Result(false, price, vegetarian, stock);
 
@@ -52,9 +52,9 @@ namespace CinemaApplication
             {
                 snackObjects[i] = new Snacks(
                     root[i].GetProperty("name").ToString(),
-                    root[i].GetProperty("price").ToString(),
-                    root[i].GetProperty("vegetarian").ToString(),
-                    root[i].GetProperty("stock").ToString()
+                    $"Price: ${root[i].GetProperty("price")}",
+                    $"Vegetarian: {root[i].GetProperty("vegetarian")}",
+                    $"Stock: {root[i].GetProperty("stock")}"
 
                     );
 
