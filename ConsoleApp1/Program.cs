@@ -37,6 +37,5 @@ namespace CinemaApplication
             }
             reserveringFile.Close();
         }
-        
     }
 }

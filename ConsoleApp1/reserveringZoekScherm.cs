@@ -34,7 +34,7 @@ namespace CinemaApplication
             var successMessage2 = new TextListBuilder(zoekScherm)
                 .SetItems("")
                 .Result();
-            
+
             var submitted2 = false;
 
             terug2[0].OnClick = () =>
