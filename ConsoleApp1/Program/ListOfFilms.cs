@@ -58,7 +58,7 @@ namespace CinemaApplication
                     .Result();
 
                 var _ = new TextListBuilder(Window, 1, 1)
-                    .Color(ConsoleColor.White)
+                    .Color(ConsoleColor.Yellow)
                     .SetItems("Go back", "Make reservation")
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .LinkWindows(listOfFilms, timeSlotWindow)
@@ -121,7 +121,7 @@ namespace CinemaApplication
 
             var movieListTitle = new TextBuilder(listOfFilms, 11, 1)
                 .Color(ConsoleColor.Magenta)
-                .Text("Beschikbare films:")
+                .Text("Available movies:")
                 .Result();
 
             var movieList = new TextListBuilder(listOfFilms, 11, 3)

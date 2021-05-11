@@ -26,12 +26,12 @@ namespace CinemaApplication
 
                 var title = new TextBuilder(Window, 1, 1)
                     .Color(ConsoleColor.Magenta)
-                    .Text("Maak een reservering voor " + TimeSlot.Movie.Name)
+                    .Text("Make a reservation for" + TimeSlot.Movie.Name)
                     .Result();
 
                 var inputInformation = new TextListBuilder(Window, 1, 3)
                     .Color(ConsoleColor.DarkGray)
-                    .SetItems("Voornaam:", "Achternaam:", "Zaal: " + TimeSlot.Hall.Id, $"Stoel: rij {Seat.Row} kolom {Seat.Column}")
+                    .SetItems("First name:", "Surname:", "Zaal: " + TimeSlot.Hall.Id, $"Seat: row {Seat.Row} seat {Seat.Column}")
                     .Result();
 
                 var input = new TextListBuilder(Window, 13, 3)
@@ -41,7 +41,7 @@ namespace CinemaApplication
                     .Result();
 
                 var goBack = new TextListBuilder(Window, 1, 10)
-                    .Color(ConsoleColor.Green)
+                    .Color(ConsoleColor.Yellow)
                     .SetItems("Go back")
                     .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
                     .LinkWindows(PreviousWindow)

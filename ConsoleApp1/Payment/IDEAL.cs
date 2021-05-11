@@ -33,7 +33,7 @@ namespace CinemaApplication
 				.Result();
 
 			var menu = new TextListBuilder(ing, 3, 4)
-				.Color(ConsoleColor.Red)
+				.Color(ConsoleColor.Yellow)
 				.SetItems("Go back")
 				.Selectable(ConsoleColor.Black, ConsoleColor.White)
 				.LinkWindows(ideal)
@@ -50,7 +50,7 @@ namespace CinemaApplication
 					.Result();
 
 				var menu = new TextListBuilder(abn, 3, 4)
-					.Color(ConsoleColor.Red)
+					.Color(ConsoleColor.Yellow)
 					.SetItems("Go back")
 					.Selectable(ConsoleColor.Black, ConsoleColor.White)
 					.LinkWindows(ideal)

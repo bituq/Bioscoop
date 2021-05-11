@@ -34,22 +34,22 @@ namespace CinemaApplication
             {
                 var title = new TextBuilder(this.Window, 1, 0)
                 .Color(ConsoleColor.Magenta)
-                .Text($"Beschikbare stoelen op {this.Time}")
+                .Text($"Available seats at {this.Time}")
                 .Result();
 
                 var subtitle = new TextBuilder(this.Window, 1, 1)
                     .Color(ConsoleColor.DarkMagenta)
-                    .Text("Film: " + this.Movie.Name)
+                    .Text("Movie: " + this.Movie.Name)
                     .Result();
 
                 var subtitle2 = new TextBuilder(this.Window, 1, 2)
                     .Color(ConsoleColor.DarkMagenta)
-                    .Text("Zaal: " + this.Hall.Id)
+                    .Text("Hall: " + this.Hall.Id)
                     .Result();
 
                 string[] rows = new string[this.Hall.Rows];
                 for (int i = 0; i < rows.Length; i++)
-                    rows[i] = $"Rij {i + 1} - ";
+                    rows[i] = $"Row {i + 1} - ";
 
                 var rowList = new TextListBuilder(this.Window, 1, 5)
                     .Color(ConsoleColor.DarkGray)
@@ -84,7 +84,7 @@ namespace CinemaApplication
                 }
 
                 var goBack = new TextListBuilder(this.Window, 1, 7 + this.Hall.Rows)
-                    .Color(ConsoleColor.Cyan)
+                    .Color(ConsoleColor.Yellow)
                     .SetItems("Go back")
                     .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
                     .LinkWindows(Movie.timeSlotWindow)
@@ -101,7 +101,7 @@ namespace CinemaApplication
                 var validTimeSlotWindows = new List<Window>();
                 foreach (TimeSlot timeSlot in validTimeSlots)
                 {
-                    validTimeSlotNames.Add("Tijd: " + timeSlot.Time);
+                    validTimeSlotNames.Add("Time: " + timeSlot.Time);
                     validTimeSlotWindows.Add(timeSlot.Window);
                 }
 
@@ -114,7 +114,7 @@ namespace CinemaApplication
 
                 var title = new TextBuilder(timeSlotWindow, 11, 1)
                     .Color(ConsoleColor.Magenta)
-                    .Text("Beschikbare tijdslotten voor " + Name)
+                    .Text("Available times for " + Name)
                     .Result();
 
                 SelectableList listOfTimeslots;

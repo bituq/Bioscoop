@@ -14,7 +14,7 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(mainMenu, 2, 2)
                 .Color(ConsoleColor.Cyan)
-                .Text("Bioscoop Applicatie")
+                .Text("Cinema Application")
                 .Result();
 
             var subtitle = new TextBuilder(mainMenu, 2, 3)
@@ -25,7 +25,7 @@ namespace CinemaApplication
             var menu = new TextListBuilder(mainMenu, 2, 5)
                 .Color(ConsoleColor.White)
                 .UseNumbers()
-                .SetItems("Lijst van films", "Lijst van snacks")
+                .SetItems("View movies", "View snacks")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(listOfFilms, snacksWindow)
                 .Result();
@@ -33,10 +33,13 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
+            selectieSchermBrent();
+            reserveringMaakScherm();
+            reserveringZoekScherm();
             MainMenu();
             ListOfFilms();
             SnacksWindow();
-            //Halls();
+            Halls();
 
             InputHandler.WaitForInput();
         }
