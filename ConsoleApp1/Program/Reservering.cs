@@ -24,27 +24,27 @@ namespace CinemaApplication
                 this.TimeSlot = TimeSlot;
                 this.Seat = Seat;
 
-                var title = new TextBuilder(Window, 1, 1)
-                    .Color(ConsoleColor.Magenta)
-                    .Text("Make a reservation for" + TimeSlot.Movie.Name)
-                    .Result();
-
-                var inputInformation = new TextListBuilder(Window, 1, 3)
-                    .Color(ConsoleColor.DarkGray)
-                    .SetItems("First name:", "Surname:", "Zaal: " + TimeSlot.Hall.Id, $"Seat: row {Seat.Row} seat {Seat.Column}")
-                    .Result();
-
-                var input = new TextListBuilder(Window, 13, 3)
-                    .Color(ConsoleColor.White)
-                    .SetItems("", "")
-                    .AsInput(ConsoleColor.White, ConsoleColor.DarkGray)
-                    .Result();
-
-                var goBack = new TextListBuilder(Window, 1, 10)
+                var goBack = new TextListBuilder(Window, 1, 1)
                     .Color(ConsoleColor.Yellow)
                     .SetItems("Go back")
                     .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
                     .LinkWindows(PreviousWindow)
+                    .Result();
+
+                var title = new TextBuilder(Window, 11, 1)
+                    .Color(ConsoleColor.Magenta)
+                    .Text("Make a reservation for " + TimeSlot.Movie.Name)
+                    .Result();
+
+                var inputInformation = new TextListBuilder(Window, 11, 3)
+                    .Color(ConsoleColor.DarkGray)
+                    .SetItems("First name:", "Surname:", "Zaal: " + TimeSlot.Hall.Id, $"Seat: row {Seat.Row} seat {Seat.Column}")
+                    .Result();
+
+                var input = new TextListBuilder(Window, 24, 3)
+                    .Color(ConsoleColor.White)
+                    .SetItems("", "")
+                    .AsInput(ConsoleColor.White, ConsoleColor.DarkGray)
                     .Result();
             }
         }
