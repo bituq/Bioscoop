@@ -8,7 +8,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window brentScherm = new Window();
+        static Window brentScherm = new Window(true);
         static void selectieSchermBrent() 
         {
             var title = new TextBuilder(brentScherm, 5, 7)

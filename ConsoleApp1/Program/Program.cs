@@ -9,7 +9,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window mainMenu = new Window(true);
+        static Window mainMenu = new Window();
         static void MainMenu()
         {
             var title = new TextBuilder(mainMenu, 2, 2)
@@ -31,6 +31,26 @@ namespace CinemaApplication
                 .Result();
         }
 
+        static void PaymentScreen()
+        {
+            Payments();
+            IDEAL();
+            PayPal();
+            VISA();
+            Maestro();
+            MasterCard();
+            ING();
+            RABO();
+            ABN();
+            REGIO();
+            SNS();
+            KNAB();
+        }
+        static void HallsScreen()
+        {
+            Halls();
+        }
+
         static void Main(string[] args)
         {
             selectieSchermBrent();
@@ -40,6 +60,8 @@ namespace CinemaApplication
             ListOfFilms();
             SnacksWindow();
             Halls();
+            PaymentScreen();
+            HallsScreen();
 
             InputHandler.WaitForInput();
         }
