@@ -1,0 +1,47 @@
+[
+  {
+    "movieId": 0,
+    "time": 11,
+    "hall": 1,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 4,
+        "column": 5
+      }
+    ]
+  },
+  {
+    "movieId": 1,
+    "time": 12,
+    "hall": 2,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 12,
+        "column": 5
+      }
+    ]
+  },
+  {
+    "movieId": 2,
+    "time": 13,
+    "hall": 2,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 12,
+        "column": 5
+      }
+    ]
+  }
+]
