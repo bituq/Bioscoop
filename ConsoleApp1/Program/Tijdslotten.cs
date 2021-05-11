@@ -105,14 +105,21 @@ namespace CinemaApplication
                     validTimeSlotWindows.Add(timeSlot.Window);
                 }
 
-                var title = new TextBuilder(timeSlotWindow, 1, 1)
+                var goBack = new TextListBuilder(timeSlotWindow, 1, 1)
+                    .Color(ConsoleColor.Yellow)
+                    .SetItems("Go Back")
+                    .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
+                    .LinkWindows(Window)
+                    .Result();
+
+                var title = new TextBuilder(timeSlotWindow, 11, 1)
                     .Color(ConsoleColor.Magenta)
                     .Text("Beschikbare tijdslotten voor " + Name)
                     .Result();
 
                 SelectableList listOfTimeslots;
                 if (validTimeSlots.Count > 0)
-                    listOfTimeslots = new TextListBuilder(timeSlotWindow, 1, 3)
+                    listOfTimeslots = new TextListBuilder(timeSlotWindow, 11, 3)
                         .Color(ConsoleColor.White)
                         .SetItems(validTimeSlotNames.ToArray())
                         .UseNumbers()
