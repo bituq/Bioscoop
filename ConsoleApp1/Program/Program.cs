@@ -53,9 +53,6 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
-            selectieSchermBrent();
-            reserveringMaakScherm();
-            reserveringZoekScherm();
             MainMenu();
             ListOfFilms();
             SnacksWindow();

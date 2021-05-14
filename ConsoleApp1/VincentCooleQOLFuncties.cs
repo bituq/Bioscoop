@@ -6,165 +6,168 @@ using System.Net.Mail;
 
 namespace CinemaApplication
 {
-    class VincentCooleQOLFuncties
+    partial class Program
     {
-        public static void EmailUser(string recipient, string code) 
+        static class VincentCooleQOLFuncties
         {
-            MailMessage msg = new MailMessage();
-
-            msg.From = new MailAddress("kappenmetspammennu@gmail.com");
-            msg.To.Add(recipient);
-            msg.Subject = "your reservation code";
-            msg.Body = "This email containts your reservation code.\n\n code: " + code;
-
-            using (SmtpClient client = new SmtpClient())
+            public static void EmailUser(string recipient, string code, TimeSlot timeSlot, Seat seat)
             {
-                client.EnableSsl = true;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential("kappenmetspammennu@gmail.com", "lol nah");
-                client.Host = "smtp.gmail.com";
-                client.Port = 587;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                MailMessage msg = new MailMessage();
 
-                client.Send(msg);
-            }
-        }
+                msg.From = new MailAddress("kappenmetspammennu@gmail.com");
+                msg.To.Add(recipient);
+                msg.Subject = $"Your reservation for {timeSlot.Movie.Name}";
+                msg.Body = $"Thanks for making a reservation for {timeSlot.Movie.Name}!\n\nHall: {timeSlot.Hall.Id}\nSeat: row {seat.Row} seat {seat.Column}\n Your reservation code: {code}\n\nYou must provide your reservation code when entering the movie theater.";
 
-        public static Tuple<string, string>[] GetAllMovies(string category)
-        {
-            // returns a list of tuples that contain the movie ID and the specified category
-            var slotFile = File.ReadAllText("Movies.json");
-            JsonDocument timeSlotsDoc = JsonDocument.Parse(slotFile);
-            var movies = timeSlotsDoc.RootElement.EnumerateArray();
-
-            int amountOfMovies = 0;
-
-            foreach (var movie in movies)
-            {
-                amountOfMovies++;
-            }
-            Tuple<string, string>[] movieArr = new Tuple<string, string>[amountOfMovies];
-            int index = 0;
-
-            foreach (var movie in movies)
-            {
-                movieArr[index++] = new Tuple<string, string>(movie.GetProperty("name").ToString(), movie.GetProperty(category).ToString());
-            }
-            return movieArr;
-        }
-
-        public static string[] FilterByCategory(string category, string part) 
-        {
-            // returns the list of movies where the specified category matches the given part
-            int size = 0;
-            Tuple<string, string>[] movieList = GetAllMovies(category);
-
-            for (int i = 0; i < movieList.Length; i++)
-			{
-                if (movieList[i].Item2.ToLower().Contains(part.ToLower()))
+                using (SmtpClient client = new SmtpClient())
                 {
-                    size++;
-                }
-			}
-            string[] newArr = new string[size];
+                    client.EnableSsl = true;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential("kappenmetspammennu@gmail.com", "lol nah");
+                    client.Host = "smtp.gmail.com";
+                    client.Port = 587;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
 
-            for (int i = 0, index = 0; i < movieList.Length; i++)
-			{
-                if (movieList[i].Item2.ToLower().Contains(part.ToLower()))
-                {
-                    newArr[index++] = movieList[i].Item1;
-                }
-			}
-            return newArr;
-        }
-
-        public static DateTime UnixToDate(int unix) 
-        {
-            DateTime date = DateTime.UnixEpoch;
-            date = date.AddSeconds(unix);
-            return date;
-        }
-
-        public static string SecondsToTime(JsonElement JsonSeconds)
-        {
-            int seconds = JsonSeconds.GetInt32();
-            int hours = seconds / 3600;
-            int minutesLeft = (seconds / 60) % 60;
-            string time = $"{hours} hrs {minutesLeft} min";
-            return time;
-        }
-
-        public static JsonElement[] GetTimeSlots(string name)
-        {
-            var slotFile = File.ReadAllText("TimeSlot.json");
-            JsonDocument timeSlotsDoc = JsonDocument.Parse(slotFile);
-            var timeslots = timeSlotsDoc.RootElement.EnumerateArray();
-
-            int amountOfTimeslots = 0;
-
-            foreach (var timeslot in timeslots) 
-            {
-                if (timeslot.GetProperty("movie").ToString() == name) {
-                    amountOfTimeslots++;
+                    client.Send(msg);
                 }
             }
 
-            JsonElement[] availableTimeslots = new JsonElement[amountOfTimeslots];
-            int count = 0;
-            foreach (var timeslot in timeslots)
+            public static Tuple<string, string>[] GetAllMovies(string category)
             {
-                if (timeslot.GetProperty("movie").ToString() == name)
+                // returns a list of tuples that contain the movie ID and the specified category
+                var slotFile = File.ReadAllText("Movies.json");
+                JsonDocument timeSlotsDoc = JsonDocument.Parse(slotFile);
+                var movies = timeSlotsDoc.RootElement.EnumerateArray();
+
+                int amountOfMovies = 0;
+
+                foreach (var movie in movies)
                 {
-                    availableTimeslots[count] = timeslot;
-                    count++;
+                    amountOfMovies++;
                 }
-            }
-            return availableTimeslots;
-        }
-        static int selected = 0;
-        public static void Draw(string name, ConsoleKey key) 
-        {
-            var movies = File.ReadAllText("Movies.json");
+                Tuple<string, string>[] movieArr = new Tuple<string, string>[amountOfMovies];
+                int index = 0;
 
-            JsonDocument moviesDoc = JsonDocument.Parse(movies);
-
-            foreach (var movie in moviesDoc.RootElement.EnumerateArray())
-            {
-                if (name == (movie.GetProperty("name").ToString()))
+                foreach (var movie in movies)
                 {
-                    // show timeslot information
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("At what time would you like to see the movie?");
-                    Console.ResetColor();
+                    movieArr[index++] = new Tuple<string, string>(movie.GetProperty("name").ToString(), movie.GetProperty(category).ToString());
+                }
+                return movieArr;
+            }
 
-                    JsonElement[] timeslotArray = GetTimeSlots(name);
+            public static string[] FilterByCategory(string category, string part)
+            {
+                // returns the list of movies where the specified category matches the given part
+                int size = 0;
+                Tuple<string, string>[] movieList = GetAllMovies(category);
 
-                    if (key == ConsoleKey.UpArrow && selected > 0)
+                for (int i = 0; i < movieList.Length; i++)
+                {
+                    if (movieList[i].Item2.ToLower().Contains(part.ToLower()))
                     {
-                        selected--;
+                        size++;
                     }
-                    else if (key == ConsoleKey.DownArrow && selected < timeslotArray.Length - 1)
+                }
+                string[] newArr = new string[size];
+
+                for (int i = 0, index = 0; i < movieList.Length; i++)
+                {
+                    if (movieList[i].Item2.ToLower().Contains(part.ToLower()))
                     {
-                        selected++;
+                        newArr[index++] = movieList[i].Item1;
                     }
-                    for (int i = 0; i < timeslotArray.Length; i++)
+                }
+                return newArr;
+            }
+
+            public static DateTime UnixToDate(int unix)
+            {
+                DateTime date = DateTime.UnixEpoch;
+                date = date.AddSeconds(unix);
+                return date;
+            }
+
+            public static string SecondsToTime(JsonElement JsonSeconds)
+            {
+                int seconds = JsonSeconds.GetInt32();
+                int hours = seconds / 3600;
+                int minutesLeft = (seconds / 60) % 60;
+                string time = $"{hours} hrs {minutesLeft} min";
+                return time;
+            }
+
+            public static JsonElement[] GetTimeSlots(string name)
+            {
+                var slotFile = File.ReadAllText("TimeSlot.json");
+                JsonDocument timeSlotsDoc = JsonDocument.Parse(slotFile);
+                var timeslots = timeSlotsDoc.RootElement.EnumerateArray();
+
+                int amountOfTimeslots = 0;
+
+                foreach (var timeslot in timeslots)
+                {
+                    if (timeslot.GetProperty("movie").ToString() == name) {
+                        amountOfTimeslots++;
+                    }
+                }
+
+                JsonElement[] availableTimeslots = new JsonElement[amountOfTimeslots];
+                int count = 0;
+                foreach (var timeslot in timeslots)
+                {
+                    if (timeslot.GetProperty("movie").ToString() == name)
                     {
-                        JsonElement timeslot = timeslotArray[i];
-                        // color
-                        if (selected == i)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Black;
-                            Console.BackgroundColor = ConsoleColor.White;
-                        }
-                        // text
-                        Console.WriteLine("- " + timeslot.GetProperty("time"));
+                        availableTimeslots[count] = timeslot;
+                        count++;
+                    }
+                }
+                return availableTimeslots;
+            }
+            static int selected = 0;
+            public static void Draw(string name, ConsoleKey key)
+            {
+                var movies = File.ReadAllText("Movies.json");
+
+                JsonDocument moviesDoc = JsonDocument.Parse(movies);
+
+                foreach (var movie in moviesDoc.RootElement.EnumerateArray())
+                {
+                    if (name == (movie.GetProperty("name").ToString()))
+                    {
+                        // show timeslot information
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("At what time would you like to see the movie?");
                         Console.ResetColor();
-                    }
-                    Console.WriteLine("Movies: ");
-                    string[] list = FilterByCategory("genres", "comedy");
-                    for (int i = 0; i < list.Length; i++)
-                    {
-                        Console.WriteLine(list[i]);
+
+                        JsonElement[] timeslotArray = GetTimeSlots(name);
+
+                        if (key == ConsoleKey.UpArrow && selected > 0)
+                        {
+                            selected--;
+                        }
+                        else if (key == ConsoleKey.DownArrow && selected < timeslotArray.Length - 1)
+                        {
+                            selected++;
+                        }
+                        for (int i = 0; i < timeslotArray.Length; i++)
+                        {
+                            JsonElement timeslot = timeslotArray[i];
+                            // color
+                            if (selected == i)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.BackgroundColor = ConsoleColor.White;
+                            }
+                            // text
+                            Console.WriteLine("- " + timeslot.GetProperty("time"));
+                            Console.ResetColor();
+                        }
+                        Console.WriteLine("Movies: ");
+                        string[] list = FilterByCategory("genres", "comedy");
+                        for (int i = 0; i < list.Length; i++)
+                        {
+                            Console.WriteLine(list[i]);
+                        }
                     }
                 }
             }
