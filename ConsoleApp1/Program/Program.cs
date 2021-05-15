@@ -30,22 +30,6 @@ namespace CinemaApplication
                 .LinkWindows(listOfFilms, snacksWindow)
                 .Result();
         }
-
-        static void PaymentScreen()
-        {
-            Payments();
-            IDEAL();
-            PayPal();
-            VISA();
-            Maestro();
-            MasterCard();
-            ING();
-            RABO();
-            ABN();
-            REGIO();
-            SNS();
-            KNAB();
-        }
         static void HallsScreen()
         {
             Halls();
@@ -57,7 +41,6 @@ namespace CinemaApplication
             ListOfFilms();
             SnacksWindow();
             Halls();
-            PaymentScreen();
             HallsScreen();
 
             InputHandler.WaitForInput();

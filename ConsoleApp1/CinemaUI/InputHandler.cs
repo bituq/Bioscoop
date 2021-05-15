@@ -11,6 +11,8 @@ namespace CinemaUI
 
         public static List<Window> Windows = new List<Window>();
 
+        public static bool Skip = false;
+
         public static void WaitForInput()
         {
             foreach (Window window in Windows)
@@ -26,7 +28,9 @@ namespace CinemaUI
                 activeWindow.Draw();
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.Black;
-                if (activeWindow.SelectionOrder.Count != 0)
+                if (Skip)
+                    Skip = false;
+                else if (activeWindow.SelectionOrder.Count != 0)
                     activeWindow.ActiveSelectable.KeyResponse(Console.ReadKey());
                 _bufferCache = activeWindow.Buffer;
             }

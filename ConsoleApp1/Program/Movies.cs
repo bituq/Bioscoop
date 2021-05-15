@@ -113,7 +113,7 @@ namespace CinemaApplication
                         var occupiedSeats = new List<Seat>();
                         foreach (JsonElement seat in timeSlot.GetProperty("occupiedSeats").EnumerateArray())
                             occupiedSeats.Add(new Seat(seat.GetProperty("row").GetInt32(), seat.GetProperty("column").GetInt32()));
-                        timeSlots.Add(new TimeSlot(movieObjects[i], timeSlot.GetProperty("time").GetInt32(), hall, occupiedSeats));
+                        timeSlots.Add(new TimeSlot(movieObjects[i], timeSlot.GetProperty("time").GetInt32(), hall, occupiedSeats, timeSlot.GetProperty("id").GetInt32()));
                     }
                     movieObjects[i].TimeSlotScreen();
                 }
