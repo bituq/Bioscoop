@@ -10,7 +10,7 @@ namespace CinemaApplication
         static Window maakScherm = new Window();
         static void reserveringMaakScherm()
         {
-            string filePath = @"C:\Users\brent\.vscode\repos\biosapp\Bioscoop\ConsoleApp1\Reserveringen.json";
+            string filePath = "..\\..\\..\\Reserveringen.json";
             var root = JsonFile.FileAsList(filePath);
 
             var inputInformation = new TextListBuilder(maakScherm, 1, 1)

@@ -11,7 +11,7 @@ namespace CinemaApplication
         static Window zoekScherm = new Window();
         static void reserveringZoekScherm()
         {
-            string filePath2 = @"C:\Users\brent\.vscode\repos\biosapp\Bioscoop\ConsoleApp1\Reserveringen.json";
+            string filePath2 = "..\\..\\..\\Reserveringen.json";
             var root2 = JsonFile.FileAsList(filePath2);
 
             var inputInformation2 = new TextListBuilder(zoekScherm, 1, 1)
@@ -40,10 +40,13 @@ namespace CinemaApplication
                 if (inputList2[0].Value != "")
                 {
                     string code = inputList2[0].Value;
+                    bool found = false;
                     for (int j = 0; j < root2.Count; j++)
                     {
+                        zoekScherm.ClearAllChildren();
                         if ((root2[j].GetProperty("reserveringNummer").ToString()) == code)
                         {
+                            found = true;
                             string voornaam = (root2[j].GetProperty("voorNaam").ToString());
                             string achternaam = (root2[j].GetProperty("achterNaam").ToString());
                             string zaal = (root2[j].GetProperty("zaal").ToString());
@@ -53,11 +56,11 @@ namespace CinemaApplication
                             successMessage2.Replace(
                                 new TextListBuilder(zoekScherm, 1, 7)
                                 .Color(ConsoleColor.Green)
-                                .SetItems($"The reservation is on the name {voornaam + " " + achternaam}. They are going to film {film} in room {zaal} op seat {stoel}. The film plays on {datum}.")
+                                .SetItems($"The reservation is on the name {voornaam + " " + achternaam}.\n{voornaam + " " + achternaam} is going to film {film} in room {zaal} op seat {stoel}. The film plays on {datum}.")
                                 .Result()
                             );
                         }
-                        else {
+                        else if (found != true) {
                             successMessage2.Replace(
                                 new TextListBuilder(zoekScherm, 1, 7)
                                 .Color(ConsoleColor.Red)
@@ -65,6 +68,7 @@ namespace CinemaApplication
                                 .Result()
                             );
                         }
+                        zoekScherm.Init();
                     }
                 }
             };

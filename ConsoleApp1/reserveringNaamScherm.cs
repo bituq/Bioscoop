@@ -11,7 +11,7 @@ namespace CinemaApplication
         static Window naamScherm = new Window();
         static void reserveringNaamScherm()
         {
-            string filePath3 = @"C:\Users\brent\.vscode\repos\biosapp\Bioscoop\ConsoleApp1\Reserveringen.json";
+            string filePath3 = "..\\..\\..\\Reserveringen.json";
             var root3 = JsonFile.FileAsList(filePath3);
 
             var inputInformation3 = new TextListBuilder(naamScherm, 1, 1)
@@ -54,7 +54,7 @@ namespace CinemaApplication
                             successMessage3.Replace(
                                 new TextListBuilder(naamScherm, 1, 7)
                                 .Color(ConsoleColor.Green)
-                                .SetItems($"De reservering staat onder de code {code}. {heleNaam} gaat naar de film {film} in zaal {zaal} op stoel {stoel}. De film speelt op {datum}.")
+                                .SetItems($"De reservering staat onder de code {code}. {heleNaam} gaat naar de film {film} in zaal {zaal} op stoel {stoel}.\nDe film speelt op {datum}.")
                                 .Result()
                             );
                         }
