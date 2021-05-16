@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.Json;
 using System.Net;
 using System.Net.Mail;
+using System.Diagnostics;
 
 namespace CinemaApplication
 {
@@ -167,6 +168,24 @@ namespace CinemaApplication
                         Console.WriteLine(list[i]);
                     }
                 }
+            }
+        }
+        static void Main(string[] args)
+        {
+            // EmailUser("alumite10@gmail.com", "1111111");
+            bool firstRun = true;
+            string movieName = "Placeholder (The Movie)";
+            while (true)
+            {
+                if (firstRun)
+                {
+                    ConsoleKey key = ConsoleKey.UpArrow;
+                    Draw(movieName, key);
+                    firstRun = false;
+                }
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+                Console.Clear();
+                Draw(movieName, keyInfo.Key);
             }
         }
     }
