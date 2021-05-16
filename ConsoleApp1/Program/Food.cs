@@ -62,7 +62,7 @@ namespace CinemaApplication
             string[] snackNames = new string[root.GetArrayLength()];
             string[] snackPrice = new string[root.GetArrayLength()];
             var addbuttonarray = new string[snackNames.Length];
-            var removebuttonlist = new List<string>();
+            var removebuttonlist = new List<string>() {};
             var cartlist = new List<string>() {};
             
             for (int i = 0; i < snackNames.Length; i++)
@@ -101,12 +101,12 @@ namespace CinemaApplication
                 .LinkWindows(snackWindows)
                 .Result();
 
-            var snackPrices = new TextListBuilder(food, 40, 1)
+            var snackPrices = new TextListBuilder(food, 35, 1)
                 .Color(ConsoleColor.DarkMagenta)
                 .SetItems(snackPrice)
                 .Result();
 
-            var addButton = new TextListBuilder(food, 50, 1)
+            var addButton = new TextListBuilder(food, 46, 1)
                 .Color(ConsoleColor.Magenta)
                 .SetItems(addbuttonarray)
                 .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
@@ -125,7 +125,6 @@ namespace CinemaApplication
             
             for (int i = 0; i < addbuttonarray.Length; i++)
             {
-                
                 addButton.Items[i].OnClick = () =>
                 {
                     
@@ -150,11 +149,10 @@ namespace CinemaApplication
 
             for (int i = 0; i < removebuttonlist.Count; i++)
             {
-
                 removebutton.Items[i].OnClick = () =>
                 {
 
-                    cartlist.RemoveAt(0);
+                    //cartlist.RemoveAt(0);
                     removebuttonlist.RemoveAt(0);
 
                     shopcart.Replace(new TextListBuilder(food, 70, 1)
@@ -163,15 +161,16 @@ namespace CinemaApplication
                     .Result());
 
                     removebutton.Replace(new TextListBuilder(food, 90, 1)
-                    .Color(ConsoleColor.Red)
+                    .Color(ConsoleColor.Green)
                     .SetItems(removebuttonlist.ToArray())
-                    .Selectable(ConsoleColor.Yellow, ConsoleColor.Green)
+                    .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                     .Result());
 
 
                 };
-
             }
+           
+            
 
         }
     }
