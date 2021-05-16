@@ -7,34 +7,6 @@
     "occupiedSeats": []
   },
   {
-    "id": 1,
-    "movieId": 1,
-    "time": 12,
-    "hall": 2,
-    "occupiedSeats": [
-      {
-        "row": 2,
-        "column": 4
-      },
-      {
-        "row": 1,
-        "column": 5
-      },
-      {
-        "row": 2,
-        "column": 5
-      },
-      {
-        "row": 1,
-        "column": 6
-      },
-      {
-        "row": 2,
-        "column": 6
-      }
-    ]
-  },
-  {
     "id": 2,
     "movieId": 2,
     "time": 13,
@@ -103,6 +75,46 @@
       {
         "row": 1,
         "column": 6
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "movieId": 1,
+    "time": 12,
+    "hall": 2,
+    "occupiedSeats": [
+      {
+        "row": 2,
+        "column": 4
+      },
+      {
+        "row": 1,
+        "column": 5
+      },
+      {
+        "row": 2,
+        "column": 5
+      },
+      {
+        "row": 1,
+        "column": 6
+      },
+      {
+        "row": 2,
+        "column": 6
+      },
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 1,
+        "column": 2
+      },
+      {
+        "row": 1,
+        "column": 3
       }
     ]
   }
