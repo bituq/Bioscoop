@@ -62,7 +62,7 @@ namespace CinemaApplication
                             successMessage3.Replace(
                                 new TextListBuilder(naamScherm, 1, 7)
                                 .Color(ConsoleColor.Red)
-                                .SetItems($"Er is geen reservering onder de naam {heleNaam}, of U heeft de naam verkeerd geschreven. Probeer het opnieuw.")
+                                .SetItems($"There is no reservation on name {heleNaam}, or you misspelled it. Please try again.")
                                 .Result()
                             );
                         }
