@@ -43,7 +43,6 @@ namespace CinemaApplication
                     bool found = false;
                     for (int j = 0; j < root2.Count; j++)
                     {
-                        zoekScherm.ClearAllChildren();
                         if ((root2[j].GetProperty("reserveringNummer").ToString()) == code)
                         {
                             found = true;
@@ -56,7 +55,7 @@ namespace CinemaApplication
                             successMessage2.Replace(
                                 new TextListBuilder(zoekScherm, 1, 7)
                                 .Color(ConsoleColor.Green)
-                                .SetItems($"The reservation is on the name {voornaam + " " + achternaam}.\n{voornaam + " " + achternaam} is going to film {film} in room {zaal} op seat {stoel}. The film plays on {datum}.")
+                                .SetItems($"The reservation is on the name {voornaam + " " + achternaam}.", $"{voornaam + " " + achternaam} is going to film {film} in room {zaal} op seat {stoel}. The film plays on {datum}.")
                                 .Result()
                             );
                         }
