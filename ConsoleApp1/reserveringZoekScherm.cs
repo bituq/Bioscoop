@@ -16,7 +16,7 @@ namespace CinemaApplication
 
             var inputInformation2 = new TextListBuilder(zoekScherm, 1, 1)
                 .Color(ConsoleColor.Cyan)
-                .SetItems("Reserveringscode:")
+                .SetItems("Reservationcode:")
                 .Result();
 
             var inputList2 = new TextListBuilder(zoekScherm, 19, 1)
@@ -26,22 +26,19 @@ namespace CinemaApplication
 
             var terug2 = new TextListBuilder(zoekScherm, 1, 4)
                 .Color(ConsoleColor.Green)
-                .SetItems("Submit", "Ga terug")
+                .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
-                .LinkWindows(null, brentScherm)
+                .LinkWindows(null, adminScherm)
                 .Result();
 
             var successMessage2 = new TextListBuilder(zoekScherm)
                 .SetItems("")
                 .Result();
 
-            var submitted2 = false;
-
             terug2[0].OnClick = () =>
             {
-                if (!submitted2 && inputList2[0].Value != "")
+                if (inputList2[0].Value != "")
                 {
-                    submitted2 = true;
                     string code = inputList2[0].Value;
                     for (int j = 0; j < root2.Count; j++)
                     {
@@ -56,7 +53,15 @@ namespace CinemaApplication
                             successMessage2.Replace(
                                 new TextListBuilder(zoekScherm, 1, 7)
                                 .Color(ConsoleColor.Green)
-                                .SetItems($"Uw reservering staat onder de naam {voornaam + " " + achternaam}. U gaat naar de film {film} in zaal {zaal} op stoel {stoel}. De film speelt op {datum}. Tot dan!")
+                                .SetItems($"The reservation is on the name {voornaam + " " + achternaam}. They are going to film {film} in room {zaal} op seat {stoel}. The film plays on {datum}.")
+                                .Result()
+                            );
+                        }
+                        else {
+                            successMessage2.Replace(
+                                new TextListBuilder(zoekScherm, 1, 7)
+                                .Color(ConsoleColor.Red)
+                                .SetItems($"There is no reservation with code {code}. Please try again.")
                                 .Result()
                             );
                         }

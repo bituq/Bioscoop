@@ -9,7 +9,6 @@ namespace CinemaApplication
 {
     partial class Program
     {
-
         static void reserveringDoorNaam(string heleNaam) { // reserveringdoornaam mag eigenlijk alleen in het adminscherm staan.
             string filePath = @"bin\Debug\netcoreapp3.1\Reserveringen.json"; // ik laat hem hier voor nu
             StreamReader reserveringFile = new StreamReader(filePath);       // tot we beginnen aan het adminscherm.
