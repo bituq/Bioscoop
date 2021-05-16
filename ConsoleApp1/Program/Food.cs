@@ -14,11 +14,12 @@ namespace CinemaApplication
         {
             public Window Window = new Window();
             public string Name { get; set; }
-
+            public string Price { get; set; }
 
             public Food(string name, string price, string vegetarian, string stock)
             {
                 Name = name;
+                Price = price;
 
                 var title = new TextBuilder(Window, 11, 1)
                     .Color(ConsoleColor.Red)
@@ -31,7 +32,7 @@ namespace CinemaApplication
                     .Result();
 
 
-                var _ = new TextListBuilder(Window, 1, 1)
+                var goBack = new TextListBuilder(Window, 1, 1)
                    .Color(ConsoleColor.White)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -59,8 +60,11 @@ namespace CinemaApplication
             Food[] snackObjects = new Food[root.GetArrayLength()];
             var snackWindows = new Window[snackObjects.Length];
             string[] snackNames = new string[root.GetArrayLength()];
+            string[] snackPrice = new string[root.GetArrayLength()];
             var addbuttonarray = new string[snackNames.Length];
-
+            var removebuttonlist = new List<string>();
+            var cartlist = new List<string>() {};
+            
             for (int i = 0; i < snackNames.Length; i++)
             {
                 snackObjects[i] = new Food(
@@ -73,19 +77,17 @@ namespace CinemaApplication
 
                 snackWindows[i] = snackObjects[i].Window;
                 snackNames[i] = snackObjects[i].Name;
+                snackPrice[i] = $"${root[i].GetProperty("price").ToString()}";
                 addbuttonarray[i] = "Add to cart";
             }
             
-            var shopcart = new List<string>() { "voedsel" };
+            
             /*foreach(var p in snackNames)
             {
                 shopcart.Add(p);
             }*/
 
-            var cartlist = new TextListBuilder(food, 60, 1)
-                .Color(ConsoleColor.DarkMagenta)
-                .SetItems(shopcart.ToArray())
-                .Result();
+            
               
             
 
@@ -99,23 +101,78 @@ namespace CinemaApplication
                 .LinkWindows(snackWindows)
                 .Result();
 
-            
+            var snackPrices = new TextListBuilder(food, 40, 1)
+                .Color(ConsoleColor.DarkMagenta)
+                .SetItems(snackPrice)
+                .Result();
 
-            var addButton = new TextListBuilder(food, 35, 1)
+            var addButton = new TextListBuilder(food, 50, 1)
                 .Color(ConsoleColor.Magenta)
                 .SetItems(addbuttonarray)
                 .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                 .Result();
-            
-            addButton.Items[0].OnClick = () =>
-            {
-                shopcart.Add(snackNames[0]);
-                
-                cartlist.Replace(new TextListBuilder(food, 60, 1)
+
+            var shopcart = new TextListBuilder(food, 70, 1)
                 .Color(ConsoleColor.DarkMagenta)
-                .SetItems(shopcart.ToArray())
-                .Result());
-            };
+                .SetItems(cartlist.ToArray())
+                .Result();
+            
+            var removebutton = new TextListBuilder(food, 90, 1)
+                    .Color(ConsoleColor.Magenta)
+                    .SetItems(removebuttonlist.ToArray())
+                    .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                    .Result();
+            
+            for (int i = 0; i < addbuttonarray.Length; i++)
+            {
+                
+                addButton.Items[i].OnClick = () =>
+                {
+                    
+                    cartlist.Add(snackNames[0]);
+                    removebuttonlist.Add("remove");
+
+                    shopcart.Replace(new TextListBuilder(food, 70, 1)
+                    .Color(ConsoleColor.DarkMagenta)
+                    .SetItems(cartlist.ToArray())
+                    .Result());
+
+                    removebutton.Replace(new TextListBuilder(food, 90, 1)
+                    .Color(ConsoleColor.Magenta)
+                    .SetItems(removebuttonlist.ToArray())
+                    .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                    .Result());
+
+                    
+                };
+                
+            }
+
+            for (int i = 0; i < removebuttonlist.Count; i++)
+            {
+
+                removebutton.Items[i].OnClick = () =>
+                {
+
+                    cartlist.RemoveAt(0);
+                    removebuttonlist.RemoveAt(0);
+
+                    shopcart.Replace(new TextListBuilder(food, 70, 1)
+                    .Color(ConsoleColor.Blue)
+                    .SetItems(cartlist.ToArray())
+                    .Result());
+
+                    removebutton.Replace(new TextListBuilder(food, 90, 1)
+                    .Color(ConsoleColor.Red)
+                    .SetItems(removebuttonlist.ToArray())
+                    .Selectable(ConsoleColor.Yellow, ConsoleColor.Green)
+                    .Result());
+
+
+                };
+
+            }
+
         }
     }
 }
