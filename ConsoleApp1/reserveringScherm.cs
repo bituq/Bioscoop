@@ -12,12 +12,12 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(brentScherm, 5, 7)
                 .Color(ConsoleColor.Cyan)
-                .Text("Hallo! Wilt U een reservering aanmaken?")
+                .Text("Hello! Would you like to make a reservation?")
                 .Result();
             
             var options = new TextListBuilder(brentScherm, 5, 8)
                 .Color(ConsoleColor.Red)
-                .SetItems("Reservering aanmaken")
+                .SetItems("Make a reservation")
                 .UseNumbers()
                 .Selectable(ConsoleColor.DarkBlue,ConsoleColor.Red)
                 .LinkWindows(maakScherm)

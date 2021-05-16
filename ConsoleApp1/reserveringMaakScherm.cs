@@ -15,7 +15,7 @@ namespace CinemaApplication
 
             var inputInformation = new TextListBuilder(maakScherm, 1, 1)
                 .Color(ConsoleColor.Cyan)
-                .SetItems("Voornaam:", "Achternaam:")
+                .SetItems("First name:", "Last name:")
                 .Result();
 
             var inputList = new TextListBuilder(maakScherm, 13, 1)
@@ -25,7 +25,7 @@ namespace CinemaApplication
 
             var terug = new TextListBuilder(maakScherm, 1, 4)
                 .Color(ConsoleColor.Green)
-                .SetItems("Submit", "Ga terug")
+                .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
                 .LinkWindows(null, brentScherm)
                 .Result();
@@ -65,7 +65,7 @@ namespace CinemaApplication
                     successMessage.Replace(
                         new TextListBuilder(maakScherm, 1, 7)
                         .Color(ConsoleColor.Gray)
-                        .SetItems($"U gaat naar de film. Uw reserveringscode is { randomCode }. Sla de code goed op!")
+                        .SetItems($"You're going to . Your reservation code is { randomCode }. Save this code somewhere safe!")
                         .Result()
                     );
                 }

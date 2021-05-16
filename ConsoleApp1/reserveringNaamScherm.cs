@@ -16,17 +16,17 @@ namespace CinemaApplication
 
             var inputInformation3 = new TextListBuilder(naamScherm, 1, 1)
                 .Color(ConsoleColor.Cyan)
-                .SetItems("Volledige naam:")
+                .SetItems("Full name:")
                 .Result();
 
-            var inputList3 = new TextListBuilder(naamScherm, 19, 1)
+            var inputList3 = new TextListBuilder(naamScherm, 12, 1)
                 .SetItems("")
                 .AsInput(ConsoleColor.White, ConsoleColor.Black)
                 .Result();
 
             var terug3 = new TextListBuilder(naamScherm, 1, 4)
                 .Color(ConsoleColor.Green)
-                .SetItems("Submit", "Ga terug")
+                .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
                 .LinkWindows(null, adminScherm)
                 .Result();
@@ -40,10 +40,12 @@ namespace CinemaApplication
                 if (inputList3[0].Value != "")
                 {
                     string heleNaam = inputList3[0].Value;
+                    bool checker = false;
                     for (int k = 0; k < root3.Count; k++)
                     {
                         if ((root3[k].GetProperty("voorNaam").ToString() + " " + root3[k].GetProperty("achterNaam").ToString()) == heleNaam)
                         {
+                            checker = true;
                             string code = (root3[k].GetProperty("reserveringNummer").ToString());
                             string voornaam = (root3[k].GetProperty("voorNaam").ToString());
                             string achternaam = (root3[k].GetProperty("achterNaam").ToString());
@@ -54,11 +56,11 @@ namespace CinemaApplication
                             successMessage3.Replace(
                                 new TextListBuilder(naamScherm, 1, 7)
                                 .Color(ConsoleColor.Green)
-                                .SetItems($"De reservering staat onder de code {code}. {heleNaam} gaat naar de film {film} in zaal {zaal} op stoel {stoel}.\nDe film speelt op {datum}.")
+                                .SetItems($"The reservation code is {code}", $"{heleNaam} is going to see {film} in room {zaal} on seat {stoel}. The film plays on {datum}.")
                                 .Result()
                             );
                         }
-                        else {
+                        else if (checker != true) {
                             successMessage3.Replace(
                                 new TextListBuilder(naamScherm, 1, 7)
                                 .Color(ConsoleColor.Red)

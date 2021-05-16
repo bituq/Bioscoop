@@ -13,12 +13,12 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(adminScherm, 5, 7)
                 .Color(ConsoleColor.Cyan)
-                .Text("Hallo! Wilt U een reservering opzoeken op code of op naam?")
+                .Text("Hello! Would you like to search a reservation on name or code?")
                 .Result();
             
             var options = new TextListBuilder(adminScherm, 5, 8)
                 .Color(ConsoleColor.Red)
-                .SetItems("Reservering opzoeken op code", "Reservering opzoeken op naam")
+                .SetItems("Search by code", "Search by name")
                 .UseNumbers()
                 .Selectable(ConsoleColor.DarkBlue,ConsoleColor.Red)
                 .LinkWindows(zoekScherm, naamScherm)
