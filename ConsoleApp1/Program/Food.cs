@@ -123,12 +123,50 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                     .Result();
 
+            void onRemove()
+            {
+                var removeIndex = removebutton.Items.IndexOf(removebutton.Items.Find(item => item.Selected));
+                cartlist.RemoveAt(removeIndex);
+                removebuttonlist.RemoveAt(removeIndex);
+
+                if (removebuttonlist.Count == 0)
+                {
+                    removebuttonlist.Add("");
+                    removebutton[0].Unselect();
+                    food.ActiveSelectable = addButton;
+                    addButton.Select();
+                }
+
+                shopcart.Replace(new TextListBuilder(food, 70, 1)
+                .Color(ConsoleColor.Blue)
+                .SetItems(cartlist.ToArray())
+                .Result());
+
+                removebutton[removeIndex].Unselect();
+
+                removebutton.Replace(new TextListBuilder(food, 90, 1)
+                .Color(ConsoleColor.Magenta)
+                .SetItems(removebuttonlist.ToArray())
+                .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                .Result());
+
+                removebutton[Math.Min(removeIndex, removebutton.Items.Count - 1)].Select();
+
+                foreach (SelectableText Item in removebutton.Items)
+                    Item.OnClick = onRemove;
+            }
+
             for (int i = 0; i < addbuttonarray.Length; i++)
             {
                 addButton[i].OnClick = () =>
                 {
                     var addIndex = addButton.Items.IndexOf(addButton.Items.Find(item => item.Selected));
                     cartlist.Add(snackNames[addIndex]);
+
+                    if (removebuttonlist.Contains(""))
+                    {
+                        removebuttonlist.Remove("");
+                    }
                     removebuttonlist.Add("remove");
 
                     shopcart.Replace(new TextListBuilder(food, 70, 1)
@@ -142,23 +180,7 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                     .Result());
 
-                    removebutton[removebutton.Items.Count - 1].OnClick = () =>
-                    {
-                        var removeIndex = removebutton.Items.IndexOf(removebutton.Items.Find(item => item.Selected));
-                        cartlist.RemoveAt(removeIndex);
-                        removebuttonlist.RemoveAt(removeIndex);
-
-                        shopcart.Replace(new TextListBuilder(food, 70, 1)
-                        .Color(ConsoleColor.Blue)
-                        .SetItems(cartlist.ToArray())
-                        .Result());
-
-                        removebutton.Replace(new TextListBuilder(food, 90, 1)
-                        .Color(ConsoleColor.Green)
-                        .SetItems(removebuttonlist.ToArray())
-                        .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
-                        .Result());
-                    };
+                    removebutton[removebutton.Items.Count - 1].OnClick = onRemove;
                 };
             }
         }
