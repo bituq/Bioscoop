@@ -9,10 +9,10 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        public struct Seat
+        public class Seat
         {
-            public int Row;
-            public int Column;
+            public int Row { get; set; }
+            public int Column { get; set; }
 
             public Seat(int row, int column)
             {

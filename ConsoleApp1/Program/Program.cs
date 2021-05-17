@@ -9,6 +9,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
+
         static Window homeScreen = new Window(true);
         static Window mainMenu = new Window(false);
         
@@ -16,8 +17,9 @@ namespace CinemaApplication
         static void HomeScreen()
         { 
           var home = new TextBuilder(homeScreen, 2, 2)
+
                 .Color(ConsoleColor.Cyan)
-                .Text("Bioscoop Applicatie")
+                .Text("Cinema Application")
                 .Result();
 
           var subtitle = new TextBuilder(homeScreen, 2, 3)
@@ -38,7 +40,7 @@ namespace CinemaApplication
             var menu = new TextListBuilder(mainMenu, 2, 5)
                 .Color(ConsoleColor.White)
                 .UseNumbers()
-                .SetItems("Lijst van films", "Lijst van snacks")
+                .SetItems("View movies", "View snacks")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(listOfFilms, snacksWindow)
                 .Result();
@@ -50,6 +52,10 @@ namespace CinemaApplication
                 .LinkWindows(homeScreen)
                 .Result();
         }
+        static void HallsScreen()
+        {
+            Halls();
+        }
 
         static void Main(string[] args)
         {
@@ -57,7 +63,8 @@ namespace CinemaApplication
             MainMenu();
             ListOfFilms();
             SnacksWindow();
-            //Halls();
+            Halls();
+            HallsScreen();
 
             InputHandler.WaitForInput();
         }

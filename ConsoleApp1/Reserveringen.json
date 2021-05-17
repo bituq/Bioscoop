@@ -1,0 +1,206 @@
+[
+  {
+    "firstName": "Dylan",
+    "lastName": "Noorland",
+    "code": 4800951,
+    "hall": 2,
+    "movieId": 1,
+    "date": 1621113922,
+    "occupiedSeats": [
+      {
+        "row": 2,
+        "column": 4
+      },
+      {
+        "row": 1,
+        "column": 5
+      },
+      {
+        "row": 2,
+        "column": 5
+      },
+      {
+        "row": 1,
+        "column": 6
+      },
+      {
+        "row": 2,
+        "column": 6
+      }
+    ],
+    "timeslotId": 1
+  },
+  {
+    "firstName": "d",
+    "lastName": "n",
+    "code": 2968846,
+    "hall": 2,
+    "movieId": 2,
+    "date": 1621114159,
+    "occupiedSeats": [
+      {
+        "row": 2,
+        "column": 3
+      },
+      {
+        "row": 2,
+        "column": 4
+      },
+      {
+        "row": 2,
+        "column": 5
+      },
+      {
+        "row": 3,
+        "column": 4
+      }
+    ],
+    "timeslotId": 2
+  },
+  {
+    "firstName": "Dylan",
+    "lastName": "Noorland",
+    "code": 1887613,
+    "hall": 2,
+    "movieId": 2,
+    "date": 1621114414,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 1,
+        "column": 2
+      },
+      {
+        "row": 1,
+        "column": 3
+      }
+    ],
+    "timeslotId": 2
+  },
+  {
+    "firstName": "Dylan",
+    "lastName": "Noorland",
+    "code": 6534714,
+    "hall": 2,
+    "movieId": 2,
+    "date": 1621114548,
+    "occupiedSeats": [
+      {
+        "row": 4,
+        "column": 5
+      },
+      {
+        "row": 4,
+        "column": 6
+      },
+      {
+        "row": 4,
+        "column": 7
+      }
+    ],
+    "timeslotId": 2
+  },
+  {
+    "firstName": "Dylan",
+    "lastName": "Noorland",
+    "code": 8160666,
+    "hall": 2,
+    "movieId": 2,
+    "date": 1621115054,
+    "occupiedSeats": [
+      {
+        "row": 6,
+        "column": 3
+      },
+      {
+        "row": 6,
+        "column": 2
+      },
+      {
+        "row": 6,
+        "column": 1
+      }
+    ],
+    "timeslotId": 2
+  },
+  {
+    "firstName": "Dylan",
+    "lastName": "Noorland",
+    "code": 4803867,
+    "hall": 2,
+    "movieId": 2,
+    "date": 1621115143,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 7
+      },
+      {
+        "row": 1,
+        "column": 8
+      },
+      {
+        "row": 1,
+        "column": 6
+      }
+    ],
+    "timeslotId": 2
+  },
+  {
+    "firstName": "Dylan",
+    "lastName": "Doe",
+    "code": 943870,
+    "hall": 1,
+    "movieId": 0,
+    "date": 1621122969,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 3
+      },
+      {
+        "row": 1,
+        "column": 4
+      },
+      {
+        "row": 1,
+        "column": 5
+      },
+      {
+        "row": 1,
+        "column": 6
+      },
+      {
+        "row": 1,
+        "column": 7
+      }
+    ],
+    "timeslotId": 0
+  },
+  {
+    "firstName": "Dylan",
+    "lastName": "Doe",
+    "code": 7538752,
+    "hall": 2,
+    "movieId": 1,
+    "date": 1621123155,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 1,
+        "column": 2
+      },
+      {
+        "row": 1,
+        "column": 3
+      }
+    ],
+    "timeslotId": 1
+  }
+]

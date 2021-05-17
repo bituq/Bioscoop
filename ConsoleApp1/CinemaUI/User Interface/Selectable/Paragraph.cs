@@ -6,7 +6,7 @@ namespace CinemaUI
 {
     public class SelectableText : Selectable
     {
-        internal ConsoleColor _defaultTextColor;
+        public ConsoleColor _defaultTextColor;
         internal Paragraph _paragraph { get; set; }
         internal Window Referral { get; set; }
         internal ConsoleColor DisabledColor { get; set; } = ConsoleColor.DarkGray;
@@ -33,6 +33,15 @@ namespace CinemaUI
             _defaultTextColor = TextColor;
         }
 
+        public void ActivateReferral()
+        {
+            Unselect();
+            Console.Clear();
+            Window.Active = false;
+            Referral.Active = true;
+            Referral.ActiveSelectable.Select();
+        }
+
         public override void Unselect()
         {
             Selected = false;
@@ -48,6 +57,14 @@ namespace CinemaUI
         {
             Disabled = true;
             _paragraph.TextColor = DisabledColor;
+            _paragraph.Init();
+        }
+
+        public void Enable()
+        {
+            Disabled = false;
+            _paragraph.TextColor = _defaultTextColor;
+            _paragraph.Init();
         }
     }
 }

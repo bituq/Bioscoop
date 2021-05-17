@@ -57,13 +57,7 @@ namespace CinemaUI
         {
             activeItem.OnClick();
             if (activeItem.Referral != null)
-            {
-                Unselect();
-                Console.Clear();
-                TextList.Window.Active = false;
-                activeItem.Referral.Active = true;
-                activeItem.Referral.ActiveSelectable.Select();
-            }
+                activeItem.ActivateReferral();
         }
 
         public override void KeyResponse(ConsoleKeyInfo keyPressed)
