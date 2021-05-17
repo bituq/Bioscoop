@@ -67,7 +67,7 @@ namespace CinemaApplication
             var cartpricelist = new List<string> {};
             var infobuttonlist = new List<string> {};
             var sumpricelist = new List<int> {};
-            double sum = 0;
+            double sum = 0.00;
             for (int i = 0; i < snackNames.Length; i++)
             {
                 snackObjects[i] = new Food(
@@ -86,13 +86,18 @@ namespace CinemaApplication
             }
 
             var title1 = new TextBuilder(food, 11, 1)
-                .Color(ConsoleColor.DarkMagenta)
+                .Color(ConsoleColor.Red)
                 .Text("Snacks and drinks:")
                 .Result();
             
             var title2 = new TextBuilder(food, 70, 1)
-                .Color(ConsoleColor.DarkMagenta)
+                .Color(ConsoleColor.Red)
                 .Text("My cart:")
+                .Result();
+
+            var title3 = new TextBuilder(food, 40, 20)
+                .Color(ConsoleColor.Red)
+                .Text("Total :")
                 .Result();
 
             var snackList = new TextListBuilder(food, 11, 4)
@@ -139,7 +144,7 @@ namespace CinemaApplication
             void onRemove()
             {
                 var removeIndex = removebutton.Items.IndexOf(removebutton.Items.Find(item => item.Selected));
-                sum -= Convert.ToDouble(cartpricelist[removeIndex].Trim('$'));
+                sum -= Convert.ToDouble(cartpricelist[removeIndex].Trim('$')) / 100;
                 cartlist.RemoveAt(removeIndex);
                 cartpricelist.RemoveAt(removeIndex);
                 removebuttonlist.RemoveAt(removeIndex);
@@ -174,7 +179,7 @@ namespace CinemaApplication
 
                 total.Replace(new TextListBuilder(food, 50, 20)
                 .Color(ConsoleColor.White)
-                .SetItems(sum.ToString())
+                .SetItems($"${Math.Round(sum, 2).ToString()}")
                 .Result());
 
                 removebutton[Math.Min(removeIndex, removebutton.Items.Count - 1)].Select();
@@ -196,7 +201,7 @@ namespace CinemaApplication
                     }
                     removebuttonlist.Add("Remove");
 
-                    sum += Convert.ToDouble(snackPrice[addIndex].Trim('$'));
+                    sum += Convert.ToDouble(snackPrice[addIndex].Trim('$')) / 100;
 
                     shopcart.Replace(new TextListBuilder(food, 70, 4)
                     .Color(ConsoleColor.DarkMagenta)
@@ -216,7 +221,7 @@ namespace CinemaApplication
 
                     total.Replace(new TextListBuilder(food, 50, 20)
                     .Color(ConsoleColor.White)
-                    .SetItems(sum.ToString())
+                    .SetItems($"${Math.Round(sum, 2).ToString()}")
                     .Result());
 
                     removebutton[removebutton.Items.Count - 1].OnClick = onRemove;
