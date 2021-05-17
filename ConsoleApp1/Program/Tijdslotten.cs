@@ -149,7 +149,7 @@ namespace CinemaApplication
                 goBack[1].OnClick = () =>
                 {
                     var reservation = new Reservation(this, this.Window, selectedSeats);
-                    goBack[1].Referral = reservation.Window;
+                    goBack[1].Referral = reservation.PaymentsWindow;
                     goBack[1].ActivateReferral();
                 };
             }

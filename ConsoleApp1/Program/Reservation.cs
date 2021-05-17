@@ -50,7 +50,7 @@ namespace CinemaApplication
                     .Color(ConsoleColor.Yellow)
                     .SetItems("Go Back", "Submit")
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                    .LinkWindows(TimeSlot.Window, PaymentsWindow)
+                    .LinkWindows(PaymentsWindow, TimeSlot.Movie.Window)
                     .Result();
 
                 var title = new TextBuilder(Window, 11, 1)

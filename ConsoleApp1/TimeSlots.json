@@ -1,12 +1,5 @@
 [
   {
-    "id": 0,
-    "movieId": 0,
-    "time": 11,
-    "hall": 1,
-    "occupiedSeats": []
-  },
-  {
     "id": 2,
     "movieId": 2,
     "time": 13,
@@ -115,6 +108,26 @@
       {
         "row": 1,
         "column": 3
+      }
+    ]
+  },
+  {
+    "id": 0,
+    "movieId": 0,
+    "time": 11,
+    "hall": 1,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 2
+      },
+      {
+        "row": 1,
+        "column": 3
+      },
+      {
+        "row": 1,
+        "column": 4
       }
     ]
   }

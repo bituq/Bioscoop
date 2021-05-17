@@ -37,19 +37,19 @@ namespace CinemaApplication
         }
         static void MainMenu()
         {
-            var menu = new TextListBuilder(mainMenu, 2, 5)
-                .Color(ConsoleColor.White)
+            var exit = new TextListBuilder(mainMenu, 1, 1)
+                .Color(ConsoleColor.Yellow)
+                .SetItems("Go back")
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .LinkWindows(homeScreen)
+                .Result();
+
+            var menu = new TextListBuilder(mainMenu, 11, 1)
+                .Color(ConsoleColor.Cyan)
                 .UseNumbers()
                 .SetItems("View movies", "View snacks")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(listOfFilms, snacksWindow)
-                .Result();
-
-            var exit = new TextListBuilder(mainMenu, 1, 1)
-                .Color(ConsoleColor.White)
-                .SetItems("Go back")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(homeScreen)
                 .Result();
         }
         static void HallsScreen()
