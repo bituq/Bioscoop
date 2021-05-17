@@ -29,8 +29,13 @@
 		"price" : 3.45,
 		"vegetarian" : "Yes",
 		"stock" : 35
-		
-		
+	
 
+	},
+	{
+		"name" : "Nacho(Hot Chili)(L)",
+		"price" : 3.99,
+		"vegetarian" : "Yes",
+		"stock" : 45
 	}
 ]

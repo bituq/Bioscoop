@@ -64,7 +64,10 @@ namespace CinemaApplication
             var addbuttonarray = new string[snackNames.Length];
             var removebuttonlist = new List<string>() {};
             var cartlist = new List<string>() {};
-            
+            var cartpricelist = new List<string> {};
+            var infobuttonlist = new List<string> {};
+            var sumpricelist = new List<int> {};
+            double sum = 0;
             for (int i = 0; i < snackNames.Length; i++)
             {
                 snackObjects[i] = new Food(
@@ -79,56 +82,68 @@ namespace CinemaApplication
                 snackNames[i] = snackObjects[i].Name;
                 snackPrice[i] = $"${root[i].GetProperty("price").ToString()}";
                 addbuttonarray[i] = "Add to cart";
+                infobuttonlist.Add("Info");
             }
-            
-            
-            /*foreach(var p in snackNames)
-            {
-                shopcart.Add(p);
-            }*/
 
+            var title1 = new TextBuilder(food, 11, 1)
+                .Color(ConsoleColor.DarkMagenta)
+                .Text("Snacks and drinks:")
+                .Result();
             
-              
-            
+            var title2 = new TextBuilder(food, 70, 1)
+                .Color(ConsoleColor.DarkMagenta)
+                .Text("My cart:")
+                .Result();
 
-            
-
-            var snackList = new TextListBuilder(food, 11, 1)
+            var snackList = new TextListBuilder(food, 11, 4)
                 .Color(ConsoleColor.DarkMagenta)
                 .SetItems(snackNames)
-                .UseNumbers()
+                
                 .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                 .LinkWindows(snackWindows)
                 .Result();
 
-            var snackPrices = new TextListBuilder(food, 35, 1)
+            var snackPrices = new TextListBuilder(food, 35, 4)
                 .Color(ConsoleColor.DarkMagenta)
                 .SetItems(snackPrice)
                 .Result();
 
-            var addButton = new TextListBuilder(food, 46, 1)
+            var addButton = new TextListBuilder(food, 46, 4)
                 .Color(ConsoleColor.Magenta)
                 .SetItems(addbuttonarray)
                 .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                 .Result();
 
-            var shopcart = new TextListBuilder(food, 70, 1)
+            var shopcart = new TextListBuilder(food, 70, 4)
                 .Color(ConsoleColor.DarkMagenta)
                 .SetItems(cartlist.ToArray())
                 .Result();
-            
-            var removebutton = new TextListBuilder(food, 90, 1)
+
+            var shopcartprice = new TextListBuilder(food, 94, 4)
+                .Color(ConsoleColor.DarkMagenta)
+                .SetItems(cartpricelist.ToArray())
+                .Result();
+
+            var removebutton = new TextListBuilder(food, 105, 4)
                     .Color(ConsoleColor.Magenta)
                     .SetItems("")
                     .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                     .Result();
 
+            var total = new TextListBuilder(food, 50, 20)
+                .Color(ConsoleColor.White)
+                .SetItems(sum.ToString())
+                .Result();
+            
+            
             void onRemove()
             {
                 var removeIndex = removebutton.Items.IndexOf(removebutton.Items.Find(item => item.Selected));
                 cartlist.RemoveAt(removeIndex);
+                cartpricelist.RemoveAt(removeIndex);
                 removebuttonlist.RemoveAt(removeIndex);
 
+                sum -= Convert.ToDouble(cartpricelist[removeIndex].Trim('$'));
                 if (removebuttonlist.Count == 0)
                 {
                     removebuttonlist.Add("");
@@ -137,17 +152,27 @@ namespace CinemaApplication
                     addButton.Select();
                 }
 
-                shopcart.Replace(new TextListBuilder(food, 70, 1)
-                .Color(ConsoleColor.Blue)
+                shopcart.Replace(new TextListBuilder(food, 70, 4)
+                .Color(ConsoleColor.DarkMagenta)
                 .SetItems(cartlist.ToArray())
                 .Result());
 
+                shopcartprice.Replace(new TextListBuilder(food, 94, 4)
+                .Color(ConsoleColor.DarkMagenta)
+                .SetItems(cartpricelist.ToArray())
+                .Result());
+                
                 removebutton[removeIndex].Unselect();
 
-                removebutton.Replace(new TextListBuilder(food, 90, 1)
+                removebutton.Replace(new TextListBuilder(food, 105, 4)
                 .Color(ConsoleColor.Magenta)
                 .SetItems(removebuttonlist.ToArray())
                 .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                .Result());
+
+                total.Replace(new TextListBuilder(food, 50, 20)
+                .Color(ConsoleColor.White)
+                .SetItems(sum.ToString())
                 .Result());
 
                 removebutton[Math.Min(removeIndex, removebutton.Items.Count - 1)].Select();
@@ -162,22 +187,34 @@ namespace CinemaApplication
                 {
                     var addIndex = addButton.Items.IndexOf(addButton.Items.Find(item => item.Selected));
                     cartlist.Add(snackNames[addIndex]);
-
+                    cartpricelist.Add(snackPrice[addIndex]);
                     if (removebuttonlist.Contains(""))
                     {
                         removebuttonlist.Remove("");
                     }
-                    removebuttonlist.Add("remove");
+                    removebuttonlist.Add("Remove");
 
-                    shopcart.Replace(new TextListBuilder(food, 70, 1)
+                    sum += Convert.ToDouble(cartpricelist[addIndex].Trim('$'));
+
+                    shopcart.Replace(new TextListBuilder(food, 70, 4)
                     .Color(ConsoleColor.DarkMagenta)
                     .SetItems(cartlist.ToArray())
                     .Result());
+                    
+                    shopcartprice.Replace(new TextListBuilder(food, 94, 4)
+                    .Color(ConsoleColor.DarkMagenta)
+                    .SetItems(cartpricelist.ToArray())
+                    .Result());
 
-                    removebutton.Replace(new TextListBuilder(food, 90, 1)
+                    removebutton.Replace(new TextListBuilder(food, 105, 4)
                     .Color(ConsoleColor.Magenta)
                     .SetItems(removebuttonlist.ToArray())
                     .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                    .Result());
+
+                    total.Replace(new TextListBuilder(food, 50, 20)
+                    .Color(ConsoleColor.White)
+                    .SetItems(sum.ToString())
                     .Result());
 
                     removebutton[removebutton.Items.Count - 1].OnClick = onRemove;
