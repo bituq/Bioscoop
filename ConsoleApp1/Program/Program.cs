@@ -27,7 +27,7 @@ namespace CinemaApplication
                 .UseNumbers()
                 .SetItems("View movies", "View snacks")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(listOfFilms, snacksWindow)
+                .LinkWindows(listOfFilms, food)
                 .Result();
         }
         static void HallsScreen()
@@ -43,7 +43,7 @@ namespace CinemaApplication
             Halls();
             HallsScreen();
             FoodWindow();
-
+            
             InputHandler.WaitForInput();
         }
     }

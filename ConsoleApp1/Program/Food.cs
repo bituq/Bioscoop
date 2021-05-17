@@ -14,12 +14,11 @@ namespace CinemaApplication
         {
             public Window Window = new Window();
             public string Name { get; set; }
-            public string Price { get; set; }
+
 
             public Food(string name, string price, string vegetarian, string stock)
             {
                 Name = name;
-                Price = price;
 
                 var title = new TextBuilder(Window, 11, 1)
                     .Color(ConsoleColor.Red)
@@ -31,8 +30,7 @@ namespace CinemaApplication
                     .SetItems(price, vegetarian, stock)
                     .Result();
 
-
-                var goBack = new TextListBuilder(Window, 1, 1)
+                var _ = new TextListBuilder(Window, 1, 1)
                    .Color(ConsoleColor.White)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -58,7 +56,7 @@ namespace CinemaApplication
             JsonElement root = doc.RootElement;
 
             Food[] snackObjects = new Food[root.GetArrayLength()];
-            var snackWindows = new Window[snackObjects.Length];
+            Window[] foodWindows = new Window[snackObjects.Length];
             string[] snackNames = new string[root.GetArrayLength()];
             string[] snackPrice = new string[root.GetArrayLength()];
             var addbuttonarray = new string[snackNames.Length];
@@ -78,7 +76,7 @@ namespace CinemaApplication
 
                     );
 
-                snackWindows[i] = snackObjects[i].Window;
+                foodWindows[i] = snackObjects[i].Window;
                 snackNames[i] = snackObjects[i].Name;
                 snackPrice[i] = $"${root[i].GetProperty("price").ToString()}";
                 addbuttonarray[i] = "Add to cart";
@@ -95,7 +93,7 @@ namespace CinemaApplication
                 .Text("My cart:")
                 .Result();
 
-            var title3 = new TextBuilder(food, 40, 20)
+            var title3 = new TextBuilder(food, 11, 20)
                 .Color(ConsoleColor.Red)
                 .Text("Total :")
                 .Result();
@@ -105,7 +103,7 @@ namespace CinemaApplication
                 .SetItems(snackNames)
                 
                 .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
-                .LinkWindows(snackWindows)
+                .LinkWindows(foodWindows)
                 .Result();
 
             var snackPrices = new TextListBuilder(food, 35, 4)
@@ -135,7 +133,7 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                     .Result();
 
-            var total = new TextListBuilder(food, 50, 20)
+            var total = new TextListBuilder(food, 21, 20)
                 .Color(ConsoleColor.White)
                 .SetItems(sum.ToString())
                 .Result();
@@ -177,7 +175,7 @@ namespace CinemaApplication
                 .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                 .Result());
 
-                total.Replace(new TextListBuilder(food, 50, 20)
+                total.Replace(new TextListBuilder(food, 21, 20)
                 .Color(ConsoleColor.White)
                 .SetItems($"${Math.Round(sum, 2).ToString()}")
                 .Result());
@@ -219,7 +217,7 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                     .Result());
 
-                    total.Replace(new TextListBuilder(food, 50, 20)
+                    total.Replace(new TextListBuilder(food, 21, 20)
                     .Color(ConsoleColor.White)
                     .SetItems($"${Math.Round(sum, 2).ToString()}")
                     .Result());
