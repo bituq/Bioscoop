@@ -25,12 +25,17 @@ namespace CinemaApplication
             JsonElement root = doc.RootElement;
             ;
 
-            int yPos = 2;
+            var title = new TextBuilder(peaksWindow, 3, 1)
+                    .Color(ConsoleColor.Cyan)
+                    .Text("Expected peaks:")
+                    .Result();
+
+            int yPos = 3;
             foreach (var amountOfPeople in getActivity(1))
             {
                 var a = new TextBuilder(peaksWindow, 3, yPos++)
                     .Color(ConsoleColor.Cyan)
-                    .Text(amountOfPeople.ToString())
+                    .Text((yPos-3).ToString() + ". " + amountOfPeople.ToString())
                     .Result();
             }
             
