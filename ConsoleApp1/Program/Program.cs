@@ -62,7 +62,8 @@ namespace CinemaApplication
             HallsScreen();
             SelectieSchermAdmin();
             ReserveringNaamScherm();
-
+            SelectieSchermZoeken();
+            
             InputHandler.WaitForInput();
         }
     }
