@@ -8,20 +8,20 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window adminScherm = new Window(true);
-        static void selectieSchermAdmin()
+        static Window AdminScherm = new Window();
+        static void SelectieSchermAdmin()
         {
-            var title = new TextBuilder(adminScherm, 5, 7)
+            var title = new TextBuilder(AdminScherm, 5, 7)
                 .Color(ConsoleColor.Cyan)
                 .Text("Hello! Would you like to search a reservation on name or code?")
                 .Result();
             
-            var options = new TextListBuilder(adminScherm, 5, 8)
+            var options = new TextListBuilder(AdminScherm, 5, 8)
                 .Color(ConsoleColor.Red)
                 .SetItems("Search by code", "Search by name")
                 .UseNumbers()
                 .Selectable(ConsoleColor.DarkBlue,ConsoleColor.Red)
-                .LinkWindows(zoekScherm, naamScherm)
+                .LinkWindows(ZoekScherm, NaamScherm)
                 .Result();
         }
     }
