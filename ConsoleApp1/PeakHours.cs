@@ -18,17 +18,19 @@ namespace CinemaApplication
             var Reserveringen = File.ReadAllText("..\\..\\..\\Reserveringen.json");
             var Movies = File.ReadAllText("..\\..\\..\\Movies.json");
 
+            var today = DateTime.UtcNow;
+
             JsonDocument doc = JsonDocument.Parse(TimeSlots);
 
             JsonElement root = doc.RootElement;
             ;
 
             int yPos = 2;
-            foreach (var time in getActivity(1))
+            foreach (var amountOfPeople in getActivity(1))
             {
                 var a = new TextBuilder(peaksWindow, 3, yPos++)
                     .Color(ConsoleColor.Cyan)
-                    .Text(time.ToString())
+                    .Text(amountOfPeople.ToString())
                     .Result();
             }
             
