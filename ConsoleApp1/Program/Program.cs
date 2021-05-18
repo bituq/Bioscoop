@@ -19,18 +19,13 @@ namespace CinemaApplication
           var home = new TextBuilder(homeScreen, 2, 2)
 
                 .Color(ConsoleColor.Cyan)
-                .Text("Cinema Application")
+                .Text("The Willem Theater")
                 .Result();
-
-          var subtitle = new TextBuilder(homeScreen, 2, 3)
-                 .Color(ConsoleColor.DarkGray)
-                 .Text("Project B")
-                 .Result();
 
           var screen = new TextListBuilder(homeScreen, 2, 5)
                   .Color(ConsoleColor.White)
                   .UseNumbers()
-                  .SetItems("Bezoeker", "Admin")
+                  .SetItems("Visitor", "Admin")
                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
                   .LinkWindows(mainMenu, mainMenu)
                   .Result();
