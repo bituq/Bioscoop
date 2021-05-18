@@ -8,30 +8,30 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window zoekScherm = new Window();
-        static void reserveringZoekScherm()
+        static Window ZoekScherm = new Window();
+        static void ReserveringZoekScherm()
         {
             string filePath2 = "..\\..\\..\\Reserveringen.json";
             var root2 = JsonFile.FileAsList(filePath2);
 
-            var inputInformation2 = new TextListBuilder(zoekScherm, 1, 1)
+            var inputInformation2 = new TextListBuilder(ZoekScherm, 1, 1)
                 .Color(ConsoleColor.Cyan)
                 .SetItems("Reservationcode:")
                 .Result();
 
-            var inputList2 = new TextListBuilder(zoekScherm, 19, 1)
+            var inputList2 = new TextListBuilder(ZoekScherm, 19, 1)
                 .SetItems("")
                 .AsInput(ConsoleColor.White, ConsoleColor.Black)
                 .Result();
 
-            var terug2 = new TextListBuilder(zoekScherm, 1, 4)
+            var terug2 = new TextListBuilder(ZoekScherm, 1, 4)
                 .Color(ConsoleColor.Green)
                 .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
-                .LinkWindows(null, adminScherm)
+                .LinkWindows(null, AdminScherm)
                 .Result();
 
-            var successMessage2 = new TextListBuilder(zoekScherm)
+            var successMessage2 = new TextListBuilder(ZoekScherm)
                 .SetItems("")
                 .Result();
 
@@ -53,7 +53,7 @@ namespace CinemaApplication
                             string film = (root2[j].GetProperty("film").ToString());
                             string datum = (root2[j].GetProperty("datum").ToString());
                             successMessage2.Replace(
-                                new TextListBuilder(zoekScherm, 1, 7)
+                                new TextListBuilder(ZoekScherm, 1, 7)
                                 .Color(ConsoleColor.Green)
                                 .SetItems($"The reservation is on the name {voornaam + " " + achternaam}.", $"{voornaam + " " + achternaam} is going to film {film} in room {zaal} op seat {stoel}. The film plays on {datum}.")
                                 .Result()
@@ -61,13 +61,13 @@ namespace CinemaApplication
                         }
                         else if (found != true) {
                             successMessage2.Replace(
-                                new TextListBuilder(zoekScherm, 1, 7)
+                                new TextListBuilder(ZoekScherm, 1, 7)
                                 .Color(ConsoleColor.Red)
                                 .SetItems($"There is no reservation with code {code}. Please try again.")
                                 .Result()
                             );
                         }
-                        zoekScherm.Init();
+                        ZoekScherm.Init();
                     }
                 }
             };

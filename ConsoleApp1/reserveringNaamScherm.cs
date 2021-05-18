@@ -8,30 +8,30 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window naamScherm = new Window();
-        static void reserveringNaamScherm()
+        static Window NaamScherm = new Window();
+        static void ReserveringNaamScherm()
         {
             string filePath3 = "..\\..\\..\\Reserveringen.json";
             var root3 = JsonFile.FileAsList(filePath3);
 
-            var inputInformation3 = new TextListBuilder(naamScherm, 1, 1)
+            var inputInformation3 = new TextListBuilder(NaamScherm, 1, 1)
                 .Color(ConsoleColor.Cyan)
                 .SetItems("Full name:")
                 .Result();
 
-            var inputList3 = new TextListBuilder(naamScherm, 12, 1)
+            var inputList3 = new TextListBuilder(NaamScherm, 12, 1)
                 .SetItems("")
                 .AsInput(ConsoleColor.White, ConsoleColor.Black)
                 .Result();
 
-            var terug3 = new TextListBuilder(naamScherm, 1, 4)
+            var terug3 = new TextListBuilder(NaamScherm, 1, 4)
                 .Color(ConsoleColor.Green)
                 .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
-                .LinkWindows(null, adminScherm)
+                .LinkWindows(null, AdminScherm)
                 .Result();
 
-            var successMessage3 = new TextListBuilder(naamScherm)
+            var successMessage3 = new TextListBuilder(NaamScherm)
                 .SetItems("")
                 .Result();
 
@@ -54,7 +54,7 @@ namespace CinemaApplication
                             string film = (root3[k].GetProperty("film").ToString());
                             string datum = (root3[k].GetProperty("datum").ToString());
                             successMessage3.Replace(
-                                new TextListBuilder(naamScherm, 1, 7)
+                                new TextListBuilder(NaamScherm, 1, 7)
                                 .Color(ConsoleColor.Green)
                                 .SetItems($"The reservation code is {code}", $"{heleNaam} is going to see {film} in room {zaal} on seat {stoel}. The film plays on {datum}.")
                                 .Result()
@@ -62,7 +62,7 @@ namespace CinemaApplication
                         }
                         else if (checker != true) {
                             successMessage3.Replace(
-                                new TextListBuilder(naamScherm, 1, 7)
+                                new TextListBuilder(NaamScherm, 1, 7)
                                 .Color(ConsoleColor.Red)
                                 .SetItems($"There is no reservation on name {heleNaam}, or you misspelled it. Please try again.")
                                 .Result()
