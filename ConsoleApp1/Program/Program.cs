@@ -61,10 +61,6 @@ namespace CinemaApplication
         {
             HomeScreen();
             ReserveringZoekScherm();
-            reserveringMaakScherm();
-            reserveringZoekScherm();
-            reserveringMaakScherm();
-            reserveringZoekScherm();
             MainMenu();
             FoodWindow();
             
