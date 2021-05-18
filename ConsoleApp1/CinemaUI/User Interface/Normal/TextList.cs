@@ -13,12 +13,8 @@ namespace CinemaUI
 
         public void Replace(TextList textList)
         {
-            foreach (Paragraph P in Items)
-                P.Reset();
             Items = textList.Items;
             TextColor = textList.TextColor;
-            foreach (Paragraph P in Items)
-                P.Init();
         }
         public void SetItems(string[] arr, string prefix = "", string suffix = "")
         {

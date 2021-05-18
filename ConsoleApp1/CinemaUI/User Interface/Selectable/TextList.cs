@@ -22,16 +22,11 @@ namespace CinemaUI
 
         public void Replace(SelectableList selectable)
         {
-            var onclickArray = new List<Action>();
-            foreach (SelectableText s in Items)
-                onclickArray.Add(s.OnClick);
             TextList.Window.SelectionOrder.Remove(selectable);
             TextList.Replace(selectable.TextList);
             Foreground = selectable.Foreground;
             Background = selectable.Background;
             Items = selectable.Items;
-            for (int i = 0; i < Math.Min(onclickArray.Count, Items.Count); i++)
-                Items[i].OnClick = onclickArray[i];
         }
 
         public SelectableText this[int index] { get => Items[index]; }
