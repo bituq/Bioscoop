@@ -60,13 +60,21 @@ namespace CinemaApplication
         static void Main(string[] args)
         {
             HomeScreen();
+            ReserveringZoekScherm();
+            reserveringMaakScherm();
+            reserveringZoekScherm();
+            reserveringMaakScherm();
+            reserveringZoekScherm();
             MainMenu();
-            ListOfFilms();
-            SnacksWindow();
-            Halls();
-            HallsScreen();
             FoodWindow();
             
+            SelectieSchermAdmin();
+            ReserveringNaamScherm();
+
+            FoodWindow();
+            
+            HallsScreen();
+
             InputHandler.WaitForInput();
         }
     }
