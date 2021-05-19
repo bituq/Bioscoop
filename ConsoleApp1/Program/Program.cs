@@ -43,7 +43,8 @@ namespace CinemaApplication
             Halls();
             HallsScreen();
             FoodWindow();
-            
+            AddHall();
+
             InputHandler.WaitForInput();
         }
     }
