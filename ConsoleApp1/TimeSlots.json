@@ -2,14 +2,14 @@
   {
     "id": 0,
     "movieId": 0,
-    "time": 11,
+    "time": 1621412208,
     "hall": 1,
     "occupiedSeats": []
   },
   {
     "id": 2,
     "movieId": 2,
-    "time": 13,
+    "time": 1621412208,
     "hall": 2,
     "occupiedSeats": [
       {

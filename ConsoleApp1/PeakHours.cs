@@ -18,24 +18,14 @@ namespace CinemaApplication
             var Reserveringen = File.ReadAllText("..\\..\\..\\Reserveringen.json");
             var Movies = File.ReadAllText("..\\..\\..\\Movies.json");
 
-            var today = DateTime.UtcNow;
-
             JsonDocument doc = JsonDocument.Parse(TimeSlots);
-
             JsonElement root = doc.RootElement;
-            ;
 
-            int yPos = 2;
-            foreach (var amountOfPeople in getActivity(1))
-            {
-                var a = new TextBuilder(peaksWindow, 3, yPos++)
-                    .Color(ConsoleColor.Cyan)
-                    .Text(amountOfPeople.ToString())
-                    .Result();
-            }
-            
+            // output the activity with argument as interval
+            getActivity(4);
         }
-        public static int[] getActivity(int hours) 
+
+        public static void getActivity(int hours) 
         {
             var timeFile = File.ReadAllText("..\\..\\..\\TimeSlots.json");
             var reserveringFile = File.ReadAllText("..\\..\\..\\Reserveringen.json");
@@ -48,16 +38,48 @@ namespace CinemaApplication
             int[] peaks = new int[TimeSlots.RootElement.GetArrayLength()];
             int count = 0;
 
-            foreach (var timeslot in TimeSlots.RootElement.EnumerateArray())
+            static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
             {
-                int amountOfPeople = timeslot.GetProperty("occupiedSeats").GetArrayLength();
-
-
-                peaks[count++] = amountOfPeople;
-
+                // Unix timestamp is seconds past epoch
+                System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+                dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+                return dtDateTime;
             }
 
-            return peaks;
+            int yPos = 2;
+
+            for (int i = 0, currTime = 0; i < 24 / hours; i++)
+            {
+                int people = 0;
+                foreach (var timeslot in TimeSlots.RootElement.EnumerateArray())
+                {
+                    var currentTimeslotTime = UnixTimeStampToDateTime(timeslot.GetProperty("time").GetUInt64());
+                    var currentTimeFrame = DateTime.UtcNow - DateTime.UtcNow.TimeOfDay;
+                    currentTimeFrame = currentTimeFrame.AddHours(i*hours);
+                    
+                    //Console.WriteLine("check 1:" + currentTimeFrame.CompareTo(currentTimeslotTime));
+                    if (currentTimeFrame.CompareTo(currentTimeslotTime) < 0) // timeslot time is after today
+                    {
+                        currentTimeslotTime = currentTimeslotTime.AddHours(-hours); // shift timeslot time to check for timeframe
+                        
+                        
+                        if (currentTimeFrame.CompareTo(currentTimeslotTime) > 0) // timeslot time is in current timeframe
+                            people += timeslot.GetProperty("occupiedSeats").GetArrayLength();
+                    }
+                    //Console.WriteLine("");
+                }
+
+                var a = new TextBuilder(peaksWindow, 3, yPos)
+                    .Color(ConsoleColor.Cyan)
+                    .Text(currTime.ToString() + ":00-" + (currTime + hours) + ":00")
+                    .Result();
+
+                var b = new TextBuilder(peaksWindow, 15, yPos++)
+                    .Color(ConsoleColor.Cyan)
+                    .Text("- " + people + " people")
+                    .Result();
+                currTime += hours;
+            }
         }
     }
 }
