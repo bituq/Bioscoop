@@ -17,18 +17,17 @@ namespace CinemaApplication
         static void HomeScreen()
         { 
           var home = new TextBuilder(homeScreen, 2, 2)
-
                 .Color(ConsoleColor.Cyan)
                 .Text("The Willem Theater")
                 .Result();
 
           var screen = new TextListBuilder(homeScreen, 2, 5)
-                  .Color(ConsoleColor.White)
-                  .UseNumbers()
-                  .SetItems("Visitor", "Admin")
-                  .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                  .LinkWindows(mainMenu, mainMenu)
-                  .Result();
+                .Color(ConsoleColor.White)
+                .UseNumbers()
+                .SetItems("Visitor", "Admin")
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .LinkWindows(mainMenu, AdminScherm)
+                .Result();
         }
         static void MainMenu()
         {
@@ -54,12 +53,14 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
+            HomeScreen();
             ReserveringZoekScherm();
             MainMenu();
             ListOfFilms();
             SnacksWindow();
             Halls();
             HallsScreen();
+            SelecteerHallsScherm();
             SelectieSchermAdmin();
             ReserveringNaamScherm();
             SelectieSchermZoeken();

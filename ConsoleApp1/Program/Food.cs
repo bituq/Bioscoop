@@ -40,7 +40,7 @@ namespace CinemaApplication
             }
         }
 
-        public static Window food = new Window(true);
+        public static Window food = new Window(false);
         static void FoodWindow()
         {
             var _ = new TextListBuilder(food, 1, 1)
