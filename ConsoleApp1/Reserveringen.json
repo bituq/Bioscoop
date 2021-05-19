@@ -248,5 +248,28 @@
       }
     ],
     "timeslotId": 0
+  },
+  {
+    "firstName": "Johan",
+    "lastName": "Johabn",
+    "code": 4369290,
+    "hall": 1,
+    "movieId": 0,
+    "date": 1621327061,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 1,
+        "column": 5
+      },
+      {
+        "row": 1,
+        "column": 6
+      }
+    ],
+    "timeslotId": 0
   }
 ]
