@@ -78,7 +78,7 @@ namespace CinemaApplication
                 .Result();
 
             var GoBackHallsScherm2 = new TextListBuilder(hallscreen, 1, 12)
-                .Color(ConsoleColor.Green)
+                .Color(ConsoleColor.Red)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(selecteerHallsScherm)

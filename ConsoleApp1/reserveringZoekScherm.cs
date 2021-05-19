@@ -28,7 +28,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.Green)
                 .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
-                .LinkWindows(null, AdminScherm)
+                .LinkWindows(null, SelecteerZoekScherm)
                 .Result();
 
             var successMessage2 = new TextListBuilder(ZoekScherm)

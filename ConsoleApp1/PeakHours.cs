@@ -10,7 +10,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window peaksWindow = new Window(true);
+        static Window peaksWindow = new Window();
 
         public static void peaksDraw() 
         {
@@ -80,6 +80,12 @@ namespace CinemaApplication
                     .Result();
                 currTime += hours;
             }
+            var exit = new TextListBuilder(peaksWindow, 1, ++yPos)
+                .Color(ConsoleColor.Green)
+                .SetItems("Go back")
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .LinkWindows(AdminScherm)
+                .Result();
         }
     }
 }

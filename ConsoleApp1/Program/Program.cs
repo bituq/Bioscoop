@@ -22,28 +22,26 @@ namespace CinemaApplication
                 .Result();
 
           var screen = new TextListBuilder(homeScreen, 2, 5)
-                .Color(ConsoleColor.White)
+                .Color(ConsoleColor.Red)
                 .UseNumbers()
                 .SetItems("Visitor", "Admin")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .Selectable(ConsoleColor.DarkBlue, ConsoleColor.Red)
                 .LinkWindows(mainMenu, AdminScherm)
                 .Result();
         }
         static void MainMenu()
         {
-            var exit = new TextListBuilder(mainMenu, 1, 1)
-                .Color(ConsoleColor.Yellow)
-                .SetItems("Go back")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(homeScreen)
+            var titelmenu = new TextListBuilder(mainMenu, 2, 2)
+                .Color(ConsoleColor.Cyan)
+                .SetItems("User Menu")
                 .Result();
 
-            var menu = new TextListBuilder(mainMenu, 11, 1)
-                .Color(ConsoleColor.Cyan)
+            var menu = new TextListBuilder(mainMenu, 2, 5)
+                .Color(ConsoleColor.Red)
                 .UseNumbers()
-                .SetItems("View movies", "View snacks")
+                .SetItems("View movies", "View snacks", "Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(listOfFilms, food)
+                .LinkWindows(listOfFilms, snacksWindow, homeScreen)
                 .Result();
         }
         static void HallsScreen()
@@ -53,6 +51,7 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
+            peaksDraw();
             HomeScreen();
             ReserveringZoekScherm();
             MainMenu();

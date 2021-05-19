@@ -11,24 +11,17 @@ namespace CinemaApplication
         static Window selecteerHallsScherm = new Window();
         static void SelecteerHallsScherm()
         {
-            var title = new TextBuilder(selecteerHallsScherm, 2, 6)
+            var title = new TextBuilder(selecteerHallsScherm, 2, 2)
                 .Color(ConsoleColor.Cyan)
                 .Text("Hello! Would you like to see all halls or edit the halls?")
                 .Result();
 
-            var options = new TextListBuilder(selecteerHallsScherm, 5, 8)
+            var options = new TextListBuilder(selecteerHallsScherm, 2, 5)
                 .Color(ConsoleColor.Red)
-                .SetItems("See all halls", "Edit halls")
+                .SetItems("See all halls", "Edit halls", "Go back")
                 .UseNumbers()
                 .Selectable(ConsoleColor.DarkBlue, ConsoleColor.Red)
-                .LinkWindows(hallscreen, null)
-                .Result();
-
-            var GoBackHallsScherm = new TextListBuilder(selecteerHallsScherm, 1, 12)
-                .Color(ConsoleColor.Green)
-                .SetItems("Go back")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(AdminScherm)
+                .LinkWindows(hallscreen, null, AdminScherm)
                 .Result();
         }
     }
