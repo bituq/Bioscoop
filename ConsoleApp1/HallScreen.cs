@@ -24,7 +24,7 @@ namespace CinemaApplication
                 Columns = columns;
 
                 var selectableList = new TextListBuilder(Window, 3, 1)
-                    .SetItems("Ga terug")
+                    .SetItems("Go back")
                     .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                     .LinkWindows(hallscreen)
                     .Result();
@@ -36,7 +36,7 @@ namespace CinemaApplication
 
                 var description = new TextListBuilder(Window, 3, 5)
                     .Color(ConsoleColor.Gray)
-                    .SetItems($"Rijen: {rows}", $"Kolommen: {columns}")
+                    .SetItems($"Rows: {rows}", $"Columns: {columns}")
                     .Result();
             }
         }
@@ -56,7 +56,7 @@ namespace CinemaApplication
             for (int i = 0; i < hallNames.Length; i++)
             {
                 hallObjects[i] = new hall(
-                    "Zaal nummer " + root[i].GetProperty("id").ToString(),
+                    "Hall number " + root[i].GetProperty("id").ToString(),
                     root[i].GetProperty("rows").ToString(),
                     root[i].GetProperty("columns").ToString()
                     );
@@ -65,23 +65,28 @@ namespace CinemaApplication
                 hallNames[i] = hallObjects[i].Name;
                 //Console.WriteLine($"{i} : {movieNames[i]}");
             }
-            var introtexthall = new TextListBuilder(hallscreen, 2, 6)
-                .Color(ConsoleColor.Cyan)
+            var introtexthall = new TextListBuilder(hallscreen, 2, 3)
+                .Color(ConsoleColor.Gray)
                 .SetItems("Select which hall you would like to see.")
                 .Result();
 
-            var showhall = new TextListBuilder(hallscreen, 5, 8)
+            var showhall = new TextListBuilder(hallscreen, 2, 5)
                 .Color(ConsoleColor.Red)
                 .SetItems(hallNames)
                 .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                 .LinkWindows(hallWindows)
                 .Result();
 
-            var GoBackHallsScherm2 = new TextListBuilder(hallscreen, 1, 12)
+            var GoBackHallsScherm2 = new TextListBuilder(hallscreen, 22, 5)
                 .Color(ConsoleColor.Red)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(selecteerHallsScherm)
+                .Result();
+
+            var title = new TextBuilder(hallscreen, 2, 2)
+                .Color(ConsoleColor.Cyan)
+                .Text("Home/Admin/Hall Select/Halls/")
                 .Result();
         }
     }

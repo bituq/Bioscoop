@@ -31,9 +31,14 @@ namespace CinemaApplication
         }
         static void MainMenu()
         {
-            var titelmenu = new TextListBuilder(mainMenu, 2, 2)
+            var titelmenu1 = new TextListBuilder(mainMenu, 2, 2)
                 .Color(ConsoleColor.Cyan)
-                .SetItems("User Menu")
+                .SetItems("Home/Visitor/")
+                .Result();
+
+            var titelmenu2 = new TextListBuilder(mainMenu, 2, 3)
+                .Color(ConsoleColor.Gray)
+                .SetItems("What would you like to do?")
                 .Result();
 
             var menu = new TextListBuilder(mainMenu, 2, 5)

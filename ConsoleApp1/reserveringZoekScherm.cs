@@ -14,8 +14,13 @@ namespace CinemaApplication
             string filePath2 = "..\\..\\..\\Reserveringen.json";
             var root2 = JsonFile.FileAsList(filePath2);
 
-            var inputInformation2 = new TextListBuilder(ZoekScherm, 1, 1)
+            var list = new TextListBuilder(ZoekScherm, 1, 2)
                 .Color(ConsoleColor.Cyan)
+                .SetItems("Home/Admin/Select Search/Code Search/")
+                .Result();
+
+            var inputInformation2 = new TextListBuilder(ZoekScherm, 1, 3)
+                .Color(ConsoleColor.Gray)
                 .SetItems("Reservationcode:")
                 .Result();
 
@@ -24,7 +29,7 @@ namespace CinemaApplication
                 .AsInput(ConsoleColor.White, ConsoleColor.Black)
                 .Result();
 
-            var terug2 = new TextListBuilder(ZoekScherm, 1, 4)
+            var terug2 = new TextListBuilder(ZoekScherm, 1, 5)
                 .Color(ConsoleColor.Green)
                 .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
@@ -53,7 +58,7 @@ namespace CinemaApplication
                             string film = (root2[j].GetProperty("film").ToString());
                             string datum = (root2[j].GetProperty("datum").ToString());
                             successMessage2.Replace(
-                                new TextListBuilder(ZoekScherm, 1, 7)
+                                new TextListBuilder(ZoekScherm, 1, 8)
                                 .Color(ConsoleColor.Green)
                                 .SetItems($"The reservation is on the name {voornaam + " " + achternaam}.", $"{voornaam + " " + achternaam} is going to film {film} in room {zaal} op seat {stoel}. The film plays on {datum}.")
                                 .Result()
@@ -61,7 +66,7 @@ namespace CinemaApplication
                         }
                         else if (found != true) {
                             successMessage2.Replace(
-                                new TextListBuilder(ZoekScherm, 1, 7)
+                                new TextListBuilder(ZoekScherm, 1, 8)
                                 .Color(ConsoleColor.Red)
                                 .SetItems($"There is no reservation with code {code}. Please try again.")
                                 .Result()

@@ -14,8 +14,13 @@ namespace CinemaApplication
             string filePath3 = "..\\..\\..\\Reserveringen.json";
             var root3 = JsonFile.FileAsList(filePath3);
 
-            var inputInformation3 = new TextListBuilder(NaamScherm, 1, 1)
+            var list = new TextListBuilder(NaamScherm, 1, 2)
                 .Color(ConsoleColor.Cyan)
+                .SetItems("Home/Admin/Select Search/Name Search/")
+                .Result();
+
+            var inputInformation3 = new TextListBuilder(NaamScherm, 1, 3)
+                .Color(ConsoleColor.Gray)
                 .SetItems("Full name:")
                 .Result();
 
@@ -24,7 +29,7 @@ namespace CinemaApplication
                 .AsInput(ConsoleColor.White, ConsoleColor.Black)
                 .Result();
 
-            var terug3 = new TextListBuilder(NaamScherm, 1, 4)
+            var terug3 = new TextListBuilder(NaamScherm, 1, 5)
                 .Color(ConsoleColor.Green)
                 .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
@@ -54,7 +59,7 @@ namespace CinemaApplication
                             string film = (root3[k].GetProperty("film").ToString());
                             string datum = (root3[k].GetProperty("datum").ToString());
                             successMessage3.Replace(
-                                new TextListBuilder(NaamScherm, 1, 7)
+                                new TextListBuilder(NaamScherm, 1, 8)
                                 .Color(ConsoleColor.Green)
                                 .SetItems($"The reservation code is {code}", $"{heleNaam} is going to see {film} in room {zaal} on seat {stoel}. The film plays on {datum}.")
                                 .Result()
@@ -62,7 +67,7 @@ namespace CinemaApplication
                         }
                         else if (checker != true) {
                             successMessage3.Replace(
-                                new TextListBuilder(NaamScherm, 1, 7)
+                                new TextListBuilder(NaamScherm, 1, 8)
                                 .Color(ConsoleColor.Red)
                                 .SetItems($"There is no reservation on name {heleNaam}, or you misspelled it. Please try again.")
                                 .Result()

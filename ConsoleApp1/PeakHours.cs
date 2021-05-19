@@ -14,6 +14,11 @@ namespace CinemaApplication
 
         public static void peaksDraw() 
         {
+            var list = new TextListBuilder(peaksWindow, 1, 2)
+                .Color(ConsoleColor.Cyan)
+                .SetItems("Home/Admin/Peak Hours/")
+                .Result();
+
             var TimeSlots = File.ReadAllText("..\\..\\..\\TimeSlots.json");
             var Reserveringen = File.ReadAllText("..\\..\\..\\Reserveringen.json");
             var Movies = File.ReadAllText("..\\..\\..\\Movies.json");
@@ -46,7 +51,7 @@ namespace CinemaApplication
                 return dtDateTime;
             }
 
-            int yPos = 2;
+            int yPos = 4;
 
             for (int i = 0, currTime = 0; i < 24 / hours; i++)
             {
@@ -70,12 +75,12 @@ namespace CinemaApplication
                 }
 
                 var a = new TextBuilder(peaksWindow, 3, yPos)
-                    .Color(ConsoleColor.Cyan)
+                    .Color(ConsoleColor.Gray)
                     .Text(currTime.ToString() + ":00-" + (currTime + hours) + ":00")
                     .Result();
 
                 var b = new TextBuilder(peaksWindow, 15, yPos++)
-                    .Color(ConsoleColor.Cyan)
+                    .Color(ConsoleColor.Gray)
                     .Text("- " + people + " people")
                     .Result();
                 currTime += hours;

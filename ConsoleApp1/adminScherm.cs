@@ -13,6 +13,11 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(AdminScherm, 2, 2)
                 .Color(ConsoleColor.Cyan)
+                .Text("Home/Admin/")
+                .Result();
+
+            var title2 = new TextBuilder(AdminScherm, 2, 3)
+                .Color(ConsoleColor.Gray)
                 .Text("Hello! What would you like to do?")
                 .Result();
             

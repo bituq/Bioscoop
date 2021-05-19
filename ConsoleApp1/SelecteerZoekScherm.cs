@@ -13,6 +13,11 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(SelecteerZoekScherm, 2, 2)
                 .Color(ConsoleColor.Cyan)
+                .Text("Home/Admin/Select Search/")
+                .Result();
+
+            var title2 = new TextBuilder(SelecteerZoekScherm, 2, 3)
+                .Color(ConsoleColor.Gray)
                 .Text("Hello! Would you like to search a reservation on name or code?")
                 .Result();
             

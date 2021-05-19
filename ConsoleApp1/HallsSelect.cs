@@ -13,6 +13,11 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(selecteerHallsScherm, 2, 2)
                 .Color(ConsoleColor.Cyan)
+                .Text("Home/Admin/Hall Select/")
+                .Result();
+
+            var title2 = new TextBuilder(selecteerHallsScherm, 2, 3)
+                .Color(ConsoleColor.Gray)
                 .Text("Hello! Would you like to see all halls or edit the halls?")
                 .Result();
 
