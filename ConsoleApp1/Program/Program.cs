@@ -9,25 +9,42 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window mainMenu = new Window();
+
+        static Window homeScreen = new Window(true);
+        static Window mainMenu = new Window(false);
+        
+
+        static void HomeScreen()
+        { 
+          var home = new TextBuilder(homeScreen, 2, 2)
+
+                .Color(ConsoleColor.Cyan)
+                .Text("The Willem Theater")
+                .Result();
+
+          var screen = new TextListBuilder(homeScreen, 2, 5)
+                  .Color(ConsoleColor.White)
+                  .UseNumbers()
+                  .SetItems("Visitor", "Admin")
+                  .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                  .LinkWindows(mainMenu, mainMenu)
+                  .Result();
+        }
         static void MainMenu()
         {
-            var title = new TextBuilder(mainMenu, 2, 2)
+            var exit = new TextListBuilder(mainMenu, 1, 1)
+                .Color(ConsoleColor.Yellow)
+                .SetItems("Go back")
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .LinkWindows(homeScreen)
+                .Result();
+
+            var menu = new TextListBuilder(mainMenu, 11, 1)
                 .Color(ConsoleColor.Cyan)
-                .Text("Cinema Application")
-                .Result();
-
-            var subtitle = new TextBuilder(mainMenu, 2, 3)
-                .Color(ConsoleColor.DarkGray)
-                .Text("Project B")
-                .Result();
-
-            var menu = new TextListBuilder(mainMenu, 2, 5)
-                .Color(ConsoleColor.White)
                 .UseNumbers()
                 .SetItems("View movies", "View snacks")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(listOfFilms, snacksWindow)
+                .LinkWindows(listOfFilms, food)
                 .Result();
         }
         static void HallsScreen()
@@ -37,12 +54,16 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
+            ReserveringZoekScherm();
             MainMenu();
             ListOfFilms();
             SnacksWindow();
             Halls();
             HallsScreen();
-
+            SelectieSchermAdmin();
+            ReserveringNaamScherm();
+            SelectieSchermZoeken();
+            
             InputHandler.WaitForInput();
         }
     }
