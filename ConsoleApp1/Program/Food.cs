@@ -147,8 +147,8 @@ namespace CinemaApplication
             {
                 var removeIndex = removebutton.Items.IndexOf(removebutton.Items.Find(item => item.Selected));
                 
-                sum += Convert.ToInt32(Convert.ToDouble(snackPrice[removeIndex].Trim('$', '.', ' ', ',')));
-                
+                double testi = Convert.ToDouble(cartpricelist[removeIndex].Trim('$'));
+                sum -= Convert.ToInt32(testi);
 
                 cartlist.RemoveAt(removeIndex);
                 cartpricelist.RemoveAt(removeIndex);
@@ -206,8 +206,8 @@ namespace CinemaApplication
                     }
                     removebuttonlist.Add("Remove");
 
-                    sum -= Convert.ToInt32(Convert.ToDouble(snackPrice[addIndex].Trim('$', '.', ' ', ',')));
-                    
+                    double testi = Convert.ToDouble(snackPrice[addIndex].Trim('$', '.', ' ', ','));
+                    sum += Convert.ToInt32(testi);
 
                     shopcart.Replace(new TextListBuilder(food, 70, 4)
                     .Color(ConsoleColor.DarkMagenta)
