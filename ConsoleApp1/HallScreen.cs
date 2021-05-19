@@ -65,11 +65,23 @@ namespace CinemaApplication
                 hallNames[i] = hallObjects[i].Name;
                 //Console.WriteLine($"{i} : {movieNames[i]}");
             }
-            var showhall = new TextListBuilder(hallscreen, 3, 2)
+            var introtexthall = new TextListBuilder(hallscreen, 2, 6)
+                .Color(ConsoleColor.Cyan)
+                .SetItems("Select which hall you would like to see.")
+                .Result();
+
+            var showhall = new TextListBuilder(hallscreen, 5, 8)
                 .Color(ConsoleColor.Red)
                 .SetItems(hallNames)
                 .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                 .LinkWindows(hallWindows)
+                .Result();
+
+            var GoBackHallsScherm2 = new TextListBuilder(hallscreen, 1, 12)
+                .Color(ConsoleColor.Green)
+                .SetItems("Go back")
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .LinkWindows(selecteerHallsScherm)
                 .Result();
         }
     }

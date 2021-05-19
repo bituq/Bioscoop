@@ -11,7 +11,7 @@ namespace CinemaApplication
         static Window SelecteerZoekScherm = new Window();
         static void SelectieSchermZoeken()
         {
-            var title = new TextBuilder(SelecteerZoekScherm, 5, 7)
+            var title = new TextBuilder(SelecteerZoekScherm, 2, 6)
                 .Color(ConsoleColor.Cyan)
                 .Text("Hello! Would you like to search a reservation on name or code?")
                 .Result();
@@ -24,7 +24,7 @@ namespace CinemaApplication
                 .LinkWindows(ZoekScherm, NaamScherm)
                 .Result();
                 
-            var GoBackZoekScherm = new TextListBuilder(SelecteerZoekScherm, 1, 4)
+            var GoBackZoekScherm = new TextListBuilder(SelecteerZoekScherm, 1, 12)
                 .Color(ConsoleColor.Green)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
