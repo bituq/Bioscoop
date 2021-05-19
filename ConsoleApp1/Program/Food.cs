@@ -139,7 +139,7 @@ namespace CinemaApplication
 
             var total = new TextListBuilder(food, 21, 20)
                 .Color(ConsoleColor.White)
-                .SetItems(sum.ToString())
+                .SetItems($"€{sum.ToString()}")
                 .Result();
             
             
@@ -149,7 +149,10 @@ namespace CinemaApplication
                 
                 double testi = Convert.ToDouble(cartpricelist[removeIndex].Trim('$'));
                 sum -= Convert.ToInt32(testi);
+                if (sum % 100 < 10)
+                {
 
+                }
                 cartlist.RemoveAt(removeIndex);
                 cartpricelist.RemoveAt(removeIndex);
                 removebuttonlist.RemoveAt(removeIndex);
@@ -184,7 +187,7 @@ namespace CinemaApplication
 
                 total.Replace(new TextListBuilder(food, 21, 20)
                 .Color(ConsoleColor.White)
-                .SetItems($"${(sum/100).ToString()}.{(sum%100).ToString()}")
+                .SetItems($"{(sum / 100).ToString()}" + "." + ((sum % 100 < 10) ? $"0{sum % 100}" : (sum % 100).ToString()))
                 .Result());
 
                 removebutton[Math.Min(removeIndex, removebutton.Items.Count - 1)].Select();
@@ -209,6 +212,11 @@ namespace CinemaApplication
                     double testi = Convert.ToDouble(snackPrice[addIndex].Trim('$', '.', ' ', ','));
                     sum += Convert.ToInt32(testi);
 
+                    if (sum % 100 < 10)
+                    {
+
+                    }
+
                     shopcart.Replace(new TextListBuilder(food, 70, 4)
                     .Color(ConsoleColor.DarkMagenta)
                     .SetItems(cartlist.ToArray())
@@ -227,7 +235,7 @@ namespace CinemaApplication
 
                     total.Replace(new TextListBuilder(food, 21, 20)
                     .Color(ConsoleColor.White)
-                    .SetItems($"${(sum / 100).ToString()}.{(sum % 100).ToString()}")
+                    .SetItems($"{(sum / 100).ToString()}"+"."+ ((sum % 100 < 10) ? $"0{sum % 100}" : (sum % 100).ToString()))
                     .Result());
 
                     removebutton[removebutton.Items.Count - 1].OnClick = onRemove;
