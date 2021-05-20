@@ -44,7 +44,7 @@ namespace CinemaApplication
                 .UseNumbers()
                 .SetItems("View movies", "View snacks")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(listOfFilms, food)
+                .LinkWindows(listOfFilms, snacksWindow)
                 .Result();
         }
         static void HallsScreen()
@@ -54,16 +54,12 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
-            ReserveringZoekScherm();
             MainMenu();
             AddSnack();
-            //ListOfFilms();
+            ListOfFilms();
             SnacksWindow();
             Halls();
-            HallsScreen();
-            SelectieSchermAdmin();
-            ReserveringNaamScherm();
-            SelectieSchermZoeken();
+            
             
             InputHandler.WaitForInput();
         }
