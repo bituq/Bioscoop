@@ -59,7 +59,7 @@ namespace CinemaApplication
             var snackWindows = new Window[snackObjects.Length];
             string[] snackNames = new string[root.GetArrayLength()];
 
-            for (int i = 0; i < snackNames.Length; i++)
+            for (int i = 0; i < snackObjects.Length; i++)
             {
                 snackObjects[i] = new Snacks(
                     root[i].GetProperty("name").ToString(),

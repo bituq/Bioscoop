@@ -32,7 +32,7 @@ namespace CinemaApplication
         }
         static void MainMenu()
         {
-            var menu = new TextListBuilder(mainMenu, 2, 5)
+            var  menu = new TextListBuilder(mainMenu, 2, 5)
                 .Color(ConsoleColor.White)
                 .UseNumbers()
                 .SetItems("Lijst van films", "Lijst van snacks")
@@ -40,7 +40,7 @@ namespace CinemaApplication
                 .LinkWindows(addSnack, snacksWindow)
                 .Result();
 
-            var menu = new TextListBuilder(mainMenu, 11, 1)
+            var menu2 = new TextListBuilder(mainMenu, 11, 1)
                 .Color(ConsoleColor.Cyan)
                 .UseNumbers()
                 .SetItems("View movies", "View snacks")
