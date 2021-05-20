@@ -9,6 +9,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
+
         static Window homeScreen = new Window(true);
         static Window mainMenu = new Window(false);
         
@@ -16,49 +17,54 @@ namespace CinemaApplication
         static void HomeScreen()
         { 
           var home = new TextBuilder(homeScreen, 2, 2)
-                .Color(ConsoleColor.Cyan)
-                .Text("Bioscoop Applicatie")
-                .Result();
 
-          var subtitle = new TextBuilder(homeScreen, 2, 3)
-                 .Color(ConsoleColor.DarkGray)
-                 .Text("Project B")
-                 .Result();
+                .Color(ConsoleColor.Cyan)
+                .Text("The Willem Theater")
+                .Result();
 
           var screen = new TextListBuilder(homeScreen, 2, 5)
                   .Color(ConsoleColor.White)
                   .UseNumbers()
-                  .SetItems("Bezoeker", "Admin")
+                  .SetItems("Visitor", "Admin")
                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
                   .LinkWindows(mainMenu, mainMenu)
                   .Result();
         }
         static void MainMenu()
         {
-            var menu = new TextListBuilder(mainMenu, 2, 5)
-                .Color(ConsoleColor.White)
-                .UseNumbers()
-                .SetItems("Lijst van films", "Lijst van snacks")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(listOfFilms, snacksWindow)
-                .Result();
-
             var exit = new TextListBuilder(mainMenu, 1, 1)
-                .Color(ConsoleColor.White)
+                .Color(ConsoleColor.Yellow)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(homeScreen)
+                .LinkWindows(addSnack, snacksWindow)
                 .Result();
+
+            var menu = new TextListBuilder(mainMenu, 11, 1)
+                .Color(ConsoleColor.Cyan)
+                .UseNumbers()
+                .SetItems("View movies", "View snacks")
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .LinkWindows(listOfFilms, food)
+                .Result();
+        }
+        static void HallsScreen()
+        {
+            Halls();
         }
 
         static void Main(string[] args)
         {
-            HomeScreen();
+            ReserveringZoekScherm();
             MainMenu();
-            ListOfFilms();
+            AddSnack();
+            //ListOfFilms();
             SnacksWindow();
-            //Halls();
-
+            Halls();
+            HallsScreen();
+            SelectieSchermAdmin();
+            ReserveringNaamScherm();
+            SelectieSchermZoeken();
+            
             InputHandler.WaitForInput();
         }
     }
