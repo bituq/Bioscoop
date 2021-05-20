@@ -8,7 +8,7 @@ using JsonHandler;
 
 namespace CinemaApplication
 {
-    partial class program
+    partial class Program
     {
         public class addHall
         {
@@ -29,7 +29,7 @@ namespace CinemaApplication
         {
             var newhall = new List<string>();
 
-            var title = new TextBuilder(addhallscreen, 3, 3)
+            var title = new TextBuilder(addhallscreen, 13, 1)
                  .Color(ConsoleColor.Red)
                  .Text("Add your hall ;)")
                  .Result();

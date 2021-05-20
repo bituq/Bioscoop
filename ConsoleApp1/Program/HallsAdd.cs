@@ -25,6 +25,7 @@ namespace CinemaApplication
 
 
             JsonFile.AppendToFile(new List<halls> { hall }, "halls.json");
+            
             Console.WriteLine($"Successfully added \"{hall.name}\"");
             Console.WriteLine("\nPress any key to continue");
             Console.ReadKey();
