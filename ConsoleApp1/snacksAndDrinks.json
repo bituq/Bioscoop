@@ -23,36 +23,58 @@
     "vegetarian": "Yes",
     "stock": 35
   },
-  [
-    {
-      "name": "Fanta(750ml)",
-      "price": 1000.99,
-      "vegetarian": "Yes",
-      "stock": 5
-    }
-  ],
-  [
-    {
-      "name": "Fanta(750ml)",
-      "price": 1000.99,
-      "vegetarian": "Yes",
-      "stock": 5
-    }
-  ],
-  [
-    {
-      "name": "Fanta(750ml)",
-      "price": 1000.99,
-      "vegetarian": "Yes",
-      "stock": 5
-    }
-  ],
-  [
-    {
-      "name": "Fanta(750ml)",
-      "price": 1000.99,
-      "vegetarian": "Yes",
-      "stock": 5
-    }
-  ]
+  {
+    "name": "Fanta(750ml)",
+    "price": 1000.99,
+    "vegetarian": "Yes",
+    "stock": 5
+  },
+  {
+    "name": "Fanta(750ml)",
+    "price": 1000.99,
+    "vegetarian": "Yes",
+    "stock": 5
+  },
+  {
+    "name": "Fanta(750ml)",
+    "price": 1000.99,
+    "vegetarian": "Yes",
+    "stock": 5
+  },
+  {
+    "name": "Fanta(750ml)",
+    "price": 1000.99,
+    "vegetarian": "Yes",
+    "stock": 5
+  },
+  {
+    "name": "Fanta(750ml)",
+    "price": 1000.99,
+    "vegetarian": "Yes",
+    "stock": 5
+  },
+  {
+    "name": "Fanta(750ml)",
+    "price": 1000.99,
+    "vegetarian": "Yes",
+    "stock": 5
+  },
+  {
+    "name": "Hallo Wereld",
+    "price": 1000.99,
+    "vegetarian": "Yes",
+    "stock": 5
+  },
+  {
+    "name": "Hallo Wereld",
+    "price": 1000.99,
+    "vegetarian": "Yes",
+    "stock": 5
+  },
+  {
+    "name": "Hallo Wereld",
+    "price": 1000.99,
+    "vegetarian": "Yes",
+    "stock": 5
+  }
 ]

@@ -55,13 +55,14 @@ namespace CinemaApplication
 
         static void Main(string[] args)
         {
+            HomeScreen();
             MainMenu();
             AddSnack();
             ListOfFilms();
             SnacksWindow();
             Halls();
             HallsScreen();
-
+            SnacksWindow();
             Halls();
             
             

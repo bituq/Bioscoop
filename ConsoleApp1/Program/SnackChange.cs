@@ -33,24 +33,32 @@ namespace CinemaApplication
                    .LinkWindows(mainMenu)
                    .Result();
 
+            var input = new TextListBuilder(addSnack, 1, 3)
+                .Color(ConsoleColor.Gray)
+                .SetItems("")
+                .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
+                .Result();
+
+            var addButton = new TextListBuilder(addSnack, 1, 4)
+                   .Color(ConsoleColor.Green)
+                   .SetItems("Add")
+                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                   .Result();
+
             var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
 
             JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
             JsonElement root = doc.RootElement;
 
-            var nSnack = new SnacksAdd();
-            nSnack.name = "Fanta(750ml)";
-            nSnack.price = 1000.99;
-            nSnack.vegetarian = "Yes";
-            nSnack.stock = 5;
-            
-
-            JsonFile.AppendToFile(new List<SnacksAdd> { nSnack }, "..\\..\\..\\snacksAndDrinks.json");
-
-
-
-
-
+            addButton[0].OnClick = () =>
+            {
+                var nSnack = new SnacksAdd();
+                nSnack.name = input[0].Value;
+                nSnack.price = 1000.99;
+                nSnack.vegetarian = "Yes";
+                nSnack.stock = 5;
+                JsonFile.AppendToFile(nSnack, "..\\..\\..\\snacksAndDrinks.json");
+            };
         }
 
     }

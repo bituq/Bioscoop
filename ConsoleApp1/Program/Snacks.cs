@@ -66,7 +66,6 @@ namespace CinemaApplication
                     $"Price: ${root[i].GetProperty("price")}",
                     $"Vegetarian: {root[i].GetProperty("vegetarian")}",
                     $"Stock: {root[i].GetProperty("stock")}"
-
                     );
 
                 snackWindows[i] = snackObjects[i].Window;
