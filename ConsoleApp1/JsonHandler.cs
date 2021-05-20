@@ -6,7 +6,7 @@ namespace JsonHandler
 {
     public static class JsonFile
     {
-        private static JsonSerializerOptions options = new JsonSerializerOptions()
+        public static JsonSerializerOptions options = new JsonSerializerOptions()
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             WriteIndented = true
@@ -23,8 +23,7 @@ namespace JsonHandler
         {
             var docList = FileAsList(filePath);
             var newItem = JsonDocument.Parse(JsonSerializer.Serialize(value, options));
-            foreach (JsonElement root in newItem.RootElement.EnumerateArray())
-                docList.Add(root);
+            docList.Add(newItem.RootElement);
             OverwriteFile(filePath, docList, options);
         }
 
@@ -35,6 +34,20 @@ namespace JsonHandler
             foreach (JsonElement obj in oldList)
             {
                 if (obj.GetProperty(key).ToString() == value)
+                {
+                    newList.Remove(obj);
+                    break;
+                }
+            }
+            OverwriteFile(filePath, newList, options);
+        }
+        public static void RemoveFromFile(string key, int value, string filePath)
+        {
+            var oldList = FileAsList(filePath);
+            var newList = new List<JsonElement>(oldList);
+            foreach (JsonElement obj in oldList)
+            {
+                if (obj.GetProperty(key).GetInt32() == value)
                 {
                     newList.Remove(obj);
                     break;

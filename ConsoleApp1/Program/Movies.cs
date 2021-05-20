@@ -58,7 +58,7 @@ namespace CinemaApplication
                     .Result();
 
                 var _ = new TextListBuilder(Window, 1, 1)
-                    .Color(ConsoleColor.White)
+                    .Color(ConsoleColor.Yellow)
                     .SetItems("Go back", "Make reservation")
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .LinkWindows(listOfFilms, timeSlotWindow)
@@ -113,7 +113,7 @@ namespace CinemaApplication
                         var occupiedSeats = new List<Seat>();
                         foreach (JsonElement seat in timeSlot.GetProperty("occupiedSeats").EnumerateArray())
                             occupiedSeats.Add(new Seat(seat.GetProperty("row").GetInt32(), seat.GetProperty("column").GetInt32()));
-                        timeSlots.Add(new TimeSlot(movieObjects[i], timeSlot.GetProperty("time").GetInt32(), hall, occupiedSeats));
+                        timeSlots.Add(new TimeSlot(movieObjects[i], timeSlot.GetProperty("time").GetInt32(), hall, occupiedSeats, timeSlot.GetProperty("id").GetInt32()));
                     }
                     movieObjects[i].TimeSlotScreen();
                 }
@@ -121,7 +121,7 @@ namespace CinemaApplication
 
             var movieListTitle = new TextBuilder(listOfFilms, 11, 1)
                 .Color(ConsoleColor.Magenta)
-                .Text("Beschikbare films:")
+                .Text("Available movies:")
                 .Result();
 
             var movieList = new TextListBuilder(listOfFilms, 11, 3)
@@ -131,41 +131,6 @@ namespace CinemaApplication
                 .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                 .LinkWindows(movieWindows.ToArray())
                 .Result();
-            /*
-            if (!root[movieNumber].Equals(null))
-            {
-                Console.ForegroundColor
-                 = ConsoleColor.Green;
-                Console.WriteLine(
-                    $"{root[movieNumber].GetProperty("name")}\n\n" +
-                    $"   Duration: {root[movieNumber].GetProperty("duration")} minutes\n" +
-                    $"   Release Date: {root[movieNumber].GetProperty("releaseDate")}\n" +
-                    $"   Rating: {root[movieNumber].GetProperty("rating")}\n" +
-                    $"   Language: {root[movieNumber].GetProperty("language")}\n" +
-                    $"   Company: {root[movieNumber].GetProperty("company")}"
-                    );
-
-                Console.WriteLine("   Genre(s):");
-                foreach (JsonElement genres in root[movieNumber].GetProperty("genres").EnumerateArray())
-                {
-                    Console.WriteLine($"\t{genres}");
-                }
-
-                Console.WriteLine("   Starring:");
-                foreach (JsonElement starring in root[movieNumber].GetProperty("starring").EnumerateArray())
-                {
-                    Console.WriteLine($"\t{starring}");
-                }
-
-                Console.WriteLine("   Description:");
-                Console.WriteLine($"   {root[movieNumber].GetProperty("description")}");
-            }
-            else
-                Console.WriteLine($"Film {movieNumber} does not exist!");
-           
-            Console.ForegroundColor
-             = ConsoleColor.White;
-            */
         }
     }
 

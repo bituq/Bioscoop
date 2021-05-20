@@ -19,7 +19,7 @@ namespace CinemaApplication
           var home = new TextBuilder(homeScreen, 2, 2)
 
                 .Color(ConsoleColor.Cyan)
-                .Text("The Willem Theater")
+                .Text("Bioscoop Applicatie")
                 .Result();
 
           var screen = new TextListBuilder(homeScreen, 2, 5)
@@ -32,9 +32,10 @@ namespace CinemaApplication
         }
         static void MainMenu()
         {
-            var exit = new TextListBuilder(mainMenu, 1, 1)
-                .Color(ConsoleColor.Yellow)
-                .SetItems("Go back")
+            var menu = new TextListBuilder(mainMenu, 2, 5)
+                .Color(ConsoleColor.White)
+                .UseNumbers()
+                .SetItems("Lijst van films", "Lijst van snacks")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(addSnack, snacksWindow)
                 .Result();
@@ -58,6 +59,9 @@ namespace CinemaApplication
             AddSnack();
             ListOfFilms();
             SnacksWindow();
+            Halls();
+            HallsScreen();
+
             Halls();
             
             
