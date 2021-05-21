@@ -23,7 +23,7 @@ namespace CinemaApplication
         static void AddSnack()
         {
             var inputOptions = new TextListBuilder(addSnack, 1, 3)
-                .SetItems("Name: ", "Price: ", "Vegetarian: ", "Stock: ")
+                .SetItems("Name: ", "Price: ", "Veggie: ", "Stock: ")
                 .Result();
 
             var input = new TextListBuilder(addSnack, 2 + inputOptions.Items[3].Text.Length, 3)
@@ -38,7 +38,7 @@ namespace CinemaApplication
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
             
-            var _ = new TextListBuilder(addSnack, 1, 12)
+            var _ = new TextListBuilder(addSnack, 1, 15)
                 .Color(ConsoleColor.White)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -66,8 +66,8 @@ namespace CinemaApplication
                 message.Replace(
                     new TextListBuilder(addSnack, 1, 10)
                     .Color(ConsoleColor.Green)
-                    .SetItems("You have succesfully added a new snack to the list!")
-                    .Result());
+                    .SetItems("You have succesfully added a new snack to the list!\nIf you want to add another snack to the list go back to the\nprevious screen and then return to this screen.")
+                    .Result()); 
             };
         }
     }
