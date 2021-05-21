@@ -40,11 +40,9 @@ namespace CinemaApplication
             }
         }
 
-<<<<<<< HEAD
-        public static Window food = new Window(false);
-=======
+
         public static Window food = new Window();
->>>>>>> MoNew
+
         static void FoodWindow()
         {
             var _ = new TextListBuilder(food, 1, 1)
