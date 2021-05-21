@@ -64,11 +64,17 @@ namespace CinemaApplication
             SnacksWindow();
             Halls();
             HallsScreen();
+<<<<<<< HEAD
             SelecteerHallsScherm();
             SelectieSchermAdmin();
             ReserveringNaamScherm();
             SelectieSchermZoeken();
             
+=======
+            FoodWindow();
+            AddHall();
+
+>>>>>>> MoNew
             InputHandler.WaitForInput();
         }
     }
