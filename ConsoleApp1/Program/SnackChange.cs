@@ -13,14 +13,10 @@ namespace CinemaApplication
     {
         public class SnacksAdd
         {
-           
             public string name { get; set; }
             public double price { get; set; }
             public string vegetarian { get; set; }
             public int stock { get; set; }
-
-
-            
         }
 
         public static Window addSnack = new Window(false);
@@ -43,7 +39,7 @@ namespace CinemaApplication
                 .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
                 .Result();
 
-            var addButton = new TextListBuilder(addSnack, 1, 4)
+            var addButton = new TextListBuilder(addSnack, 1, 8)
                    .Color(ConsoleColor.Green)
                    .SetItems("Add")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -59,7 +55,7 @@ namespace CinemaApplication
                 var nSnack = new SnacksAdd();
                 nSnack.name = input[0].Value;
                 nSnack.price = 20.0;
-                nSnack.vegetarian = input[0].Value;
+                nSnack.vegetarian = input[2].Value;
                 nSnack.stock = 5;
                 JsonFile.AppendToFile(nSnack, "..\\..\\..\\snacksAndDrinks.json");
             };
