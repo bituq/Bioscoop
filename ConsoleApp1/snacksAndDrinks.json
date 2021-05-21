@@ -1,41 +1,32 @@
 [
-	{
-		"name" : "Popcorn(Salt)(L)",
-		"price" : 8.10,
-		"vegetarian" : "Yes",
-		"stock" : 120
-		
-		
-
-	},
-	{
-		"name" : "Popcorn(Sweet)(L)",
-		"price" : 8.10,
-		"vegetarian" : "Yes",
-		"stock" : 100
-		
-
-	},
-	{
-		"name" : "Coca-Cola(250ml)",
-		"price" : 2.35,
-		"vegetarian" : "Yes",
-		"stock" : 70
-		
-
-	},
-	{
-		"name" : "Nacho(Cheese)(M)",
-		"price" : 3.45,
-		"vegetarian" : "Yes",
-		"stock" : 35
-	
-
-	},
-	{
-		"name" : "Nacho(Guacamole)(L)",
-		"price" : 3.99,
-		"vegetarian" : "Yes",
-		"stock" : 45
-	}
+  {
+    "name": "Popcorn(Salt)(L)",
+    "price": 8.10,
+    "vegetarian": "Yes",
+    "stock": 120
+  },
+  {
+    "name": "Popcorn(Sweet)(L)",
+    "price": 8.10,
+    "vegetarian": "Yes",
+    "stock": 100
+  },
+  {
+    "name": "Coca-Cola(250ml)",
+    "price": 2.35,
+    "vegetarian": "Yes",
+    "stock": 70
+  },
+  {
+    "name": "Nacho(Cheese)(M)",
+    "price": 3.45,
+    "vegetarian": "Yes",
+    "stock": 35
+  },
+  {
+    "name": "Nacho(Guacamole)(L)",
+    "price": 3.99,
+    "vegetarian": "Yes",
+    "stock": 45
+  }
 ]

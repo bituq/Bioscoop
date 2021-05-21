@@ -9,7 +9,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static Window mainMenu = new Window();
+        static Window mainMenu = new Window(true);
         static void MainMenu()
         {
             var title = new TextBuilder(mainMenu, 2, 2)
