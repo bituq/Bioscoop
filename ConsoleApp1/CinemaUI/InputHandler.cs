@@ -20,11 +20,9 @@ namespace CinemaUI
                 window.Init();
             }
             Console.CursorVisible = false;
-            Window activeWindow = Windows?.Find(w => w.Active) ?? DefaultDialog();
-            activeWindow.Draw();
             while (true)
             {
-                activeWindow = Windows?.Find(w => w.Active);
+                Window activeWindow = Windows?.Find(w => w.Active) ?? DefaultDialog();
                 activeWindow.Draw();
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.Black;

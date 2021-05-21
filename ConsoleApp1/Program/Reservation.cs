@@ -50,7 +50,7 @@ namespace CinemaApplication
                     .Color(ConsoleColor.Yellow)
                     .SetItems("Go Back", "Submit")
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                    .LinkWindows(PaymentsWindow, TimeSlot.Movie.Window)
+                    .LinkWindows(TimeSlot.Window)
                     .Result();
 
                 var title = new TextBuilder(Window, 11, 1)
@@ -125,6 +125,8 @@ namespace CinemaApplication
                         info.timeslotId = TimeSlot.id;
                         JsonFile.AppendToFile(info, filePath);
 
+                        inputList.Disabled = true;
+
                         successMessage.Replace(
                             new TextListBuilder(Window, 1, 11)
                             .Color(ConsoleColor.Green)
@@ -136,13 +138,23 @@ namespace CinemaApplication
                             .Color(ConsoleColor.Yellow)
                             .SetItems("Go back", "Submit")
                             .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                            .LinkWindows(TimeSlot.Window)
                             .Result()
                             );
+                        terug[0].Disable();
                         terug[1].Disable();
+
+                        var finish = new TextListBuilder(Window, 1, 13)
+                        .Color(ConsoleColor.Yellow)
+                        .SetItems("Finish")
+                        .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                        .LinkWindows(TimeSlot.Movie.Window)
+                        .Result();
+                        terug.Unselect();
+                        finish.Select();
+
                         Window.Init();
 
-                        VincentCooleQOLFuncties.EmailUser(inputList[2].Value, randomCode, TimeSlot, seatList);
+                        //VincentCooleQOLFuncties.EmailUser(inputList[2].Value, randomCode, TimeSlot, seatList);
 
                         string timeSlotPath = "..\\..\\..\\TimeSlots.json";
                         var thisTimeslot = JsonFile.FileAsList(timeSlotPath).Find(element => element.GetProperty("id").GetInt32() == TimeSlot.id);
@@ -162,6 +174,8 @@ namespace CinemaApplication
                         TimeSlot.Window.ClearAllChildren();
 
                         TimeSlot.Init();
+
+
                     }
                     else
                     {

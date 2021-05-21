@@ -41,6 +41,11 @@ namespace CinemaUI
             Paragraph.ChangeTextCells(Paragraph.TextColor, ConsoleColor.Black, true);
             Window.ReadLine = () => { };
         }
+
+        public void Disable() => Disabled = true;
+
+        public void Enable() => Disabled = false;
+
         public void Active()
         {
             Paragraph.Reset();

@@ -75,13 +75,12 @@ namespace CinemaUI
                     RightArrow(selectionOrder);
                     break;
                 default:
-                    Enter(selectedItem);
-                    if (!selectedItem.IsActive)
+                    if (!Disabled && !selectedItem.Disabled)
                     {
-                        AfterSelection = false;
+                        Enter(selectedItem);
+                        if (!selectedItem.IsActive) AfterSelection = false;
+                        else AfterSelection = true;
                     }
-                    else
-                        AfterSelection = true;
                     break;
             }
         }

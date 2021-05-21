@@ -23,10 +23,17 @@ namespace CinemaUI
         public void Replace(SelectableList selectable)
         {
             TextList.Window.SelectionOrder.Remove(selectable);
-            TextList.Replace(selectable.TextList);
             Foreground = selectable.Foreground;
             Background = selectable.Background;
+            int activeItemIndex = Items.IndexOf(Items.Find(item => item.Selected == true));
             Items = selectable.Items;
+            if (Selected)
+            {
+                Select();
+                Items[0].Unselect();
+                Items[Math.Max(0, Math.Min(activeItemIndex, Items.Count - 1))].Select();
+            }
+            TextList.Replace(selectable.TextList);
         }
 
         public SelectableText this[int index] { get => Items[index]; }
