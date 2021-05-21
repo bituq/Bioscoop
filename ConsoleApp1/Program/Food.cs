@@ -30,13 +30,12 @@ namespace CinemaApplication
                     .SetItems(price, vegetarian, stock)
                     .Result();
 
-                var _ = new TextListBuilder(Window, 1, 1)
+                var goBack = new TextListBuilder(Window, 1, 1)
                    .Color(ConsoleColor.White)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
                    .LinkWindows(food)
                    .Result();
-
             }
         }
 
@@ -45,7 +44,7 @@ namespace CinemaApplication
 
         static void FoodWindow()
         {
-            var _ = new TextListBuilder(food, 1, 1)
+            var goBack = new TextListBuilder(food, 1, 1)
                    .Color(ConsoleColor.White)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)

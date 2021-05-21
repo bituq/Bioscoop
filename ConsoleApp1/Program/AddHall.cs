@@ -24,7 +24,7 @@ namespace CinemaApplication
 
             var title = new TextBuilder(addhallscreen, 13, 1)
                  .Color(ConsoleColor.Red)
-                 .Text("Add your hall ;)")
+                 .Text("Add your hall")
                  .Result();
 
 
@@ -50,8 +50,6 @@ namespace CinemaApplication
                 .SetItems("Add")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
-
-            
 
             var message = new TextListBuilder(addhallscreen)
                 .SetItems("")

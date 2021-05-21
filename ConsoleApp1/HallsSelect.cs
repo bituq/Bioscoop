@@ -26,7 +26,7 @@ namespace CinemaApplication
                 .SetItems("See all halls", "Edit halls", "Go back")
                 .UseNumbers()
                 .Selectable(ConsoleColor.DarkBlue, ConsoleColor.Red)
-                .LinkWindows(hallscreen, null, AdminScherm)
+                .LinkWindows(hallscreen, addhallscreen, AdminScherm)
                 .Result();
         }
     }
