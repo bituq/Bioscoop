@@ -49,10 +49,7 @@ namespace CinemaApplication
                 .LinkWindows(listOfFilms, snacksWindow, homeScreen)
                 .Result();
         }
-        static void HallsScreen()
-        {
-            Halls();
-        }
+
 
         static void Main(string[] args)
         {
@@ -63,13 +60,12 @@ namespace CinemaApplication
             ListOfFilms();
             SnacksWindow();
             Halls();
-            HallsScreen();
             SelecteerHallsScherm();
             SelectieSchermAdmin();
             ReserveringNaamScherm();
             SelectieSchermZoeken();
-            AddSnack();
-            
+            FoodWindow();
+            AddHall();
             InputHandler.WaitForInput();
         }
     }
