@@ -32,7 +32,7 @@ namespace CinemaApplication
                    .Color(ConsoleColor.White)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                   .LinkWindows(mainMenu)
+                   .LinkWindows(AdminScherm)
                    .Result();
 
             var inputOptions = new TextListBuilder(addhallscreen, 1, 3)
@@ -71,17 +71,20 @@ namespace CinemaApplication
 
             addButton[0].OnClick = () =>
             {
-                var nSnack = new addHall();
-                nSnack.id = Convert.ToInt32(input[0].Value);
-                nSnack.rows = Convert.ToInt32(input[1].Value);
-                nSnack.columns = Convert.ToInt32(input[2].Value);
-      
-                JsonFile.AppendToFile(nSnack, "..\\..\\..\\Halls.json");
-                message.Replace(
-                    new TextListBuilder(addhallscreen, 1, 10)
-                    .Color(ConsoleColor.Green)
-                    .SetItems("You have succesfully added a new snack to the list!")
-                    .Result());
+                if (input[0].Value != "" && input[1].Value != "" && input[2].Value != "")
+                {
+                    var nSnack = new addHall();
+                    nSnack.id = Convert.ToInt32(input[0].Value);
+                    nSnack.rows = Convert.ToInt32(input[1].Value);
+                    nSnack.columns = Convert.ToInt32(input[2].Value);
+
+                    JsonFile.AppendToFile(nSnack, "..\\..\\..\\Halls.json");
+                    message.Replace(
+                        new TextListBuilder(addhallscreen, 1, 10)
+                        .Color(ConsoleColor.Green)
+                        .SetItems("You have succesfully added a new snack to the list!")
+                        .Result());
+                }
             };
         }
     }
