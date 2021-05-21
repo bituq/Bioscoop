@@ -76,5 +76,11 @@
     "price": 1000.99,
     "vegetarian": "Yes",
     "stock": 5
+  },
+  {
+    "name": "snack",
+    "price": "20.0",
+    "vegetarian": "yes",
+    "stock": "20"
   }
 ]

@@ -14,21 +14,14 @@ namespace CinemaApplication
         public class SnacksAdd
         {
             public string name { get; set; }
-            public double price { get; set; }
+            public string price { get; set; }
             public string vegetarian { get; set; }
-            public int stock { get; set; }
+            public string stock { get; set; }
         }
 
         public static Window addSnack = new Window(false);
         static void AddSnack()
         {
-            var _ = new TextListBuilder(addSnack, 1, 1)
-                   .Color(ConsoleColor.White)
-                   .SetItems("Go back")
-                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                   .LinkWindows(mainMenu)
-                   .Result();
-
             var inputOptions = new TextListBuilder(addSnack, 1, 3)
                 .SetItems("Name: ", "Price: ", "Vegetarian: ", "Stock: ")
                 .Result();
@@ -44,6 +37,13 @@ namespace CinemaApplication
                    .SetItems("Add")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
                    .Result();
+            
+            var _ = new TextListBuilder(addSnack, 1, 10)
+                   .Color(ConsoleColor.White)
+                   .SetItems("Go back")
+                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                   .LinkWindows(mainMenu)
+                   .Result();
 
             var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
 
@@ -54,10 +54,12 @@ namespace CinemaApplication
             {
                 var nSnack = new SnacksAdd();
                 nSnack.name = input[0].Value;
-                nSnack.price = 20.0;
+                nSnack.price = input[1].Value;
                 nSnack.vegetarian = input[2].Value;
-                nSnack.stock = 5;
+                nSnack.stock = input[3].Value;
                 JsonFile.AppendToFile(nSnack, "..\\..\\..\\snacksAndDrinks.json");
+                Console.WriteLine("You have succesfully added a new snack to the list!");
+
             };
         }
 
