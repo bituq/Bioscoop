@@ -82,5 +82,59 @@
     "price": "20.0",
     "vegetarian": "yes",
     "stock": "20"
+  },
+  {
+    "name": "new snack",
+    "price": "20.0",
+    "vegetarian": "es",
+    "stock": "20"
+  },
+  {
+    "name": "snack",
+    "price": "20.0",
+    "vegetarian": "es",
+    "stock": "10"
+  },
+  {
+    "name": "snack",
+    "price": "20.0",
+    "vegetarian": "es",
+    "stock": "10"
+  },
+  {
+    "name": "snack",
+    "price": "20.0",
+    "vegetarian": "es",
+    "stock": "10"
+  },
+  {
+    "name": "snack",
+    "price": 200,
+    "vegetarian": "es",
+    "stock": 10
+  },
+  {
+    "name": "snack",
+    "price": 200,
+    "vegetarian": "es",
+    "stock": 10
+  },
+  {
+    "name": "snack",
+    "price": 200,
+    "vegetarian": "es",
+    "stock": 10
+  },
+  {
+    "name": "snack",
+    "price": 100,
+    "vegetarian": "es",
+    "stock": 10
+  },
+  {
+    "name": "snack",
+    "price": 200,
+    "vegetarian": "yes",
+    "stock": 10
   }
 ]
