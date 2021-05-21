@@ -33,9 +33,13 @@ namespace CinemaApplication
                    .LinkWindows(mainMenu)
                    .Result();
 
-            var input = new TextListBuilder(addSnack, 1, 3)
+            var inputOptions = new TextListBuilder(addSnack, 1, 3)
+                .SetItems("Name: ", "Price: ", "Vegetarian: ", "Stock: ")
+                .Result();
+
+            var input = new TextListBuilder(addSnack, 2 + inputOptions.Items[3].Text.Length, 3)
                 .Color(ConsoleColor.Gray)
-                .SetItems("")
+                .SetItems("", "", "", "")
                 .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
                 .Result();
 
@@ -54,8 +58,8 @@ namespace CinemaApplication
             {
                 var nSnack = new SnacksAdd();
                 nSnack.name = input[0].Value;
-                nSnack.price = 1000.99;
-                nSnack.vegetarian = "Yes";
+                nSnack.price = 20.0;
+                nSnack.vegetarian = input[0].Value;
                 nSnack.stock = 5;
                 JsonFile.AppendToFile(nSnack, "..\\..\\..\\snacksAndDrinks.json");
             };
