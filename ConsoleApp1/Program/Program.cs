@@ -68,6 +68,7 @@ namespace CinemaApplication
             SelectieSchermAdmin();
             ReserveringNaamScherm();
             SelectieSchermZoeken();
+            AddSnack();
             
             InputHandler.WaitForInput();
         }

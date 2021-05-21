@@ -26,7 +26,7 @@ namespace CinemaApplication
                 .SetItems("Search reservations","Peak hours","Halls","Films","Snacks","Go back")
                 .UseNumbers()
                 .Selectable(ConsoleColor.DarkBlue,ConsoleColor.Red)
-                .LinkWindows(SelecteerZoekScherm, peaksWindow, selecteerHallsScherm, null, null,homeScreen)
+                .LinkWindows(SelecteerZoekScherm, peaksWindow, selecteerHallsScherm, null, addSnack, homeScreen)
                 .Result();
         }
     }

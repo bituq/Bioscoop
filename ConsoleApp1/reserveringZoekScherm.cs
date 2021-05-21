@@ -24,7 +24,7 @@ namespace CinemaApplication
                 .SetItems("Reservationcode:")
                 .Result();
 
-            var inputList2 = new TextListBuilder(ZoekScherm, 19, 1)
+            var inputList2 = new TextListBuilder(ZoekScherm, 19, 3)
                 .SetItems("")
                 .AsInput(ConsoleColor.White, ConsoleColor.Black)
                 .Result();
@@ -44,23 +44,43 @@ namespace CinemaApplication
             {
                 if (inputList2[0].Value != "")
                 {
+                    static DateTime UnixToDate(int unix)
+                    {
+                        DateTime date = DateTime.UnixEpoch;
+                        date = date.AddSeconds(unix);
+                        return date;
+                    }
+                    static string FilmToText(int id)
+                    {
+                        string FilePath4 = "..\\..\\..\\Movies.json";
+                        var root4 = JsonFile.FileAsList(FilePath4);
+
+                        for (int L = 0; L < root4.Count; L++)
+                        {
+                            if ((root4[L].GetProperty("id").GetInt32()) == id)
+                            {
+                                return root4[L].GetProperty("name").ToString();
+                            }
+                        }
+                        return id.ToString();
+                    }
                     string code = inputList2[0].Value;
                     bool found = false;
                     for (int j = 0; j < root2.Count; j++)
                     {
-                        if ((root2[j].GetProperty("reserveringNummer").ToString()) == code)
+                        if ((root2[j].GetProperty("code").ToString()) == code)
                         {
                             found = true;
-                            string voornaam = (root2[j].GetProperty("voorNaam").ToString());
-                            string achternaam = (root2[j].GetProperty("achterNaam").ToString());
-                            string zaal = (root2[j].GetProperty("zaal").ToString());
-                            string stoel = (root2[j].GetProperty("stoelen").ToString());
-                            string film = (root2[j].GetProperty("film").ToString());
-                            string datum = (root2[j].GetProperty("datum").ToString());
+                            string voornaam = (root2[j].GetProperty("firstName").ToString());
+                            string achternaam = (root2[j].GetProperty("lastName").ToString());
+                            string zaal = (root2[j].GetProperty("hall").ToString());
+                            string stoel = (root2[j].GetProperty("occupiedSeats").ToString());
+                            int film = (root2[j].GetProperty("movieId").GetInt32());
+                            int datum = (root2[j].GetProperty("date").GetInt32());
                             successMessage2.Replace(
                                 new TextListBuilder(ZoekScherm, 1, 8)
                                 .Color(ConsoleColor.Green)
-                                .SetItems($"The reservation is on the name {voornaam + " " + achternaam}.", $"{voornaam + " " + achternaam} is going to film {film} in room {zaal} op seat {stoel}. The film plays on {datum}.")
+                                .SetItems($"The reservation is on the name {voornaam + " " + achternaam}.", $"{voornaam + " " + achternaam} is going to film {FilmToText(film)} in hall {zaal} on seat {stoel}. The film plays on {UnixToDate(datum).ToString("dd/MM/yyyy")}.")
                                 .Result()
                             );
                         }
