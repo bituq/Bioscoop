@@ -10,6 +10,7 @@ namespace CinemaUI
         internal static Dictionary<string, Cell>  _bufferCache = new Dictionary<string, Cell>();
 
         public static List<Window> Windows = new List<Window>();
+        private static Window CurrentWindow = new Window();
 
         public static bool Skip = false;
 
@@ -20,6 +21,8 @@ namespace CinemaUI
             while (true)
             {
                 Window activeWindow = Windows?.Find(w => w.Active) ?? DefaultDialog();
+                if (CurrentWindow != activeWindow)
+                    activeWindow.Init();
                 activeWindow.Draw();
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.Black;
@@ -28,6 +31,7 @@ namespace CinemaUI
                     Skip = false;
                 else if (activeWindow.SelectionOrder.Count != 0)
                     activeWindow.ActiveSelectable.KeyResponse(Console.ReadKey());
+                CurrentWindow = activeWindow;
             }
         }
         private static Window DefaultDialog()
