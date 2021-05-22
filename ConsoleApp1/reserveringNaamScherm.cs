@@ -13,6 +13,7 @@ namespace CinemaApplication
         {
             string filePath3 = "..\\..\\..\\Reserveringen.json";
             var root3 = JsonFile.FileAsList(filePath3);
+            
 
             var list = new TextListBuilder(NaamScherm, 1, 2)
                 .Color(ConsoleColor.Cyan)
@@ -24,7 +25,7 @@ namespace CinemaApplication
                 .SetItems("Full name:")
                 .Result();
 
-            var inputList3 = new TextListBuilder(NaamScherm, 12, 1)
+            var inputList3 = new TextListBuilder(NaamScherm, 12, 3)
                 .SetItems("")
                 .AsInput(ConsoleColor.White, ConsoleColor.Black)
                 .Result();
@@ -46,22 +47,42 @@ namespace CinemaApplication
                 {
                     string heleNaam = inputList3[0].Value;
                     bool checker = false;
+                    static DateTime UnixToDate(int unix)
+                    {
+                        DateTime date = DateTime.UnixEpoch;
+                        date = date.AddSeconds(unix);
+                        return date;
+                    }
+                    static string FilmToText(int id)
+                    {
+                        string FilePath4 = "..\\..\\..\\Movies.json";
+                        var root4 = JsonFile.FileAsList(FilePath4);
+
+                        for (int L = 0; L < root4.Count; L++)
+                        {
+                            if ((root4[L].GetProperty("id").GetInt32()) == id)
+                            {
+                                return root4[L].GetProperty("name").ToString();
+                            }
+                        }
+                        return id.ToString();
+                    }
                     for (int k = 0; k < root3.Count; k++)
                     {
-                        if ((root3[k].GetProperty("voorNaam").ToString() + " " + root3[k].GetProperty("achterNaam").ToString()) == heleNaam)
+                        if ((root3[k].GetProperty("firstName").ToString() + " " + root3[k].GetProperty("lastName").ToString()) == heleNaam)
                         {
                             checker = true;
-                            string code = (root3[k].GetProperty("reserveringNummer").ToString());
-                            string voornaam = (root3[k].GetProperty("voorNaam").ToString());
-                            string achternaam = (root3[k].GetProperty("achterNaam").ToString());
-                            string zaal = (root3[k].GetProperty("zaal").ToString());
-                            string stoel = (root3[k].GetProperty("stoelen").ToString());
-                            string film = (root3[k].GetProperty("film").ToString());
-                            string datum = (root3[k].GetProperty("datum").ToString());
+                            string code = (root3[k].GetProperty("code").ToString());
+                            string voornaam = (root3[k].GetProperty("firstName").ToString());
+                            string achternaam = (root3[k].GetProperty("lastName").ToString());
+                            string zaal = (root3[k].GetProperty("hall").ToString());
+                            string stoel = (root3[k].GetProperty("occupiedSeats").ToString()); 
+                            int film = (root3[k].GetProperty("movieId").GetInt32());
+                            int datum = (root3[k].GetProperty("date").GetInt32());
                             successMessage3.Replace(
                                 new TextListBuilder(NaamScherm, 1, 8)
                                 .Color(ConsoleColor.Green)
-                                .SetItems($"The reservation code is {code}", $"{heleNaam} is going to see {film} in room {zaal} on seat {stoel}. The film plays on {datum}.")
+                                .SetItems($"The reservation code is {code}", $"{heleNaam} is going to see {FilmToText(film)} in hall {zaal} on seat {stoel}. The film plays on {UnixToDate(datum).ToString("dd/MM/yyyy")}.")
                                 .Result()
                             );
                         }
