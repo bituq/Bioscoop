@@ -11,7 +11,7 @@ namespace CinemaApplication
     {
 
         static Window homeScreen = new Window(true);
-        static Window mainMenu = new Window(false);
+        static Window mainMenu = new Window();
         
 
         static void HomeScreen()

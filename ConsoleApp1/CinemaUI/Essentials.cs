@@ -94,11 +94,12 @@ namespace CinemaUI
         public void Init()
         {
             Console.CursorVisible = false;
-            if (ActiveSelectable == null && SelectionOrder.Count != 0)
-                SelectionOrder[0].Select();
 
             foreach (UIElement child in Children)
                 child.Init();
+
+            if (Active)
+                ActiveSelectable.Select();
         }
         internal void CreateCell(string key, Tuple<int, int, string, Color> value) => Buffer[key] = value;
     }
