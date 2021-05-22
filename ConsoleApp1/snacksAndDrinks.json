@@ -28,5 +28,17 @@
     "price": 3.99,
     "vegetarian": "Yes",
     "stock": 45
+  },
+  {
+    "name": "snack",
+    "price": 200,
+    "vegetarian": "yes",
+    "stock": 10
+  },
+  {
+    "name": "Snack 2",
+    "price": 200,
+    "vegetarian": "yes",
+    "stock": 10
   }
 ]
