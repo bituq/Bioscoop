@@ -4,6 +4,7 @@ using CinemaUI;
 using CinemaUI.Builder;
 using JsonHandler;
 using System.Text.Json;
+using System.Collections.Generic;
 
 namespace CinemaApplication
 {
@@ -38,12 +39,13 @@ namespace CinemaApplication
                 .LinkWindows(null, SelecteerZoekScherm)
                 .Result();
 
-            var successMessage3 = new TextListBuilder(NaamScherm)
+            var successMessage3 = new TextListBuilder(NaamScherm, 1, 5)
                 .SetItems("")
                 .Result();
 
             terug3[0].OnClick = () =>
             {
+                successMessage3.Clear();
                 if (inputList3[0].Value != "")
                 {
                     string heleNaam = inputList3[0].Value;
@@ -68,6 +70,7 @@ namespace CinemaApplication
                         }
                         return id.ToString();
                     }
+                    var listOfReservations = new List<string>();
                     for (int k = 0; k < root3.Count; k++)
                     {
                         if ((root3[k].GetProperty("firstName").ToString() + " " + root3[k].GetProperty("lastName").ToString()) == heleNaam)
@@ -78,22 +81,24 @@ namespace CinemaApplication
                             string achternaam = (root3[k].GetProperty("lastName").ToString());
                             string zaal = (root3[k].GetProperty("hall").ToString());
                             var stoelen = (root3[k].GetProperty("occupiedSeats"));
-                            string seatList = "";
+                            var seatList = new Dictionary<int, string>();
                             foreach (JsonElement stoel in stoelen.EnumerateArray())
                             {
                                 string temp = "";
-                                if (!seatList.Contains($"Row {stoel.GetProperty("row")}"))
-                                    temp = $"\nRow {stoel.GetProperty("row")} - ";
-                                seatList += $"{temp}seat {stoel.GetProperty("column")} ";
+                                int row = stoel.GetProperty("row").GetInt32();
+                                if (!seatList.ContainsKey(row))
+                                    seatList[row] = $"Row {row} - ";
+                                seatList[row] += $"{temp}seat {stoel.GetProperty("column")} ";
                             }
                             int film = (root3[k].GetProperty("movieId").GetInt32());
                             int datum = (root3[k].GetProperty("date").GetInt32());
-                            successMessage3.Replace(
-                                new TextListBuilder(NaamScherm, 1, 8)
-                                .Color(ConsoleColor.Green)
-                                .SetItems($"The reservation code is {code}", $"{heleNaam} is going to see {FilmToText(film)} in hall {zaal} on seat(s):{seatList}", $"The film plays on {UnixToDate(datum).ToString("dd/MM/yyyy")}.")
-                                .Result()
-                            );
+                            listOfReservations.AddRange(new string[] { $"The reservation code is {code}", $"The film plays on {UnixToDate(datum).ToString("dd/MM/yyyy")}.", $"{heleNaam} is going to see {FilmToText(film)} in hall {zaal} on seat(s):" });
+                            listOfReservations.AddRange(seatList.Values);
+                            listOfReservations.AddRange(new string[2]);
+                            successMessage3.Replace(new TextListBuilder(NaamScherm, 1, 8)
+                            .Color(ConsoleColor.Gray)
+                            .SetItems(listOfReservations.ToArray())
+                            .Result());
                         }
                         else if (checker != true) {
                             successMessage3.Replace(

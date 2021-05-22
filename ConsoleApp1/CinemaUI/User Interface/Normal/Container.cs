@@ -34,7 +34,7 @@ namespace CinemaUI
             {
                 for (int column = Position.X; column < Position.X + Size.X; column++)
                 {
-                    Window.CreateCell(new Point(column, row).ToString(), Tuple.Create(column, row, " ", Color));
+                    Window.CreateCell(new Point(column, row).ToString(), new Cell(column, row, " ", Color));
                 }
             }
         }

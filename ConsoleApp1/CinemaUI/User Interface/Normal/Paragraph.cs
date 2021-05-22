@@ -24,12 +24,33 @@ namespace CinemaUI
         public override void Init() => ChangeTextCells(TextColor, Background, true);
         public void Reset()
         {
+            Destroy();
             int len = Text.Length;
             Text = "";
             for (int i = 0; i < len; i++)
                 Text += " ";
             ChangeTextCells(TextColor, ConsoleColor.Black);
             Text = "";
+        }
+        public void Destroy()
+        {
+            int line = Position.Y;
+            int offset = Position.X;
+            for (int i = 0; i < Text.Length; i++)
+            {
+                Point point = new Point(offset, line);
+                if (Text[i] == '\n')
+                {
+                    Window.RemoveCell(point.ToString());
+                    offset = Position.X;
+                    line++;
+                }
+                else
+                {
+                    Window.RemoveCell(point.ToString());
+                    offset++;
+                }
+            }
         }
         public void ChangeTextCells(ConsoleColor foreground, ConsoleColor background, bool overwrite = false)
         {
@@ -38,16 +59,16 @@ namespace CinemaUI
             for (int i = 0; i < Text.Length; i++)
             {
                 Point point = new Point(offset, line);
-                Color color = new Color(foreground, Window.Buffer.ContainsKey(point.ToString()) && !overwrite ? Window.Buffer[point.ToString()].Item4.Background : background);
+                Color color = new Color(foreground, Window.Buffer.ContainsKey(point.ToString()) && !overwrite ? Window.Buffer[point.ToString()].Color.Background : background);
                 if (Text[i] == '\n')
                 {
-                    Window.CreateCell(point.ToString(), Tuple.Create(offset, line, " ", color));
+                    Window.CreateCell(point.ToString(), new Cell(offset, line, " ", color));
                     offset = Position.X;
                     line++;
                 }
                 else
                 {
-                    Window.CreateCell(point.ToString(), Tuple.Create(offset, line, Text[i].ToString(), color));
+                    Window.CreateCell(point.ToString(),new Cell(offset, line, Text[i].ToString(), color));
                     offset++;
                 }
             }

@@ -4,6 +4,26 @@ using System.Text;
 
 namespace CinemaUI
 {
+    public class Cell
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public string Content { get; set; }
+        public Color Color { get; set; }
+        public bool Changed { get; set; }
+
+        public Cell(int X, int Y, string Content, Color Color)
+        {
+            this.X = X;
+            this.Y = Y;
+            this.Content = Content;
+            this.Color = Color;
+            this.Changed = true;
+        }
+
+        public static bool operator ==(Cell a, Cell b) => a.X == b.X && a.Y == b.Y && a.Content == b.Content && a.Color == b.Color;
+        public static bool operator !=(Cell a, Cell b) => !(a == b);
+    }
     public struct Point
     {
         public int X { get; set; }

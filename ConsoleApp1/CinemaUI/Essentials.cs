@@ -43,7 +43,7 @@ namespace CinemaUI
 
     public class Window : Instance
     {
-        internal Dictionary<string, Tuple<int, int, string, Color>> Buffer { get; set; } = new Dictionary<string, Tuple<int, int, string, Color>>();
+        internal Dictionary<string, Cell> Buffer { get; set; } = new Dictionary<string, Cell>();
         internal List<Selectable> SelectionOrder { get; set; } = new List<Selectable>();
         internal Selectable ActiveSelectable { get; set; }
         internal Point FinalCursorPosition { get; set; }
@@ -81,12 +81,16 @@ namespace CinemaUI
                 LinkedVariables[key].Text = Variables[key.Key];
                 LinkedVariables[key].Init();
             }
-            foreach (Tuple<int, int, string, Color> cell in Buffer.Values)
+            foreach (Cell cell in Buffer.Values)
             {
-                Console.SetCursorPosition(cell.Item1, cell.Item2);
-                Console.ForegroundColor = cell.Item4.Foreground;
-                Console.BackgroundColor = cell.Item4.Background;
-                Console.Write(cell.Item3);
+                if (cell.Changed)
+                {
+                    cell.Changed = false;
+                    Console.SetCursorPosition(Math.Min(Console.BufferWidth - 1, Math.Max(0, cell.X)), Math.Min(Console.BufferHeight - 1, Math.Max(0, cell.Y)));
+                    Console.ForegroundColor = cell.Color.Foreground;
+                    Console.BackgroundColor = cell.Color.Background;
+                    Console.Write(cell.Content);
+                }
             }
             ReadLine();
             Console.SetCursorPosition(FinalCursorPosition.X, FinalCursorPosition.Y);
@@ -101,6 +105,8 @@ namespace CinemaUI
             if (Active)
                 ActiveSelectable.Select();
         }
-        internal void CreateCell(string key, Tuple<int, int, string, Color> value) => Buffer[key] = value;
+        internal void CreateCell(string key, Cell value) => Buffer[key] = value;
+        internal void RemoveCell(string key) => Buffer.Remove(key);
+
     }
 }

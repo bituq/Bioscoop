@@ -46,6 +46,12 @@ namespace CinemaUI
                 Items[i].Init();
             }
         }
+
+        public void Clear()
+        {
+            foreach (Paragraph p in Items)
+                p.Destroy();
+        }
     }
 }
 
