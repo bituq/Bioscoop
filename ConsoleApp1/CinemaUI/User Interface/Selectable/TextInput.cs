@@ -6,6 +6,7 @@ namespace CinemaUI
 {
     public class TextInput : Selectable
     {
+        private int offset => Paragraph.Text.Length - 1;
         private Paragraph Paragraph { get; set; }
         public bool IsActive { get; set; } = false;
         public string Key => Paragraph.GetHashCode().ToString();
@@ -49,17 +50,39 @@ namespace CinemaUI
         public void Active()
         {
             Paragraph.Reset();
-            Window.ReadLine = ReadLine;
             IsActive = true;
         }
-        public void ReadLine()
+        public void Active(char character)
         {
-            Console.SetCursorPosition(Paragraph.Position.X, Paragraph.Position.Y);
+            Paragraph.Text = character.ToString();
+            Paragraph.Init();
+            IsActive = true;
+        }
+        public void ReadLine(char key)
+        {
+            Console.SetCursorPosition(Paragraph.Position.X + offset, Paragraph.Position.Y);
             Console.ForegroundColor = Foreground;
             Console.BackgroundColor = Background;
-            Paragraph.Text = Console.ReadLine();
+            switch (key)
+            {
+                case (char)8:
+                    RemoveEnd();
+                    break;
+                case (char)13:
+                    break;
+                default:
+                    if (key != 0)
+                        Paragraph.Text += key;
+                    break;
+            }
             Window.Variables[Key] = Paragraph.Text;
             Select();
+        }
+        private void RemoveEnd()
+        {
+            string newText = Paragraph.Text.Substring(0, Math.Max(0, Paragraph.Text.Length - 1));
+            Paragraph.Reset();
+            Paragraph.Text = newText;
         }
     }
 }

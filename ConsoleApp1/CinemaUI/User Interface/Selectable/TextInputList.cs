@@ -43,10 +43,7 @@ namespace CinemaUI
             Unselect();
             Window.ActiveSelectable.Select();
         }
-        private void Enter(TextInput activeItem)
-        {
-            activeItem.Active();
-        }
+        private void Enter(TextInput activeItem, char character) => activeItem.Active(character);
 
         public override void KeyResponse(ConsoleKeyInfo keyPressed)
         {
@@ -76,11 +73,10 @@ namespace CinemaUI
                     break;
                 default:
                     if (!Disabled && !selectedItem.Disabled)
-                    {
-                        Enter(selectedItem);
+                        selectedItem.ReadLine(keyPressed.KeyChar);
+
                         if (!selectedItem.IsActive) AfterSelection = false;
                         else AfterSelection = true;
-                    }
                     break;
             }
         }

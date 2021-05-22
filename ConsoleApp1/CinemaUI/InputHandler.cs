@@ -19,7 +19,6 @@ namespace CinemaUI
             {
                 window.Init();
             }
-            Console.CursorVisible = false;
             while (true)
             {
                 Window activeWindow = Windows?.Find(w => w.Active) ?? DefaultDialog();
