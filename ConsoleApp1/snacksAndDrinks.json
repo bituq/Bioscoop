@@ -28,5 +28,47 @@
     "price": 3.99,
     "vegetarian": "Yes",
     "stock": 45
+  },
+  {
+    "name": "Mentos L",
+    "price": 3.22,
+    "vegetarian": "Yes",
+    "stock": 33
+  },
+  {
+    "name": "Mentos XL",
+    "price": 33.22,
+    "vegetarian": "Yes",
+    "stock": 33
+  },
+  {
+    "name": "Mentos",
+    "price": 333.33,
+    "vegetarian": "Yes",
+    "stock": 3
+  },
+  {
+    "name": "Niet Mentos",
+    "price": 333.33,
+    "vegetarian": "Yes",
+    "stock": 3
+  },
+  {
+    "name": "Wel Mentos",
+    "price": 333.33,
+    "vegetarian": "Yes",
+    "stock": 3
+  },
+  {
+    "name": "Menots",
+    "price": 3.33,
+    "vegetarian": "Yes",
+    "stock": 3
+  },
+  {
+    "name": "Meo",
+    "price": 3.33,
+    "vegetarian": "Yes",
+    "stock": 3
   }
 ]

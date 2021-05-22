@@ -57,6 +57,15 @@ namespace CinemaApplication
 
             addButton[0].OnClick = () =>
             {
+                var ErrorList = new List<string> ( );
+                if (input[0].Value == "" && input[1].Value == "" && input[2].Value == "" && input[3].Value == "")
+                {
+                    ErrorList.Add("Input fields may not be empty.");
+                }
+                if (Double.TryParse(input[1].Value, out double _))
+                {
+
+                }
                 var nSnack = new SnacksAdd();
                 nSnack.name = input[0].Value;
                 nSnack.price = Convert.ToDouble(input[1].Value);
@@ -66,8 +75,9 @@ namespace CinemaApplication
                 message.Replace(
                     new TextListBuilder(addSnack, 1, 10)
                     .Color(ConsoleColor.Green)
-                    .SetItems("You have succesfully added a new snack to the list!\nIf you want to add another snack to the list go back to the\nprevious screen and then return to this screen.")
+                    .SetItems($"You have succesfully added {nSnack.name} to the list!","If you want to add another snack, fill in the above requirements again.")
                     .Result()); 
+
             };
         }
     }
