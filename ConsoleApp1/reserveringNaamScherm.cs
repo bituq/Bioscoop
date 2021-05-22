@@ -3,6 +3,7 @@ using System.IO;
 using CinemaUI;
 using CinemaUI.Builder;
 using JsonHandler;
+using System.Text.Json;
 
 namespace CinemaApplication
 {
@@ -76,13 +77,21 @@ namespace CinemaApplication
                             string voornaam = (root3[k].GetProperty("firstName").ToString());
                             string achternaam = (root3[k].GetProperty("lastName").ToString());
                             string zaal = (root3[k].GetProperty("hall").ToString());
-                            string stoel = (root3[k].GetProperty("occupiedSeats").ToString()); 
+                            var stoelen = (root3[k].GetProperty("occupiedSeats"));
+                            string seatList = "";
+                            foreach (JsonElement stoel in stoelen.EnumerateArray())
+                            {
+                                string temp = "";
+                                if (!seatList.Contains($"Row {stoel.GetProperty("row")}"))
+                                    temp = $"\nRow {stoel.GetProperty("row")} - ";
+                                seatList += $"{temp}seat {stoel.GetProperty("column")} ";
+                            }
                             int film = (root3[k].GetProperty("movieId").GetInt32());
                             int datum = (root3[k].GetProperty("date").GetInt32());
                             successMessage3.Replace(
                                 new TextListBuilder(NaamScherm, 1, 8)
                                 .Color(ConsoleColor.Green)
-                                .SetItems($"The reservation code is {code}", $"{heleNaam} is going to see {FilmToText(film)} in hall {zaal} on seat {stoel}. The film plays on {UnixToDate(datum).ToString("dd/MM/yyyy")}.")
+                                .SetItems($"The reservation code is {code}", $"{heleNaam} is going to see {FilmToText(film)} in hall {zaal} on seat(s):{seatList}", $"The film plays on {UnixToDate(datum).ToString("dd/MM/yyyy")}.")
                                 .Result()
                             );
                         }

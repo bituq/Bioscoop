@@ -16,11 +16,12 @@ namespace CinemaUI
         public string Suffix { get; set; }
         public string Prefix { get; set; }
         public ConsoleColor TextColor { get; set; } = ConsoleColor.White;
+        public ConsoleColor Background { get; set; } = ConsoleColor.Black;
 
         public Paragraph(Window window, int x = 0, int y = 0) : base(window, x, y) { }
         public Paragraph(Window window, UIElement parent, int x = 0, int y = 0, Space positionSpace = Space.Absolute) : base(window, parent, x, y, positionSpace) { }
 
-        public override void Init() => ChangeTextCells(TextColor, ConsoleColor.Black);
+        public override void Init() => ChangeTextCells(TextColor, Background, true);
         public void Reset()
         {
             int len = Text.Length;

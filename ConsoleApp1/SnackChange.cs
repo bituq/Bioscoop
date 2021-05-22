@@ -54,20 +54,49 @@ namespace CinemaApplication
             JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
             JsonElement root = doc.RootElement;
 
-
             addButton[0].OnClick = () =>
             {
-                var nSnack = new SnacksAdd();
-                nSnack.name = input[0].Value;
-                nSnack.price = Convert.ToDouble(input[1].Value);
-                nSnack.vegetarian = input[2].Value;
-                nSnack.stock = Convert.ToInt32(input[3].Value);
-                JsonFile.AppendToFile(nSnack, "..\\..\\..\\snacksAndDrinks.json");
-                message.Replace(
-                    new TextListBuilder(addSnack, 1, 10)
-                    .Color(ConsoleColor.Green)
-                    .SetItems("You have succesfully added a new snack to the list!\nIf you want to add another snack to the list go back to the\nprevious screen and then return to this screen.")
-                    .Result()); 
+                /* Dylan */
+                var ErrorList = new List<string> ( );
+                string[] n = new string[] { "yes", "no" };
+                double price = 0.0;
+                int stock = 0;
+                if (input[0].Value == "" || input[1].Value == "" || input[2].Value == "" || input[3].Value == "")
+                    ErrorList.Add("Input fields may not be empty.");
+                if (!Double.TryParse(input[1].Value, out price))
+                    ErrorList.Add("Price must be a decimal point value. (ex. 1.00, 5.20, 10.23, etc.)");
+                if (!new List<string> { "yes", "no" }.Contains(input[2].Value.ToLower()))
+                    ErrorList.Add("Vegetarian must be either 'yes' or 'no'.");
+                else
+                    input[2].Value = input[2].Value[0].ToString().ToUpper() + input[2].Value.Substring(1, input[2].Value.Length - 1);
+                if (!Int32.TryParse(input[3].Value, out stock))
+                    ErrorList.Add("Stock must be a number.");
+
+                if (ErrorList.Count == 0)
+                {
+                    /* Waros */
+                    var nSnack = new SnacksAdd();
+                    nSnack.name = input[0].Value;
+                    nSnack.price = price;
+                    nSnack.vegetarian = input[2].Value;
+                    nSnack.stock = stock;
+                    JsonFile.AppendToFile(nSnack, "..\\..\\..\\snacksAndDrinks.json");
+                    message.Replace(
+                        new TextListBuilder(addSnack, 1, 10)
+                        .Color(ConsoleColor.Green)
+                        .SetItems($"You have succesfully added {nSnack.name} to the list!", "If you want to add another snack, fill in the above requirements again.")
+                        .Result());
+                }
+                else
+                {
+                    /* Dylan */
+                    ErrorList.Insert(0, "Errors:");
+                    message.Replace(
+                        new TextListBuilder(addSnack, 1, 10)
+                        .Color(ConsoleColor.Red)
+                        .SetItems(ErrorList.ToArray())
+                        .Result());
+                }
             };
         }
     }
