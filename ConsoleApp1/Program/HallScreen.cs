@@ -70,18 +70,18 @@ namespace CinemaApplication
                 .SetItems("Select which hall you would like to see.")
                 .Result();
 
-            var showhall = new TextListBuilder(hallscreen, 2, 5)
-                .Color(ConsoleColor.Red)
-                .SetItems(hallNames)
-                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
-                .LinkWindows(hallWindows)
-                .Result();
-
-            var GoBackHallsScherm2 = new TextListBuilder(hallscreen, 22, 5)
+            var GoBackHallsScherm2 = new TextListBuilder(hallscreen, 2, 5)
                 .Color(ConsoleColor.Red)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(selecteerHallsScherm)
+                .Result();
+
+            var showhall = new TextListBuilder(hallscreen, 14, 5)
+                .Color(ConsoleColor.Red)
+                .SetItems(hallNames)
+                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                .LinkWindows(hallWindows)
                 .Result();
 
             var title = new TextBuilder(hallscreen, 2, 2)
