@@ -286,5 +286,28 @@
       }
     ],
     "timeslotId": 0
+  },
+  {
+    "firstName": "Vincent",
+    "lastName": "de Gans",
+    "code": 5050704,
+    "hall": 2,
+    "movieId": 2,
+    "date": 1621770078,
+    "occupiedSeats": [
+      {
+        "row": 3,
+        "column": 5
+      },
+      {
+        "row": 3,
+        "column": 6
+      },
+      {
+        "row": 3,
+        "column": 7
+      }
+    ],
+    "timeslotId": 2
   }
 ]

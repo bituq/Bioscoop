@@ -28,9 +28,9 @@ namespace CinemaApplication
             public Filter(string name, string[] genres, DateTime date)
             {
                 if (name != null)
-                    this.Name = name;
+                    this.Name = name.ToLower();
                 if (genres != null)
-                    this.Genres = genres;
+                    this.Genres = genres; // hier ook
                 if (date != null)
                     this.Date = date;
             }
@@ -40,8 +40,9 @@ namespace CinemaApplication
 
                 List<JsonElement> TimeSlotsList = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
                 List<JsonElement> root = JsonFile.FileAsList("..\\..\\..\\Movies.json");
+
                 // filter name
-                root.RemoveAll(x => !x.GetProperty("name").ToString().Contains(this.Name));
+                root.RemoveAll(x => !x.GetProperty("name").ToString().ToLower().Contains(this.Name));
 
                 // filter genre
                 for (int i = 0; i < this.Genres.Length; i++)
@@ -50,26 +51,28 @@ namespace CinemaApplication
                 }
 
                 // filter time
-                List<JsonElement> toBeRemoved = new List<JsonElement>();
-                foreach(var movie in root) // for every movie
+                if (this.Date != new DateTime())
                 {
-                    int id = movie.GetProperty("id").GetInt32();
-                    List<JsonElement> TimeSlotsForCurrentMovie = TimeSlotsList.FindAll(x => x.GetProperty("id").GetInt32() == id);
-
-                    bool isValid = false; // has no matching timeslot
-
-                    foreach (var timeslot in TimeSlotsForCurrentMovie)
+                    List<JsonElement> toBeRemoved = new List<JsonElement>();
+                    foreach (var movie in root) // for every movie
                     {
-                        var TimeSlotDate = UnixTimeStampToDateTime(timeslot.GetProperty("time").GetInt32());
-                        if (TimeSlotDate > this.Date && TimeSlotDate < this.Date.AddDays(1))
-                            isValid = true;
+                        int id = movie.GetProperty("id").GetInt32();
+                        List<JsonElement> TimeSlotsForCurrentMovie = TimeSlotsList.FindAll(x => x.GetProperty("movieId").GetInt32() == id);
+
+                        bool isValid = false; // has no matching timeslot
+
+                        foreach (var timeslot in TimeSlotsForCurrentMovie)
+                        {
+                            var TimeSlotDate = UnixTimeStampToDateTime(timeslot.GetProperty("time").GetInt32());
+                            if (TimeSlotDate > this.Date && TimeSlotDate < this.Date.AddDays(1))
+                                isValid = true;
+                        }
+                        if (!isValid)
+                            toBeRemoved.Add(movie);
                     }
-                    if (!isValid)
-                        toBeRemoved.Add(movie);  
+                    foreach (var item in toBeRemoved)
+                        root.Remove(item);
                 }
-                foreach (var item in toBeRemoved)
-                    root.Remove(item);
-                
 
                 // return modified movielist
                 return root;
@@ -153,13 +156,15 @@ namespace CinemaApplication
             var movieNames = new List<String>();
 
             // stukje filter
-            Filter filter = new Filter("", new string[] { "" }, DateTime.Now);
+
+
+            Filter filter = new Filter("", new string[] { "" }, new DateTime());
             var root = filter.FilterRoot();
 
             for (int i = 0; i < root.Count; i++) // JsonRoot.GetArrayLength()
             {
                 var timeSlotsOfMovie = timeslotsFile.FindAll(timeSlots => timeSlots.GetProperty("movieId").GetInt32() == root[i].GetProperty("id").GetInt32());
-                if (timeSlotsOfMovie.Count >= 0) // aanpassen naar > voordat we klaar zijn is om te testen
+                if (timeSlotsOfMovie.Count > 0)
                 {
                     movieObjects.Add(new Movie(
                         root[i].GetProperty("name").ToString(),
