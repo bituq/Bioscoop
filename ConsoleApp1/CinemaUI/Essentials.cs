@@ -102,7 +102,7 @@ namespace CinemaUI
             foreach (UIElement child in Children)
                 child.Init();
 
-            if (Active)
+            if (Active && ActiveSelectable != null)
                 ActiveSelectable.Select();
         }
         internal void CreateCell(string key, Cell value) => Buffer[key] = value;
