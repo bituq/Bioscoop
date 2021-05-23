@@ -164,10 +164,22 @@ namespace CinemaApplication
                  .Selectable(ConsoleColor.Black, ConsoleColor.White)
                  .Result();
 
+                var message = new TextListBuilder(listOfFilms)
+                        .SetItems()
+                        .Result();
+
+
+
+
                 submitButton[0].OnClick = () =>
                 {
-                    Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), new DateTime());
-                    
+                    Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), DateTime.Parse(input[2].Value));
+                    var root = filter.FilterRoot();
+                    message.Replace(
+                         new TextListBuilder(listOfFilms, 40, 20)
+                         .Color(ConsoleColor.Green)
+                         .SetItems(DateTime.Parse("10 11 2002").ToString())
+                         .Result());
 
 
 
