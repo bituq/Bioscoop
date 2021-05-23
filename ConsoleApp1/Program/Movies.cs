@@ -205,7 +205,7 @@ namespace CinemaApplication
                         movieObjects[i].InitVisitor();
                         movieObjects[i].Id = root[i].GetProperty("id").GetInt32();
                         movieWindows.Add(movieObjects[i].Window);
-                        movieNames.Add(movieObjects[i].Name);
+                        movieNames.Add($"{i+1}. " + movieObjects[i].Name);
 
                         foreach (JsonElement timeSlot in timeSlotsOfMovie)
                         {
@@ -231,7 +231,6 @@ namespace CinemaApplication
             var movieList = new TextListBuilder(listOfFilms, 11, 3)
                 .Color(ConsoleColor.White)
                 .SetItems(movieNames.ToArray())
-                .UseNumbers()
                 .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                 .LinkWindows(movieWindows.ToArray())
                 .Result();
@@ -271,15 +270,14 @@ namespace CinemaApplication
                     root = filter.FilterRoot();
                 }
                 GenerateMovieInformation();
-
                 movieList.Replace(new TextListBuilder(listOfFilms, 11, 3)
                     .Color(ConsoleColor.White)
                     .SetItems(movieNames.ToArray())
-                    .UseNumbers()
                     .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                     .LinkWindows(movieWindows.ToArray())
                     .Result()
                 );
+                listOfFilms.Init();
             };
         }
     }

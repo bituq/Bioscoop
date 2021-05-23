@@ -62,12 +62,8 @@ namespace CinemaApplication
                         var root4 = JsonFile.FileAsList(FilePath4);
 
                         for (int L = 0; L < root4.Count; L++)
-                        {
                             if ((root4[L].GetProperty("id").GetInt32()) == id)
-                            {
                                 return root4[L].GetProperty("name").ToString();
-                            }
-                        }
                         return id.ToString();
                     }
                     var listOfReservations = new List<string>();
