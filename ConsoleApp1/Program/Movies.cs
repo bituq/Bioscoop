@@ -30,7 +30,11 @@ namespace CinemaApplication
                 if (name != null)
                     this.Name = name.ToLower();
                 if (genres != null)
-                    this.Genres = genres; // hier ook
+                    for (int i = 0; i < genres.Length; i++)
+                    {
+                        genres[i] = genres[i].ToLower();
+                    }
+                    this.Genres = genres;
                 if (date != null)
                     this.Date = date;
             }
@@ -173,16 +177,20 @@ namespace CinemaApplication
 
                 submitButton[0].OnClick = () =>
                 {
-                    Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), DateTime.Parse(input[2].Value));
-                    var root = filter.FilterRoot();
-                    message.Replace(
-                         new TextListBuilder(listOfFilms, 40, 20)
-                         .Color(ConsoleColor.Green)
-                         .SetItems(DateTime.Parse("10 11 2002").ToString())
-                         .Result());
+                    List<JsonElement> root;
 
+                    DateTime unUsed;
 
-
+                    if (!DateTime.TryParse(input[2].Value, out unUsed))
+                    {
+                        Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), new DateTime());
+                        root = filter.FilterRoot();
+                    }
+                    else
+                    {
+                        Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), DateTime.Parse(input[2].Value));
+                        root = filter.FilterRoot();
+                    }
 
                 };
             }
@@ -219,7 +227,7 @@ namespace CinemaApplication
             for (int i = 0; i < root.Count; i++) // JsonRoot.GetArrayLength()
             {
                 var timeSlotsOfMovie = timeslotsFile.FindAll(timeSlots => timeSlots.GetProperty("movieId").GetInt32() == root[i].GetProperty("id").GetInt32());
-                if (timeSlotsOfMovie.Count > 0)
+                if (timeSlotsOfMovie.Count >= 0) // terug zetten voor eind build
                 {
                     movieObjects.Add(new Movie(
                         root[i].GetProperty("name").ToString(),
@@ -263,9 +271,6 @@ namespace CinemaApplication
                 .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                 .LinkWindows(movieWindows.ToArray())
                 .Result();
-
-
-   
         }
     }
 
