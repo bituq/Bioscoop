@@ -7,10 +7,11 @@ namespace CinemaUI
 {
     public static class InputHandler
     {
-        internal static Dictionary<string, Cell>  _bufferCache = new Dictionary<string, Cell>();
+        internal static Dictionary<string, Cell> _bufferCache = new Dictionary<string, Cell>();
 
         public static List<Window> Windows = new List<Window>();
         private static Window CurrentWindow = new Window();
+        public static List<Action> OnChangeEvents = new List<Action>();
 
         public static bool Skip = false;
 
@@ -31,6 +32,8 @@ namespace CinemaUI
                     Skip = false;
                 else if (activeWindow.SelectionOrder.Count != 0)
                     activeWindow.ActiveSelectable.KeyResponse(Console.ReadKey());
+                foreach (Action ev in OnChangeEvents)
+                    ev();
                 CurrentWindow = activeWindow;
             }
         }

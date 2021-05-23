@@ -4,6 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using CinemaUI;
 using CinemaUI.Builder;
+using JsonHandler;
 
 namespace CinemaApplication
 {
@@ -14,7 +15,7 @@ namespace CinemaApplication
         {
             public int Id { get; set; }
             public Window Window = new Window();
-            public Window TimeslotEdit = new Window();
+            public Window TimeslotEditWindow = new Window();
             public string Name { get; set; }
             public string Description { get; set; }
             public string Rating { get; set; }
@@ -39,6 +40,107 @@ namespace CinemaApplication
                     Genres.Add(genre.ToString());
                 foreach (JsonElement star in starring.EnumerateArray())
                     Starring.Add(star.ToString());
+            }
+
+            public void InitAdminTimeslot()
+            {
+                var Menu = new TextListBuilder(TimeslotEditWindow, 2, 5)
+                .Color(ConsoleColor.Red)
+                .SetItems("Add a timeslot", "Go back")
+                .UseNumbers()
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .LinkWindows(null, editMovieList)
+                .Result();
+
+                var Path = new TextBuilder(TimeslotEditWindow, 2, 2)
+                    .Color(ConsoleColor.Cyan)
+                    .Text("Home/Admin/Movies/List/Timeslot")
+                    .Result();
+
+                var Description = new TextBuilder(TimeslotEditWindow, 2, 3)
+                    .Color(ConsoleColor.Gray)
+                    .Text(Name)
+                    .Result();
+
+                var Title = new TextBuilder(TimeslotEditWindow, Description.Position.X + Math.Max(Name.Length, Path.Text.Length) + 3, 3)
+                    .Color(ConsoleColor.Magenta)
+                    .Text("Timeslots: ")
+                    .Result();
+
+                var TimeSlotList = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json").FindAll(n => n.GetProperty("movieId").GetInt32() == Id);
+                var TimeSlotNames = new List<string>();
+                var TimeSlotDates = new List<DateTime>();
+                int MaxLength = 0;
+
+                foreach (JsonElement timeslot in TimeSlotList)
+                {
+                    DateTime unix = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+                    DateTime time = unix.AddSeconds(timeslot.GetProperty("time").GetInt32());
+                    int hall = timeslot.GetProperty("hall").GetInt32();
+                    string text = $"{time.ToString("g")} in hall {hall}";
+                    TimeSlotNames.Add(text);
+                    TimeSlotDates.Add(time);
+                    MaxLength = Math.Max(MaxLength, text.Length);
+                }
+
+                var TimeSlots = new TextListBuilder(TimeslotEditWindow, Title.Position.X, 5)
+                    .Color(ConsoleColor.White)
+                    .SetItems(TimeSlotNames.ToArray())
+                    .Result();
+
+                var RemoveButtonList = new List<string>();
+
+                void ChangeColors()
+                {
+                    for (int i = 0; i < TimeSlots.Items.Count; i++)
+                        if (DateTime.Now < TimeSlotDates[i].AddMinutes(Duration) && DateTime.Now >= TimeSlotDates[i])
+                        {
+                            TimeSlots.Items[i].TextColor = ConsoleColor.Green;
+                            RemoveButtonList.Add("");
+                        }
+                        else
+                        {
+                            RemoveButtonList.Add("Remove");
+                            if (DateTime.Now > TimeSlotDates[i].AddMinutes(Duration))
+                                TimeSlots.Items[i].TextColor = ConsoleColor.DarkGray;
+                        }
+                }
+                ChangeColors();
+
+                if (RemoveButtonList.Count == 0)
+                    RemoveButtonList.Add("");
+
+                var RemoveButtons = new TextListBuilder(TimeslotEditWindow, Title.Position.X + MaxLength + 1, 5)
+                    .Color(ConsoleColor.Red)
+                    .SetItems(RemoveButtonList.ToArray())
+                    .Selectable(ConsoleColor.White, ConsoleColor.Red)
+                    .Result();
+
+                void InitRemoveButtons()
+                {
+                    foreach (SelectableText button in RemoveButtons.Items)
+                    {
+                        void OnRemove()
+                        {
+                            int index = RemoveButtons.Items.IndexOf(button);
+                            RemoveButtonList.RemoveAt(index);
+                            TimeSlotDates.RemoveAt(index);
+                            TimeSlotNames.RemoveAt(index);
+                            RemoveButtons.Replace(new TextListBuilder(TimeslotEditWindow, Title.Position.X + MaxLength + 1, 5)
+                                .Color(ConsoleColor.Red)
+                                .SetItems(RemoveButtonList.ToArray())
+                                .Selectable(ConsoleColor.White, ConsoleColor.Red)
+                                .Result());
+                            TimeSlots.Replace(new TextListBuilder(TimeslotEditWindow, Title.Position.X, 5)
+                                .Color(ConsoleColor.White)
+                                .SetItems(TimeSlotNames.ToArray())
+                                .Result());
+                            InitRemoveButtons();
+                        }
+                        button.OnClick = () => OnRemove();
+                    }
+                }
+                InitRemoveButtons();
             }
 
             public void InitVisitor()
