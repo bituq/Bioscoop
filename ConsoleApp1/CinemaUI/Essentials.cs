@@ -56,7 +56,6 @@ namespace CinemaUI
             Active = setAsActive;
             InputHandler.Windows.Add(this);
         }
-
         public void AddInFront(Selectable selectable)
         {
             var temp = new Selectable[SelectionOrder.Count + 1];
@@ -94,6 +93,15 @@ namespace CinemaUI
             }
             ReadLine();
             Console.SetCursorPosition(FinalCursorPosition.X, FinalCursorPosition.Y);
+        }
+        public void Reset()
+        {
+            SelectionOrder.Clear();
+            Buffer.Clear();
+            Variables.Clear();
+            LinkedVariables.Clear();
+            ClearAllChildren();
+            ActiveSelectable = null;
         }
         public void Init()
         {

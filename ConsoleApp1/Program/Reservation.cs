@@ -155,6 +155,7 @@ namespace CinemaApplication
                         Window.Init();
 
                         //VincentCooleQOLFuncties.EmailUser(inputList[2].Value, randomCode, TimeSlot, seatList);
+                        TimeSlot.Window.Reset();
 
                         string timeSlotPath = "..\\..\\..\\TimeSlots.json";
                         var thisTimeslot = JsonFile.FileAsList(timeSlotPath).Find(element => element.GetProperty("id").GetInt32() == TimeSlot.id);
@@ -170,8 +171,6 @@ namespace CinemaApplication
                         newTimeslot.occupiedSeats = temp2.ToArray();
                         JsonFile.RemoveFromFile("id", thisTimeslot.GetProperty("id").GetInt32(), timeSlotPath);
                         JsonFile.AppendToFile(newTimeslot, timeSlotPath);
-
-                        TimeSlot.Window.ClearAllChildren();
 
                         TimeSlot.Init();
 

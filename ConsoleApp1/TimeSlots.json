@@ -228,6 +228,18 @@
       {
         "row": 5,
         "column": 2
+      },
+      {
+        "row": 5,
+        "column": 1
+      },
+      {
+        "row": 3,
+        "column": 3
+      },
+      {
+        "row": 3,
+        "column": 4
       }
     ]
   }
