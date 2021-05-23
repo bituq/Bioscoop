@@ -271,6 +271,7 @@ namespace CinemaApplication
             var movieObjects = new List<Movie>();
             var movieWindows = new List<Window>();
             var movieNames = new List<String>();
+            var timeslotCounts = new List<int>();
 
             // stukje filter
 
@@ -281,36 +282,33 @@ namespace CinemaApplication
             for (int i = 0; i < root.Count; i++) // JsonRoot.GetArrayLength()
             {
                 var timeSlotsOfMovie = timeslotsFile.FindAll(timeSlots => timeSlots.GetProperty("movieId").GetInt32() == root[i].GetProperty("id").GetInt32());
-                if (timeSlotsOfMovie.Count > 0)
+                movieObjects.Add(new Movie(
+                    root[i].GetProperty("name").ToString(),
+                    root[i].GetProperty("duration").GetInt32(),
+                    root[i].GetProperty("releaseDate").ToString(),
+                    root[i].GetProperty("description").ToString(),
+                    root[i].GetProperty("rating").ToString(),
+                    root[i].GetProperty("language").ToString(),
+                    root[i].GetProperty("company").ToString(),
+                    root[i].GetProperty("genres"),
+                    root[i].GetProperty("starring")
+                    ));
+                movieObjects[i].InitVisitor();
+                movieObjects[i].Id = root[i].GetProperty("id").GetInt32();
+                movieWindows.Add(movieObjects[i].Window);
+                movieNames.Add(movieObjects[i].Name);
+                timeslotCounts.Add(timeSlotsOfMovie.Count);
+
+                foreach (JsonElement timeSlot in timeSlotsOfMovie)
                 {
-                    movieObjects.Add(new Movie(
-                        root[i].GetProperty("name").ToString(),
-                        root[i].GetProperty("duration").GetInt32(),
-                        root[i].GetProperty("releaseDate").ToString(),
-                        root[i].GetProperty("description").ToString(),
-                        root[i].GetProperty("rating").ToString(),
-                        root[i].GetProperty("language").ToString(),
-                        root[i].GetProperty("company").ToString(),
-                        root[i].GetProperty("genres"),
-                        root[i].GetProperty("starring")
-                        ));
-                    movieObjects[i].InitVisitor();
-                    movieObjects[i].Id = root[i].GetProperty("id").GetInt32();
-                    movieWindows.Add(movieObjects[i].Window);
-                    movieNames.Add(movieObjects[i].Name);
-
-                    foreach (JsonElement timeSlot in timeSlotsOfMovie)
-                    {
-                        var hallElement = hallsFile.Find(hall => hall.GetProperty("id").GetInt32() == timeSlot.GetProperty("hall").GetInt32());
-                        var hall = new Hall(hallElement.GetProperty("id").GetInt32(), hallElement.GetProperty("rows").GetInt32(), hallElement.GetProperty("columns").GetInt32());
-                        var occupiedSeats = new List<Seat>();
-                        foreach (JsonElement seat in timeSlot.GetProperty("occupiedSeats").EnumerateArray())
-                            occupiedSeats.Add(new Seat(seat.GetProperty("row").GetInt32(), seat.GetProperty("column").GetInt32()));
-                        timeSlots.Add(new TimeSlot(movieObjects[i], timeSlot.GetProperty("time").GetInt32(), hall, occupiedSeats, timeSlot.GetProperty("id").GetInt32()));
-                    }
-
-                    movieObjects[i].TimeSlotScreen();
+                    var hallElement = hallsFile.Find(hall => hall.GetProperty("id").GetInt32() == timeSlot.GetProperty("hall").GetInt32());
+                    var hall = new Hall(hallElement.GetProperty("id").GetInt32(), hallElement.GetProperty("rows").GetInt32(), hallElement.GetProperty("columns").GetInt32());
+                    var occupiedSeats = new List<Seat>();
+                    foreach (JsonElement seat in timeSlot.GetProperty("occupiedSeats").EnumerateArray())
+                        occupiedSeats.Add(new Seat(seat.GetProperty("row").GetInt32(), seat.GetProperty("column").GetInt32()));
+                    timeSlots.Add(new TimeSlot(movieObjects[i], timeSlot.GetProperty("time").GetInt32(), hall, occupiedSeats, timeSlot.GetProperty("id").GetInt32()));
                 }
+                movieObjects[i].TimeSlotScreen();
             }
 
             var movieListTitle = new TextBuilder(listOfFilms, 11, 1)
@@ -325,6 +323,10 @@ namespace CinemaApplication
                 .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                 .LinkWindows(movieWindows.ToArray())
                 .Result();
+
+            for (int i = 0; i < movieList.Items.Count; i++)
+                if (timeslotCounts[i] == 0)
+                    movieList[i].Disable();
         }
     }
 

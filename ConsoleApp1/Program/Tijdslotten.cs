@@ -27,7 +27,7 @@ namespace CinemaApplication
             public Window Window { get; set; } = new Window();
             public Movie Movie { get; set; }
             public int id { get; set; }
-            public int Time { get; set; }
+            public DateTime Time { get; set; }
             public Hall Hall { get; set; }
             public List<Seat> occupiedSeats { get; set; } = new List<Seat>();
             public List<Window> reservationWindows { get; set; } = new List<Window>();
@@ -37,7 +37,8 @@ namespace CinemaApplication
             {
                 this.occupiedSeats = OccupiedSeats;
                 this.Movie = Movie;
-                this.Time = Time;
+                DateTime unix = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+                this.Time = unix.AddSeconds(Time);
                 this.Hall = Hall;
                 this.id = id;
                 Init();
@@ -57,7 +58,7 @@ namespace CinemaApplication
 
                 var title = new TextBuilder(this.Window, 1, 0)
                 .Color(ConsoleColor.Magenta)
-                .Text($"Available seats at {this.Time}")
+                .Text($"Available seats at {Time.ToString("g")}")
                 .Result();
 
                 var subtitle = new TextBuilder(this.Window, 1, 1)
@@ -94,7 +95,7 @@ namespace CinemaApplication
                         .Color(ConsoleColor.DarkGreen)
                         .SetItems(seats)
                         .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
-                        .LinkWindows() //reservationWindows.ToArray()
+                        .LinkWindows()
                         .DisabledColor(ConsoleColor.DarkRed)
                         .Result();
 
@@ -164,7 +165,7 @@ namespace CinemaApplication
                 var validTimeSlotWindows = new List<Window>();
                 foreach (TimeSlot timeSlot in validTimeSlots)
                 {
-                    validTimeSlotNames.Add("Time: " + timeSlot.Time);
+                    validTimeSlotNames.Add("Time: " + timeSlot.Time.ToString("g"));
                     validTimeSlotWindows.Add(timeSlot.Window);
                 }
 
