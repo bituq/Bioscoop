@@ -82,32 +82,48 @@ namespace CinemaApplication
         {
             public int Id { get; set; }
             public Window Window = new Window();
+            public Window TimeslotEdit = new Window();
             public string Name { get; set; }
+            public string Description { get; set; }
+            public string Rating { get; set; }
+            public int Duration { get; set; }
+            public string ReleaseDate { get; set; }
+            public string Language { get; set; }
+            public string Company { get; set; }
             public List<string> Starring { get; set; } = new List<string>();
             public List<string> Genres { get; set; } = new List<string>();
 
-            public Movie(string name, string duration, string releaseDate, string descriptionText, string rating, string language, string company, JsonElement genres, JsonElement starring)
+            public Movie(string name, int duration, string releaseDate, string descriptionText, string rating, string language, string company, JsonElement genres, JsonElement starring)
             {
                 Name = name;
+                Duration = duration;
+                ReleaseDate = releaseDate;
+                Description = descriptionText;
+                Rating = rating;
+                Language = language;
+                Company = company;
 
                 foreach (JsonElement genre in genres.EnumerateArray())
                     Genres.Add(genre.ToString());
                 foreach (JsonElement star in starring.EnumerateArray())
                     Starring.Add(star.ToString());
+            }
 
+            public void InitVisitor()
+            {
                 var title = new TextBuilder(Window, 18, 1)
                     .Color(ConsoleColor.Red)
-                    .Text(name)
+                    .Text(Name)
                     .Result();
 
                 var description = new TextBuilder(Window, 18, 2)
                     .Color(ConsoleColor.DarkGray)
-                    .Text(descriptionText)
+                    .Text(Description)
                     .Result();
 
                 var information = new TextListBuilder(Window, 18, 8)
                     .Color(ConsoleColor.White)
-                    .SetItems(duration, releaseDate, rating, language, company, "Genres: ")
+                    .SetItems("Duration: " + Duration, "Release date: " + ReleaseDate, "Rating: " + Rating, "Language: " + Language, "Company: " + Company, "Genres: ")
                     .Result();
 
                 var genresInformation = new TextListBuilder(Window, 18 + information.Items[5].Text.Length, 13)
@@ -168,16 +184,16 @@ namespace CinemaApplication
                 {
                     movieObjects.Add(new Movie(
                         root[i].GetProperty("name").ToString(),
-                        $"Duration: {root[i].GetProperty("duration")} minutes",
-                        $"Release Date: {root[i].GetProperty("releaseDate")}",
-                        $"   {root[i].GetProperty("description")}",
-                        $"Rating: {root[i].GetProperty("rating")}",
-                        $"Language: {root[i].GetProperty("language")}",
-                        $"Company: {root[i].GetProperty("company") }",
+                        root[i].GetProperty("duration").GetInt32(),
+                        root[i].GetProperty("releaseDate").ToString(),
+                        root[i].GetProperty("description").ToString(),
+                        root[i].GetProperty("rating").ToString(),
+                        root[i].GetProperty("language").ToString(),
+                        root[i].GetProperty("company").ToString(),
                         root[i].GetProperty("genres"),
                         root[i].GetProperty("starring")
-                    ));
-
+                        ));
+                    movieObjects[i].InitVisitor();
                     movieObjects[i].Id = root[i].GetProperty("id").GetInt32();
                     movieWindows.Add(movieObjects[i].Window);
                     movieNames.Add(movieObjects[i].Name);
