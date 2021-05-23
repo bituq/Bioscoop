@@ -147,7 +147,34 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .LinkWindows(listOfFilms, timeSlotWindow)
                     .Result();
+
+                var filterInputs = new TextListBuilder(listOfFilms, 80, 3)
+                .SetItems("Name: ", "Genre: ", "Date: ")
+                .Result();
+
+                var input = new TextListBuilder(listOfFilms, 80 + filterInputs.Items[2].Text.Length, 3)
+                    .Color(ConsoleColor.Gray)
+                    .SetItems("", "", "")
+                    .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
+                    .Result();
+
+                var submitButton = new TextListBuilder(listOfFilms, 80, 8)
+                 .Color(ConsoleColor.Green)
+                 .SetItems("Submit")
+                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                 .Result();
+
+                submitButton[0].OnClick = () =>
+                {
+                    Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), new DateTime());
+                    
+
+
+
+
+                };
             }
+
         }
         public static Window listOfFilms = new Window();
         static void ListOfFilms()
@@ -224,6 +251,9 @@ namespace CinemaApplication
                 .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                 .LinkWindows(movieWindows.ToArray())
                 .Result();
+
+
+   
         }
     }
 

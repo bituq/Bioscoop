@@ -9,7 +9,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        public static Window editMovieList = new Window(true);
+        public static Window editMovieList = new Window();
         static void EditMovies()
         {
             var Menu = new TextListBuilder(editMovieList, 2, 5)
