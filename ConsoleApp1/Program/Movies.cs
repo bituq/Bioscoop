@@ -34,7 +34,7 @@ namespace CinemaApplication
                     {
                         genres[i] = genres[i].ToLower();
                     }
-                    this.Genres = genres;
+                this.Genres = genres;
                 if (date != null)
                     this.Date = date;
             }
@@ -82,6 +82,7 @@ namespace CinemaApplication
                 return root;
             }
         }
+
         public partial class Movie
         {
             public int Id { get; set; }
@@ -151,55 +152,12 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .LinkWindows(listOfFilms, timeSlotWindow)
                     .Result();
-
-                var filterInputs = new TextListBuilder(listOfFilms, 80, 3)
-                .SetItems("Name: ", "Genre: ", "Date: ")
-                .Result();
-
-                var input = new TextListBuilder(listOfFilms, 80 + filterInputs.Items[2].Text.Length, 3)
-                    .Color(ConsoleColor.Gray)
-                    .SetItems("", "", "")
-                    .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
-                    .Result();
-
-                var submitButton = new TextListBuilder(listOfFilms, 80, 8)
-                 .Color(ConsoleColor.Green)
-                 .SetItems("Submit")
-                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                 .Result();
-
-                var message = new TextListBuilder(listOfFilms)
-                        .SetItems()
-                        .Result();
-
-
-
-
-                submitButton[0].OnClick = () =>
-                {
-                    List<JsonElement> root;
-
-                    DateTime unUsed;
-
-                    if (!DateTime.TryParse(input[2].Value, out unUsed))
-                    {
-                        Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), new DateTime());
-                        root = filter.FilterRoot();
-                    }
-                    else
-                    {
-                        Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), DateTime.Parse(input[2].Value));
-                        root = filter.FilterRoot();
-                    }
-
-                };
             }
 
         }
         public static Window listOfFilms = new Window();
         static void ListOfFilms()
         {
-
             var _ = new TextListBuilder(listOfFilms, 1, 1)
                    .Color(ConsoleColor.Yellow)
                    .SetItems("Go back")
@@ -219,45 +177,51 @@ namespace CinemaApplication
             var movieNames = new List<String>();
 
             // stukje filter
-
-
             Filter filter = new Filter("", new string[] { "" }, new DateTime());
             var root = filter.FilterRoot();
 
-            for (int i = 0; i < root.Count; i++) // JsonRoot.GetArrayLength()
+            void GenerateMovieInformation()
             {
-                var timeSlotsOfMovie = timeslotsFile.FindAll(timeSlots => timeSlots.GetProperty("movieId").GetInt32() == root[i].GetProperty("id").GetInt32());
-                if (timeSlotsOfMovie.Count >= 0) // terug zetten voor eind build
+                movieObjects.Clear();
+                movieWindows.Clear();
+                movieNames.Clear();
+
+                for (int i = 0; i < root.Count; i++) // JsonRoot.GetArrayLength()
                 {
-                    movieObjects.Add(new Movie(
-                        root[i].GetProperty("name").ToString(),
-                        root[i].GetProperty("duration").GetInt32(),
-                        root[i].GetProperty("releaseDate").ToString(),
-                        root[i].GetProperty("description").ToString(),
-                        root[i].GetProperty("rating").ToString(),
-                        root[i].GetProperty("language").ToString(),
-                        root[i].GetProperty("company").ToString(),
-                        root[i].GetProperty("genres"),
-                        root[i].GetProperty("starring")
-                        ));
-                    movieObjects[i].InitVisitor();
-                    movieObjects[i].Id = root[i].GetProperty("id").GetInt32();
-                    movieWindows.Add(movieObjects[i].Window);
-                    movieNames.Add(movieObjects[i].Name);
-
-                    foreach (JsonElement timeSlot in timeSlotsOfMovie)
+                    var timeSlotsOfMovie = timeslotsFile.FindAll(timeSlots => timeSlots.GetProperty("movieId").GetInt32() == root[i].GetProperty("id").GetInt32());
+                    if (timeSlotsOfMovie.Count >= 0) // terug zetten voor eind build
                     {
-                        var hallElement = hallsFile.Find(hall => hall.GetProperty("id").GetInt32() == timeSlot.GetProperty("hall").GetInt32());
-                        var hall = new Hall(hallElement.GetProperty("id").GetInt32(), hallElement.GetProperty("rows").GetInt32(), hallElement.GetProperty("columns").GetInt32());
-                        var occupiedSeats = new List<Seat>();
-                        foreach (JsonElement seat in timeSlot.GetProperty("occupiedSeats").EnumerateArray())
-                            occupiedSeats.Add(new Seat(seat.GetProperty("row").GetInt32(), seat.GetProperty("column").GetInt32()));
-                        timeSlots.Add(new TimeSlot(movieObjects[i], timeSlot.GetProperty("time").GetInt32(), hall, occupiedSeats, timeSlot.GetProperty("id").GetInt32()));
-                    }
+                        movieObjects.Add(new Movie(
+                            root[i].GetProperty("name").ToString(),
+                            root[i].GetProperty("duration").GetInt32(),
+                            root[i].GetProperty("releaseDate").ToString(),
+                            root[i].GetProperty("description").ToString(),
+                            root[i].GetProperty("rating").ToString(),
+                            root[i].GetProperty("language").ToString(),
+                            root[i].GetProperty("company").ToString(),
+                            root[i].GetProperty("genres"),
+                            root[i].GetProperty("starring")
+                            ));
+                        movieObjects[i].InitVisitor();
+                        movieObjects[i].Id = root[i].GetProperty("id").GetInt32();
+                        movieWindows.Add(movieObjects[i].Window);
+                        movieNames.Add(movieObjects[i].Name);
 
-                    movieObjects[i].TimeSlotScreen();
+                        foreach (JsonElement timeSlot in timeSlotsOfMovie)
+                        {
+                            var hallElement = hallsFile.Find(hall => hall.GetProperty("id").GetInt32() == timeSlot.GetProperty("hall").GetInt32());
+                            var hall = new Hall(hallElement.GetProperty("id").GetInt32(), hallElement.GetProperty("rows").GetInt32(), hallElement.GetProperty("columns").GetInt32());
+                            var occupiedSeats = new List<Seat>();
+                            foreach (JsonElement seat in timeSlot.GetProperty("occupiedSeats").EnumerateArray())
+                                occupiedSeats.Add(new Seat(seat.GetProperty("row").GetInt32(), seat.GetProperty("column").GetInt32()));
+                            timeSlots.Add(new TimeSlot(movieObjects[i], timeSlot.GetProperty("time").GetInt32(), hall, occupiedSeats, timeSlot.GetProperty("id").GetInt32()));
+                        }
+
+                        movieObjects[i].TimeSlotScreen();
+                    }
                 }
             }
+            GenerateMovieInformation();
 
             var movieListTitle = new TextBuilder(listOfFilms, 11, 1)
                 .Color(ConsoleColor.Magenta)
@@ -271,6 +235,52 @@ namespace CinemaApplication
                 .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                 .LinkWindows(movieWindows.ToArray())
                 .Result();
+
+            var filterInputs = new TextListBuilder(listOfFilms, 80, 3)
+                .SetItems("Name: ", "Genre: ", "Date: ")
+                .Result();
+
+            var input = new TextListBuilder(listOfFilms, 80 + filterInputs.Items[2].Text.Length, 3)
+                .Color(ConsoleColor.Gray)
+                .SetItems("", "", "")
+                .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
+                .Result();
+
+            var submitButton = new TextListBuilder(listOfFilms, 80, 8)
+                .Color(ConsoleColor.Green)
+                .SetItems("Submit")
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .Result();
+
+            var message = new TextListBuilder(listOfFilms)
+                .SetItems()
+                .Result();
+
+            submitButton[0].OnClick = () =>
+            {
+                DateTime unUsed;
+
+                if (!DateTime.TryParse(input[2].Value, out unUsed))
+                {
+                    Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), new DateTime());
+                    root = filter.FilterRoot();
+                }
+                else
+                {
+                    Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), DateTime.Parse(input[2].Value));
+                    root = filter.FilterRoot();
+                }
+                GenerateMovieInformation();
+
+                movieList.Replace(new TextListBuilder(listOfFilms, 11, 3)
+                    .Color(ConsoleColor.White)
+                    .SetItems(movieNames.ToArray())
+                    .UseNumbers()
+                    .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
+                    .LinkWindows(movieWindows.ToArray())
+                    .Result()
+                );
+            };
         }
     }
 
