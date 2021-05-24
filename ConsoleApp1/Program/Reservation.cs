@@ -198,16 +198,23 @@ namespace CinemaApplication
 
                 var MethodsList = new string[] { "IDEAL", "PayPal", "VISA", "Maestro", "MasterCard" };
 
-                var title = new TextBuilder(PaymentsWindow, 1, 1)
+                var title = new TextBuilder(PaymentsWindow, 11, 1)
                     .Color(ConsoleColor.Magenta)
                     .Text("Select a payment method.")
                     .Result();
-                var menu = new TextListBuilder(PaymentsWindow, 1, 3)
+                var goBack = new TextListBuilder(PaymentsWindow, 1, 1)
                     .Color(ConsoleColor.Yellow)
+                    .SetItems("Go back")
+                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                    .LinkWindows(FoodWindow)
+                    .Result();
+                var menu = new TextListBuilder(PaymentsWindow, 11, 3)
+                    .Color(ConsoleColor.Cyan)
                     .SetItems(MethodsList)
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .LinkWindows(ideal, Window, Window, Window, Window)
                     .Result();
+                
             }
 
             private void IDEAL()
@@ -234,7 +241,7 @@ namespace CinemaApplication
             }
             public class Food
             {
-                public Window FoodInfo = new Window();
+                public Window FoodInfo { get; set; } = new Window();
                 public string Name { get; set; }
 
 
@@ -263,7 +270,7 @@ namespace CinemaApplication
             private void FoodWindows()
             {
                 var goBack = new TextListBuilder(FoodWindow, 1, 1)
-                       .Color(ConsoleColor.White)
+                       .Color(ConsoleColor.Yellow)
                        .SetItems("Go back", "Continue")
                        .Selectable(ConsoleColor.Black, ConsoleColor.White)
                        .LinkWindows(mainMenu, PaymentsWindow)
