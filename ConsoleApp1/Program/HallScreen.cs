@@ -23,21 +23,27 @@ namespace CinemaApplication
                 Rows = rows;
                 Columns = columns;
 
-                var selectableList = new TextListBuilder(Window, 3, 1)
+                var title1 = new TextBuilder(Window, 2, 2)
+                .Color(ConsoleColor.Cyan)
+                .Text($"Home/Admin/Hall Select/Halls/{Name}")
+                .Result();
+
+                var selectableList = new TextListBuilder(Window, 1, 5)
                     .SetItems("Go back")
                     .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                     .LinkWindows(hallscreen)
                     .Result();
 
-                var title = new TextBuilder(Window, 3, 3)
+                var title2 = new TextBuilder(Window, 13, 5)
                     .Color(ConsoleColor.Red)
                     .Text(name)
                     .Result();
 
-                var description = new TextListBuilder(Window, 3, 5)
+                var description = new TextListBuilder(Window, 13, 7)
                     .Color(ConsoleColor.Gray)
                     .SetItems($"Rows: {rows}", $"Columns: {columns}")
                     .Result();
+
             }
         }
         static Window hallscreen = new Window();

@@ -22,18 +22,18 @@ namespace CinemaApplication
         {
             var newhall = new List<string>();
 
-            var title = new TextBuilder(addhallscreen, 13, 2)
+            var title = new TextBuilder(addhallscreen, 1, 2)
                 .Color(ConsoleColor.Cyan)
                 .Text("Home/Admin/Hall Select/Edit Hall")
                 .Result();
 
-            var title2 = new TextBuilder(addhallscreen, 13, 3)
+            var title2 = new TextBuilder(addhallscreen, 1, 3)
                  .Color(ConsoleColor.White)
                  .Text("Enter the information of the hall to add")
                  .Result();
 
 
-            var goBack = new TextListBuilder(addhallscreen, 1, 2)
+            var goBack = new TextListBuilder(addhallscreen, 1, 5)
                    .Color(ConsoleColor.Red)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -86,6 +86,17 @@ namespace CinemaApplication
                 int id = 0;
                 int rows = 0;
                 int columns = 0;
+
+               
+
+                for (int i = 0; i < root.GetArrayLength(); i++)
+                {
+                    if (Convert.ToInt32(input[0].Value) == root[i].GetProperty("id").GetInt32())
+                    {
+                        ErrorList.Add($"There already exist an hall with the id {input[0].Value}!");
+                    }
+                }
+
                 if (input[0].Value == "" || input[1].Value == "" || input[2].Value == "")
                     ErrorList.Add("Input fields may not be empty.");
                 if (!Int32.TryParse(input[0].Value, out id))

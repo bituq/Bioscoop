@@ -67,6 +67,7 @@ namespace CinemaApplication
             FoodWindow();
             AddHall();
             AddSnack();
+            
 
             InputHandler.WaitForInput();
         }
