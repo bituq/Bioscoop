@@ -365,22 +365,23 @@ namespace CinemaApplication
 
                 void onRemove()
                 {
-                    var removeIndex = removebutton.Items.IndexOf(removebutton.Items.Find(item => item.Selected));
+                    var removeIndex = removebutton.SelectedIndex;
 
-                    sum -= Convert.ToInt32(Convert.ToDouble(cartpricelist[removeIndex].Trim('$')));
+                    if (cartpricelist.Count > 0)
+                        sum -= Convert.ToInt32(Convert.ToDouble(cartpricelist[removeIndex].Trim('$')));
+                    else
+                        sum = 0;
 
                     cartlist.RemoveAt(removeIndex);
                     cartpricelist.RemoveAt(removeIndex);
                     removebuttonlist.RemoveAt(removeIndex);
 
-
-
+                    bool isEmpty = false;
                     if (removebuttonlist.Count == 0)
                     {
+                        isEmpty = true;
                         removebuttonlist.Add("");
                         removebutton[0].Unselect();
-                        FoodWindow.ActiveSelectable = addButton;
-                        addButton.Select();
                     }
 
                     shopcart.Replace(new TextListBuilder(FoodWindow, 70, 4)
@@ -406,23 +407,32 @@ namespace CinemaApplication
                     .SetItems($"${(sum / 100).ToString()}" + "." + ((sum % 100 < 10) ? $"0{sum % 100}" : (sum % 100).ToString()))
                     .Result());
 
-                    removebutton[Math.Min(removeIndex, removebutton.Items.Count - 1)].Select();
+                    if (!isEmpty)
+                    {
+                        var _ = removebutton.Items.Count;
+                        removebutton[0].Unselect();
+                        removebutton[Math.Min(removeIndex, removebutton.Items.Count - 1)].Select();
 
-                    foreach (SelectableText Item in removebutton.Items)
-                        Item.OnClick = onRemove;
+                        foreach (SelectableText Item in removebutton.Items)
+                            Item.OnClick = onRemove;
+                    }
+                    else
+                    {
+                        FoodWindow.ActiveSelectable = addButton;
+                        addButton[0].Select();
+                    }
                 }
 
                 for (int i = 0; i < addbuttonarray.Length; i++)
                 {
-                    addButton[i].OnClick = () =>
+                    void OnAdd()
                     {
-                        var addIndex = addButton.Items.IndexOf(addButton.Items.Find(item => item.Selected));
+                        var addIndex = addButton.SelectedIndex;
                         cartlist.Add(snackNames[addIndex]);
                         cartpricelist.Add(snackPrice[addIndex]);
                         if (removebuttonlist.Contains(""))
-                        {
                             removebuttonlist.Remove("");
-                        }
+
                         removebuttonlist.Add("Remove");
 
                         sum += Convert.ToInt32(Convert.ToDouble(snackPrice[addIndex].Trim('$', '.', ' ', ',')));
@@ -448,8 +458,12 @@ namespace CinemaApplication
                         .SetItems($"${(sum / 100).ToString()}" + "." + ((sum % 100 < 10) ? $"0{sum % 100}" : (sum % 100).ToString()))
                         .Result());
 
-                        removebutton[removebutton.Items.Count - 1].OnClick = onRemove;
-                    };
+                        FoodWindow.ActiveSelectable = addButton;
+
+                        foreach (SelectableText item in removebutton.Items)
+                            item.OnClick = onRemove;
+                    }
+                    addButton[i].OnClick = OnAdd;
                 }
             }
         }
