@@ -46,7 +46,7 @@ namespace CinemaApplication
         {
             var goBack = new TextListBuilder(food, 1, 1)
                    .Color(ConsoleColor.White)
-                   .SetItems("Go back")
+                   .SetItems("Go back", "Continue")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
                    .LinkWindows(mainMenu)
                    .Result();
@@ -144,6 +144,7 @@ namespace CinemaApplication
                 .Result();
             
             
+            
             void onRemove()
             {
                 var removeIndex = removebutton.Items.IndexOf(removebutton.Items.Find(item => item.Selected));
@@ -207,8 +208,6 @@ namespace CinemaApplication
                     removebuttonlist.Add("Remove");
 
                     sum += Convert.ToInt32(Convert.ToDouble(snackPrice[addIndex].Trim('$', '.', ' ', ',')));
-                   
-
 
                     shopcart.Replace(new TextListBuilder(food, 70, 4)
                     .Color(ConsoleColor.DarkMagenta)
