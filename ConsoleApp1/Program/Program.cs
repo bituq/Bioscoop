@@ -64,7 +64,6 @@ namespace CinemaApplication
             SelectieSchermAdmin();
             ReserveringNaamScherm();
             SelectieSchermZoeken();
-            FoodWindow();
             AddHall();
             AddSnack();
             
