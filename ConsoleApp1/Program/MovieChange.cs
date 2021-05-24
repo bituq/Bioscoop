@@ -66,36 +66,30 @@ namespace CinemaApplication
                 var ErrorList = new List<string>();
                 string[] n = new string[] { "yes", "no" };
                 double price = 0.0;
-                int stock = 0;
-                if (input[0].Value == "" || input[1].Value == "" || input[2].Value == "" || input[3].Value == "")
+                int duration = 0;
+                if (input[0].Value == "" || input[1].Value == "" || input[2].Value == "" || input[3].Value == "" || input[4].Value == "" || input[5].Value == "" || input[6].Value == "" || input[7].Value == "" || input[8].Value == "")
                     ErrorList.Add("Input fields may not be empty.");
-                if (!Double.TryParse(input[1].Value, out price))
-                    ErrorList.Add("Price must be a decimal point value. (ex. 1.00, 5.20, 10.23, etc.)");
-                if (!new List<string> { "yes", "no" }.Contains(input[2].Value.ToLower()))
-                    ErrorList.Add("Vegetarian must be either 'yes' or 'no'.");
-                else
-                    input[2].Value = input[2].Value[0].ToString().ToUpper() + input[2].Value.Substring(1, input[2].Value.Length - 1);
-                if (!Int32.TryParse(input[3].Value, out stock))
-                    ErrorList.Add("Stock must be a number.");
+                if (!Int32.TryParse(input[1].Value, out duration))
+                    ErrorList.Add("Duration must be a number.");
 
                 if (ErrorList.Count == 0)
                 {
                    
                     var nMovie = new MovieAdd();
                     nMovie.name = input[0].Value;
-                    nMovie.duration = input[1].Value;
+                    nMovie.duration = duration;
                     nMovie.releaseDate = input[2].Value;
                     nMovie.rating = input[3].Value;
-                    nMovie.genres = input[4].Value;
-                    nMovie.starring = input[5].Value;
+                    nMovie.genres = input[4].Value.Split(' ');
+                    nMovie.starring = input[5].Value.Split(' ');
                     nMovie.language = input[6].Value;
                     nMovie.company = input[7].Value;
                     nMovie.description = input[8].Value;
                     JsonFile.AppendToFile(nMovie, "..\\..\\..\\Movies.json");
                     message.Replace(
-                        new TextListBuilder(addMovie, 1, 10)
+                        new TextListBuilder(addMovie, 1, 15)
                         .Color(ConsoleColor.Green)
-                        .SetItems($"You have succesfully added {nMovie.name} to the list!", "If you want to add another snack, fill in the above requirements again.")
+                        .SetItems($"You have succesfully added {nMovie.name} to the list!", "If you want to add another Movie, fill in the above requirements again.")
                         .Result());
                 }
                 else
@@ -103,7 +97,7 @@ namespace CinemaApplication
                     
                     ErrorList.Insert(0, "Errors:");
                     message.Replace(
-                        new TextListBuilder(addMovie, 1, 10)
+                        new TextListBuilder(addMovie, 1, 15)
                         .Color(ConsoleColor.Red)
                         .SetItems(ErrorList.ToArray())
                         .Result());

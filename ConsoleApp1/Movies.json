@@ -1,203 +1,184 @@
 [
-	{
-		"id" : 0,
-	  "name" : "Harry Potter and the Deathly Hallows: Part 1",
-		"duration" : 90,
-		"releaseDate" : "17-11-2010",
-		"rating" : "3.5/5",
-		"genres" : [
-			"Action",
-			"Fantasy"
-		],
-		"language" : "English",
-		"company" : "Warner Brothers",
-		"starring" : [
-			"Daniel Radcliffe",
-			"Emma Watson",
-			"Rupert Grint"
-		],
-		"description" : "Harry Potter, with his closest friends\n   Hermione and Ron must avoid school and instead search\n   and destroy the Horcruxes. The keys to Voldemort's immortality."
-
-	},
-	{
-		"id" : 1,
-	  "name" : "Lord of the Rings: Fellowship of the Ring",
-		"duration" : 128,
-		"releaseDate" : "19-12-2001",
-		"rating" : "4/5",
-		"genres" : [
-			"Adventure",
-			"Fantasy"
-		
-		],
-		"language" : "English",
-		"company" : "New Line Cinema",
-		"starring" : [
-			"Elijah Wood", 
-			"Ian McKellen"
-		],
-		"description" : "In the Second Age of Middle-earth, the lords of Elves, Dwarves,\n   and Men are given Rings of Power. Unbeknownst to them,\n   the Dark Lord Sauron forges the One Ring in Mount Doom,\n   instilling into it a great part of his power,\n   in order to dominate the other Rings so he might conquer Middle-earth."
-
-	},
-	{
-		"id" : 2,
-	  "name" : "1917",
-		"duration" : 107,
-		"releaseDate" : "04-12-2019",
-		"rating" : "4,5/5",
-		"genres" : [
-			"War",
-			"Drama"
-		
-		],
-		"language" : "English",
-		"company" : "DreamWorks Pictures",
-		"starring" : [
-			"George MacKay",
-			"Dean Charles-Chapman"
-		],
-		"description" : "April 6th, 1917. As a regiment assembles to wage war deep in enemy territory,\n   two soldiers are assigned to race against time and deliver a message\n   that will stop 1,600 men from walking straight into a deadly trap."
-
-	},
-	{
-		"id" : 3,
-	  "name" : "The Holiday",
-		"duration" : 77,
-		"releaseDate" : "07-08-2006",
-		"rating" : "3,5/5",
-		"genres" : [
-			"Romance",
-			"Comedy"
-			
-		],
-		"language" : "English",
-		"company" : "Columbia Pictures",
-		"starring" : [
-			"Kate Winslet",
-			"Cameron Diaz"
-		],
-		"description" : "Two women troubled with guy-problems swap homes in each other's countries,\n   where they each meet a local guy and fall in love."
-
-	},
-    {
-		"id" : 4,
-	  "name" : "Shrek 2",
-		"duration" : 82,
-		"releaseDate" : "01-07-2004",
-		"rating" : "5/5",
-		"genres" : [
-			"Animation",
-			"Comedy"
-			
-		],
-		"language" : "English",
-		"company" : "DreamWorks Pictures",
-		"starring" : [
-			"Mike Myers",
-			"Eddie Murphie"
-		],
-		"description" : "When Shrek and Fiona return from their honeymoon, her parents,\n   the rulers of Far Far Away, invite them over. But as the king does not like Shrek,\n   he enlists a fairy to keep him away from his daughter."
-
-	},
-	{
-		"id" : 5,
-	  "name" : "Shutter Island",
-		"duration" : 102,
-		"releaseDate" : "18-02-2010",
-		"rating" : "5/5",
-		"genres" : [
-			"Thriller",
-			"Drama"
-			
-		],
-		"language" : "English",
-		"company" : "Phoenix pictures",
-		"starring" : [
-			"Leonardo DiCaprio",
-			"Mark Ruffalo"
-		],
-		"description" : "In 1954, U.S. Marshal Edward 'Teddy' Daniels and his new partner Chuck Aule\n   travel to the Ashecliffe Hospital for the criminally insane on Shutter Island in Boston Harbor.\n   They are investigating the disappearance of patient Rachel Solando, incarcerated for drowning her three children."
-
-	},
-	{
-		"id" : 6,
-	  "name" : "Avengers: Endgame",
-		"duration" : 178,
-		"releaseDate" : "24-04-2019",
-		"rating" : "4/5",
-		"genres" : [
-			"Action",
-			"Adventure"
-			
-		],
-		"language" : "English",
-		"company" : "Marvel Studios",
-		"starring" : [
-			"Robert Downie Jr.",
-			"Chris Evans"
-		],
-		"description" : "After Thanos, an intergalactic warlord, disintegrates half of the universe,\n   the Avengers must reunite and assemble again to\n   reinvigorate their trounced allies and restore balance."
-
-	},
-	{
-		"id" : 7,
-	  "name" : "Hot Fuzz",
-		"duration" : 78,
-		"releaseDate" : "14-02-2007",
-		"rating" : "4,5/5",
-		"genres" : [
-			"Action",
-			"Comedy"
-			
-		],
-		"language" : "English",
-		"company" : "StudioCanal",
-		"starring" : [
-			"Simon Pegg",
-			"Nick Frost"
-		],
-		"description" : "Police officer Nicholas Angel is known to be the best across London.\n   His seniors, who are jealous of his achievements, transfer him to\n   a remote village where he encounters various challenges."
-
-	},
-	{
-		"id" : 8,
-	  "name" : "Chocolat",
-		"duration" : 117,
-		"releaseDate" : "08-03-2001",
-		"rating" : "4,5/5",
-		"genres" : [
-			"Romance",
-			"Drama"
-			
-		],
-		"language" : "English",
-		"company" : "Miramax Films",
-		"starring" : [
-			"Juliette Binoche",
-			"Johnny Depp"
-		],
-		"description" : "A woman and her daughter open a chocolate shop in a conservative village in France,\n   much to the villagers' disapproval. Over time, they win the people's hearts\n   and also help them with their troubles."
-
-	},
-	{
-		"id" : 9,
-	  "name" : "GoodFellas",
-		"duration" : 148,
-		"releaseDate" : "02-11-1990",
-		"rating" : "5/5",
-		"genres" : [
-			"Crime",
-			"Drama"
-			
-		],
-		"language" : "English",
-		"company" : "Warner Brothers",
-		"starring" : [
-			"Robert De Niro",
-			"Joe Pesci"
-		],
-		"description" : "Young Henry Hill, with his friends Jimmy and Tommy,\n   begins the climb from being a petty criminal to\n   a gangster on the mean streets of New York."
-
-	}
+  {
+    "id": 0,
+    "name": "Harry Potter and the Deathly Hallows: Part 1",
+    "duration": 90,
+    "releaseDate": "17-11-2010",
+    "rating": "3.5/5",
+    "genres": [
+      "Action",
+      "Fantasy"
+    ],
+    "language": "English",
+    "company": "Warner Brothers",
+    "starring": [
+      "Daniel Radcliffe",
+      "Emma Watson",
+      "Rupert Grint"
+    ],
+    "description": "Harry Potter, with his closest friends\n   Hermione and Ron must avoid school and instead search\n   and destroy the Horcruxes. The keys to Voldemort\u0027s immortality."
+  },
+  {
+    "id": 1,
+    "name": "Lord of the Rings: Fellowship of the Ring",
+    "duration": 128,
+    "releaseDate": "19-12-2001",
+    "rating": "4/5",
+    "genres": [
+      "Adventure",
+      "Fantasy"
+    ],
+    "language": "English",
+    "company": "New Line Cinema",
+    "starring": [
+      "Elijah Wood",
+      "Ian McKellen"
+    ],
+    "description": "In the Second Age of Middle-earth, the lords of Elves, Dwarves,\n   and Men are given Rings of Power. Unbeknownst to them,\n   the Dark Lord Sauron forges the One Ring in Mount Doom,\n   instilling into it a great part of his power,\n   in order to dominate the other Rings so he might conquer Middle-earth."
+  },
+  {
+    "id": 2,
+    "name": "1917",
+    "duration": 107,
+    "releaseDate": "04-12-2019",
+    "rating": "4,5/5",
+    "genres": [
+      "War",
+      "Drama"
+    ],
+    "language": "English",
+    "company": "DreamWorks Pictures",
+    "starring": [
+      "George MacKay",
+      "Dean Charles-Chapman"
+    ],
+    "description": "April 6th, 1917. As a regiment assembles to wage war deep in enemy territory,\n   two soldiers are assigned to race against time and deliver a message\n   that will stop 1,600 men from walking straight into a deadly trap."
+  },
+  {
+    "id": 3,
+    "name": "The Holiday",
+    "duration": 77,
+    "releaseDate": "07-08-2006",
+    "rating": "3,5/5",
+    "genres": [
+      "Romance",
+      "Comedy"
+    ],
+    "language": "English",
+    "company": "Columbia Pictures",
+    "starring": [
+      "Kate Winslet",
+      "Cameron Diaz"
+    ],
+    "description": "Two women troubled with guy-problems swap homes in each other\u0027s countries,\n   where they each meet a local guy and fall in love."
+  },
+  {
+    "id": 4,
+    "name": "Shrek 2",
+    "duration": 82,
+    "releaseDate": "01-07-2004",
+    "rating": "5/5",
+    "genres": [
+      "Animation",
+      "Comedy"
+    ],
+    "language": "English",
+    "company": "DreamWorks Pictures",
+    "starring": [
+      "Mike Myers",
+      "Eddie Murphie"
+    ],
+    "description": "When Shrek and Fiona return from their honeymoon, her parents,\n   the rulers of Far Far Away, invite them over. But as the king does not like Shrek,\n   he enlists a fairy to keep him away from his daughter."
+  },
+  {
+    "id": 5,
+    "name": "Shutter Island",
+    "duration": 102,
+    "releaseDate": "18-02-2010",
+    "rating": "5/5",
+    "genres": [
+      "Thriller",
+      "Drama"
+    ],
+    "language": "English",
+    "company": "Phoenix pictures",
+    "starring": [
+      "Leonardo DiCaprio",
+      "Mark Ruffalo"
+    ],
+    "description": "In 1954, U.S. Marshal Edward \u0027Teddy\u0027 Daniels and his new partner Chuck Aule\n   travel to the Ashecliffe Hospital for the criminally insane on Shutter Island in Boston Harbor.\n   They are investigating the disappearance of patient Rachel Solando, incarcerated for drowning her three children."
+  },
+  {
+    "id": 6,
+    "name": "Avengers: Endgame",
+    "duration": 178,
+    "releaseDate": "24-04-2019",
+    "rating": "4/5",
+    "genres": [
+      "Action",
+      "Adventure"
+    ],
+    "language": "English",
+    "company": "Marvel Studios",
+    "starring": [
+      "Robert Downie Jr.",
+      "Chris Evans"
+    ],
+    "description": "After Thanos, an intergalactic warlord, disintegrates half of the universe,\n   the Avengers must reunite and assemble again to\n   reinvigorate their trounced allies and restore balance."
+  },
+  {
+    "id": 7,
+    "name": "Hot Fuzz",
+    "duration": 78,
+    "releaseDate": "14-02-2007",
+    "rating": "4,5/5",
+    "genres": [
+      "Action",
+      "Comedy"
+    ],
+    "language": "English",
+    "company": "StudioCanal",
+    "starring": [
+      "Simon Pegg",
+      "Nick Frost"
+    ],
+    "description": "Police officer Nicholas Angel is known to be the best across London.\n   His seniors, who are jealous of his achievements, transfer him to\n   a remote village where he encounters various challenges."
+  },
+  {
+    "id": 8,
+    "name": "Chocolat",
+    "duration": 117,
+    "releaseDate": "08-03-2001",
+    "rating": "4,5/5",
+    "genres": [
+      "Romance",
+      "Drama"
+    ],
+    "language": "English",
+    "company": "Miramax Films",
+    "starring": [
+      "Juliette Binoche",
+      "Johnny Depp"
+    ],
+    "description": "A woman and her daughter open a chocolate shop in a conservative village in France,\n   much to the villagers\u0027 disapproval. Over time, they win the people\u0027s hearts\n   and also help them with their troubles."
+  },
+  {
+    "id": 9,
+    "name": "GoodFellas",
+    "duration": 148,
+    "releaseDate": "02-11-1990",
+    "rating": "5/5",
+    "genres": [
+      "Crime",
+      "Drama"
+    ],
+    "language": "English",
+    "company": "Warner Brothers",
+    "starring": [
+      "Robert De Niro",
+      "Joe Pesci"
+    ],
+    "description": "Young Henry Hill, with his friends Jimmy and Tommy,\n   begins the climb from being a petty criminal to\n   a gangster on the mean streets of New York."
+  }
 
 ]
