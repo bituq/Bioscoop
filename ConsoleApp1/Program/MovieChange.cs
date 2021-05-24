@@ -81,16 +81,21 @@ namespace CinemaApplication
                 if (ErrorList.Count == 0)
                 {
                    
-                    var nSnack = new SnacksAdd();
-                    nSnack.name = input[0].Value;
-                    nSnack.price = price;
-                    nSnack.vegetarian = input[2].Value;
-                    nSnack.stock = stock;
-                    JsonFile.AppendToFile(nSnack, "..\\..\\..\\snacksAndDrinks.json");
+                    var nMovie = new MovieAdd();
+                    nMovie.name = input[0].Value;
+                    nMovie.duration = input[1].Value;
+                    nMovie.releaseDate = input[2].Value;
+                    nMovie.rating = input[3].Value;
+                    nMovie.genres = input[4].Value;
+                    nMovie.starring = input[5].Value;
+                    nMovie.language = input[6].Value;
+                    nMovie.company = input[7].Value;
+                    nMovie.description = input[8].Value;
+                    JsonFile.AppendToFile(nMovie, "..\\..\\..\\Movies.json");
                     message.Replace(
-                        new TextListBuilder(addSnack, 1, 10)
+                        new TextListBuilder(addMovie, 1, 10)
                         .Color(ConsoleColor.Green)
-                        .SetItems($"You have succesfully added {nSnack.name} to the list!", "If you want to add another snack, fill in the above requirements again.")
+                        .SetItems($"You have succesfully added {nMovie.name} to the list!", "If you want to add another snack, fill in the above requirements again.")
                         .Result());
                 }
                 else
@@ -98,7 +103,7 @@ namespace CinemaApplication
                     
                     ErrorList.Insert(0, "Errors:");
                     message.Replace(
-                        new TextListBuilder(addSnack, 1, 10)
+                        new TextListBuilder(addMovie, 1, 10)
                         .Color(ConsoleColor.Red)
                         .SetItems(ErrorList.ToArray())
                         .Result());
