@@ -64,8 +64,6 @@ namespace CinemaApplication
             {
                 
                 var ErrorList = new List<string>();
-                string[] n = new string[] { "yes", "no" };
-                double price = 0.0;
                 int duration = 0;
                 if (input[0].Value == "" || input[1].Value == "" || input[2].Value == "" || input[3].Value == "" || input[4].Value == "" || input[5].Value == "" || input[6].Value == "" || input[7].Value == "" || input[8].Value == "")
                     ErrorList.Add("Input fields may not be empty.");
