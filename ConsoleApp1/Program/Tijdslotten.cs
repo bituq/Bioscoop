@@ -26,6 +26,7 @@ namespace CinemaApplication
             }
             public Window Window { get; set; } = new Window();
             public Movie Movie { get; set; }
+            
             public int id { get; set; }
             public int Time { get; set; }
             public Hall Hall { get; set; }
@@ -104,7 +105,7 @@ namespace CinemaApplication
 
                     columns.Add(_);
                 }
-
+                
                 var goBack = new TextListBuilder(this.Window, 1, 7 + this.Hall.Rows)
                     .Color(ConsoleColor.Yellow)
                     .SetItems("Go back", "Make reservation")
@@ -149,7 +150,7 @@ namespace CinemaApplication
                 goBack[1].OnClick = () =>
                 {
                     var reservation = new Reservation(this, this.Window, selectedSeats);
-                    goBack[1].Referral = reservation.PaymentsWindow;
+                    goBack[1].Referral = reservation.FoodWindow;
                     goBack[1].ActivateReferral();
                 };
             }
