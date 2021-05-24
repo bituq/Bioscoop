@@ -9,6 +9,7 @@ namespace CinemaUI
         internal TextList TextList { get; set; }
         internal new List<SelectableText> Items { get; set; } = new List<SelectableText>();
         internal int OrderIndex { get => TextList.Window.SelectionOrder.IndexOf(this); }
+        public int SelectedIndex { get => Items.FindIndex(0, item => item.Selected == true); }
 
         public ConsoleColor Foreground { get; set; }
         public ConsoleColor Background { get; set; }
