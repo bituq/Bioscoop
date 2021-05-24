@@ -13,7 +13,7 @@ namespace CinemaApplication
     {
         public class MovieAdd
         {
-            public string id { get; set; }
+            public int id { get; set; }
             public string name { get; set; }
             public int duration { get; set; }
             public string releaseDate { get; set; }
@@ -76,12 +76,13 @@ namespace CinemaApplication
                 {
                    
                     var nMovie = new MovieAdd();
+                    nMovie.id = JsonFile.FileAsList("..\\..\\..\\Movies.json")[(JsonFile.FileAsList("..\\..\\..\\Movies.json").Count - 1)].GetProperty("id").GetInt32() + 1;
                     nMovie.name = input[0].Value;
                     nMovie.duration = duration;
                     nMovie.releaseDate = input[2].Value;
                     nMovie.rating = input[3].Value;
                     nMovie.genres = input[4].Value.Split(' ');
-                    nMovie.starring = input[5].Value.Split(' ');
+                    nMovie.starring = input[5].Value.Split(", ");
                     nMovie.language = input[6].Value;
                     nMovie.company = input[7].Value;
                     nMovie.description = input[8].Value;
