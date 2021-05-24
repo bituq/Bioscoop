@@ -3,6 +3,8 @@ using System.IO;
 using CinemaUI;
 using CinemaUI.Builder;
 using JsonHandler;
+using System.Text.Json;
+using System.Collections.Generic;
 
 namespace CinemaApplication
 {
@@ -66,6 +68,7 @@ namespace CinemaApplication
                     }
                     string code = inputList2[0].Value;
                     bool found = false;
+                    var listOfReservations = new List<string>();
                     for (int j = 0; j < root2.Count; j++)
                     {
                         if ((root2[j].GetProperty("code").ToString()) == code)
@@ -74,13 +77,25 @@ namespace CinemaApplication
                             string voornaam = (root2[j].GetProperty("firstName").ToString());
                             string achternaam = (root2[j].GetProperty("lastName").ToString());
                             string zaal = (root2[j].GetProperty("hall").ToString());
-                            string stoel = (root2[j].GetProperty("occupiedSeats").ToString());
+                            var stoelen = (root2[j].GetProperty("occupiedSeats"));
+                            var seatList = new Dictionary<int, string>();
+                            foreach (JsonElement stoel in stoelen.EnumerateArray())
+                            {
+                                string temp = "";
+                                int row = stoel.GetProperty("row").GetInt32();
+                                if (!seatList.ContainsKey(row))
+                                    seatList[row] = $"Row {row} - ";
+                                seatList[row] += $"{temp}seat {stoel.GetProperty("column")} ";
+                            }
                             int film = (root2[j].GetProperty("movieId").GetInt32());
                             int datum = (root2[j].GetProperty("date").GetInt32());
+                            listOfReservations.AddRange(new string[] { $"The reservation is on the name {voornaam + " " + achternaam}.", $"The film plays on { UnixToDate(datum).ToString("dd/MM/yyyy") }.", $"{voornaam + " " + achternaam} is going to the film {FilmToText(film)} in hall {zaal} on seat(s): " });
+                            listOfReservations.AddRange(seatList.Values);
+                            listOfReservations.AddRange(new string[2]);
                             successMessage2.Replace(
                                 new TextListBuilder(ZoekScherm, 1, 8)
                                 .Color(ConsoleColor.Green)
-                                .SetItems($"The reservation is on the name {voornaam + " " + achternaam}.", $"{voornaam + " " + achternaam} is going to film {FilmToText(film)} in hall {zaal} on seat {stoel}. The film plays on {UnixToDate(datum).ToString("dd/MM/yyyy")}.")
+                                .SetItems(listOfReservations.ToArray())
                                 .Result()
                             );
                         }
