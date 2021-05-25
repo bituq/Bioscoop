@@ -32,23 +32,23 @@ namespace CinemaApplication
                  .Text("Enter the information of the snack you want to add")
                  .Result();
 
-            var inputOptions = new TextListBuilder(addSnack, 1, 5)
+            var inputOptions = new TextListBuilder(addSnack, 13, 5)
                 .SetItems("Name: ", "Price: ", "Veggie: ", "Stock: ")
                 .Result();
 
-            var input = new TextListBuilder(addSnack, 2 + inputOptions.Items[3].Text.Length, 5)
+            var input = new TextListBuilder(addSnack, 14 + inputOptions.Items[3].Text.Length, 5)
                 .Color(ConsoleColor.Gray)
                 .SetItems("", "", "", "")
                 .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
                 .Result();
 
-            var addButton = new TextListBuilder(addSnack, 1, 10)
+            var addButton = new TextListBuilder(addSnack, 13, 10)
                 .Color(ConsoleColor.Green)
                 .SetItems("Add")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
             
-            var _ = new TextListBuilder(addSnack, 1, 17)
+            var _ = new TextListBuilder(addSnack, 1, 5)
                 .Color(ConsoleColor.Red)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
