@@ -124,6 +124,13 @@ namespace CinemaApplication
                 .LinkWindows(null, editMovieList)
                 .Result();
 
+                Menu[1].OnClick = () =>
+                {
+                    editMovieList.Reset();
+                    EditMovies();
+                    editMovieList.Init();
+                };
+
                 var Path = new TextBuilder(TimeslotEditWindow, 2, 2)
                     .Color(ConsoleColor.Cyan)
                     .Text("Home/Admin/Movies/List/Timeslot")
@@ -188,6 +195,7 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.White, ConsoleColor.Red)
                     .Result();
 
+                bool isEmpty = false;
                 void InitRemoveButtons()
                 {
                     foreach (SelectableText button in RemoveButtons.Items)
@@ -198,6 +206,19 @@ namespace CinemaApplication
                             RemoveButtonList.RemoveAt(index);
                             TimeSlotDates.RemoveAt(index);
                             TimeSlotNames.RemoveAt(index);
+
+                            if(!isEmpty)
+                            {
+                                var timeslot = TimeSlotList[index];
+                                JsonFile.RemoveFromFile("id", timeslot.GetProperty("id").GetInt32(), "..\\..\\..\\TimeSlots.json");
+                            }
+
+                            if (RemoveButtonList.Count == 0)
+                            {
+                                isEmpty = true;
+                                RemoveButtonList.Add("");
+                            }
+
                             RemoveButtons.Replace(new TextListBuilder(TimeslotEditWindow, Title.Position.X + MaxLength + 1, 5)
                                 .Color(ConsoleColor.Red)
                                 .SetItems(RemoveButtonList.ToArray())
@@ -207,6 +228,21 @@ namespace CinemaApplication
                                 .Color(ConsoleColor.White)
                                 .SetItems(TimeSlotNames.ToArray())
                                 .Result());
+
+                            if (isEmpty)
+                            {
+                                RemoveButtons[0].Disable();
+                                RemoveButtons[0].Unselect();
+                                TimeslotEditWindow.ActiveSelectable = Menu;
+                                Menu[0].Select();
+                            }
+                            for (int i = 0; i < TimeSlotNames.Count; i++)
+                                if (DateTime.Now < TimeSlotDates[i].AddMinutes(Duration) && DateTime.Now >= TimeSlotDates[i])
+                                    TimeSlots.Items[i].TextColor = ConsoleColor.Green;
+                                else
+                                    if (DateTime.Now > TimeSlotDates[i].AddMinutes(Duration))
+                                        TimeSlots.Items[i].TextColor = ConsoleColor.DarkGray;
+                            TimeslotEditWindow.Init();
                             InitRemoveButtons();
                         }
                         button.OnClick = () => OnRemove();
