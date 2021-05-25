@@ -28,7 +28,6 @@ namespace CinemaApplication
                     client.Host = "smtp.gmail.com";
                     client.Port = 587;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
-
                     client.Send(msg);
                 }
             }

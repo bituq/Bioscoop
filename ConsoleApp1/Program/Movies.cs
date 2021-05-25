@@ -308,6 +308,7 @@ namespace CinemaApplication
                         movieObjects[i].Id = root[i].GetProperty("id").GetInt32();
                         movieWindows.Add(movieObjects[i].Window);
                         movieNames.Add($"{i+1}. " + movieObjects[i].Name);
+                        timeslotCounts.Add(timeSlotsOfMovie.Count);
 
                         foreach (JsonElement timeSlot in timeSlotsOfMovie)
                         {
