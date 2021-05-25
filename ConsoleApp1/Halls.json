@@ -11,27 +11,22 @@
   },
   {
     "id": 3,
-    "rows": 24,
+    "rows": 6,
     "columns": 12
   },
   {
     "id": 4,
-    "rows": 33,
-    "columns": 333
+    "rows": 5,
+    "columns": 23
   },
   {
     "id": 5,
-    "rows": 24,
-    "columns": 56
+    "rows": 10,
+    "columns": 26
   },
   {
     "id": 6,
-    "rows": 61,
-    "columns": 5
-  },
-  {
-    "id": 6,
-    "rows": 61,
+    "rows": 21,
     "columns": 5
   },
   {
@@ -40,13 +35,13 @@
     "columns": 7
   },
   {
-    "id": 43,
+    "id": 13,
     "rows": 35,
     "columns": 45
   },
   {
     "id": 455,
-    "rows": 35,
-    "columns": 35
+    "rows": 10,
+    "columns": 5
   }
 ]
