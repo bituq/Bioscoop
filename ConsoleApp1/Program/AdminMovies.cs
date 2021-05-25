@@ -17,7 +17,7 @@ namespace CinemaApplication
                 .SetItems("Add a movie", "Edit movies/timeslots", "Go Back")
                 .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(null, editMovieList, AdminScherm)
+                .LinkWindows(addMovie, editMovieList, AdminScherm)
                 .Result();
 
             var Path = new TextBuilder(adminMovieWindow, 2, 2)
