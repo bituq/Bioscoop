@@ -96,6 +96,9 @@ namespace CinemaApplication
                         .Color(ConsoleColor.Green)
                         .SetItems($"You have succesfully added {nSnack.name} to the list!", "If you want to add another snack, fill in the above requirements again.")
                         .Result());
+                    snacksWindow.Reset();
+                    SnacksWindow();
+                    snacksWindow.Init();
                 }
                 else
                 {
