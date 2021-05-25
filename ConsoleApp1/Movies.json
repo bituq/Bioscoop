@@ -179,5 +179,25 @@
       "Joe Pesci"
     ],
     "description": "Young Henry Hill, with his friends Jimmy and Tommy,\n   begins the climb from being a petty criminal to\n   a gangster on the mean streets of New York."
+  },
+  {
+    "id": 10,
+    "name": "Samson de Gert: Hotel op stelten",
+    "duration": 180,
+    "releaseDate": "18-01-1999",
+    "rating": "5/5",
+    "genres": [
+      "Drama",
+      "Crime"
+    ],
+    "starring": [
+      "Gert",
+      "Verhult",
+      "Leonardio",
+      "DiCaprio"
+    ],
+    "language": "Armenian",
+    "company": "Amazon",
+    "description": "Samson and Gert are going on vacation to an old haunted hotel."
   }
 ]

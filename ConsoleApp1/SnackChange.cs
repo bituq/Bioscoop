@@ -22,24 +22,34 @@ namespace CinemaApplication
         public static Window addSnack = new Window(false);
         static void AddSnack()
         {
-            var inputOptions = new TextListBuilder(addSnack, 1, 3)
+            var title = new TextBuilder(addSnack, 1, 2)
+           .Color(ConsoleColor.Cyan)
+           .Text("Home/Admin/Hall Select/Edit Snack")
+           .Result();
+
+            var title2 = new TextBuilder(addSnack, 1, 3)
+                 .Color(ConsoleColor.White)
+                 .Text("Enter the information of the snack you want to add")
+                 .Result();
+
+            var inputOptions = new TextListBuilder(addSnack, 1, 5)
                 .SetItems("Name: ", "Price: ", "Veggie: ", "Stock: ")
                 .Result();
 
-            var input = new TextListBuilder(addSnack, 2 + inputOptions.Items[3].Text.Length, 3)
+            var input = new TextListBuilder(addSnack, 2 + inputOptions.Items[3].Text.Length, 5)
                 .Color(ConsoleColor.Gray)
                 .SetItems("", "", "", "")
                 .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
                 .Result();
 
-            var addButton = new TextListBuilder(addSnack, 1, 8)
+            var addButton = new TextListBuilder(addSnack, 1, 10)
                 .Color(ConsoleColor.Green)
                 .SetItems("Add")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
             
-            var _ = new TextListBuilder(addSnack, 1, 15)
-                .Color(ConsoleColor.White)
+            var _ = new TextListBuilder(addSnack, 1, 17)
+                .Color(ConsoleColor.Red)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(AdminScherm)
@@ -82,7 +92,7 @@ namespace CinemaApplication
                     nSnack.stock = stock;
                     JsonFile.AppendToFile(nSnack, "..\\..\\..\\snacksAndDrinks.json");
                     message.Replace(
-                        new TextListBuilder(addSnack, 1, 10)
+                        new TextListBuilder(addSnack, 1, 12)
                         .Color(ConsoleColor.Green)
                         .SetItems($"You have succesfully added {nSnack.name} to the list!", "If you want to add another snack, fill in the above requirements again.")
                         .Result());
@@ -92,7 +102,7 @@ namespace CinemaApplication
                     /* Dylan */
                     ErrorList.Insert(0, "Errors:");
                     message.Replace(
-                        new TextListBuilder(addSnack, 1, 10)
+                        new TextListBuilder(addSnack, 1, 12)
                         .Color(ConsoleColor.Red)
                         .SetItems(ErrorList.ToArray())
                         .Result());
