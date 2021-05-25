@@ -34,5 +34,17 @@
     "price": 375,
     "vegetarian": "Yes",
     "stock": 80
+  },
+  {
+    "name": "Mentos",
+    "price": 2,
+    "vegetarian": "Yes",
+    "stock": 10
+  },
+  {
+    "name": "Mentos",
+    "price": 2,
+    "vegetarian": "Yes",
+    "stock": 10
   }
 ]
