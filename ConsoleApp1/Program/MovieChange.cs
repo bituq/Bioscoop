@@ -51,8 +51,6 @@ namespace CinemaApplication
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
 
-           
-
             var message = new TextListBuilder(addMovie)
                 .SetItems("")
                 .Result();
@@ -92,6 +90,9 @@ namespace CinemaApplication
                         .Color(ConsoleColor.Green)
                         .SetItems($"You have succesfully added {nMovie.name} to the list!", "If you want to add another Movie, fill in the above requirements again.")
                         .Result());
+                    listOfFilms.Reset();
+                    ListOfFilms();
+                    listOfFilms.Init();
                 }
                 else
                 {
