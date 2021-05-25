@@ -20,6 +20,13 @@ namespace CinemaApplication
             {
                 Name = name;
 
+                var _ = new TextListBuilder(Window, 1, 1)
+                   .Color(ConsoleColor.White)
+                   .SetItems("Go back")
+                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                   .LinkWindows(snacksWindow)
+                   .Result();
+
                 var title = new TextBuilder(Window, 11, 1)
                     .Color(ConsoleColor.Red)
                     .Text(name)
@@ -29,13 +36,6 @@ namespace CinemaApplication
                     .Color(ConsoleColor.White)
                     .SetItems(price, vegetarian, stock)
                     .Result();
-
-                var _ = new TextListBuilder(Window, 1, 1)
-                   .Color(ConsoleColor.White)
-                   .SetItems("Go back")
-                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                   .LinkWindows(snacksWindow)
-                   .Result();
 
             }
         }
