@@ -25,7 +25,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.Red)
                 .SetItems("Search by code", "Search by name", "Go back")
                 .UseNumbers()
-                .Selectable(ConsoleColor.DarkBlue,ConsoleColor.Red)
+                .Selectable(ConsoleColor.Black,ConsoleColor.White)
                 .LinkWindows(ZoekScherm, NaamScherm, AdminScherm)
                 .Result();
         }

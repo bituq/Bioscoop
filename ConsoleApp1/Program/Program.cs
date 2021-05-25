@@ -24,7 +24,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.Red)
                 .UseNumbers()
                 .SetItems("Visitor", "Admin")
-                .Selectable(ConsoleColor.DarkBlue, ConsoleColor.Red)
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(mainMenu, AdminScherm)
                 .Result();
         }
