@@ -51,7 +51,7 @@ namespace CinemaApplication
                 // filter genre
                 for (int i = 0; i < this.Genres.Length; i++)
                 {
-                    root.RemoveAll(x => !x.GetProperty("genres").ToString().Contains(this.Genres[i]));
+                    root.RemoveAll(x => !x.GetProperty("genres").ToString().ToLower().Contains(this.Genres[i].ToLower()));
                 }
 
                 // filter time
