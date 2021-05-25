@@ -129,6 +129,9 @@ namespace CinemaApplication
                     editMovieList.Reset();
                     EditMovies();
                     editMovieList.Init();
+                    listOfFilms.Reset();
+                    ListOfFilms();
+                    listOfFilms.Init();
                 };
 
                 var Path = new TextBuilder(TimeslotEditWindow, 2, 2)
@@ -327,6 +330,7 @@ namespace CinemaApplication
 
                 for (int i = 0; i < root.Count; i++) // JsonRoot.GetArrayLength()
                 {
+                    timeslotsFile = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
                     var timeSlotsOfMovie = timeslotsFile.FindAll(timeSlots => timeSlots.GetProperty("movieId").GetInt32() == root[i].GetProperty("id").GetInt32());
                     if (timeSlotsOfMovie.Count >= 0) // terug zetten voor eind build
                     {
