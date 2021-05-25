@@ -17,7 +17,7 @@ namespace CinemaApplication
         { 
           var home = new TextBuilder(homeScreen, 2, 2)
                 .Color(ConsoleColor.Cyan)
-                .Text("The Wilhelmina Theater")
+                .Text("Das Kino")
                 .Result();
 
           var screen = new TextListBuilder(homeScreen, 2, 5)
