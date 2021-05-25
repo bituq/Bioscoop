@@ -376,7 +376,7 @@ namespace CinemaApplication
                     var removeIndex = removebutton.SelectedIndex;
 
                     if (cartpricelist.Count > 0)
-                        sum -= Convert.ToInt32(Convert.ToDouble(cartpricelist[removeIndex].Trim('$')));
+                        sum -= Convert.ToDouble(cartpricelist[removeIndex]) / 100;
                     else
                         sum = 0;
 
@@ -412,7 +412,7 @@ namespace CinemaApplication
 
                     total.Replace(new TextListBuilder(FoodWindow, 21, 20)
                     .Color(ConsoleColor.White)
-                    .SetItems($"${(sum / 100).ToString()}" + "." + ((sum % 100 < 10) ? $"0{sum % 100}" : (sum % 100).ToString()))
+                    .SetItems($"${Math.Round(sum, 2)}")
                     .Result());
 
                     if (!isEmpty)
