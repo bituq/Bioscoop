@@ -57,7 +57,7 @@ namespace CinemaApplication
                     .Result();
 
                 var title = new TextBuilder(Window, 11, 1)
-                    .Color(ConsoleColor.Magenta)
+                    .Color(ConsoleColor.Red)
                     .Text("Make a reservation for " + TimeSlot.Movie.Name)
                     .Result();
 
@@ -198,7 +198,7 @@ namespace CinemaApplication
                 var MethodsList = new string[] { "IDEAL", "PayPal", "VISA", "Maestro", "MasterCard" };
 
                 var title = new TextBuilder(PaymentsWindow, 11, 1)
-                    .Color(ConsoleColor.Magenta)
+                    .Color(ConsoleColor.Red)
                     .Text("Select a payment method.")
                     .Result();
                 var goBack = new TextListBuilder(PaymentsWindow, 1, 1)
@@ -220,7 +220,7 @@ namespace CinemaApplication
             {
                 var IDEALlist = new string[] { "ING", "ABN-AMRO", "Rabobank", "RegioBank", "SNS bank", "knab"};
                 var title = new TextBuilder(ideal, 11, 1)
-                    .Color(ConsoleColor.Magenta)
+                    .Color(ConsoleColor.Red)
                     .Text("Choose your bank.")
                     .Result();
 

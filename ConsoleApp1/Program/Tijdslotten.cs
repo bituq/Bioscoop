@@ -58,17 +58,17 @@ namespace CinemaApplication
                             occupiedSeats.Add(new Seat(seat.GetProperty("row").GetInt32(), seat.GetProperty("column").GetInt32()));
 
                 var title = new TextBuilder(this.Window, 1, 0)
-                .Color(ConsoleColor.Magenta)
+                .Color(ConsoleColor.Red)
                 .Text($"Available seats at {Time.ToString("g")}")
                 .Result();
 
                 var subtitle = new TextBuilder(this.Window, 1, 1)
-                    .Color(ConsoleColor.DarkMagenta)
+                    .Color(ConsoleColor.Red)
                     .Text("Movie: " + this.Movie.Name)
                     .Result();
 
                 var subtitle2 = new TextBuilder(this.Window, 1, 2)
-                    .Color(ConsoleColor.DarkMagenta)
+                    .Color(ConsoleColor.Red)
                     .Text("Hall: " + this.Hall.Id)
                     .Result();
 
@@ -178,7 +178,7 @@ namespace CinemaApplication
                     .Result();
 
                 var title = new TextBuilder(timeSlotWindow, 11, 1)
-                    .Color(ConsoleColor.Magenta)
+                    .Color(ConsoleColor.Red)
                     .Text("Available times for " + Name)
                     .Result();
 
