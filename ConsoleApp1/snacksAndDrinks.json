@@ -28,23 +28,5 @@
     "price": 3.99,
     "vegetarian": "Yes",
     "stock": 45
-  },
-  {
-    "name": "Mentos(XL)",
-    "price": 375,
-    "vegetarian": "Yes",
-    "stock": 80
-  },
-  {
-    "name": "Mentos",
-    "price": 2,
-    "vegetarian": "Yes",
-    "stock": 10
-  },
-  {
-    "name": "Mentos",
-    "price": 2,
-    "vegetarian": "Yes",
-    "stock": 10
   }
 ]
