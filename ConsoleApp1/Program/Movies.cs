@@ -338,6 +338,10 @@ namespace CinemaApplication
                 .LinkWindows(movieWindows.ToArray())
                 .Result();
 
+            for (int i = 0; i < movieList.Items.Count; i++)
+                if (timeslotCounts[i] == 0)
+                    movieList[i].Disable();
+
             var filterInputs = new TextListBuilder(listOfFilms, 80, 3)
                 .SetItems("Name: ", "Genre: ", "Date: ")
                 .Result();
