@@ -87,23 +87,12 @@ namespace CinemaApplication
                 int rows = 0;
                 int columns = 0;
 
-               
-
-                
 
                 if (input[0].Value == "" || input[1].Value == "" || input[2].Value == "")
                     ErrorList.Add("Input fields may not be empty.");
                 if (!Int32.TryParse(input[0].Value, out id))
                     ErrorList.Add("ID must be an integer (ex. 1, 5, 10 etc.)");
-                if (!Int32.TryParse(input[1].Value, out rows))
-                    ErrorList.Add("Rows must be an integer (ex. 1, 5, 10 etc.)");
-                if (!Int32.TryParse(input[2].Value, out columns))
-                    ErrorList.Add("Columns must be an integer (ex. 1, 5, 10 etc.)");
-                
-                
-
-                if (ErrorList.Count == 0)
-                {
+                else
                     for (int i = 0; i < root.GetArrayLength(); i++)
                     {
                         if (Convert.ToInt32(input[0].Value) == root[i].GetProperty("id").GetInt32())
@@ -111,20 +100,25 @@ namespace CinemaApplication
                             ErrorList.Add($"There already exist an hall with the id {input[0].Value}!");
                         }
                     }
-                    if (ErrorList.Count == 0)
-                    {
-                        var objHall = new addHall();
-                        objHall.id = Convert.ToInt32(input[0].Value);
-                        objHall.rows = Convert.ToInt32(input[1].Value);
-                        objHall.columns = Convert.ToInt32(input[2].Value);
-                        JsonFile.AppendToFile(objHall, "..\\..\\..\\Halls.json");
-                        message.Replace(
-                            new TextListBuilder(addhallscreen, 13, 12)
-                            .Color(ConsoleColor.Green)
-                            .SetItems($"You have succesfully added hall {objHall.id} to the list!", "If you want to add another snack, fill in the above requirements again.")
-                            .Result());
-                    }
-                }
+                if (!Int32.TryParse(input[1].Value, out rows))
+                    ErrorList.Add("Rows must be an integer (ex. 1, 5, 10 etc.)");
+                if (!Int32.TryParse(input[2].Value, out columns))
+                    ErrorList.Add("Columns must be an integer (ex. 1, 5, 10 etc.)");
+                
+
+                if (ErrorList.Count == 0)
+                {
+                    var objHall = new addHall();
+                    objHall.id = Convert.ToInt32(input[0].Value);
+                    objHall.rows = Convert.ToInt32(input[1].Value);
+                    objHall.columns = Convert.ToInt32(input[2].Value);
+                    JsonFile.AppendToFile(objHall, "..\\..\\..\\Halls.json");
+                    message.Replace(
+                        new TextListBuilder(addhallscreen, 13, 12)
+                        .Color(ConsoleColor.Green)
+                        .SetItems($"You have succesfully added hall {objHall.id} to the list!", "If you want to add another snack, fill in the above requirements again.")
+                        .Result());
+                } 
                 else
                 {
                     ErrorList.Insert(0, "Errors:");
