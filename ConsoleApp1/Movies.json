@@ -199,5 +199,23 @@
     "language": "Armenian",
     "company": "Amazon",
     "description": "Samson and Gert are going on vacation to an old haunted hotel."
+  },
+  {
+    "id": 11,
+    "name": "Shrek 3",
+    "duration": 120,
+    "releaseDate": "11-11-2011",
+    "rating": "5/5",
+    "genres": [
+      "Action",
+      "Comedy"
+    ],
+    "starring": [
+      "Eddie",
+      "Murphy"
+    ],
+    "language": "English",
+    "company": "Dreamworks",
+    "description": "Good movie pls watch :)"
   }
 ]
