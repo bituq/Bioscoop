@@ -323,6 +323,7 @@ namespace CinemaApplication
                 movieObjects.Clear();
                 movieWindows.Clear();
                 movieNames.Clear();
+                timeslotCounts.Clear();
 
                 for (int i = 0; i < root.Count; i++) // JsonRoot.GetArrayLength()
                 {
@@ -420,6 +421,9 @@ namespace CinemaApplication
                     .LinkWindows(movieWindows.ToArray())
                     .Result()
                 );
+                for (int i = 0; i < movieList.Items.Count; i++)
+                    if (timeslotCounts[i] == 0)
+                        movieList[i].Disable();
                 listOfFilms.Init();
             };
         }
