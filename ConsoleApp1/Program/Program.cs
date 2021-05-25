@@ -12,7 +12,6 @@ namespace CinemaApplication
 
         static Window homeScreen = new Window(true);
         static Window mainMenu = new Window();
-        
 
         static void HomeScreen()
         { 
@@ -67,7 +66,7 @@ namespace CinemaApplication
             AddHall();
             AddSnack();
             EditMovies();
-            AddMovie();
+            AdminMovieMenu();
 
             InputHandler.WaitForInput();
         }

@@ -244,7 +244,7 @@ namespace CinemaApplication
                 public string Name { get; set; }
 
 
-                public Food(string name, string price, string vegetarian, string stock)
+                public Food(string name, string price, string vegetarian, string stock, Window previousWindow)
                 {
                     Name = name;
 
@@ -258,12 +258,12 @@ namespace CinemaApplication
                         .SetItems(price, vegetarian, stock)
                         .Result();
 
-                    /*var goBack = new TextListBuilder(Window, 1, 1)
+                    var goBack = new TextListBuilder(FoodInfo, 1, 1)
                        .Color(ConsoleColor.White)
                        .SetItems("Go back")
                        .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                       .LinkWindows(this.FoodWindow)
-                       .Result();*/
+                       .LinkWindows(previousWindow)
+                       .Result();
                 }
             }
             private void FoodWindows()
@@ -272,7 +272,7 @@ namespace CinemaApplication
                        .Color(ConsoleColor.Yellow)
                        .SetItems("Go back", "Continue")
                        .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                       .LinkWindows(mainMenu, PaymentsWindow)
+                       .LinkWindows(TimeSlot.Window, PaymentsWindow)
                        .Result();
 
                 var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
@@ -284,26 +284,28 @@ namespace CinemaApplication
                 Window[] foodWindows = new Window[snackObjects.Length];
                 string[] snackNames = new string[root.GetArrayLength()];
                 string[] snackPrice = new string[root.GetArrayLength()];
+                double[] snackDouble = new double[root.GetArrayLength()];
                 var addbuttonarray = new string[snackNames.Length];
                 var removebuttonlist = new List<string>() { };
                 var cartlist = new List<string>() { };
                 var cartpricelist = new List<string> { };
                 var infobuttonlist = new List<string> { };
                 var sumpricelist = new List<int> { };
-                int sum = 0;
+                double sum = 0;
                 for (int i = 0; i < snackNames.Length; i++)
                 {
                     snackObjects[i] = new Food(
                         root[i].GetProperty("name").ToString(),
                         $"Price: ${root[i].GetProperty("price")}",
                         $"Vegetarian: {root[i].GetProperty("vegetarian")}",
-                        $"Stock: {root[i].GetProperty("stock")}"
-
+                        $"Stock: {root[i].GetProperty("stock")}",
+                        FoodWindow
                         );
 
                     foodWindows[i] = snackObjects[i].FoodInfo;
                     snackNames[i] = snackObjects[i].Name;
-                    snackPrice[i] = $"${root[i].GetProperty("price").ToString()}";
+                    snackPrice[i] = $"{root[i].GetProperty("price").ToString()}";
+                    snackDouble[i] = root[i].GetProperty("price").GetDouble();
                     addbuttonarray[i] = "Add to cart";
                     infobuttonlist.Add("Info");
                 }
@@ -441,7 +443,7 @@ namespace CinemaApplication
 
                         removebuttonlist.Add("Remove");
 
-                        sum += Convert.ToInt32(Convert.ToDouble(snackPrice[addIndex].Trim('$', '.', ' ', ',')));
+                        sum += Convert.ToDouble(snackDouble[addIndex]);
 
                         shopcart.Replace(new TextListBuilder(FoodWindow, 70, 4)
                         .Color(ConsoleColor.DarkMagenta)
@@ -461,7 +463,7 @@ namespace CinemaApplication
 
                         total.Replace(new TextListBuilder(FoodWindow, 21, 20)
                         .Color(ConsoleColor.White)
-                        .SetItems($"${(sum / 100).ToString()}" + "." + ((sum % 100 < 10) ? $"0{sum % 100}" : (sum % 100).ToString()))
+                        .SetItems($"${Math.Round(sum, 2)}")
                         .Result());
 
                         FoodWindow.ActiveSelectable = addButton;

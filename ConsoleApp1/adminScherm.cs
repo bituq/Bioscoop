@@ -23,10 +23,10 @@ namespace CinemaApplication
             
             var options = new TextListBuilder(AdminScherm, 2, 5)
                 .Color(ConsoleColor.Red)
-                .SetItems("Search reservations","Peak hours","Halls","Films","Snacks", "Go back", "Movie")
+                .SetItems("Search reservations","Peak hours","Halls","Films","Snacks", "Go back")
                 .UseNumbers()
                 .Selectable(ConsoleColor.DarkBlue,ConsoleColor.Red)
-                .LinkWindows(SelecteerZoekScherm, peaksWindow, selecteerHallsScherm, editMovieList, addSnack, homeScreen, addMovie)
+                .LinkWindows(SelecteerZoekScherm, peaksWindow, selecteerHallsScherm, adminMovieWindow, addSnack, homeScreen)
                 .Result();
         }
     }
