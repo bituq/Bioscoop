@@ -364,7 +364,7 @@ namespace CinemaApplication
             GenerateMovieInformation();
 
             var movieListTitle = new TextBuilder(listOfFilms, 11, 1)
-                .Color(ConsoleColor.Magenta)
+                .Color(ConsoleColor.Red)
                 .Text("Available movies:")
                 .Result();
 
