@@ -68,6 +68,7 @@ namespace CinemaApplication
             EditMovies();
             AdminMovieMenu();
             AddMovie();
+            ShowAllRes();
 
             InputHandler.WaitForInput();
         }

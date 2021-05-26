@@ -13,9 +13,6 @@ namespace CinemaApplication
         static Window ZoekScherm = new Window();
         static void ReserveringZoekScherm()
         {
-            string filePath2 = "..\\..\\..\\Reserveringen.json";
-            var root2 = JsonFile.FileAsList(filePath2);
-
             var list = new TextListBuilder(ZoekScherm, 1, 2)
                 .Color(ConsoleColor.Cyan)
                 .SetItems("Home/Admin/Select Search/Code Search/")
@@ -46,6 +43,8 @@ namespace CinemaApplication
             {
                 if (inputList2[0].Value != "")
                 {
+                    string filePath2 = "..\\..\\..\\Reserveringen.json";
+                    var root2 = JsonFile.FileAsList(filePath2);
                     static DateTime UnixToDate(int unix)
                     {
                         DateTime date = DateTime.UnixEpoch;
