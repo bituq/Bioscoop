@@ -13,10 +13,6 @@ namespace CinemaApplication
         static Window NaamScherm = new Window();
         static void ReserveringNaamScherm()
         {
-            string filePath3 = "..\\..\\..\\Reserveringen.json";
-            var root3 = JsonFile.FileAsList(filePath3);
-            
-
             var list = new TextListBuilder(NaamScherm, 1, 2)
                 .Color(ConsoleColor.Cyan)
                 .SetItems("Home/Admin/Select Search/Name Search/")
@@ -48,6 +44,8 @@ namespace CinemaApplication
                 successMessage3.Clear();
                 if (inputList3[0].Value != "")
                 {
+                    string filePath3 = "..\\..\\..\\Reserveringen.json";
+                    var root3 = JsonFile.FileAsList(filePath3);
                     string heleNaam = inputList3[0].Value;
                     bool checker = false;
                     static DateTime UnixToDate(int unix)
@@ -69,7 +67,7 @@ namespace CinemaApplication
                     var listOfReservations = new List<string>();
                     for (int k = 0; k < root3.Count; k++)
                     {
-                        if ((root3[k].GetProperty("firstName").ToString() + " " + root3[k].GetProperty("lastName").ToString()) == heleNaam)
+                        if ((root3[k].GetProperty("firstName").ToString() + " " + root3[k].GetProperty("lastName").ToString()).ToLower() == heleNaam.ToLower())
                         {
                             checker = true;
                             string code = (root3[k].GetProperty("code").ToString());
@@ -88,11 +86,11 @@ namespace CinemaApplication
                             }
                             int film = (root3[k].GetProperty("movieId").GetInt32());
                             int datum = (root3[k].GetProperty("date").GetInt32());
-                            listOfReservations.AddRange(new string[] { $"The reservation code is {code}", $"The film plays on {UnixToDate(datum).ToString("dd/MM/yyyy")}.", $"{heleNaam} is going to see {FilmToText(film)} in hall {zaal} on seat(s):" });
+                            listOfReservations.AddRange(new string[] { $"The reservation code is {code}", $"The film plays on {UnixToDate(datum).ToString("dd/MM/yyyy")}.", $"{voornaam + " " + achternaam} is going to see {FilmToText(film)} in hall {zaal} on seat(s):" });
                             listOfReservations.AddRange(seatList.Values);
                             listOfReservations.AddRange(new string[2]);
                             successMessage3.Replace(new TextListBuilder(NaamScherm, 1, 8)
-                            .Color(ConsoleColor.Gray)
+                            .Color(ConsoleColor.Green)
                             .SetItems(listOfReservations.ToArray())
                             .Result());
                         }
@@ -100,7 +98,7 @@ namespace CinemaApplication
                             successMessage3.Replace(
                                 new TextListBuilder(NaamScherm, 1, 8)
                                 .Color(ConsoleColor.Red)
-                                .SetItems($"There is no reservation on name {heleNaam}, or you misspelled it. Please try again.")
+                                .SetItems($"There is no reservation on name {heleNaam}, or you misspelled it. Please try again. (caps DONT matter)")
                                 .Result()
                             );
                         }

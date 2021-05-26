@@ -176,7 +176,17 @@ namespace CinemaApplication
                         JsonFile.AppendToFile(newTimeslot, timeSlotPath);
 
                         TimeSlot.Init();
-
+                        finish[0].OnClick = () => {
+                            NaamScherm.Reset();
+                            ReserveringNaamScherm();
+                            NaamScherm.Init();
+                            ZoekScherm.Reset();
+                            ReserveringZoekScherm();
+                            ZoekScherm.Init();
+                            alleResScherm.Reset();
+                            ShowAllRes();
+                            alleResScherm.Init();
+                        };
 
                     }
                     else

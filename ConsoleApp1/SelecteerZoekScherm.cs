@@ -23,10 +23,10 @@ namespace CinemaApplication
             
             var options = new TextListBuilder(SelecteerZoekScherm, 2, 5)
                 .Color(ConsoleColor.Red)
-                .SetItems("Search by code", "Search by name", "Go back")
+                .SetItems("Search by code", "Search by name", "Show all reservations", "Go back")
                 .UseNumbers()
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
-                .LinkWindows(ZoekScherm, NaamScherm, AdminScherm)
+                .LinkWindows(ZoekScherm, NaamScherm, alleResScherm, AdminScherm)
                 .Result();
         }
     }
