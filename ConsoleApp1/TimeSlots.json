@@ -72,78 +72,6 @@
     ]
   },
   {
-    "id": 4,
-    "movieId": 2,
-    "time": 1624702323,
-    "hall": 4,
-    "occupiedSeats": [
-      {
-        "row": 2,
-        "column": 3
-      },
-      {
-        "row": 2,
-        "column": 4
-      },
-      {
-        "row": 2,
-        "column": 5
-      },
-      {
-        "row": 3,
-        "column": 4
-      },
-      {
-        "row": 1,
-        "column": 1
-      },
-      {
-        "row": 1,
-        "column": 2
-      },
-      {
-        "row": 1,
-        "column": 3
-      },
-      {
-        "row": 4,
-        "column": 5
-      },
-      {
-        "row": 4,
-        "column": 6
-      },
-      {
-        "row": 4,
-        "column": 7
-      },
-      {
-        "row": 6,
-        "column": 3
-      },
-      {
-        "row": 6,
-        "column": 2
-      },
-      {
-        "row": 6,
-        "column": 1
-      },
-      {
-        "row": 1,
-        "column": 7
-      },
-      {
-        "row": 1,
-        "column": 8
-      },
-      {
-        "row": 1,
-        "column": 6
-      }
-    ]
-  },
-  {
     "id": 5,
     "movieId": 2,
     "time": 1621788493,
@@ -472,6 +400,86 @@
       {
         "row": 2,
         "column": 1
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "movieId": 2,
+    "time": 1624702323,
+    "hall": 4,
+    "occupiedSeats": [
+      {
+        "row": 2,
+        "column": 3
+      },
+      {
+        "row": 2,
+        "column": 4
+      },
+      {
+        "row": 2,
+        "column": 5
+      },
+      {
+        "row": 3,
+        "column": 4
+      },
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 1,
+        "column": 2
+      },
+      {
+        "row": 1,
+        "column": 3
+      },
+      {
+        "row": 4,
+        "column": 5
+      },
+      {
+        "row": 4,
+        "column": 6
+      },
+      {
+        "row": 4,
+        "column": 7
+      },
+      {
+        "row": 6,
+        "column": 3
+      },
+      {
+        "row": 6,
+        "column": 2
+      },
+      {
+        "row": 6,
+        "column": 1
+      },
+      {
+        "row": 1,
+        "column": 7
+      },
+      {
+        "row": 1,
+        "column": 8
+      },
+      {
+        "row": 1,
+        "column": 6
+      },
+      {
+        "row": 1,
+        "column": 4
+      },
+      {
+        "row": 1,
+        "column": 5
       }
     ]
   }

@@ -2,7 +2,7 @@
   {
     "firstName": "Dylan",
     "lastName": "Noorland",
-    "code": 4800951,
+    "code": "4800951",
     "hall": 2,
     "movieId": 1,
     "date": 1621113922,
@@ -33,7 +33,7 @@
   {
     "firstName": "d",
     "lastName": "n",
-    "code": 2968846,
+    "code": "2968846",
     "hall": 2,
     "movieId": 2,
     "date": 1621114159,
@@ -60,7 +60,7 @@
   {
     "firstName": "Dylan",
     "lastName": "Noorland",
-    "code": 1887613,
+    "code": "1887613",
     "hall": 2,
     "movieId": 2,
     "date": 1621114414,
@@ -83,7 +83,7 @@
   {
     "firstName": "Dylan",
     "lastName": "Noorland",
-    "code": 6534714,
+    "code": "6534714",
     "hall": 2,
     "movieId": 2,
     "date": 1621114548,
@@ -106,7 +106,7 @@
   {
     "firstName": "Dylan",
     "lastName": "Noorland",
-    "code": 8160666,
+    "code": "8160666",
     "hall": 2,
     "movieId": 2,
     "date": 1621115054,
@@ -129,7 +129,7 @@
   {
     "firstName": "Dylan",
     "lastName": "Noorland",
-    "code": 4803867,
+    "code": "4803867",
     "hall": 2,
     "movieId": 2,
     "date": 1621115143,
@@ -152,7 +152,7 @@
   {
     "firstName": "Dylan",
     "lastName": "Doe",
-    "code": 943870,
+    "code": "943870",
     "hall": 1,
     "movieId": 0,
     "date": 1621122969,
@@ -183,7 +183,7 @@
   {
     "firstName": "Dylan",
     "lastName": "Doe",
-    "code": 7538752,
+    "code": "7538752",
     "hall": 2,
     "movieId": 1,
     "date": 1621123155,
@@ -206,7 +206,7 @@
   {
     "firstName": "Dylan",
     "lastName": "Noorland",
-    "code": 2771289,
+    "code": "2771289",
     "hall": 1,
     "movieId": 0,
     "date": 1621275332,
@@ -229,7 +229,7 @@
   {
     "firstName": "Dylan",
     "lastName": "oorland",
-    "code": 2732546,
+    "code": "2732546",
     "hall": 1,
     "movieId": 0,
     "date": 1621275558,
@@ -252,7 +252,7 @@
   {
     "firstName": "Johan",
     "lastName": "Johabn",
-    "code": 4369290,
+    "code": "4369290",
     "hall": 1,
     "movieId": 0,
     "date": 1621327061,
@@ -275,7 +275,7 @@
   {
     "firstName": "Dylan",
     "lastName": "Noorland",
-    "code": 3038660,
+    "code": "3038660",
     "hall": 1,
     "movieId": 0,
     "date": 1621686294,
@@ -290,7 +290,7 @@
   {
     "firstName": "Vincent",
     "lastName": "de Gans",
-    "code": 5050704,
+    "code": "5050704",
     "hall": 2,
     "movieId": 2,
     "date": 1621770078,
@@ -313,7 +313,7 @@
   {
     "firstName": "Brent",
     "lastName": "de Brons",
-    "code": 2703502,
+    "code": "2703502",
     "hall": 4,
     "movieId": 2,
     "date": 1622019579,
@@ -328,7 +328,7 @@
   {
     "firstName": "Brenbr",
     "lastName": "Menos",
-    "code": 1103286,
+    "code": "1103286",
     "hall": 2,
     "movieId": 1,
     "date": 1622019757,
@@ -343,7 +343,7 @@
   {
     "firstName": "E\t",
     "lastName": "A",
-    "code": 601887,
+    "code": "601887",
     "hall": 1,
     "movieId": 0,
     "date": 1622019945,
@@ -358,7 +358,7 @@
   {
     "firstName": "Brent",
     "lastName": "brobs",
-    "code": 9914257,
+    "code": "9914257",
     "hall": 2,
     "movieId": 1,
     "date": 1622020678,
@@ -369,5 +369,24 @@
       }
     ],
     "timeslotId": 1
+  },
+  {
+    "firstName": "Brerbb",
+    "lastName": "Meo",
+    "code": "1833571",
+    "hall": 4,
+    "movieId": 2,
+    "date": 1622034621,
+    "occupiedSeats": [
+      {
+        "row": 1,
+        "column": 4
+      },
+      {
+        "row": 1,
+        "column": 5
+      }
+    ],
+    "timeslotId": 4
   }
 ]

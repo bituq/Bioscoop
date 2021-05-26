@@ -17,7 +17,7 @@ namespace CinemaApplication
             {
                 public string firstName { get; set; }
                 public string lastName { get; set; }
-                public int code { get; set; }
+                public string code { get; set; }
                 public int hall { get; set; }
                 public int movieId { get; set; }
                 public int date { get; set; }
@@ -117,7 +117,7 @@ namespace CinemaApplication
                         var info = new Information();
                         info.firstName = inputList[0].Value;
                         info.lastName = inputList[1].Value;
-                        info.code = Int32.Parse(randomCode);
+                        info.code = randomCode;
                         info.hall = Hall.Id;
                         info.movieId = TimeSlot.Movie.Id;
                         info.date = unixTimestamp;

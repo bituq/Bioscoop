@@ -54,12 +54,12 @@ namespace CinemaApplication
                     int film = (root3[k].GetProperty("movieId").GetInt32());
                     listOfReservations.AddRange(new string[] { $"{voornaam + " " + achternaam}", $"{FilmToText(film)} in hall {zaal}", $"code: {code}" });
                     listOfReservations.AddRange(new string[2]);
-                    listOfReservations.Reverse();
-                    successMessage3.Replace(new TextListBuilder(alleResScherm, 1, 8)
+                }
+                listOfReservations.Reverse();
+                successMessage3.Replace(new TextListBuilder(alleResScherm, 1, 8)
                     .Color(ConsoleColor.Green)
                     .SetItems(listOfReservations.ToArray())
                     .Result());
-                }
             };
         }
     }
