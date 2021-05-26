@@ -116,7 +116,7 @@ namespace CinemaApplication
                     message.Replace(
                         new TextListBuilder(addhallscreen, 13, 12)
                         .Color(ConsoleColor.Green)
-                        .SetItems($"You have succesfully added hall {objHall.id} to the list!", "If you want to add another snack, fill in the above requirements again.")
+                        .SetItems($"You have succesfully added hall {objHall.id} to the list!", "If you want to add another hall, fill in the above requirements again.")
                         .Result());
                 } 
                 else
