@@ -51,7 +51,7 @@ namespace CinemaApplication
                 // filter genre
                 for (int i = 0; i < this.Genres.Length; i++)
                 {
-                    root.RemoveAll(x => !x.GetProperty("genres").ToString().Contains(this.Genres[i]));
+                    root.RemoveAll(x => !x.GetProperty("genres").ToString().ToLower().Contains(this.Genres[i].ToLower()));
                 }
 
                 // filter time
@@ -257,18 +257,29 @@ namespace CinemaApplication
 
             submitButton[0].OnClick = () =>
             {
-                DateTime unUsed;
+                DateTime filterDate;
 
-                if (!DateTime.TryParse(input[2].Value, out unUsed))
+                if (!DateTime.TryParse(input[2].Value, out filterDate))
                 {
-                    Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), new DateTime());
-                    root = filter.FilterRoot();
+                    filterDate = new DateTime();
+                }
+
+                string[] filterGenres;
+                if (input[1].Value.ToLower().Contains(","))
+                    filterGenres = input[1].Value.ToLower().Split(",");
+                else if (input[1].Value.ToLower().Contains(' '))
+                {
+                    filterGenres = input[1].Value.ToLower().Split(' ');
                 }
                 else
                 {
-                    Filter filter = new Filter(input[0].Value, input[1].Value.Split(' '), DateTime.Parse(input[2].Value));
-                    root = filter.FilterRoot();
+                    filterGenres = new string[] { input[1].Value.ToLower() };
                 }
+
+                Filter filter = new Filter(input[0].Value, filterGenres, filterDate);
+                root = filter.FilterRoot();
+
+
                 GenerateMovieInformation();
                 movieList.Replace(new TextListBuilder(listOfFilms, 11, 3)
                     .Color(ConsoleColor.White)
