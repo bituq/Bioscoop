@@ -156,12 +156,32 @@ namespace CinemaApplication
                 };
             }
         }
+        public class SortTimeSlots : IComparer<TimeSlot>
+        {
+            public int Compare(TimeSlot x, TimeSlot y)
+            {
+                if (x.Time > y.Time)
+                {
+                    return 1;
+                }
+                else if (x.Time < y.Time)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
         public partial class Movie
         {
             public Window timeSlotWindow = new Window();
             public void TimeSlotScreen()
             {
+                SortTimeSlots comparer = new SortTimeSlots();
                 var validTimeSlots = timeSlots.FindAll(t => t.Movie == this);
+                validTimeSlots.Sort(new SortTimeSlots());
                 var validTimeSlotNames = new List<string>();
                 var validTimeSlotWindows = new List<Window>();
                 foreach (TimeSlot timeSlot in validTimeSlots)
