@@ -73,8 +73,6 @@ namespace CinemaApplication
             for (int i = 0; i < snackObjects.Length; i++)
             {
                 removeName[i] = "Remove";
-                
-
             }
             
             var removeButton = new TextListBuilder(removeSnack, 35, 6)
