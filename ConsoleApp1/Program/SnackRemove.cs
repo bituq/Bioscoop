@@ -75,12 +75,24 @@ namespace CinemaApplication
                 removeName[i] = "Remove";
             }
             
-            var removeButton = new TextListBuilder(removeSnack, 35, 6)
+            var removeButtons = new TextListBuilder(removeSnack, 35, 6)
                 .Color(ConsoleColor.Green)
                 .SetItems(removeName)
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
 
+            foreach (var button in removeButtons.Items)
+            {
+                button.OnClick = () =>
+                {
+                    var snacksAndDrinksList = JsonFile.FileAsList("..\\..\\..\\snacksAndDrinks.json");
+
+                    int index = removeButtons.Items.IndexOf(button);
+                    var id = snacksAndDrinksList[index].GetProperty("id").GetInt32();
+
+                    JsonFile.RemoveFromFile("id", id, "..\\..\\..\\snacksAndDrinks.json");
+                };
+            }
 
 
         }
