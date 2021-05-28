@@ -24,7 +24,7 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(addSnack, 1, 2)
            .Color(ConsoleColor.Cyan)
-           .Text("Home/Admin/Hall Select/Edit Snack")
+           .Text("Home/Admin/Hall Select/Add Snack")
            .Result();
 
             var title2 = new TextBuilder(addSnack, 1, 3)
