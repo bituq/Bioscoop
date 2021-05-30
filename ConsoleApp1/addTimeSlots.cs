@@ -34,7 +34,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.Green)
                 .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(null, SelecteerZoekScherm)
+                .LinkWindows(null, editMovieList)
                 .Result();
 
             var successMessage3 = new TextListBuilder(addNewTimeSlot, 1, 8)
@@ -56,18 +56,19 @@ namespace CinemaApplication
 
                 successMessage3.Clear();
                 string givenDate = inputList3[0].Value + " " + inputList3[1].Value;
+                double someFunkyUnixTime = 0;
 
                 if (inputList3[0].Value == "" || inputList3[1].Value == "") 
                 {
                     listOfErrors.Add("Timeslot may not be empty.");
                 }
-                if (!DateTime.TryParseExact((givenDate), formats, new CultureInfo("en-US"), DateTimeStyles.None, out someFunkyDate))
+                if (!DateTime.TryParseExact((givenDate), formats, new CultureInfo("nl-NL"), DateTimeStyles.None, out someFunkyDate))
                 {
                     listOfErrors.Add("Incorrect datetime format. Please follow dd/MM/yyyy.");
                 }
                 else
                 {
-                    int someFunkyUnixTime = (int)(((DateTimeOffset)someFunkyDate).ToUnixTimeSeconds());
+                    someFunkyUnixTime = (double)(((DateTimeOffset)someFunkyDate).ToUnixTimeSeconds());
                     Int32 currently = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                     if (someFunkyUnixTime <= (currently + 43200))
                     {
@@ -75,7 +76,7 @@ namespace CinemaApplication
                         listOfErrors.Add("Please try a later date.");
                     }
                 }
-                
+
                 // string movie = FilmToText(movieid);
 
                 static string FilmToText(int id)
@@ -100,7 +101,7 @@ namespace CinemaApplication
                 {
                     successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 9)
                         .Color(ConsoleColor.Green)
-                        .SetItems($"Successfully made a new timeslot for movie: ", $"at time: {someFunkyDate}")
+                        .SetItems($"Successfully made a new timeslot for movie: {Name}", $"at time: {someFunkyDate}")
                         .Result());
                 }
             };
