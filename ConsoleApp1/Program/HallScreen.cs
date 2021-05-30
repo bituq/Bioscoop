@@ -73,7 +73,7 @@ namespace CinemaApplication
             }
             var introtexthall = new TextListBuilder(hallscreen, 2, 3)
                 .Color(ConsoleColor.Gray)
-                .SetItems("Select which hall you would like to see.")
+                .SetItems("Select an hall you would like to see.")
                 .Result();
 
             var GoBackHallsScherm2 = new TextListBuilder(hallscreen, 2, 5)
