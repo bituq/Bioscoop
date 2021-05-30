@@ -11,6 +11,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
+        /*
         static Window addNewTimeSlot = new Window(true);
         static void addTimeSlots()
         {
@@ -103,6 +104,6 @@ namespace CinemaApplication
                         .Result());
                 }
             };
-        }
+        } */
     }
 }
