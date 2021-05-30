@@ -10,7 +10,7 @@ namespace CinemaApplication
     partial class Program
     {
 
-        static Window homeScreen = new Window();
+        static Window homeScreen = new Window(true);
         static Window mainMenu = new Window();
 
         static void HomeScreen()
@@ -70,7 +70,7 @@ namespace CinemaApplication
             AddMovie();
             ShowAllRes();
 
-            addTimeSlots();
+            //addTimeSlots();
 
             InputHandler.WaitForInput();
         }

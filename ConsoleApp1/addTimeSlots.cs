@@ -11,6 +11,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
+        /*
         static Window addNewTimeSlot = new Window(true);
         static void addTimeSlots()
         {
@@ -100,10 +101,11 @@ namespace CinemaApplication
                 {
                     successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 9)
                         .Color(ConsoleColor.Green)
-                        .SetItems($"Successfully made a new timeslot for movie: ", $"at time: {someFunkyDate}")
+                        .SetItems($"Successfully made a new timeslot for movie: {Name}", $"at time: {someFunkyDate}")
                         .Result());
                 }
             };
         }
+        */
     }
 }
