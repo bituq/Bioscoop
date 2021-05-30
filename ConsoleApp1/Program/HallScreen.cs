@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json;
-using System.IO;
+using System.Text;
 using CinemaUI;
 using CinemaUI.Builder;
 using JsonHandler;
+using System.Text.Json;
+using System.IO;
 
 namespace CinemaApplication
 {
@@ -59,6 +60,7 @@ namespace CinemaApplication
             var hallObjects = new hall[root.GetArrayLength()];
             var hallWindows = new Window[hallObjects.Length];
             string[] hallNames = new string[root.GetArrayLength()];
+            var removeButtonlist = new List<string> { };
             for (int i = 0; i < hallNames.Length; i++)
             {
                 hallObjects[i] = new hall(
@@ -69,6 +71,7 @@ namespace CinemaApplication
 
                 hallWindows[i] = hallObjects[i].Window;
                 hallNames[i] = hallObjects[i].Name;
+                removeButtonlist.Add("Remove");
                 //Console.WriteLine($"{i} : {movieNames[i]}");
             }
             var introtexthall = new TextListBuilder(hallscreen, 2, 3)
@@ -76,7 +79,7 @@ namespace CinemaApplication
                 .SetItems("Select an hall you would like to see.")
                 .Result();
 
-            var GoBackHallsScherm2 = new TextListBuilder(hallscreen, 2, 5)
+            var goBack = new TextListBuilder(hallscreen, 2, 5)
                 .Color(ConsoleColor.Red)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -90,10 +93,54 @@ namespace CinemaApplication
                 .LinkWindows(hallWindows)
                 .Result();
 
+            var removeButton = new TextListBuilder(hallscreen, 31, 5)
+                .Color(ConsoleColor.White)
+                .SetItems(removeButtonlist.ToArray())
+                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                .Result();
+
             var title = new TextBuilder(hallscreen, 2, 2)
                 .Color(ConsoleColor.Cyan)
                 .Text("Home/Admin/Hall Select/Halls/")
                 .Result();
+            
+            void onRemove()
+            {
+                var removeIndex = removeButton.SelectedIndex;
+                
+                removeButtonlist.RemoveAt(removeIndex);
+
+                bool isEmpty = false;
+                if (removeButtonlist.Count == 0)
+                {
+                    isEmpty = true;
+                    removeButtonlist.Add("");
+                    removeButton[0].Unselect();
+                }
+                
+                removeButton.Replace(new TextListBuilder(hallscreen, 31, 5)
+                .Color(ConsoleColor.Red)
+                .SetItems(removeButtonlist.ToArray())
+                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                .Result());
+
+
+
+                if (!isEmpty)
+                {
+                    var _ = removeButton.Items.Count;
+                    removeButton[0].Unselect();
+                    removeButton[Math.Min(removeIndex, removeButton.Items.Count - 1)].Select();
+
+                    foreach (SelectableText Item in removeButton.Items)
+                        Item.OnClick = onRemove;
+                }
+                else
+                {
+                    hallscreen.ActiveSelectable = goBack;
+                    goBack[0].Select();
+                }
+            }
         }
     }
 }

@@ -18,12 +18,12 @@ namespace CinemaApplication
 
             var title2 = new TextBuilder(selecteerHallsScherm, 2, 3)
                 .Color(ConsoleColor.Gray)
-                .Text("Hello! Would you like to see all halls or edit the halls?")
+                .Text("Would you like to view or add halls?")
                 .Result();
 
             var options = new TextListBuilder(selecteerHallsScherm, 2, 5)
                 .Color(ConsoleColor.Red)
-                .SetItems("See all halls", "Add halls", "Go back")
+                .SetItems("View halls", "Add halls", "Go back")
                 .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(hallscreen, addhallscreen, AdminScherm)
