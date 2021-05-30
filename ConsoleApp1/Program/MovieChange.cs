@@ -28,24 +28,34 @@ namespace CinemaApplication
         public static Window addMovie = new Window(false);
         static void AddMovie()
         {
-            var _ = new TextListBuilder(addMovie, 1, 3)
+            var _ = new TextListBuilder(addMovie, 1, 7)
                .Color(ConsoleColor.Red)
                .SetItems("Go back")
                .Selectable(ConsoleColor.Black, ConsoleColor.White)
                .LinkWindows(AdminScherm)
                .Result();
 
-            var inputOptions = new TextListBuilder(addMovie, 13, 3)
+            var title = new TextBuilder(addMovie, 1, 2)
+                .Color(ConsoleColor.Cyan)
+                .Text("Home/Admin/Hall Select/Add Movie")
+                .Result();
+
+            var title2 = new TextBuilder(addMovie, 1, 3)
+                 .Color(ConsoleColor.White)
+                 .Text("Enter the information of the movie you want to add\nMake sure to input release date in the following format: 'dd-mm-yyyy'\nAlso make sure to put a ',' between each actor's full name within the starring input field")
+                 .Result();
+
+            var inputOptions = new TextListBuilder(addMovie, 13, 7)
                 .SetItems("Name: ", "Duration: ", "Release Date: ", "Rating: ", "Genre: ", "Starring: ", "Language: ", "Company: ", "Description: " )
                 .Result();
 
-            var input = new TextListBuilder(addMovie, 14 + inputOptions.Items[8].Text.Length, 3)
+            var input = new TextListBuilder(addMovie, 14 + inputOptions.Items[8].Text.Length, 7)
                 .Color(ConsoleColor.Gray)
                 .SetItems("", "", "", "", "", "", "", "", "")
                 .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
                 .Result();
 
-            var addButton = new TextListBuilder(addMovie, 1, 20)
+            var addButton = new TextListBuilder(addMovie, 1, 24)
                 .Color(ConsoleColor.Green)
                 .SetItems("Add")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -86,7 +96,7 @@ namespace CinemaApplication
                     nMovie.description = input[8].Value;
                     JsonFile.AppendToFile(nMovie, "..\\..\\..\\Movies.json");
                     message.Replace(
-                        new TextListBuilder(addMovie, 1, 15)
+                        new TextListBuilder(addMovie, 1, 19)
                         .Color(ConsoleColor.Green)
                         .SetItems($"You have succesfully added {nMovie.name} to the list!", "If you want to add another Movie, fill in the above requirements again.")
                         .Result());
@@ -99,7 +109,7 @@ namespace CinemaApplication
                     
                     ErrorList.Insert(0, "Errors:");
                     message.Replace(
-                        new TextListBuilder(addMovie, 1, 15)
+                        new TextListBuilder(addMovie, 1, 19)
                         .Color(ConsoleColor.Red)
                         .SetItems(ErrorList.ToArray())
                         .Result());

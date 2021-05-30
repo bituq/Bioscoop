@@ -217,5 +217,41 @@
     "language": "English",
     "company": "Dreamworks",
     "description": "Good movie pls watch :)"
+  },
+  {
+    "id": 12,
+    "name": "Titanic",
+    "duration": 120,
+    "releaseDate": "10-12-2000",
+    "rating": "4/5",
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "starring": [
+      "Leonardo DiCaprio",
+      "Kate Winslet"
+    ],
+    "language": "English",
+    "company": "Warner Brothers",
+    "description": "ship hits ice and sinks"
+  },
+  {
+    "id": 13,
+    "name": "Scott Pilgrim VS The World",
+    "duration": 100,
+    "releaseDate": "10-10-2010",
+    "rating": "5/5",
+    "genres": [
+      "Comedy",
+      "Action"
+    ],
+    "starring": [
+      "Micheal Cera",
+      "Mary Elizabeth Winstead"
+    ],
+    "language": "English",
+    "company": "I don\u0027t care",
+    "description": "good movie"
   }
 ]

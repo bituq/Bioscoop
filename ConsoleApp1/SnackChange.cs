@@ -24,12 +24,12 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(addSnack, 1, 2)
            .Color(ConsoleColor.Cyan)
-           .Text("Home/Admin/Hall Select/Edit Snack")
+           .Text("Home/Admin/Hall Select/Add Snack")
            .Result();
 
             var title2 = new TextBuilder(addSnack, 1, 3)
                  .Color(ConsoleColor.White)
-                 .Text("Enter the information of the snack you want to add\nMake sure to only input either 'Yes' or 'No' in the Veggie input window")
+                 .Text("Enter the information of the snack you want to add\nMake sure to only input either 'Yes' or 'No' in the Veggie input field")
                  .Result();
 
             var inputOptions = new TextListBuilder(addSnack, 13, 6)
