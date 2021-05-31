@@ -81,20 +81,28 @@ namespace CinemaApplication
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
 
-            foreach (var button in removeButtons.Items)
+            void UpdateClick()
             {
-                button.OnClick = () =>
+
+                foreach (var button in removeButtons.Items)
                 {
-                    var snacksAndDrinksList = JsonFile.FileAsList("..\\..\\..\\snacksAndDrinks.json");
+                    button.OnClick = () =>
+                    {
+                        List<JsonElement> snacksAndDrinksList = JsonFile.FileAsList("..\\..\\..\\snacksAndDrinks.json");
 
-                    int index = removeButtons.Items.IndexOf(button);
-                    var id = snacksAndDrinksList[index].GetProperty("id").GetInt32();
+                        int index = removeButtons.Items.IndexOf(button);
+                        int id = snacksAndDrinksList[index].GetProperty("id").GetInt32();
 
-                    JsonFile.RemoveFromFile("id", id, "..\\..\\..\\snacksAndDrinks.json");
-                };
+                        JsonFile.RemoveFromFile("id", id, "..\\..\\..\\snacksAndDrinks.json");
+
+                        UpdateClick();
+                    };
+                }
+
+
             }
-
-
+            UpdateClick();
         }
     }
 }
+
