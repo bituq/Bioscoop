@@ -111,16 +111,10 @@ namespace CinemaApplication
 
 
 
-            foreach (SelectableText item in removeButton.Items)
-            {
-                item.OnClick = onRemove;
-            }
+
             void onRemove()
             {
-                sure.Replace(new TextListBuilder(hallscreen, 43, 5)
-                .Color(ConsoleColor.Red)
-                .SetItems("Warning! : Removing halls might have conflicts with movies.")
-                .Result());
+
 
                 foreach (var item in removeButton.Items)
                 {
@@ -163,9 +157,9 @@ namespace CinemaApplication
                             .Result());
 
                             sure.Replace(new TextListBuilder(hallscreen, 43, 5)
-                .Color(ConsoleColor.Green)
-                .SetItems($"Hall {id} is succesfully removed!")
-                .Result());
+                            .Color(ConsoleColor.Green)
+                            .SetItems($"Hall {id} is succesfully removed!")
+                            .Result());
 
                             if (!isEmpty)
                             {
@@ -181,11 +175,21 @@ namespace CinemaApplication
                                 hallscreen.ActiveSelectable = goBack;
                                 goBack[0].Select();
                             }
+                            onRemove();
                         }
                     };
+
                 }
 
             }
+            onRemove();
+            goBack[0].OnClick = () =>
+            {
+                sure.Replace(new TextListBuilder(hallscreen, 43, 5)
+                            .Color(ConsoleColor.Green)
+                            .SetItems("")
+                            .Result());
+            };
         }
     }
 }

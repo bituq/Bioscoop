@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "id": 0,
+    "name": "Popcorn(Salt)(L)",
+    "price": 8.10,
+    "vegetarian": "Yes",
+    "stock": 120
+  },
+  {
+    "id": 1,
+    "name": "Popcorn(Sweet)(L)",
+    "price": 8.10,
+    "vegetarian": "Yes",
+    "stock": 100
+  },
+  {
+    "id": 2,
+    "name": "Coca-Cola(250ml)",
+    "price": 2.35,
+    "vegetarian": "Yes",
+    "stock": 70
+  },
+  {
+    "id": 3,
+    "name": "Nacho(Cheese)(M)",
+    "price": 3.45,
+    "vegetarian": "Yes",
+    "stock": 35
+  },
+  {
+    "id": 4,
+    "name": "Nacho(Guacamole)(L)",
+    "price": 3.99,
+    "vegetarian": "Yes",
+    "stock": 45
+  }
+]
