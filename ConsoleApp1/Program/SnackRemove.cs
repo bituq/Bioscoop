@@ -38,7 +38,7 @@ namespace CinemaApplication
                 .Text("Home/Admin/Hall Select/Remove Snack")
                 .Result();
 
-            var _ = new TextListBuilder(removeSnack, 1, 6)
+            var back = new TextListBuilder(removeSnack, 1, 6)
                 .Color(ConsoleColor.Red)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -119,8 +119,23 @@ namespace CinemaApplication
                             .Result());
 
 
+                        if (!isEmpty)
+                        {
+                            var _ = removeButtons.Items.Count;
+                            removeButtons[0].Unselect();
+                            removeButtons[Math.Min(index, removeButtons.Items.Count - 1)].Select();
 
-                        UpdateClick();
+                            foreach (SelectableText Item in removeButtons.Items)
+                                Item.OnClick = UpdateClick;
+                        }
+                        else
+                        {
+                            removeSnack.ActiveSelectable = back;
+                            back[0].Select();
+                        }
+
+
+                        
                     };
                 }
 
