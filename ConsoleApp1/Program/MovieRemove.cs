@@ -11,47 +11,48 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        public static Window removeSnack = new Window();
-        static void RemoveSnack()
+        public static Window removeMovie = new Window(true);
+        static void RemoveMovie()
         {
-            var title = new TextBuilder(removeSnack, 1, 2)
+            var title = new TextBuilder(removeMovie, 1, 2)
                 .Color(ConsoleColor.Cyan)
-                .Text("Home/Admin/Hall Select/Remove Snack")
+                .Text("Home/Admin/Remove Movie")
                 .Result();
 
-            var back = new TextListBuilder(removeSnack, 1, 6)
+            var back = new TextListBuilder(removeMovie, 1, 6)
                 .Color(ConsoleColor.Red)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(AdminScherm)
                 .Result();
 
-            var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
-          
-            JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
+            var movieMan = File.ReadAllText("..\\..\\..\\Movies.json");
+
+            JsonDocument doc = JsonDocument.Parse(movieMan);
             JsonElement root = doc.RootElement;
 
-            List<string> snackNames = new List<string>();
+            List<string> movieNames = new List<string>();
 
             for (int i = 0; i < root.GetArrayLength(); i++)
             {
-                snackNames.Add(root[i].GetProperty("name").ToString());
+                movieNames.Add(root[i].GetProperty("name").ToString());
+
             };
 
-            var SnackList = new TextListBuilder(removeSnack, 19, 6)
+            var MovieList = new TextListBuilder(removeMovie, 19, 6)
                 .Color(ConsoleColor.DarkMagenta)
-                .SetItems(snackNames.ToArray())
+                .SetItems(movieNames.ToArray())
                 .Result();
 
             List<string> removeName = new List<string>();
 
 
-            for (int i = 0; i < snackNames.Count; i++)
+            for (int i = 0; i < movieNames.Count; i++)
             {
                 removeName.Add("Remove");
             }
-            
-            var removeButtons = new TextListBuilder(removeSnack, 11, 6)
+
+            var removeButtons = new TextListBuilder(removeMovie, 11, 6)
                 .Color(ConsoleColor.Red)
                 .SetItems(removeName.ToArray())
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -64,14 +65,14 @@ namespace CinemaApplication
                 {
                     button.OnClick = () =>
                     {
-                        List<JsonElement> snacksAndDrinksList = JsonFile.FileAsList("..\\..\\..\\snacksAndDrinks.json");
+                        List<JsonElement> movieMan = JsonFile.FileAsList("..\\..\\..\\Movies.json");
 
                         int index = removeButtons.Items.IndexOf(button);
-                        int id = snacksAndDrinksList[index].GetProperty("id").GetInt32();
+                        int id = movieMan[index].GetProperty("id").GetInt32();
 
-                        JsonFile.RemoveFromFile("id", id, "..\\..\\..\\snacksAndDrinks.json");
+                        JsonFile.RemoveFromFile("id", id, "..\\..\\..\\Movies.json");
 
-                        snackNames.RemoveAt(index);
+                        movieNames.RemoveAt(index);
                         removeName.RemoveAt(0);
 
 
@@ -83,16 +84,16 @@ namespace CinemaApplication
                             removeButtons[0].Unselect();
                         }
 
-                        removeButtons.Replace(new TextListBuilder(removeSnack, 11, 6)
+                        removeButtons.Replace(new TextListBuilder(removeMovie, 11, 6)
                             .Color(ConsoleColor.Red)
                             .SetItems(removeName.ToArray())
                             .Selectable(ConsoleColor.Black, ConsoleColor.White)
                             .Result());
 
 
-                        SnackList.Replace(new TextListBuilder(removeSnack, 19, 6)
+                        MovieList.Replace(new TextListBuilder(removeMovie, 19, 6)
                             .Color(ConsoleColor.DarkMagenta)
-                            .SetItems(snackNames.ToArray())
+                            .SetItems(movieNames.ToArray())
                             .Result());
 
 
@@ -107,12 +108,12 @@ namespace CinemaApplication
                         }
                         else
                         {
-                            removeSnack.ActiveSelectable = back;
+                            removeMovie.ActiveSelectable = back;
                             back[0].Select();
                         }
 
 
-                        
+
                     };
                 }
 
