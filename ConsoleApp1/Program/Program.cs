@@ -71,7 +71,7 @@ namespace CinemaApplication
             ShowAllRes();
             RemoveSnack();
             RemoveMovie();
-
+            ShowAllRes();
             InputHandler.WaitForInput();
         }
     }

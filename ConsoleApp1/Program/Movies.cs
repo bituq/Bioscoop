@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.IO;
 using System.Collections.Generic;
 using CinemaUI;
+using System.Globalization;
 using CinemaUI.Builder;
 using JsonHandler;
 
@@ -11,6 +12,14 @@ namespace CinemaApplication
 
     partial class Program
     {
+        public class newTimeslot
+        {
+            public int id { get; set; }
+            public int movieId { get; set; }
+            public double time { get; set; }
+            public int hall { get; set; }
+            public List<string> occupiedSeats { get; set; } = new List<string>();
+        }
         public class Filter
         {
             public string Name = "";
@@ -85,9 +94,10 @@ namespace CinemaApplication
 
         public partial class Movie
         {
-            public int Id { get; set; }
             public Window Window = new Window();
             public Window TimeslotEditWindow = new Window();
+            public Window addNewTimeSlot = new Window();
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
             public string Rating { get; set; }
@@ -114,6 +124,149 @@ namespace CinemaApplication
                     Starring.Add(star.ToString());
             }
 
+            void addTimeSlots()
+            {
+                var list = new TextListBuilder(addNewTimeSlot, 1, 2)
+                    .Color(ConsoleColor.Cyan)
+                    .SetItems("Home/Admin/Movies/List/Timeslot/Add Timeslot/")
+                    .Result();
+
+                var inputInformation3 = new TextListBuilder(addNewTimeSlot, 1, 3)
+                    .Color(ConsoleColor.Gray)
+                    .SetItems("Timeslot date:", "Timeslot hour:", "Hall number:")
+                    .Result();
+
+                var inputList3 = new TextListBuilder(addNewTimeSlot, 16, 3)
+                    .SetItems("", "", "")
+                    .AsInput(ConsoleColor.White, ConsoleColor.Black)
+                    .Result();
+
+                var terug3 = new TextListBuilder(addNewTimeSlot, 1, 6)
+                    .Color(ConsoleColor.Green)
+                    .SetItems("Submit", "Go back")
+                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                    .LinkWindows(null, TimeslotEditWindow)
+                    .Result();
+
+                var successMessage3 = new TextListBuilder(addNewTimeSlot, 1, 8)
+                    .SetItems("")
+                    .Result();
+
+                terug3[0].OnClick = () =>
+                {
+                    string filePath3 = "..\\..\\..\\TimeSlots.json";
+                    var root3 = JsonFile.FileAsList(filePath3);
+                    var root4 = JsonFile.FileAsList("..\\..\\..\\Halls.json");
+                    successMessage3.Clear();
+
+                    string[] formats = {"d/M/yyyy h:mm tt",
+                    "dd/MM/yyyy hh:mm tt", "d/M/yyyy H:mm",
+                    "dd/MM/yyyy HH:mm", "d/M/yyyy H:mm", "d/M/yyyy HH:mm", "d/MM/yyyy HH:mm", "dd/M/yyyy HH:mm"};
+
+                    int inputhall = 0;
+                    bool probeer = Int32.TryParse(inputList3[2].Value, out inputhall);
+                    double someFunkyUnixTime = 0;
+
+                    var listOfErrors = new List<string>();
+                    DateTime someFunkyDate;
+                    string givenDate = inputList3[0].Value + " " + inputList3[1].Value;
+
+                    if (inputList3[0].Value == "" || inputList3[1].Value == "" || inputList3[2].Value == "")
+                    {
+                        listOfErrors.Add("Timeslot may not be empty.");
+                    }
+                    if (!probeer)
+                    {
+                        listOfErrors.Add("Hall must be a number.");
+                    }
+                    else if (!ifHallExists(inputhall))
+                    {
+                        listOfErrors.Add("Given hall does not exist.");
+                    }
+                    if (!DateTime.TryParseExact((givenDate), formats, new CultureInfo("nl-NL"), DateTimeStyles.None, out someFunkyDate))
+                    {
+                        listOfErrors.Add("Incorrect datetime format. Please follow dd/MM/yyyy.");
+                    }
+                    else
+                    {
+                        someFunkyUnixTime = (double)(((DateTimeOffset)someFunkyDate).ToUnixTimeSeconds());
+                        Int32 currently = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                        if (someFunkyUnixTime <= (currently + 43200))
+                        {
+                            listOfErrors.Add("You are trying to add a timeslot that has already expired or is about to occur.");
+                            listOfErrors.Add("Please try a later date.");
+                        }
+                        else if (timeSlotOverlap(inputhall))
+                        {
+                            listOfErrors.Add("You are trying to add a timeslot that overlaps with another movie.");
+                            listOfErrors.Add("Please try a later date.");
+                        }
+                    }
+
+                    int getNewId()
+                    {
+                        int biggest = 0;
+                        for (int i = 0; i < root3.Count; i++)
+                        {
+                            if (biggest < root3[i].GetProperty("id").GetInt32())
+                            {
+                                biggest = root3[i].GetProperty("id").GetInt32();
+                            }
+                        }
+                        return (biggest + 1);
+                    }
+                    bool ifHallExists(int id)
+                    {
+                        bool TrueOrFalse = false;
+                        for (int i = 0; i < root4.Count; i++)
+                        {
+                            if (id == root4[i].GetProperty("id").GetInt32())
+                            {
+                                TrueOrFalse = true;
+                            }
+                        }
+                        return TrueOrFalse;
+                    }
+                    bool timeSlotOverlap(int hall)
+                    {
+                        bool TrueOrFalse = false;
+                        for (int i = 0; i < root3.Count; i++)
+                        {
+                            if (hall == root3[i].GetProperty("hall").GetInt32())
+                            {
+                                if (someFunkyUnixTime <= root3[i].GetProperty("time").GetInt32() && (someFunkyUnixTime + (Duration * 62)) >= root3[i].GetProperty("time").GetInt32() || (someFunkyUnixTime >= root3[i].GetProperty("time").GetInt32() && (someFunkyUnixTime <= (root3[i].GetProperty("time").GetInt32() + (Duration * 66)))))
+                                {
+                                    TrueOrFalse = true;
+                                }
+                            }
+                        }
+                        return TrueOrFalse;
+                    }
+
+                    if (listOfErrors.Count != 0)
+                    {
+                        successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 9)
+                            .Color(ConsoleColor.Red)
+                            .SetItems(listOfErrors.ToArray())
+                            .Result());
+                    }
+                    else
+                    {
+                        var nTimeslot = new newTimeslot();
+                        nTimeslot.id = getNewId();
+                        nTimeslot.movieId = Id;
+                        nTimeslot.time = someFunkyUnixTime;
+                        nTimeslot.hall = inputhall;
+                        JsonFile.AppendToFile(nTimeslot, "..\\..\\..\\TimeSlots.json");
+
+                        successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 9)
+                            .Color(ConsoleColor.Green)
+                            .SetItems($"Successfully made a new timeslot for movie: {Name}", $"at time: {someFunkyDate}")
+                            .Result());
+                    }
+                };
+            }
+
             public void InitAdminTimeslot()
             {
                 var Menu = new TextListBuilder(TimeslotEditWindow, 2, 5)
@@ -121,7 +274,7 @@ namespace CinemaApplication
                 .SetItems("Add a timeslot", "Go back")
                 .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(null, editMovieList)
+                .LinkWindows(addNewTimeSlot, editMovieList)
                 .Result();
 
                 Menu[1].OnClick = () =>
@@ -158,6 +311,9 @@ namespace CinemaApplication
                 {
                     DateTime unix = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
                     DateTime time = unix.AddSeconds(timeslot.GetProperty("time").GetInt32());
+                    TimeZoneInfo localtime = TimeZoneInfo.Local;
+                    double difference = localtime.GetUtcOffset(time).TotalSeconds;
+                    time = time.AddSeconds(difference);
                     int hall = timeslot.GetProperty("hall").GetInt32();
                     string text = $"{time.ToString("g")} in hall {hall}";
                     TimeSlotNames.Add(text);
@@ -247,11 +403,13 @@ namespace CinemaApplication
                                         TimeSlots.Items[i].TextColor = ConsoleColor.DarkGray;
                             TimeslotEditWindow.Init();
                             InitRemoveButtons();
+                            addTimeSlots();
                         }
                         button.OnClick = () => OnRemove();
                     }
                 }
                 InitRemoveButtons();
+                addTimeSlots();
             }
 
             public void InitVisitor()
