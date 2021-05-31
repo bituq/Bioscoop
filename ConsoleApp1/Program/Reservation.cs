@@ -302,6 +302,7 @@ namespace CinemaApplication
                 var infobuttonlist = new List<string> { };
                 var sumpricelist = new List<int> { };
                 double sum = 0;
+                double sumM = 8.00;
                 for (int i = 0; i < snackNames.Length; i++)
                 {
                     snackObjects[i] = new Food(
@@ -329,8 +330,15 @@ namespace CinemaApplication
                     .Color(ConsoleColor.Red)
                     .Text("My cart:")
                     .Result();
-
-                var title3 = new TextBuilder(FoodWindow, 11, 20)
+                var title3 = new TextBuilder(FoodWindow, 12, 18)
+                    .Color(ConsoleColor.Red)
+                    .Text("Movie total :")
+                    .Result();
+                var title4 = new TextBuilder(FoodWindow, 11, 19)
+                    .Color(ConsoleColor.Red)
+                    .Text("Snacks total :")
+                    .Result();
+                var title5 = new TextBuilder(FoodWindow, 18, 20)
                     .Color(ConsoleColor.Red)
                     .Text("Total :")
                     .Result();
@@ -374,9 +382,21 @@ namespace CinemaApplication
                         .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                         .Result();
 
-                var total = new TextListBuilder(FoodWindow, 21, 20)
+               
+
+                var totalMovie = new TextListBuilder(FoodWindow, 28, 18)
                     .Color(ConsoleColor.White)
-                    .SetItems($"${sum.ToString()}")
+                    .SetItems($"${Math.Round(sumM, 2)}")
+                    .Result();
+                
+                var totalSnack = new TextListBuilder(FoodWindow, 28, 19)
+                    .Color(ConsoleColor.White)
+                    .SetItems($"${sum}")
+                    .Result();
+
+                var total = new TextListBuilder(FoodWindow, 28, 20)
+                    .Color(ConsoleColor.White)
+                    .SetItems($"${sum + sumM}")
                     .Result();
 
 
@@ -420,9 +440,14 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                     .Result());
 
-                    total.Replace(new TextListBuilder(FoodWindow, 21, 20)
+                    totalSnack.Replace(new TextListBuilder(FoodWindow, 28, 19)
                     .Color(ConsoleColor.White)
                     .SetItems($"${Math.Round(sum, 2)}")
+                    .Result());
+
+                    total.Replace(new TextListBuilder(FoodWindow, 28, 20)
+                    .Color(ConsoleColor.White)
+                    .SetItems($"${Math.Round(sum + sumM, 2)}")
                     .Result());
 
                     if (!isEmpty)
@@ -454,7 +479,7 @@ namespace CinemaApplication
                         removebuttonlist.Add("Remove");
 
                         sum += Convert.ToDouble(snackDouble[addIndex]);
-
+                        
                         shopcart.Replace(new TextListBuilder(FoodWindow, 70, 4)
                         .Color(ConsoleColor.DarkMagenta)
                         .SetItems(cartlist.ToArray())
@@ -471,9 +496,14 @@ namespace CinemaApplication
                         .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                         .Result());
 
-                        total.Replace(new TextListBuilder(FoodWindow, 21, 20)
+                        totalSnack.Replace(new TextListBuilder(FoodWindow, 28, 19)
                         .Color(ConsoleColor.White)
                         .SetItems($"${Math.Round(sum, 2)}")
+                        .Result());
+
+                        total.Replace(new TextListBuilder(FoodWindow, 28, 20)
+                        .Color(ConsoleColor.White)
+                        .SetItems($"${Math.Round(sum + sumM, 2)}")
                         .Result());
 
                         FoodWindow.ActiveSelectable = addButton;

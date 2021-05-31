@@ -47,7 +47,7 @@ namespace CinemaApplication
 
             }
         }
-        static Window hallscreen = new Window(true);
+        static Window hallscreen = new Window();
         static void Halls()
         {
             var halls = File.ReadAllText("..\\..\\..\\Halls.json");
