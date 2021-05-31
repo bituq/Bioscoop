@@ -30,7 +30,7 @@ namespace CinemaApplication
             }
 
         }
-        public static Window removeSnack = new Window(true);
+        public static Window removeSnack = new Window();
         static void RemoveSnack()
         {
             var title = new TextBuilder(removeSnack, 1, 2)

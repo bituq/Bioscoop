@@ -47,7 +47,7 @@ namespace CinemaApplication
 
             }
         }
-        static Window hallscreen = new Window();
+        static Window hallscreen = new Window(true);
         static void Halls()
         {
             var halls = File.ReadAllText("..\\..\\..\\Halls.json");
@@ -56,7 +56,7 @@ namespace CinemaApplication
 
             JsonElement root = doc.RootElement;
 
-            Console.ForegroundColor= ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             var hallObjects = new hall[root.GetArrayLength()];
             var hallWindows = new Window[hallObjects.Length];
             var hallNames = new List<string> { };
@@ -103,53 +103,88 @@ namespace CinemaApplication
                 .Color(ConsoleColor.Cyan)
                 .Text("Home/Admin/Hall Select/Halls/")
                 .Result();
-            
+
+            var sure = new TextListBuilder(hallscreen, 43, 5)
+                .Color(ConsoleColor.Cyan)
+                .SetItems("")
+                .Result();
+
+
+
             foreach (SelectableText item in removeButton.Items)
+            {
                 item.OnClick = onRemove;
+            }
             void onRemove()
             {
-                var removeIndex = removeButton.SelectedIndex;
-                
-                removeButtonlist.RemoveAt(removeIndex);
-                hallNames.RemoveAt(removeIndex);
-
-                bool isEmpty = false;
-                if (removeButtonlist.Count == 0)
-                {
-                    isEmpty = true;
-                    removeButtonlist.Add("");
-                    removeButton[0].Unselect();
-                }
-                
-                removeButton.Replace(new TextListBuilder(hallscreen, 31, 5)
-                .Color(ConsoleColor.DarkRed)
-                .SetItems(removeButtonlist.ToArray())
-                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
-                .Result());
-
-                showhall.Replace(new TextListBuilder(hallscreen, 14, 5)
+                sure.Replace(new TextListBuilder(hallscreen, 43, 5)
                 .Color(ConsoleColor.Red)
-                .SetItems(hallNames.ToArray())
-                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
-                .LinkWindows(hallWindows)
+                .SetItems("Warning! : Removing halls might have conflicts with movies.")
                 .Result());
 
-
-
-                if (!isEmpty)
+                foreach (var item in removeButton.Items)
                 {
-                    var _ = removeButton.Items.Count;
-                    removeButton[0].Unselect();
-                    removeButton[Math.Min(removeIndex, removeButton.Items.Count - 1)].Select();
+                    item.OnClick = () =>
+                    {
+                        {
 
-                    foreach (SelectableText Item in removeButton.Items)
-                        Item.OnClick = onRemove;
+                            List<JsonElement> snacksAndDrinksList = JsonFile.FileAsList("..\\..\\..\\Halls.json");
+
+                            int index = removeButton.Items.IndexOf(item);
+                            int id = snacksAndDrinksList[index].GetProperty("id").GetInt32();
+
+                            JsonFile.RemoveFromFile("id", id, "..\\..\\..\\Halls.json");
+
+
+                            var removeIndex = removeButton.SelectedIndex;
+
+                            removeButtonlist.RemoveAt(removeIndex);
+                            hallNames.RemoveAt(removeIndex);
+
+                            bool isEmpty = false;
+                            if (removeButtonlist.Count == 0)
+                            {
+                                isEmpty = true;
+                                removeButtonlist.Add("");
+                                removeButton[0].Unselect();
+                            }
+
+                            removeButton.Replace(new TextListBuilder(hallscreen, 31, 5)
+                            .Color(ConsoleColor.DarkRed)
+                            .SetItems(removeButtonlist.ToArray())
+                            .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                            .Result());
+
+                            showhall.Replace(new TextListBuilder(hallscreen, 14, 5)
+                            .Color(ConsoleColor.Red)
+                            .SetItems(hallNames.ToArray())
+                            .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                            .LinkWindows(hallWindows)
+                            .Result());
+
+                            sure.Replace(new TextListBuilder(hallscreen, 43, 5)
+                .Color(ConsoleColor.Green)
+                .SetItems($"Hall {id} is succesfully removed!")
+                .Result());
+
+                            if (!isEmpty)
+                            {
+                                var _ = removeButton.Items.Count;
+                                removeButton[0].Unselect();
+                                removeButton[Math.Min(removeIndex, removeButton.Items.Count - 1)].Select();
+
+                                foreach (SelectableText Item in removeButton.Items)
+                                    Item.OnClick = onRemove;
+                            }
+                            else
+                            {
+                                hallscreen.ActiveSelectable = goBack;
+                                goBack[0].Select();
+                            }
+                        }
+                    };
                 }
-                else
-                {
-                    hallscreen.ActiveSelectable = goBack;
-                    goBack[0].Select();
-                }
+
             }
         }
     }
