@@ -26,9 +26,9 @@ namespace CinemaApplication
                 .LinkWindows(AdminScherm)
                 .Result();
 
-            var snacksAndDrinks = File.ReadAllText("..\\..\\..\\Movies.json");
+            var movieMan = File.ReadAllText("..\\..\\..\\Movies.json");
 
-            JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
+            JsonDocument doc = JsonDocument.Parse(movieMan);
             JsonElement root = doc.RootElement;
 
             List<string> movieNames = new List<string>();
@@ -39,7 +39,7 @@ namespace CinemaApplication
 
             };
 
-            var SnackList = new TextListBuilder(removeMovie, 19, 6)
+            var MovieList = new TextListBuilder(removeMovie, 19, 6)
                 .Color(ConsoleColor.DarkMagenta)
                 .SetItems(movieNames.ToArray())
                 .Result();
@@ -65,10 +65,10 @@ namespace CinemaApplication
                 {
                     button.OnClick = () =>
                     {
-                        List<JsonElement> snacksAndDrinksList = JsonFile.FileAsList("..\\..\\..\\Movies.json");
+                        List<JsonElement> movieMan = JsonFile.FileAsList("..\\..\\..\\Movies.json");
 
                         int index = removeButtons.Items.IndexOf(button);
-                        int id = snacksAndDrinksList[index].GetProperty("id").GetInt32();
+                        int id = movieMan[index].GetProperty("id").GetInt32();
 
                         JsonFile.RemoveFromFile("id", id, "..\\..\\..\\Movies.json");
 
@@ -91,7 +91,7 @@ namespace CinemaApplication
                             .Result());
 
 
-                        SnackList.Replace(new TextListBuilder(removeMovie, 19, 6)
+                        MovieList.Replace(new TextListBuilder(removeMovie, 19, 6)
                             .Color(ConsoleColor.DarkMagenta)
                             .SetItems(movieNames.ToArray())
                             .Result());
