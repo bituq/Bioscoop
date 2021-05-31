@@ -131,24 +131,24 @@ namespace CinemaApplication
                     .SetItems("Home/Admin/Movies/List/Timeslot/Add Timeslot/")
                     .Result();
 
-                var inputInformation3 = new TextListBuilder(addNewTimeSlot, 1, 3)
+                var inputInformation3 = new TextListBuilder(addNewTimeSlot, 1, 4)
                     .Color(ConsoleColor.Gray)
                     .SetItems("Timeslot date:", "Timeslot hour:", "Hall number:")
                     .Result();
 
-                var inputList3 = new TextListBuilder(addNewTimeSlot, 16, 3)
+                var inputList3 = new TextListBuilder(addNewTimeSlot, 16, 4)
                     .SetItems("", "", "")
                     .AsInput(ConsoleColor.White, ConsoleColor.Black)
                     .Result();
 
-                var terug3 = new TextListBuilder(addNewTimeSlot, 1, 6)
+                var terug3 = new TextListBuilder(addNewTimeSlot, 1, 8)
                     .Color(ConsoleColor.Green)
                     .SetItems("Submit", "Go back")
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .LinkWindows(null, TimeslotEditWindow)
                     .Result();
 
-                var successMessage3 = new TextListBuilder(addNewTimeSlot, 1, 8)
+                var successMessage3 = new TextListBuilder(addNewTimeSlot, 1, 11)
                     .SetItems("")
                     .Result();
 
@@ -245,7 +245,7 @@ namespace CinemaApplication
 
                     if (listOfErrors.Count != 0)
                     {
-                        successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 9)
+                        successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 11)
                             .Color(ConsoleColor.Red)
                             .SetItems(listOfErrors.ToArray())
                             .Result());
@@ -259,7 +259,7 @@ namespace CinemaApplication
                         nTimeslot.hall = inputhall;
                         JsonFile.AppendToFile(nTimeslot, "..\\..\\..\\TimeSlots.json");
 
-                        successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 9)
+                        successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 11)
                             .Color(ConsoleColor.Green)
                             .SetItems($"Successfully made a new timeslot for movie: {Name}", $"at time: {someFunkyDate}")
                             .Result());
@@ -270,7 +270,7 @@ namespace CinemaApplication
             public void InitAdminTimeslot()
             {
                 var Menu = new TextListBuilder(TimeslotEditWindow, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(ConsoleColor.Green)
                 .SetItems("Add a timeslot", "Go back")
                 .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -298,7 +298,7 @@ namespace CinemaApplication
                     .Result();
 
                 var Title = new TextBuilder(TimeslotEditWindow, Description.Position.X + Math.Max(Name.Length, Path.Text.Length) + 3, 3)
-                    .Color(ConsoleColor.Magenta)
+                    .Color(ConsoleColor.Red)
                     .Text("Timeslots: ")
                     .Result();
 
@@ -445,7 +445,7 @@ namespace CinemaApplication
                     .Result();
 
                 var _ = new TextListBuilder(Window, 1, 1)
-                    .Color(ConsoleColor.Yellow)
+                    .Color(ConsoleColor.Green)
                     .SetItems("Go back", "Make reservation")
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .LinkWindows(listOfFilms, timeSlotWindow)
@@ -457,9 +457,9 @@ namespace CinemaApplication
         static void ListOfFilms()
         {
             var _ = new TextListBuilder(listOfFilms, 1, 1)
-                   .Color(ConsoleColor.Yellow)
+                   .Color(ConsoleColor.Green)
                    .SetItems("Go back")
-                   .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
                    .LinkWindows(mainMenu)
                    .Result();
 
