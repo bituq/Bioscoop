@@ -52,32 +52,31 @@ namespace CinemaApplication
 
             SnacksRemove[] snackObjects = new SnacksRemove[root.GetArrayLength()];
             var snackWindows = new Window[snackObjects.Length];
-            string[] snackNames = new string[root.GetArrayLength()];
+            List<string> snackNames = new List<string>();
 
-            for (int i = 0; i < snackNames.Length; i++)
+            for (int i = 0; i < root.GetArrayLength(); i++)
             {
                 snackObjects[i] = new SnacksRemove();
-                snackNames[i] = root[i].GetProperty("name").ToString();
+                snackNames.Add(root[i].GetProperty("name").ToString());
                 
             };
 
             var SnackList = new TextListBuilder(removeSnack, 11, 6)
                 .Color(ConsoleColor.DarkMagenta)
-                .SetItems(snackNames)
-                .UseNumbers()
+                .SetItems(snackNames.ToArray())
                 .Result();
 
-            string[] removeName = new string[snackObjects.Length];
+            List<string> removeName = new List<string>();
 
 
             for (int i = 0; i < snackObjects.Length; i++)
             {
-                removeName[i] = "Remove";
+                removeName.Add("Remove");
             }
             
             var removeButtons = new TextListBuilder(removeSnack, 35, 6)
-                .Color(ConsoleColor.Green)
-                .SetItems(removeName)
+                .Color(ConsoleColor.Red)
+                .SetItems(removeName.ToArray())
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
 
@@ -94,6 +93,32 @@ namespace CinemaApplication
                         int id = snacksAndDrinksList[index].GetProperty("id").GetInt32();
 
                         JsonFile.RemoveFromFile("id", id, "..\\..\\..\\snacksAndDrinks.json");
+
+                        snackNames.RemoveAt(index);
+                        removeName.RemoveAt(0);
+
+
+                        bool isEmpty = false;
+                        if (removeName.Count == 0)
+                        {
+                            isEmpty = true;
+                            removeName.Add("");
+                            removeButtons[0].Unselect();
+                        }
+
+                        removeButtons.Replace(new TextListBuilder(removeSnack, 35, 6)
+                            .Color(ConsoleColor.Red)
+                            .SetItems(removeName.ToArray())
+                            .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                            .Result());
+
+
+                        SnackList.Replace(new TextListBuilder(removeSnack, 11, 6)
+                            .Color(ConsoleColor.DarkMagenta)
+                            .SetItems(snackNames.ToArray())
+                            .Result());
+
+
 
                         UpdateClick();
                     };
