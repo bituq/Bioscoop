@@ -59,9 +59,9 @@ namespace CinemaApplication
             Console.ForegroundColor= ConsoleColor.DarkMagenta;
             var hallObjects = new hall[root.GetArrayLength()];
             var hallWindows = new Window[hallObjects.Length];
-            string[] hallNames = new string[root.GetArrayLength()];
+            var hallNames = new List<string> { };
             var removeButtonlist = new List<string> { };
-            for (int i = 0; i < hallNames.Length; i++)
+            for (int i = 0; i < hallObjects.Length; i++)
             {
                 hallObjects[i] = new hall(
                     "Hall number " + root[i].GetProperty("id").ToString(),
@@ -70,7 +70,7 @@ namespace CinemaApplication
                     );
 
                 hallWindows[i] = hallObjects[i].Window;
-                hallNames[i] = hallObjects[i].Name;
+                hallNames.Add(hallObjects[i].Name);
                 removeButtonlist.Add("Remove");
                 //Console.WriteLine($"{i} : {movieNames[i]}");
             }
@@ -88,13 +88,13 @@ namespace CinemaApplication
 
             var showhall = new TextListBuilder(hallscreen, 14, 5)
                 .Color(ConsoleColor.Red)
-                .SetItems(hallNames)
+                .SetItems(hallNames.ToArray())
                 .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                 .LinkWindows(hallWindows)
                 .Result();
 
             var removeButton = new TextListBuilder(hallscreen, 31, 5)
-                .Color(ConsoleColor.White)
+                .Color(ConsoleColor.DarkRed)
                 .SetItems(removeButtonlist.ToArray())
                 .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                 .Result();
@@ -104,11 +104,14 @@ namespace CinemaApplication
                 .Text("Home/Admin/Hall Select/Halls/")
                 .Result();
             
+            foreach (SelectableText item in removeButton.Items)
+                item.OnClick = onRemove;
             void onRemove()
             {
                 var removeIndex = removeButton.SelectedIndex;
                 
                 removeButtonlist.RemoveAt(removeIndex);
+                hallNames.RemoveAt(removeIndex);
 
                 bool isEmpty = false;
                 if (removeButtonlist.Count == 0)
@@ -119,9 +122,16 @@ namespace CinemaApplication
                 }
                 
                 removeButton.Replace(new TextListBuilder(hallscreen, 31, 5)
-                .Color(ConsoleColor.Red)
+                .Color(ConsoleColor.DarkRed)
                 .SetItems(removeButtonlist.ToArray())
                 .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                .Result());
+
+                showhall.Replace(new TextListBuilder(hallscreen, 14, 5)
+                .Color(ConsoleColor.Red)
+                .SetItems(hallNames.ToArray())
+                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                .LinkWindows(hallWindows)
                 .Result());
 
 
