@@ -23,7 +23,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.Red)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(snackOptions)
+                .LinkWindows(adminMovieWindow)
                 .Result();
 
             var movieMan = File.ReadAllText("..\\..\\..\\Movies.json");
