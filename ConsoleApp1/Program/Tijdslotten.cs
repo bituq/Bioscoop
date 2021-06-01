@@ -101,8 +101,11 @@ namespace CinemaApplication
                         .Result();
 
                     for (int row = 0; row < _.Items.Count; row++)
+                    {
                         if (occupiedSeats.Exists(seat => seat.Column - 1 == column && seat.Row - 1 == row))
                             _[row].Disable();
+                        _[row].OnClickKeys.Add(ConsoleKey.Spacebar);
+                    }
 
                     columns.Add(_);
                 }
