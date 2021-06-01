@@ -105,7 +105,6 @@ namespace CinemaApplication
                         .Result());
                 }
             };
-        }
-        */
+        } */
     }
 }

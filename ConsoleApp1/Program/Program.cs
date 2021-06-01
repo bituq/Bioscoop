@@ -69,9 +69,6 @@ namespace CinemaApplication
             AdminMovieMenu();
             AddMovie();
             ShowAllRes();
-
-            //addTimeSlots();
-
             InputHandler.WaitForInput();
         }
     }
