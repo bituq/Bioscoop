@@ -52,7 +52,7 @@ namespace CinemaApplication
                 .Color(ConsoleColor.Red)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(AdminScherm)
+                .LinkWindows(snackOptions)
                 .Result();
             
             var message = new TextListBuilder(addSnack)
