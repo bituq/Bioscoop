@@ -12,6 +12,7 @@ namespace CinemaUI
         internal ConsoleColor DisabledColor { get; set; } = ConsoleColor.DarkGray;
         public Window Window { get => _paragraph.Window; set => _paragraph.Window = value; }
         public Action OnClick { get; set; } = () => { };
+        public List<ConsoleKey> OnClickKeys = new List<ConsoleKey> { ConsoleKey.Enter };
         public string Text
         {
             get => _paragraph.Text;

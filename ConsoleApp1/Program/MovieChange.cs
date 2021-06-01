@@ -103,6 +103,9 @@ namespace CinemaApplication
                     listOfFilms.Reset();
                     ListOfFilms();
                     listOfFilms.Init();
+                    editMovieList.Reset();
+                    EditMovies();
+                    editMovieList.Init();
                 }
                 else
                 {

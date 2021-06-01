@@ -63,7 +63,6 @@ namespace CinemaUI
         }
         private void Enter(SelectableText activeItem)
         {
-            activeItem.OnClick();
             if (activeItem.Referral != null)
                 activeItem.ActivateReferral();
         }
@@ -73,6 +72,9 @@ namespace CinemaUI
             var selectionOrder = TextList.Window.SelectionOrder;
             var activeItem = Items.Find(item => item.Selected) ?? Items[0];
             int index = Items.IndexOf(activeItem);
+            if (activeItem.OnClickKeys.Contains(keyPressed.Key))
+                if (!Disabled && !activeItem.Disabled)
+                    activeItem.OnClick();
             switch (keyPressed.Key)
             {
                 case ConsoleKey.UpArrow:
