@@ -11,7 +11,7 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        public static Window removeMovie = new Window(true);
+        public static Window removeMovie = new Window();
         static void RemoveMovie()
         {
             var title = new TextBuilder(removeMovie, 1, 2)
