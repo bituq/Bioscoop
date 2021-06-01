@@ -33,6 +33,7 @@ namespace CinemaApplication
             public List<Seat> occupiedSeats { get; set; } = new List<Seat>();
             public List<Window> reservationWindows { get; set; } = new List<Window>();
             public List<Seat> selectedSeats = new List<Seat>();
+            double sum = 0;
 
             public TimeSlot(Movie Movie, int Time, Hall Hall, List<Seat> OccupiedSeats, int id)
             {
@@ -101,8 +102,11 @@ namespace CinemaApplication
                         .Result();
 
                     for (int row = 0; row < _.Items.Count; row++)
+                    {
                         if (occupiedSeats.Exists(seat => seat.Column - 1 == column && seat.Row - 1 == row))
                             _[row].Disable();
+                        _[row].OnClickKeys.Add(ConsoleKey.Spacebar);
+                    }
 
                     columns.Add(_);
                 }
@@ -112,6 +116,11 @@ namespace CinemaApplication
                     .SetItems("Go back", "Make reservation")
                     .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
                     .LinkWindows(Movie.timeSlotWindow)
+                    .Result();
+
+                var priceText = new TextListBuilder(this.Window, 1, 10 + this.Hall.Rows)
+                    .Color(ConsoleColor.Blue)
+                    .SetItems($"Price: ${sum}")
                     .Result();
 
                 goBack[1].Disable();
@@ -124,18 +133,21 @@ namespace CinemaApplication
                         hoverDict[item] = false;
                         item.OnClick = () =>
                         {
+                            double price = 10.0;
                             Seat currentSeat = Hall.Seats[Int32.Parse(item.Text.Remove(0, 1)) - 1];
                             if (!hoverDict[item] && !item.Disabled)
                             {
                                 hoverDict[item] = true;
                                 item.TextColor = ConsoleColor.Yellow;
                                 selectedSeats.Add(currentSeat);
+                                sum += price;
                             }
                             else if (hoverDict[item] && !item.Disabled)
                             {
                                 hoverDict[item] = false;
                                 item.TextColor = item._defaultTextColor;
                                 selectedSeats.Remove(currentSeat);
+                                sum -= price;
                             }
                             if (hoverDict.ContainsValue(true))
                             {
@@ -145,12 +157,17 @@ namespace CinemaApplication
                             {
                                 goBack[1].Disable();
                             }
+                            priceText.Replace(new TextListBuilder(this.Window, 1, 10 + this.Hall.Rows)
+                                    .Color(ConsoleColor.Blue)
+                                    .SetItems($"Price: ${sum}")
+                                    .Result()
+                            );
                         };
                     }
 
                 goBack[1].OnClick = () =>
                 {
-                    var reservation = new Reservation(this, this.Window, selectedSeats);
+                    var reservation = new Reservation(this, this.Window, selectedSeats, sum);
                     goBack[1].Referral = reservation.FoodWindow;
                     goBack[1].ActivateReferral();
                 };

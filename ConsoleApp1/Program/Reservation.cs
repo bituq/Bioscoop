@@ -36,16 +36,9 @@ namespace CinemaApplication
             public int DateOfReservation { get; set; }
             public List<Seat> Seats { get; set; }
             private bool submitted = false;
-
-            public Reservation(TimeSlot TimeSlot, Window PreviousWindow, List<Seat> Seats)
+            double sum = 0;
+            public void ReservationInit()
             {
-                this.TimeSlot = TimeSlot;
-                this.Seats = Seats;
-                this.Hall = TimeSlot.Hall;
-
-                Payments();
-                FoodWindows();
-
                 string filePath = "..\\..\\..\\Reserveringen.json";
                 var root = JsonFile.FileAsList(filePath);
 
@@ -53,7 +46,7 @@ namespace CinemaApplication
                     .Color(ConsoleColor.Yellow)
                     .SetItems("Go Back", "Submit")
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                    .LinkWindows(TimeSlot.Window)
+                    .LinkWindows(PaymentsWindow)
                     .Result();
 
                 var title = new TextBuilder(Window, 11, 1)
@@ -79,9 +72,9 @@ namespace CinemaApplication
                     seatList += $"{temp}stoel {seat.Column} ";
                 }
 
-                var additionalInformation = new TextListBuilder(Window, 11, 7)
+                var additionalInformation = new TextListBuilder(Window, 11, 8)
                     .Color(ConsoleColor.DarkGray)
-                    .SetItems("Hall: " + TimeSlot.Hall.Id, "Seats: " + seatList)
+                    .SetItems($"Cost: ${Math.Round(sum, 2)}", "Hall: " + TimeSlot.Hall.Id, "Seats: " + seatList)
                     .Result();
 
                 var successMessage = new TextListBuilder(Window)
@@ -131,7 +124,7 @@ namespace CinemaApplication
                         inputList.Disabled = true;
 
                         successMessage.Replace(
-                            new TextListBuilder(Window, 1, 11)
+                            new TextListBuilder(Window, 1, 12)
                             .Color(ConsoleColor.Green)
                             .SetItems("Reservation has been submitted. Your reservation will be sent to you through e-mail.")
                             .Result()
@@ -146,7 +139,7 @@ namespace CinemaApplication
                         terug[0].Disable();
                         terug[1].Disable();
 
-                        var finish = new TextListBuilder(Window, 1, 13)
+                        var finish = new TextListBuilder(Window, 1, 14)
                         .Color(ConsoleColor.Yellow)
                         .SetItems("Finish")
                         .Selectable(ConsoleColor.Black, ConsoleColor.White)
@@ -157,7 +150,7 @@ namespace CinemaApplication
 
                         Window.Init();
 
-                        //VincentCooleQOLFuncties.EmailUser(inputList[2].Value, randomCode, TimeSlot, seatList);
+                        //VincentCooleQOLFuncties.EmailUser(inputList[2].Value, randomCode, TimeSlot, seatList, sum);
                         TimeSlot.Window.Reset();
 
                         string timeSlotPath = "..\\..\\..\\TimeSlots.json";
@@ -192,13 +185,23 @@ namespace CinemaApplication
                     else
                     {
                         successMessage.Replace(
-                            new TextListBuilder(Window, 1, 11)
+                            new TextListBuilder(Window, 1, 12)
                             .Color(ConsoleColor.Red)
                             .SetItems("The fields may not be empty. You must fill in all the required information.")
                             .Result()
                             );
                     }
                 };
+            }
+            public Reservation(TimeSlot TimeSlot, Window PreviousWindow, List<Seat> Seats, double Sum = 0)
+            {
+                this.TimeSlot = TimeSlot;
+                this.Seats = Seats;
+                this.Hall = TimeSlot.Hall;
+                this.sum = Sum;
+
+                Payments();
+                FoodWindows();
             }
 
             private void Payments()
@@ -285,6 +288,13 @@ namespace CinemaApplication
                        .LinkWindows(TimeSlot.Window, PaymentsWindow)
                        .Result();
 
+                goBack[1].OnClick = () =>
+                {
+                    this.Window.Reset();
+                    ReservationInit();
+                    this.Window.Init();
+                };
+
                 var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
 
                 JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
@@ -301,8 +311,6 @@ namespace CinemaApplication
                 var cartpricelist = new List<string> { };
                 var infobuttonlist = new List<string> { };
                 var sumpricelist = new List<int> { };
-                double sum = 0;
-                double sumM = 8.00;
                 for (int i = 0; i < snackNames.Length; i++)
                 {
                     snackObjects[i] = new Food(
@@ -406,9 +414,7 @@ namespace CinemaApplication
                     var removeIndex = removebutton.SelectedIndex;
 
                     if (cartpricelist.Count > 0)
-                        sum -= Convert.ToDouble(cartpricelist[removeIndex]) / 100;
-                    else
-                        sum = 0;
+                        sum -= Convert.ToDouble(cartpricelist[removeIndex]);
 
                     cartlist.RemoveAt(removeIndex);
                     cartpricelist.RemoveAt(removeIndex);
