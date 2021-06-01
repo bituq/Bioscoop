@@ -482,5 +482,19 @@
         "column": 5
       }
     ]
+  },
+  {
+    "id": 6,
+    "movieId": 0,
+    "time": 1622556000,
+    "hall": 5,
+    "occupiedSeats": []
+  },
+  {
+    "id": 7,
+    "movieId": 1,
+    "time": 1622556000,
+    "hall": 6,
+    "occupiedSeats": []
   }
 ]

@@ -44,7 +44,7 @@ namespace CinemaApplication
         static void SnacksWindow()
         {
             var _ = new TextListBuilder(snacksWindow, 1, 1)
-                   .Color(ConsoleColor.White)
+                   .Color(ConsoleColor.Green)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
                    .LinkWindows(mainMenu)
@@ -75,7 +75,7 @@ namespace CinemaApplication
             }
 
             var snackList = new TextListBuilder(snacksWindow, 11, 1)
-                .Color(ConsoleColor.DarkMagenta)
+                .Color(ConsoleColor.White)
                 .SetItems(snackNames)
                 .UseNumbers()
                 .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
