@@ -14,15 +14,15 @@ namespace CinemaApplication
         {
             var Menu = new TextListBuilder(adminMovieWindow, 2, 5)
                 .Color(ConsoleColor.Red)
-                .SetItems("Add a movie", "Edit movies/timeslots", "Go Back")
+                .SetItems("Add Movie","Remove Movie", "Edit Movies/Timeslots", "Go Back")
                 .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(addMovie, editMovieList, AdminScherm)
+                .LinkWindows(addMovie, removeMovie, editMovieList, AdminScherm)
                 .Result();
 
             var Path = new TextBuilder(adminMovieWindow, 2, 2)
                 .Color(ConsoleColor.Cyan)
-                .Text("Home/Admin/Movies/")
+                .Text("Home/Admin/Movie Options/")
                 .Result();
         }
         public static Window editMovieList = new Window();

@@ -32,7 +32,7 @@ namespace CinemaApplication
                .Color(ConsoleColor.Red)
                .SetItems("Go back")
                .Selectable(ConsoleColor.Black, ConsoleColor.White)
-               .LinkWindows(AdminScherm)
+               .LinkWindows(adminMovieWindow)
                .Result();
 
             var title = new TextBuilder(addMovie, 1, 2)
