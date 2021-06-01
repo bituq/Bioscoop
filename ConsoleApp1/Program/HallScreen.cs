@@ -104,7 +104,7 @@ namespace CinemaApplication
                 .Text("Home/Admin/Hall Select/Halls/")
                 .Result();
 
-            var sure = new TextListBuilder(hallscreen, 43, 5)
+            var Errormessage = new TextListBuilder(hallscreen, 43, 5)
                 .Color(ConsoleColor.Cyan)
                 .SetItems("")
                 .Result();
@@ -118,17 +118,26 @@ namespace CinemaApplication
 
                 foreach (var item in removeButton.Items)
                 {
+                    bool valid = true;
+                    int themovie = 0;
+                    List<JsonElement> HallList = JsonFile.FileAsList("..\\..\\..\\Halls.json");
+                    int index = removeButton.Items.IndexOf(item);
+                    int id = HallList[index].GetProperty("id").GetInt32();
+
                     item.OnClick = () =>
                     {
+                        List<JsonElement> listylist = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
+                        for (int i = 0; i < listylist.Count; i++)
                         {
-
-                            List<JsonElement> snacksAndDrinksList = JsonFile.FileAsList("..\\..\\..\\Halls.json");
-
-                            int index = removeButton.Items.IndexOf(item);
-                            int id = snacksAndDrinksList[index].GetProperty("id").GetInt32();
-
+                            if (id == listylist[i].GetProperty("hall").GetInt32())
+                            {
+                                valid = false;
+                                themovie = listylist[i].GetProperty("id").GetInt32();
+                            }
+                        }
+                        if(valid)
+                        {
                             JsonFile.RemoveFromFile("id", id, "..\\..\\..\\Halls.json");
-
 
                             var removeIndex = removeButton.SelectedIndex;
 
@@ -156,7 +165,7 @@ namespace CinemaApplication
                             .LinkWindows(hallWindows)
                             .Result());
 
-                            sure.Replace(new TextListBuilder(hallscreen, 43, 5)
+                            Errormessage.Replace(new TextListBuilder(hallscreen, 43, 5)
                             .Color(ConsoleColor.Green)
                             .SetItems($"Hall {id} is succesfully removed!")
                             .Result());
@@ -177,15 +186,20 @@ namespace CinemaApplication
                             }
                             onRemove();
                         }
+                        else
+                        {
+                            Errormessage.Replace(new TextListBuilder(hallscreen, 43, 5)
+                            .Color(ConsoleColor.Green)
+                            .SetItems($"Not able to remove hall {id}, this hall is used in timeslot id {themovie}")
+                            .Result());
+                        }
                     };
-
                 }
-
             }
             onRemove();
             goBack[0].OnClick = () =>
             {
-                sure.Replace(new TextListBuilder(hallscreen, 43, 5)
+                Errormessage.Replace(new TextListBuilder(hallscreen, 43, 5)
                             .Color(ConsoleColor.Green)
                             .SetItems("")
                             .Result());
