@@ -6,6 +6,7 @@ using CinemaUI.Builder;
 using JsonHandler;
 using System.Text.Json;
 using System.IO;
+using System.Globalization;
 
 namespace CinemaApplication
 {
@@ -406,7 +407,7 @@ namespace CinemaApplication
                     var removeIndex = removebutton.SelectedIndex;
 
                     if (cartpricelist.Count > 0)
-                        sum -= Convert.ToDouble(cartpricelist[removeIndex]) / 100;
+                        sum -= Convert.ToDouble(cartpricelist[removeIndex], new CultureInfo("en-US"));
                     else
                         sum = 0;
 
