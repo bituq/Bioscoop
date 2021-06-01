@@ -311,6 +311,7 @@ namespace CinemaApplication
                 var cartpricelist = new List<string> { };
                 var infobuttonlist = new List<string> { };
                 var sumpricelist = new List<int> { };
+                double sumM = 0.00;
                 for (int i = 0; i < snackNames.Length; i++)
                 {
                     snackObjects[i] = new Food(
