@@ -112,12 +112,9 @@ namespace CinemaApplication
                             back[0].Select();
                         }
 
-
-
+                        UpdateClick();
                     };
                 }
-
-
             }
             UpdateClick();
         }
