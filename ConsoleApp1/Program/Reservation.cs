@@ -150,7 +150,7 @@ namespace CinemaApplication
 
                         Window.Init();
 
-                        //VincentCooleQOLFuncties.EmailUser(inputList[2].Value, randomCode, TimeSlot, seatList);
+                        //VincentCooleQOLFuncties.EmailUser(inputList[2].Value, randomCode, TimeSlot, seatList, sum);
                         TimeSlot.Window.Reset();
 
                         string timeSlotPath = "..\\..\\..\\TimeSlots.json";

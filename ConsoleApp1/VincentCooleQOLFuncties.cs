@@ -11,14 +11,14 @@ namespace CinemaApplication
     {
         static class VincentCooleQOLFuncties
         {
-            public static void EmailUser(string recipient, string code, TimeSlot timeSlot, string seats)
+            public static void EmailUser(string recipient, string code, TimeSlot timeSlot, string seats, double sum)
             {
                 MailMessage msg = new MailMessage();
 
                 msg.From = new MailAddress("kappenmetspammennu@gmail.com");
                 msg.To.Add(recipient);
                 msg.Subject = $"Your reservation for {timeSlot.Movie.Name}";
-                msg.Body = $"Thanks for making a reservation for {timeSlot.Movie.Name}!\n\nHall: {timeSlot.Hall.Id}\nSeats: {seats}\n Your reservation code: {code}\n\nYou must provide your reservation code when entering the movie theater.";
+                msg.Body = $"Thanks for making a reservation for {timeSlot.Movie.Name}!\n\nHall: {timeSlot.Hall.Id}\nSeats: {seats}\n Your reservation code: {code}\nCost: {Math.Round(sum, 2)}\n\nYou must provide your reservation code when entering the movie theater.";
 
                 using (SmtpClient client = new SmtpClient())
                 {
