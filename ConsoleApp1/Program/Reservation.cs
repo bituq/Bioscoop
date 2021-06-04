@@ -340,15 +340,15 @@ namespace CinemaApplication
                     .Color(ConsoleColor.Red)
                     .Text("My cart:")
                     .Result();
-                var title3 = new TextBuilder(FoodWindow, 12, 18)
+                var title3 = new TextBuilder(FoodWindow, 12, snackNames.Length + 10)
                     .Color(ConsoleColor.Red)
                     .Text("Movie total :")
                     .Result();
-                var title4 = new TextBuilder(FoodWindow, 11, 19)
+                var title4 = new TextBuilder(FoodWindow, 11, snackNames.Length + 11)
                     .Color(ConsoleColor.Red)
                     .Text("Snacks total :")
                     .Result();
-                var title5 = new TextBuilder(FoodWindow, 18, 20)
+                var title5 = new TextBuilder(FoodWindow, 18, snackNames.Length + 12)
                     .Color(ConsoleColor.Red)
                     .Text("Total :")
                     .Result();
@@ -394,17 +394,17 @@ namespace CinemaApplication
 
                
 
-                var totalMovie = new TextListBuilder(FoodWindow, 28, 18)
+                var totalMovie = new TextListBuilder(FoodWindow, 28, snackNames.Length + 10)
                     .Color(ConsoleColor.White)
                     .SetItems($"${Math.Round(sumM, 2)}")
                     .Result();
                 
-                var totalSnack = new TextListBuilder(FoodWindow, 28, 19)
+                var totalSnack = new TextListBuilder(FoodWindow, 28, snackNames.Length + 11)
                     .Color(ConsoleColor.White)
                     .SetItems($"${sum}")
                     .Result();
 
-                var total = new TextListBuilder(FoodWindow, 28, 20)
+                var total = new TextListBuilder(FoodWindow, 28, snackNames.Length + 12)
                     .Color(ConsoleColor.White)
                     .SetItems($"${sum + sumM}")
                     .Result();
@@ -450,12 +450,12 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                     .Result());
 
-                    totalSnack.Replace(new TextListBuilder(FoodWindow, 28, 19)
+                    totalSnack.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 11)
                     .Color(ConsoleColor.White)
                     .SetItems($"${Math.Round(sum, 2)}")
                     .Result());
 
-                    total.Replace(new TextListBuilder(FoodWindow, 28, 20)
+                    total.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 12)
                     .Color(ConsoleColor.White)
                     .SetItems($"${Math.Round(sum + sumM, 2)}")
                     .Result());
@@ -506,12 +506,12 @@ namespace CinemaApplication
                         .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
                         .Result());
 
-                        totalSnack.Replace(new TextListBuilder(FoodWindow, 28, 19)
+                        totalSnack.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 11)
                         .Color(ConsoleColor.White)
                         .SetItems($"${Math.Round(sum, 2)}")
                         .Result());
 
-                        total.Replace(new TextListBuilder(FoodWindow, 28, 20)
+                        total.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 12)
                         .Color(ConsoleColor.White)
                         .SetItems($"${Math.Round(sum + sumM, 2)}")
                         .Result());
