@@ -37,7 +37,7 @@ namespace CinemaApplication
             public int DateOfReservation { get; set; }
             public List<Seat> Seats { get; set; }
             private bool submitted = false;
-            double sum = 0;
+            double sumM = 0.00;
             public void ReservationInit()
             {
                 string filePath = "..\\..\\..\\Reserveringen.json";
@@ -75,7 +75,7 @@ namespace CinemaApplication
 
                 var additionalInformation = new TextListBuilder(Window, 11, 8)
                     .Color(ConsoleColor.DarkGray)
-                    .SetItems($"Cost: ${Math.Round(sum, 2)}", "Hall: " + TimeSlot.Hall.Id, "Seats: " + seatList)
+                    .SetItems($"Cost: ${Math.Round(sumM, 2)}", "Hall: " + TimeSlot.Hall.Id, "Seats: " + seatList)
                     .Result();
 
                 var successMessage = new TextListBuilder(Window)
@@ -199,7 +199,7 @@ namespace CinemaApplication
                 this.TimeSlot = TimeSlot;
                 this.Seats = Seats;
                 this.Hall = TimeSlot.Hall;
-                this.sum = Sum;
+                this.sumM = Sum;
 
                 Payments();
                 FoodWindows();
@@ -312,7 +312,7 @@ namespace CinemaApplication
                 var cartpricelist = new List<string> { };
                 var infobuttonlist = new List<string> { };
                 var sumpricelist = new List<int> { };
-                double sumM = 0.00;
+                double sum = 0.00;
                 for (int i = 0; i < snackNames.Length; i++)
                 {
                     snackObjects[i] = new Food(
