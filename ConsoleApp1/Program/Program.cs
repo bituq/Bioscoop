@@ -7,16 +7,29 @@ using System.Collections.Generic;
 
 namespace CinemaApplication
 {
+    public static class Colors
+    {
+        public static System.ConsoleColor title = ConsoleColor.White;
+        public static System.ConsoleColor undertitle = ConsoleColor.White;
+        public static System.ConsoleColor breadcrumbs = ConsoleColor.White;
+        public static System.ConsoleColor description = ConsoleColor.White;
+        public static System.ConsoleColor selection = ConsoleColor.White;
+        public static System.ConsoleColor text = ConsoleColor.White;
+        public static System.ConsoleColor back = ConsoleColor.White;
+        public static System.ConsoleColor submit = ConsoleColor.White;
+        public static System.ConsoleColor input = ConsoleColor.White;
+    }
     partial class Program
     {
 
         static Window homeScreen = new Window(true);
         static Window mainMenu = new Window();
 
+        
         static void HomeScreen()
         { 
           var home = new TextBuilder(homeScreen, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.title)
                 .Text("Das Kino")
                 .Result();
 
