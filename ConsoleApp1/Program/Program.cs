@@ -11,11 +11,11 @@ namespace CinemaApplication
     {
         public static System.ConsoleColor title = ConsoleColor.White;
         public static System.ConsoleColor undertitle = ConsoleColor.White;
-        public static System.ConsoleColor breadcrumbs = ConsoleColor.White;
+        public static System.ConsoleColor breadcrumbs = ConsoleColor.Cyan;
         public static System.ConsoleColor description = ConsoleColor.White;
         public static Tuple<System.ConsoleColor, System.ConsoleColor> selection = new Tuple<System.ConsoleColor, System.ConsoleColor>(ConsoleColor.White, ConsoleColor.White);
         public static System.ConsoleColor text = ConsoleColor.White;
-        public static Tuple<System.ConsoleColor, System.ConsoleColor> back = new Tuple<System.ConsoleColor, System.ConsoleColor>(ConsoleColor.White, ConsoleColor.White);
+        public static System.ConsoleColor back = ConsoleColor.White;
         public static Tuple<System.ConsoleColor, System.ConsoleColor> submit = new Tuple<System.ConsoleColor, System.ConsoleColor>(ConsoleColor.White, ConsoleColor.White);
         public static System.ConsoleColor input = ConsoleColor.White;
     }
