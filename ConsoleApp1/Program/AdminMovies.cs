@@ -25,7 +25,7 @@ namespace CinemaApplication
                 .Text("Home/Admin/Movie Options/")
                 .Result();
         }
-        public static Window editMovieList = new Window();
+        public static Window editMovieList = new Window(true);
         static void EditMovies()
         {
             var Menu = new TextListBuilder(editMovieList, 2, 5)
@@ -81,11 +81,6 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.DarkGreen, ConsoleColor.White)
                     .LinkWindows(MovieObjects[i].TimeslotEditWindow)
                     .Result());
-                new TextListBuilder(editMovieList, 42, 4 * (MovieInfo.Count + 1) - 2)
-                    .Color(ConsoleColor.White)
-                    .SetItems("Remove Movie")
-                    .Selectable(ConsoleColor.DarkGreen, ConsoleColor.White)
-                    .Result();
             }
         }
     }
