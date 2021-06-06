@@ -16,7 +16,7 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(removeMovie, 1, 2)
                 .Color(ConsoleColor.Cyan)
-                .Text("Home/Admin/Remove Movie")
+                .Text("Home/Admin/Movie Options/Remove Movie")
                 .Result();
 
             var back = new TextListBuilder(removeMovie, 1, 6)
