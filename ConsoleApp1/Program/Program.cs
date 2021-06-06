@@ -22,7 +22,7 @@ namespace CinemaApplication
     partial class Program
     {
 
-        static Window homeScreen = new Window(false);
+        static Window homeScreen = new Window(true);
         static Window mainMenu = new Window();
 
         
