@@ -29,20 +29,20 @@ namespace CinemaApplication
         static void AddMovie()
         {
             var _ = new TextListBuilder(addMovie, 1, 7)
-               .Color(ConsoleColor.Red)
+               .Color(Colors.back)
                .SetItems("Go back")
                .Selectable(ConsoleColor.Black, ConsoleColor.White)
                .LinkWindows(adminMovieWindow)
                .Result();
 
             var title = new TextBuilder(addMovie, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Hall Select/Add Movie")
                 .Result();
 
             var title2 = new TextBuilder(addMovie, 1, 3)
-                 .Color(ConsoleColor.White)
-                 .Text("Enter the information of the movie you want to add\nMake sure to input release date in the following format: 'dd-mm-yyyy'\nAlso make sure to put a ',' between each actor's full name within the starring input field")
+                 .Color(Colors.description)
+                 .Text("Enter the information of the movie you want to add\nRelease date format: 'dd-mm-yyyy' and duration must be in minutes\nAlso make sure to put a ', ' between each actor's full name and between the genres")
                  .Result();
 
             var inputOptions = new TextListBuilder(addMovie, 13, 7)
@@ -56,7 +56,7 @@ namespace CinemaApplication
                 .Result();
 
             var addButton = new TextListBuilder(addMovie, 1, 24)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.submit.Item1)
                 .SetItems("Add")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
@@ -89,7 +89,7 @@ namespace CinemaApplication
                     nMovie.duration = duration;
                     nMovie.releaseDate = input[2].Value;
                     nMovie.rating = input[3].Value;
-                    nMovie.genres = input[4].Value.Split(' ');
+                    nMovie.genres = input[4].Value.Split(", ");
                     nMovie.starring = input[5].Value.Split(", ");
                     nMovie.language = input[6].Value;
                     nMovie.company = input[7].Value;
