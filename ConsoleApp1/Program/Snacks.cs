@@ -78,10 +78,9 @@ namespace CinemaApplication
                 .Color(ConsoleColor.White)
                 .SetItems(snackNames)
                 .UseNumbers()
-                .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(snackWindows)
                 .Result();
         }
-
     }
 }

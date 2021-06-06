@@ -57,7 +57,7 @@ namespace CinemaApplication
                 }
                 listOfReservations.Reverse();
                 successMessage3.Replace(new TextListBuilder(alleResScherm, 1, 8)
-                    .Color(ConsoleColor.Green)
+                    .Color(ConsoleColor.White)
                     .SetItems(listOfReservations.ToArray())
                     .Result());
             };

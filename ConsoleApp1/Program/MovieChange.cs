@@ -37,7 +37,7 @@ namespace CinemaApplication
 
             var title = new TextBuilder(addMovie, 1, 2)
                 .Color(Colors.breadcrumbs)
-                .Text("Home/Admin/Hall Select/Add Movie")
+                .Text("Home/Admin/Movie Options/Add Movie")
                 .Result();
 
             var title2 = new TextBuilder(addMovie, 1, 3)
@@ -55,7 +55,7 @@ namespace CinemaApplication
                 .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
                 .Result();
 
-            var addButton = new TextListBuilder(addMovie, 1, 24)
+            var addButton = new TextListBuilder(addMovie, 13, 17)
                 .Color(Colors.submit.Item1)
                 .SetItems("Add")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
