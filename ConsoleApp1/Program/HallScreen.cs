@@ -86,17 +86,17 @@ namespace CinemaApplication
                 .LinkWindows(selecteerHallsScherm)
                 .Result();
 
-            var showhall = new TextListBuilder(hallscreen, 14, 5)
+            var removeButton = new TextListBuilder(hallscreen, 14, 5)
+                .Color(ConsoleColor.DarkRed)
+                .SetItems(removeButtonlist.ToArray())
+                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                .Result();
+
+            var showhall = new TextListBuilder(hallscreen, 24, 5)
                 .Color(ConsoleColor.Red)
                 .SetItems(hallNames.ToArray())
                 .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                 .LinkWindows(hallWindows)
-                .Result();
-
-            var removeButton = new TextListBuilder(hallscreen, 31, 5)
-                .Color(ConsoleColor.DarkRed)
-                .SetItems(removeButtonlist.ToArray())
-                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                 .Result();
 
             var title = new TextBuilder(hallscreen, 2, 2)
@@ -152,17 +152,17 @@ namespace CinemaApplication
                                 removeButton[0].Unselect();
                             }
 
-                            removeButton.Replace(new TextListBuilder(hallscreen, 31, 5)
-                            .Color(ConsoleColor.DarkRed)
-                            .SetItems(removeButtonlist.ToArray())
-                            .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
-                            .Result());
-
-                            showhall.Replace(new TextListBuilder(hallscreen, 14, 5)
+                            showhall.Replace(new TextListBuilder(hallscreen, 24, 5)
                             .Color(ConsoleColor.Red)
                             .SetItems(hallNames.ToArray())
                             .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                             .LinkWindows(hallWindows)
+                            .Result());
+
+                            removeButton.Replace(new TextListBuilder(hallscreen, 14, 5)
+                            .Color(ConsoleColor.DarkRed)
+                            .SetItems(removeButtonlist.ToArray())
+                            .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                             .Result());
 
                             Errormessage.Replace(new TextListBuilder(hallscreen, 43, 5)
