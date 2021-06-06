@@ -15,7 +15,6 @@ namespace CinemaApplication
             var Menu = new TextListBuilder(adminMovieWindow, 2, 5)
                 .Color(ConsoleColor.Red)
                 .SetItems("Add Movie","Remove Movie", "Edit Movies/Timeslots", "Go Back")
-                .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(addMovie, removeMovie, editMovieList, AdminScherm)
                 .Result();
@@ -31,7 +30,6 @@ namespace CinemaApplication
             var Menu = new TextListBuilder(editMovieList, 2, 5)
                 .Color(ConsoleColor.Red)
                 .SetItems("Go back")
-                .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(adminMovieWindow)
                 .Result();
@@ -81,11 +79,6 @@ namespace CinemaApplication
                     .Selectable(ConsoleColor.DarkGreen, ConsoleColor.White)
                     .LinkWindows(MovieObjects[i].TimeslotEditWindow)
                     .Result());
-                new TextListBuilder(editMovieList, 42, 4 * (MovieInfo.Count + 1) - 2)
-                    .Color(ConsoleColor.White)
-                    .SetItems("Remove Movie")
-                    .Selectable(ConsoleColor.DarkGreen, ConsoleColor.White)
-                    .Result();
             }
         }
     }

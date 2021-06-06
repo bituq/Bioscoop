@@ -24,7 +24,6 @@ namespace CinemaApplication
             var options = new TextListBuilder(snackOptions, 2, 5)
                 .Color(ConsoleColor.Red)
                 .SetItems("Add Snack", "Remove Snack", "Go back")
-                .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(addSnack, removeSnack, AdminScherm)
                 .Result();

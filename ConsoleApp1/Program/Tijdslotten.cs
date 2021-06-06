@@ -83,13 +83,17 @@ namespace CinemaApplication
                     .Result();
 
                 var columns = new List<SelectableList>();
+                var real = new List<List<int>>();
+                var seatNumbers = new List<int>();
 
                 for (int column = 0; column < this.Hall.Columns; column++)
                 {
+                    var temp = new List<int>();
                     string[] seats = new string[this.Hall.Rows];
                     for (int row = 0; row < this.Hall.Rows; row++)
                     {
-                        int n = (column + 1) + (row * this.Hall.Columns);
+                        int n = (column + 1);
+                        temp.Add(n + (row * this.Hall.Columns));
                         seats[row] = "s" + n;
                     }
 
@@ -109,6 +113,7 @@ namespace CinemaApplication
                     }
 
                     columns.Add(_);
+                    real.Add(temp);
                 }
                 
                 var goBack = new TextListBuilder(this.Window, 1, 7 + this.Hall.Rows)
@@ -125,16 +130,18 @@ namespace CinemaApplication
 
                 goBack[1].Disable();
 
+                var dict = new Dictionary<SelectableText, int>();
                 var hoverDict = new Dictionary<SelectableText, bool>();
                 for (int col = 0; col < columns.Count; col++)
                     for (int row = 0; row < columns[col].Items.Count; row++)
                     {
                         var item = columns[col][row];
+                        dict[item] = real[col][row] - 1;
                         hoverDict[item] = false;
                         item.OnClick = () =>
                         {
                             double price = 10.0;
-                            Seat currentSeat = Hall.Seats[Int32.Parse(item.Text.Remove(0, 1)) - 1];
+                            Seat currentSeat = Hall.Seats[dict[item]];
                             if (!hoverDict[item] && !item.Disabled)
                             {
                                 hoverDict[item] = true;

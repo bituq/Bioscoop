@@ -90,8 +90,8 @@ namespace CinemaApplication
                 
                 if (input[0].Value == "" || input[1].Value == "" || input[2].Value == "")
                     ErrorList.Add("Input fields may not be empty!");
-                if (Int32.Parse(input[0].Value) <= 0 || Int32.Parse(input[1].Value) <= 0 || Int32.Parse(input[2].Value) <= 0)
-                    ErrorList.Add("Any input must be a positve number!");
+                else if (Int32.Parse(input[0].Value) <= 0 || Int32.Parse(input[1].Value) <= 0 || Int32.Parse(input[2].Value) <= 0)
+                    ErrorList.Add("Any input must be a positive number!");
                 if (!Int32.TryParse(input[0].Value, out id))
                     ErrorList.Add("ID must be an integer (ex. 1, 5, 10 etc.)");
                 else
