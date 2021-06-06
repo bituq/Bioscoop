@@ -16,7 +16,7 @@ namespace CinemaApplication
         {
             var title = new TextBuilder(removeSnack, 1, 2)
                 .Color(ConsoleColor.Cyan)
-                .Text("Home/Admin/Hall Select/Remove Snack")
+                .Text("Home/Admin/Snack Options/Remove Snack")
                 .Result();
 
             var back = new TextListBuilder(removeSnack, 1, 6)
@@ -39,7 +39,7 @@ namespace CinemaApplication
             };
 
             var SnackList = new TextListBuilder(removeSnack, 19, 6)
-                .Color(ConsoleColor.DarkMagenta)
+                .Color(Colors.description)
                 .SetItems(snackNames.ToArray())
                 .Result();
 

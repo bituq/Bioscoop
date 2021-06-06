@@ -89,7 +89,7 @@ namespace CinemaApplication
                     string[] seats = new string[this.Hall.Rows];
                     for (int row = 0; row < this.Hall.Rows; row++)
                     {
-                        int n = (column + 1) + (row * this.Hall.Columns);
+                        int n = (column + 1);
                         seats[row] = "s" + n;
                     }
 
