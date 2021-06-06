@@ -35,7 +35,6 @@ namespace CinemaApplication
 
           var screen = new TextListBuilder(homeScreen, 2, 5)
                 .Color(ConsoleColor.Red)
-                .UseNumbers()
                 .SetItems("Visitor", "Admin")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(mainMenu, AdminScherm)
@@ -55,7 +54,6 @@ namespace CinemaApplication
 
             var menu = new TextListBuilder(mainMenu, 2, 5)
                 .Color(ConsoleColor.Red)
-                .UseNumbers()
                 .SetItems("View movies", "View snacks", "Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(listOfFilms, snacksWindow, homeScreen)
