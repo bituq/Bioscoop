@@ -24,7 +24,6 @@ namespace CinemaApplication
             var options = new TextListBuilder(selecteerHallsScherm, 2, 5)
                 .Color(ConsoleColor.Red)
                 .SetItems("View / remove halls", "Add halls", "Go back")
-                .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(hallscreen, addhallscreen, AdminScherm)
                 .Result();

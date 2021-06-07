@@ -77,7 +77,6 @@ namespace CinemaApplication
             var snackList = new TextListBuilder(snacksWindow, 11, 1)
                 .Color(ConsoleColor.White)
                 .SetItems(snackNames)
-                .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(snackWindows)
                 .Result();

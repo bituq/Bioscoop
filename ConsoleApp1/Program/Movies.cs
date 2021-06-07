@@ -272,7 +272,6 @@ namespace CinemaApplication
                 var Menu = new TextListBuilder(TimeslotEditWindow, 2, 5)
                 .Color(ConsoleColor.Green)
                 .SetItems("Add a timeslot", "Go back")
-                .UseNumbers()
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(addNewTimeSlot, editMovieList)
                 .Result();

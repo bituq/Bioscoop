@@ -231,7 +231,6 @@ namespace CinemaApplication
                     listOfTimeslots = new TextListBuilder(timeSlotWindow, 11, 3)
                         .Color(ConsoleColor.White)
                         .SetItems(validTimeSlotNames.ToArray())
-                        .UseNumbers()
                         .Selectable(ConsoleColor.Black, ConsoleColor.White)
                         .LinkWindows(validTimeSlotWindows.ToArray())
                         .Result();
