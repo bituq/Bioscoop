@@ -9,12 +9,12 @@ namespace CinemaApplication
 {
     public static class Colors
     {
-        public static System.ConsoleColor title = ConsoleColor.White;
-        public static System.ConsoleColor undertitle = ConsoleColor.White;
+        public static System.ConsoleColor title = ConsoleColor.Blue;
+        public static System.ConsoleColor undertitle = ConsoleColor.Gray;
         public static System.ConsoleColor breadcrumbs = ConsoleColor.Cyan;
         public static System.ConsoleColor description = ConsoleColor.White;
 
-        public static System.ConsoleColor selection = ConsoleColor.White;
+        public static System.ConsoleColor selection = ConsoleColor.Yellow;
         public static Tuple<System.ConsoleColor, System.ConsoleColor> selectionBg = Tuple.Create(ConsoleColor.Black, ConsoleColor.White);
 
         public static System.ConsoleColor text = ConsoleColor.White;
@@ -24,7 +24,7 @@ namespace CinemaApplication
 
         public static Tuple<System.ConsoleColor, System.ConsoleColor, System.ConsoleColor> submit = Tuple.Create(ConsoleColor.Green, ConsoleColor.Black, ConsoleColor.White);
 
-        public static System.ConsoleColor input = ConsoleColor.White;
+        public static System.ConsoleColor input = ConsoleColor.Yellow;
         public static Tuple<System.ConsoleColor, System.ConsoleColor> inputBg = Tuple.Create(ConsoleColor.Black, ConsoleColor.White);
 
         public static System.ConsoleColor remove = ConsoleColor.Red;
