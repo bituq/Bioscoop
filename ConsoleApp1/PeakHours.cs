@@ -75,8 +75,8 @@ namespace CinemaApplication
                 }
 
                 var a = new TextBuilder(peaksWindow, 3, yPos)
-                    .Color(ConsoleColor.Gray)
-                    .Text(currTime.ToString() + ":00-" + (currTime + hours) + ":00")
+                    .Color(Colors.text)
+                    .Text(currTime.ToString() + ":00-" + (currTime + hours - 1) + ":59")
                     .Result();
 
                 var b = new TextBuilder(peaksWindow, 15, yPos++)
@@ -86,9 +86,9 @@ namespace CinemaApplication
                 currTime += hours;
             }
             var exit = new TextListBuilder(peaksWindow, 1, ++yPos)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.back)
                 .SetItems("Go back")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                 .LinkWindows(AdminScherm)
                 .Result();
         }

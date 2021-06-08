@@ -13,11 +13,19 @@ namespace CinemaApplication
         public static System.ConsoleColor undertitle = ConsoleColor.White;
         public static System.ConsoleColor breadcrumbs = ConsoleColor.Cyan;
         public static System.ConsoleColor description = ConsoleColor.White;
+
         public static System.ConsoleColor selection = ConsoleColor.White;
+        public static Tuple<System.ConsoleColor, System.ConsoleColor> selectionBg = Tuple.Create(ConsoleColor.White, ConsoleColor.White);
+
         public static System.ConsoleColor text = ConsoleColor.White;
-        public static System.ConsoleColor back = ConsoleColor.White;
-        public static Tuple<System.ConsoleColor, System.ConsoleColor> submit = new Tuple<System.ConsoleColor, System.ConsoleColor>(ConsoleColor.White, ConsoleColor.White);
+
+        public static System.ConsoleColor back = ConsoleColor.Green;
+        public static Tuple<System.ConsoleColor, System.ConsoleColor> backBg = Tuple.Create(ConsoleColor.Black, ConsoleColor.White);
+
+        public static Tuple<System.ConsoleColor, System.ConsoleColor, System.ConsoleColor> submit = Tuple.Create(ConsoleColor.White, ConsoleColor.White, ConsoleColor.White);
+
         public static System.ConsoleColor input = ConsoleColor.White;
+        public static Tuple<System.ConsoleColor, System.ConsoleColor> inputBg = Tuple.Create(ConsoleColor.White, ConsoleColor.White);
     }
     partial class Program
     {
