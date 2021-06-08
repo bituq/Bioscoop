@@ -14,12 +14,12 @@ namespace CinemaApplication
         static void ReserveringZoekScherm()
         {
             var list = new TextListBuilder(ZoekScherm, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .SetItems("Home/Admin/Select Search/Code Search/")
                 .Result();
 
             var inputInformation2 = new TextListBuilder(ZoekScherm, 1, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.title)
                 .SetItems("Reservationcode:")
                 .Result();
 
@@ -29,7 +29,7 @@ namespace CinemaApplication
                 .Result();
 
             var terug2 = new TextListBuilder(ZoekScherm, 1, 5)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.submit.Item1)
                 .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
                 .LinkWindows(null, SelecteerZoekScherm)
@@ -93,7 +93,7 @@ namespace CinemaApplication
                             listOfReservations.AddRange(new string[2]);
                             successMessage2.Replace(
                                 new TextListBuilder(ZoekScherm, 1, 8)
-                                .Color(ConsoleColor.Green)
+                                .Color(Colors.text)
                                 .SetItems(listOfReservations.ToArray())
                                 .Result()
                             );

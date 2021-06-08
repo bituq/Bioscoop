@@ -15,7 +15,7 @@ namespace CinemaApplication
         public static void peaksDraw() 
         {
             var list = new TextListBuilder(peaksWindow, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .SetItems("Home/Admin/Peak Hours/")
                 .Result();
 
@@ -80,7 +80,7 @@ namespace CinemaApplication
                     .Result();
 
                 var b = new TextBuilder(peaksWindow, 15, yPos++)
-                    .Color(ConsoleColor.Gray)
+                    .Color(Colors.text)
                     .Text("- " + people + " people")
                     .Result();
                 currTime += hours;
