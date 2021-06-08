@@ -90,7 +90,7 @@ namespace CinemaApplication
                             listOfReservations.AddRange(seatList.Values);
                             listOfReservations.AddRange(new string[2]);
                             successMessage3.Replace(new TextListBuilder(NaamScherm, 1, 8)
-                            .Color(Colors.title)
+                            .Color(Colors.text)
                             .SetItems(listOfReservations.ToArray())
                             .Result());
                         }
