@@ -207,6 +207,9 @@ namespace CinemaApplication
 
             private void Payments()
             {
+                Window.Reset();
+                ReservationInit();
+                Window.Init();
                 IDEAL();
 
                 var MethodsList = new string[] { "IDEAL", "PayPal", "VISA", "Maestro", "MasterCard" };
@@ -289,7 +292,7 @@ namespace CinemaApplication
                        .LinkWindows(TimeSlot.Window)
                        .Result();
 
-                goBack[1].OnClick = () =>
+                goBack[0].OnClick = () =>
                 {
                     this.Window.Reset();
                     ReservationInit();
