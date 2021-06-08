@@ -23,7 +23,7 @@ namespace CinemaApplication
                 var _ = new TextListBuilder(Window, 1, 1)
                    .Color(Colors.back)
                    .SetItems("Go back")
-                   .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
+                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
                    .LinkWindows(snacksWindow)
                    .Result();
 

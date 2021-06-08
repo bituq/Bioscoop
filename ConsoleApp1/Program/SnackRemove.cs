@@ -15,12 +15,12 @@ namespace CinemaApplication
         static void RemoveSnack()
         {
             var title = new TextBuilder(removeSnack, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Snack Options/Remove Snack")
                 .Result();
 
             var back = new TextListBuilder(removeSnack, 1, 6)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.back)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(snackOptions)
@@ -91,7 +91,7 @@ namespace CinemaApplication
 
 
                         SnackList.Replace(new TextListBuilder(removeSnack, 19, 6)
-                            .Color(ConsoleColor.DarkMagenta)
+                            .Color(Colors.text)
                             .SetItems(snackNames.ToArray())
                             .Result());
 

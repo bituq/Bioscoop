@@ -276,7 +276,7 @@ namespace CinemaApplication
                         .Result();
 
                     var goBack = new TextListBuilder(FoodInfo, 1, 1)
-                       .Color(Colors.selection)
+                       .Color(Colors.back)
                        .SetItems("Go back")
                        .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                        .LinkWindows(previousWindow)
@@ -288,7 +288,7 @@ namespace CinemaApplication
                 var goBack = new TextListBuilder(FoodWindow, 1, 1)
                        .Color(Colors.back)
                        .SetItems("Go back")
-                       .Selectable(Colors.backBg.Item1, Colors.backBg.Item1)
+                       .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                        .LinkWindows(TimeSlot.Window)
                        .Result();
 

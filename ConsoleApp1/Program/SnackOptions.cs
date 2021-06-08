@@ -12,17 +12,17 @@ namespace CinemaApplication
         static void SnackOptions()
         {
             var title = new TextBuilder(snackOptions, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Snack Options")
                 .Result();
 
             var title2 = new TextBuilder(snackOptions, 2, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.text)
                 .Text("Hello! What would you like to do?")
                 .Result();
 
             var options = new TextListBuilder(snackOptions, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.selection)
                 .SetItems("Add Snack", "Remove Snack", "Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(addSnack, removeSnack, AdminScherm)
