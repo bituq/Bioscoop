@@ -25,7 +25,9 @@ namespace CinemaApplication
         public static Tuple<System.ConsoleColor, System.ConsoleColor, System.ConsoleColor> submit = Tuple.Create(ConsoleColor.White, ConsoleColor.White, ConsoleColor.White);
 
         public static System.ConsoleColor input = ConsoleColor.White;
-        public static Tuple<System.ConsoleColor, System.ConsoleColor> inputBg = Tuple.Create(ConsoleColor.Black, ConsoleColor.White);
+        public static Tuple<System.ConsoleColor, System.ConsoleColor> inputBg = Tuple.Create(ConsoleColor.White, ConsoleColor.White);
+
+        public static System.ConsoleColor remove = ConsoleColor.Red;
     }
     partial class Program
     {
