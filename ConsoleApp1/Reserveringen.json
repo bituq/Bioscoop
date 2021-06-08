@@ -422,5 +422,28 @@
       }
     ],
     "timeslotId": 0
+  },
+  {
+    "firstName": "jo",
+    "lastName": "jo",
+    "code": "5474911",
+    "hall": 1,
+    "movieId": 0,
+    "date": 1623143055,
+    "occupiedSeats": [
+      {
+        "row": 3,
+        "column": 10
+      },
+      {
+        "row": 3,
+        "column": 11
+      },
+      {
+        "row": 3,
+        "column": 12
+      }
+    ],
+    "timeslotId": 0
   }
 ]
