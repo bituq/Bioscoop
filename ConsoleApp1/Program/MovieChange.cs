@@ -29,9 +29,9 @@ namespace CinemaApplication
         static void AddMovie()
         {
             var _ = new TextListBuilder(addMovie, 1, 7)
-               .Color(Colors.back)
+               .Color(Colors.selection)
                .SetItems("Go back")
-               .Selectable(ConsoleColor.Black, ConsoleColor.White)
+               .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                .LinkWindows(adminMovieWindow)
                .Result();
 
@@ -50,9 +50,9 @@ namespace CinemaApplication
                 .Result();
 
             var input = new TextListBuilder(addMovie, 14 + inputOptions.Items[8].Text.Length, 7)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.input)
                 .SetItems("", "", "", "", "", "", "", "", "")
-                .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
+                .AsInput(Colors.inputBg.Item1, Colors.inputBg.Item2)
                 .Result();
 
             var addButton = new TextListBuilder(addMovie, 13, 17)

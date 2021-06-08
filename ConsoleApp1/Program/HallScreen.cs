@@ -25,23 +25,24 @@ namespace CinemaApplication
                 Columns = columns;
 
                 var title1 = new TextBuilder(Window, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text($"Home/Admin/Hall Select/Halls/{Name}")
                 .Result();
 
                 var selectableList = new TextListBuilder(Window, 1, 5)
+                    .Color(Colors.selection)
                     .SetItems("Go back")
-                    .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                    .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                     .LinkWindows(hallscreen)
                     .Result();
 
                 var title2 = new TextBuilder(Window, 13, 5)
-                    .Color(ConsoleColor.Red)
+                    .Color(Colors.title)
                     .Text(name)
                     .Result();
 
                 var description = new TextListBuilder(Window, 13, 7)
-                    .Color(ConsoleColor.Gray)
+                    .Color(Colors.undertitle)
                     .SetItems($"Rows: {rows}", $"Columns: {columns}")
                     .Result();
 
@@ -75,14 +76,14 @@ namespace CinemaApplication
                 //Console.WriteLine($"{i} : {movieNames[i]}");
             }
             var introtexthall = new TextListBuilder(hallscreen, 2, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.undertitle)
                 .SetItems("Select an hall you would like to see.")
                 .Result();
 
             var goBack = new TextListBuilder(hallscreen, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.selection)
                 .SetItems("Go back")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                 .LinkWindows(selecteerHallsScherm)
                 .Result();
 
@@ -93,14 +94,14 @@ namespace CinemaApplication
                 .Result();
 
             var showhall = new TextListBuilder(hallscreen, 24, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.selection)
                 .SetItems(hallNames.ToArray())
-                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                 .LinkWindows(hallWindows)
                 .Result();
 
             var title = new TextBuilder(hallscreen, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Hall Select/Halls/")
                 .Result();
 
@@ -114,8 +115,6 @@ namespace CinemaApplication
 
             void onRemove()
             {
-
-
                 foreach (var item in removeButton.Items)
                 {
                     bool valid = true;
@@ -153,16 +152,16 @@ namespace CinemaApplication
                             }
 
                             showhall.Replace(new TextListBuilder(hallscreen, 24, 5)
-                            .Color(ConsoleColor.Red)
+                            .Color(Colors.selection)
                             .SetItems(hallNames.ToArray())
-                            .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                            .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                             .LinkWindows(hallWindows)
                             .Result());
 
                             removeButton.Replace(new TextListBuilder(hallscreen, 14, 5)
-                            .Color(ConsoleColor.DarkRed)
+                            .Color(Colors.selection)
                             .SetItems(removeButtonlist.ToArray())
-                            .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                            .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                             .Result());
 
                             Errormessage.Replace(new TextListBuilder(hallscreen, 43, 5)
@@ -189,7 +188,7 @@ namespace CinemaApplication
                         else
                         {
                             Errormessage.Replace(new TextListBuilder(hallscreen, 43, 5)
-                            .Color(ConsoleColor.Green)
+                            .Color(ConsoleColor.DarkRed)
                             .SetItems($"Not able to remove hall {id}, this hall is used in timeslot id {themovie}")
                             .Result());
                         }

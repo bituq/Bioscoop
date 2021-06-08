@@ -15,7 +15,7 @@ namespace CinemaApplication
         public static System.ConsoleColor description = ConsoleColor.White;
 
         public static System.ConsoleColor selection = ConsoleColor.White;
-        public static Tuple<System.ConsoleColor, System.ConsoleColor> selectionBg = Tuple.Create(ConsoleColor.White, ConsoleColor.White);
+        public static Tuple<System.ConsoleColor, System.ConsoleColor> selectionBg = Tuple.Create(ConsoleColor.Black, ConsoleColor.White);
 
         public static System.ConsoleColor text = ConsoleColor.White;
 
@@ -25,7 +25,7 @@ namespace CinemaApplication
         public static Tuple<System.ConsoleColor, System.ConsoleColor, System.ConsoleColor> submit = Tuple.Create(ConsoleColor.White, ConsoleColor.White, ConsoleColor.White);
 
         public static System.ConsoleColor input = ConsoleColor.White;
-        public static Tuple<System.ConsoleColor, System.ConsoleColor> inputBg = Tuple.Create(ConsoleColor.White, ConsoleColor.White);
+        public static Tuple<System.ConsoleColor, System.ConsoleColor> inputBg = Tuple.Create(ConsoleColor.Black, ConsoleColor.White);
     }
     partial class Program
     {
