@@ -21,9 +21,9 @@ namespace CinemaApplication
                 Name = name;
 
                 var _ = new TextListBuilder(Window, 1, 1)
-                   .Color(ConsoleColor.White)
+                   .Color(Colors.back)
                    .SetItems("Go back")
-                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                   .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                    .LinkWindows(snacksWindow)
                    .Result();
 
@@ -33,7 +33,7 @@ namespace CinemaApplication
                     .Result();
 
                 var information = new TextListBuilder(Window, 11, 3)
-                    .Color(ConsoleColor.White)
+                    .Color(Colors.description)
                     .SetItems(price, vegetarian, stock)
                     .Result();
 
@@ -44,7 +44,7 @@ namespace CinemaApplication
         static void SnacksWindow()
         {
             var _ = new TextListBuilder(snacksWindow, 1, 1)
-                   .Color(ConsoleColor.Green)
+                   .Color(Colors.back)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
                    .LinkWindows(mainMenu)
@@ -75,9 +75,9 @@ namespace CinemaApplication
             }
 
             var snackList = new TextListBuilder(snacksWindow, 11, 1)
-                .Color(ConsoleColor.White)
+                .Color(Colors.selection)
                 .SetItems(snackNames)
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                 .LinkWindows(snackWindows)
                 .Result();
         }
