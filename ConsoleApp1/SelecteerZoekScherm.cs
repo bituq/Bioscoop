@@ -12,17 +12,17 @@ namespace CinemaApplication
         static void SelectieSchermZoeken()
         {
             var title = new TextBuilder(SelecteerZoekScherm, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Select Search/")
                 .Result();
 
             var title2 = new TextBuilder(SelecteerZoekScherm, 2, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.text)
                 .Text("Hello! Would you like to search a reservation on name or code?")
                 .Result();
             
             var options = new TextListBuilder(SelecteerZoekScherm, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.selection)
                 .SetItems("Search by code", "Search by name", "Show all reservations", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
                 .LinkWindows(ZoekScherm, NaamScherm, alleResScherm, AdminScherm)

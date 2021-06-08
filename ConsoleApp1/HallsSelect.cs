@@ -12,17 +12,17 @@ namespace CinemaApplication
         static void SelecteerHallsScherm()
         {
             var title = new TextBuilder(selecteerHallsScherm, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Hall Select/")
                 .Result();
 
             var title2 = new TextBuilder(selecteerHallsScherm, 2, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.text)
                 .Text("Would you like to view or add halls?")
                 .Result();
 
             var options = new TextListBuilder(selecteerHallsScherm, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.selection)
                 .SetItems("View / remove halls", "Add halls", "Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(hallscreen, addhallscreen, AdminScherm)

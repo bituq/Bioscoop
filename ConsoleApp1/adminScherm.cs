@@ -12,17 +12,17 @@ namespace CinemaApplication
         static void SelectieSchermAdmin()
         {
             var title = new TextBuilder(AdminScherm, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/")
                 .Result();
 
             var title2 = new TextBuilder(AdminScherm, 2, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.text)
                 .Text("Hello! What would you like to do?")
                 .Result();
             
             var options = new TextListBuilder(AdminScherm, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.selection)
                 .SetItems("Search reservations", "Peak hours", "Halls", "Movies", "Snacks", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
                 .LinkWindows(SelecteerZoekScherm, peaksWindow, selecteerHallsScherm, adminMovieWindow, snackOptions, homeScreen)

@@ -14,12 +14,12 @@ namespace CinemaApplication
         static void ShowAllRes()
         {
             var list = new TextListBuilder(alleResScherm, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .SetItems("Home/Admin/Select Search/All Reservations/")
                 .Result();
 
             var terug3 = new TextListBuilder(alleResScherm, 1, 5)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.submit.Item1)
                 .SetItems("Fetch", "Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(null, SelecteerZoekScherm)
@@ -57,7 +57,7 @@ namespace CinemaApplication
                 }
                 listOfReservations.Reverse();
                 successMessage3.Replace(new TextListBuilder(alleResScherm, 1, 8)
-                    .Color(ConsoleColor.White)
+                    .Color(Colors.text)
                     .SetItems(listOfReservations.ToArray())
                     .Result());
             };
