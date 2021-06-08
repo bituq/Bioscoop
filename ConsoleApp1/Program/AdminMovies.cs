@@ -13,14 +13,14 @@ namespace CinemaApplication
         static void AdminMovieMenu()
         {
             var Menu = new TextListBuilder(adminMovieWindow, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.selection)
                 .SetItems("Add Movie","Remove Movie", "Edit Movies/Timeslots", "Go Back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(addMovie, removeMovie, editMovieList, AdminScherm)
                 .Result();
 
             var Path = new TextBuilder(adminMovieWindow, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Movie Options/")
                 .Result();
         }
@@ -28,19 +28,19 @@ namespace CinemaApplication
         static void EditMovies()
         {
             var Menu = new TextListBuilder(editMovieList, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.back)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(adminMovieWindow)
                 .Result();
 
             var Path = new TextBuilder(editMovieList, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Movies/List/")
                 .Result();
 
             var Title = new TextBuilder(editMovieList, 26, 2)
-                .Color(ConsoleColor.Magenta)
+                .Color(Colors.text)
                 .Text("Select a movie to edit: ")
                 .Result();
 
@@ -70,11 +70,11 @@ namespace CinemaApplication
                 MovieNames.Add(MovieObjects[i].Name);
                 TimeslotCount.Add(TimeslotList.FindAll(timeslot => timeslot.GetProperty("movieId").ToString() == Movie.GetProperty("id").ToString()).Count);
                 MovieInfo.Add(new TextListBuilder(editMovieList, 26, 4 * (MovieInfo.Count + 1))
-                    .Color(ConsoleColor.Red)
+                    .Color(Colors.text)
                     .SetItems("Title: " + MovieObjects[i].Name, "Timeslots: " + TimeslotCount[i])
                     .Result());
                 MovieAction.Add(new TextListBuilder(editMovieList, 26, 4 * (MovieInfo.Count + 1) - 2)
-                    .Color(ConsoleColor.White)
+                    .Color(Colors.selection)
                     .SetItems("Edit timeslots")
                     .Selectable(ConsoleColor.DarkGreen, ConsoleColor.White)
                     .LinkWindows(MovieObjects[i].TimeslotEditWindow)

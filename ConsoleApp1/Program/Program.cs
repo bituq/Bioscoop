@@ -44,7 +44,7 @@ namespace CinemaApplication
                 .Result();
 
           var screen = new TextListBuilder(homeScreen, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.selection)
                 .SetItems("Visitor", "Admin")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(mainMenu, AdminScherm)
@@ -53,17 +53,17 @@ namespace CinemaApplication
         static void MainMenu()
         {
             var titelmenu1 = new TextListBuilder(mainMenu, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .SetItems("Home/Visitor/")
                 .Result();
 
             var titelmenu2 = new TextListBuilder(mainMenu, 2, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.text)
                 .SetItems("What would you like to do?")
                 .Result();
 
             var menu = new TextListBuilder(mainMenu, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.selection)
                 .SetItems("View movies", "View snacks", "Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(listOfFilms, snacksWindow, homeScreen)

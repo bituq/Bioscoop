@@ -19,7 +19,7 @@ namespace CinemaApplication
                 .Result();
 
             var inputInformation2 = new TextListBuilder(ZoekScherm, 1, 3)
-                .Color(Colors.title)
+                .Color(Colors.input)
                 .SetItems("Reservationcode:")
                 .Result();
 

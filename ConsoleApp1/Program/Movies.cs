@@ -127,12 +127,12 @@ namespace CinemaApplication
             void addTimeSlots()
             {
                 var list = new TextListBuilder(addNewTimeSlot, 1, 2)
-                    .Color(ConsoleColor.Cyan)
+                    .Color(Colors.breadcrumbs)
                     .SetItems("Home/Admin/Movies/List/Timeslot/Add Timeslot/")
                     .Result();
 
                 var inputInformation3 = new TextListBuilder(addNewTimeSlot, 1, 4)
-                    .Color(ConsoleColor.Gray)
+                    .Color(Colors.text)
                     .SetItems("Timeslot date:", "Timeslot hour:", "Hall number:")
                     .Result();
 
@@ -142,7 +142,7 @@ namespace CinemaApplication
                     .Result();
 
                 var terug3 = new TextListBuilder(addNewTimeSlot, 1, 8)
-                    .Color(ConsoleColor.Green)
+                    .Color(Colors.submit.Item1)
                     .SetItems("Submit", "Go back")
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .LinkWindows(null, TimeslotEditWindow)
@@ -260,7 +260,7 @@ namespace CinemaApplication
                         JsonFile.AppendToFile(nTimeslot, "..\\..\\..\\TimeSlots.json");
 
                         successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 11)
-                            .Color(ConsoleColor.Green)
+                            .Color(Colors.text)
                             .SetItems($"Successfully made a new timeslot for movie: {Name}", $"at time: {someFunkyDate}")
                             .Result());
                     }
@@ -270,7 +270,7 @@ namespace CinemaApplication
             public void InitAdminTimeslot()
             {
                 var Menu = new TextListBuilder(TimeslotEditWindow, 2, 5)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.back)
                 .SetItems("Add a timeslot", "Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(addNewTimeSlot, editMovieList)
@@ -287,12 +287,12 @@ namespace CinemaApplication
                 };
 
                 var Path = new TextBuilder(TimeslotEditWindow, 2, 2)
-                    .Color(ConsoleColor.Cyan)
+                    .Color(Colors.breadcrumbs)
                     .Text("Home/Admin/Movies/List/Timeslot")
                     .Result();
 
                 var Description = new TextBuilder(TimeslotEditWindow, 2, 3)
-                    .Color(ConsoleColor.Gray)
+                    .Color(Colors.text)
                     .Text(Name)
                     .Result();
 
@@ -321,7 +321,7 @@ namespace CinemaApplication
                 }
 
                 var TimeSlots = new TextListBuilder(TimeslotEditWindow, Title.Position.X, 5)
-                    .Color(ConsoleColor.White)
+                    .Color(Colors.text)
                     .SetItems(TimeSlotNames.ToArray())
                     .Result();
 
@@ -383,7 +383,7 @@ namespace CinemaApplication
                                 .Selectable(ConsoleColor.White, ConsoleColor.Red)
                                 .Result());
                             TimeSlots.Replace(new TextListBuilder(TimeslotEditWindow, Title.Position.X, 5)
-                                .Color(ConsoleColor.White)
+                                .Color(Colors.text)
                                 .SetItems(TimeSlotNames.ToArray())
                                 .Result());
 
@@ -444,7 +444,7 @@ namespace CinemaApplication
                     .Result();
 
                 var _ = new TextListBuilder(Window, 1, 1)
-                    .Color(ConsoleColor.Green)
+                    .Color(Colors.submit.Item1)
                     .SetItems("Go back", "Make reservation")
                     .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .LinkWindows(listOfFilms, timeSlotWindow)
@@ -456,7 +456,7 @@ namespace CinemaApplication
         static void ListOfFilms()
         {
             var _ = new TextListBuilder(listOfFilms, 1, 1)
-                   .Color(ConsoleColor.Green)
+                   .Color(Colors.back)
                    .SetItems("Go back")
                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
                    .LinkWindows(mainMenu)
@@ -530,7 +530,7 @@ namespace CinemaApplication
                 .Result();
 
             var movieList = new TextListBuilder(listOfFilms, 11, 3)
-                .Color(ConsoleColor.White)
+                .Color(Colors.text)
                 .SetItems(movieNames.ToArray())
                 .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                 .LinkWindows(movieWindows.ToArray())
@@ -545,13 +545,13 @@ namespace CinemaApplication
                 .Result();
 
             var input = new TextListBuilder(listOfFilms, 80 + filterInputs.Items[2].Text.Length, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.text)
                 .SetItems("", "", "")
                 .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
                 .Result();
 
             var submitButton = new TextListBuilder(listOfFilms, 80, 8)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.submit.Item1)
                 .SetItems("Submit")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
@@ -587,7 +587,7 @@ namespace CinemaApplication
 
                 GenerateMovieInformation();
                 movieList.Replace(new TextListBuilder(listOfFilms, 11, 3)
-                    .Color(ConsoleColor.White)
+                    .Color(Colors.text)
                     .SetItems(movieNames.ToArray())
                     .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                     .LinkWindows(movieWindows.ToArray())

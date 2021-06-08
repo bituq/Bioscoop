@@ -15,12 +15,12 @@ namespace CinemaApplication
         static void RemoveMovie()
         {
             var title = new TextBuilder(removeMovie, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Movie Options/Remove Movie")
                 .Result();
 
             var back = new TextListBuilder(removeMovie, 1, 6)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.back)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(adminMovieWindow)
@@ -40,7 +40,7 @@ namespace CinemaApplication
             };
 
             var MovieList = new TextListBuilder(removeMovie, 19, 6)
-                .Color(ConsoleColor.DarkMagenta)
+                .Color(Colors.text)
                 .SetItems(movieNames.ToArray())
                 .Result();
 
@@ -92,7 +92,7 @@ namespace CinemaApplication
 
 
                         MovieList.Replace(new TextListBuilder(removeMovie, 19, 6)
-                            .Color(ConsoleColor.DarkMagenta)
+                            .Color(Colors.text)
                             .SetItems(movieNames.ToArray())
                             .Result());
 
