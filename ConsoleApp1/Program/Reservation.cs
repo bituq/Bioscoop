@@ -40,7 +40,7 @@ namespace CinemaApplication
             double sumM = 0.00;
             public void ReservationInit()
             {
-                string filePath = "..\\..\\..\\Reserveringen.json";
+                string filePath = "../../../Reserveringen.json";
                 var root = JsonFile.FileAsList(filePath);
 
                 var terug = new TextListBuilder(Window, 1, 1)
@@ -154,7 +154,7 @@ namespace CinemaApplication
                         //VincentCooleQOLFuncties.EmailUser(inputList[2].Value, randomCode, TimeSlot, seatList, sum);
                         TimeSlot.Window.Reset();
 
-                        string timeSlotPath = "..\\..\\..\\TimeSlots.json";
+                        string timeSlotPath = "../../../TimeSlots.json";
                         var thisTimeslot = JsonFile.FileAsList(timeSlotPath).Find(element => element.GetProperty("id").GetInt32() == TimeSlot.id);
                         var newTimeslot = new TimeSlot.Information();
                         newTimeslot.id = thisTimeslot.GetProperty("id").GetInt32();
@@ -299,7 +299,7 @@ namespace CinemaApplication
                     this.Window.Init();
                 };
 
-                var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
+                var snacksAndDrinks = File.ReadAllText("../../../snacksAndDrinks.json");
 
                 JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
                 JsonElement root = doc.RootElement;

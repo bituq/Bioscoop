@@ -50,7 +50,7 @@ namespace CinemaApplication
                    .LinkWindows(mainMenu)
                    .Result();
 
-            var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
+            var snacksAndDrinks = File.ReadAllText("../../../snacksAndDrinks.json");
 
             JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
             JsonElement root = doc.RootElement;

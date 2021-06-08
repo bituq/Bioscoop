@@ -26,7 +26,7 @@ namespace CinemaApplication
                 .LinkWindows(adminMovieWindow)
                 .Result();
 
-            var movieMan = File.ReadAllText("..\\..\\..\\Movies.json");
+            var movieMan = File.ReadAllText("../../../Movies.json");
 
             JsonDocument doc = JsonDocument.Parse(movieMan);
             JsonElement root = doc.RootElement;
@@ -65,12 +65,12 @@ namespace CinemaApplication
                 {
                     button.OnClick = () =>
                     {
-                        List<JsonElement> movieMan = JsonFile.FileAsList("..\\..\\..\\Movies.json");
+                        List<JsonElement> movieMan = JsonFile.FileAsList("../../../Movies.json");
 
                         int index = removeButtons.Items.IndexOf(button);
                         int id = movieMan[index].GetProperty("id").GetInt32();
 
-                        JsonFile.RemoveFromFile("id", id, "..\\..\\..\\Movies.json");
+                        JsonFile.RemoveFromFile("id", id, "../../../Movies.json");
 
                         movieNames.RemoveAt(index);
                         removeName.RemoveAt(0);

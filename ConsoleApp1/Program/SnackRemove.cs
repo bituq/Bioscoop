@@ -26,7 +26,7 @@ namespace CinemaApplication
                 .LinkWindows(snackOptions)
                 .Result();
 
-            var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
+            var snacksAndDrinks = File.ReadAllText("../../../snacksAndDrinks.json");
           
             JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
             JsonElement root = doc.RootElement;
@@ -64,12 +64,12 @@ namespace CinemaApplication
                 {
                     button.OnClick = () =>
                     {
-                        List<JsonElement> snacksAndDrinksList = JsonFile.FileAsList("..\\..\\..\\snacksAndDrinks.json");
+                        List<JsonElement> snacksAndDrinksList = JsonFile.FileAsList("../../../snacksAndDrinks.json");
 
                         int index = removeButtons.Items.IndexOf(button);
                         int id = snacksAndDrinksList[index].GetProperty("id").GetInt32();
 
-                        JsonFile.RemoveFromFile("id", id, "..\\..\\..\\snacksAndDrinks.json");
+                        JsonFile.RemoveFromFile("id", id, "../../../snacksAndDrinks.json");
 
                         snackNames.RemoveAt(index);
                         removeName.RemoveAt(0);

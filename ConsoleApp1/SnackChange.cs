@@ -59,7 +59,7 @@ namespace CinemaApplication
                 .SetItems("")
                 .Result();
 
-            var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
+            var snacksAndDrinks = File.ReadAllText("../../../snacksAndDrinks.json");
 
             JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
             JsonElement root = doc.RootElement;
@@ -90,7 +90,7 @@ namespace CinemaApplication
                     nSnack.price = price;
                     nSnack.vegetarian = input[2].Value;
                     nSnack.stock = stock;
-                    JsonFile.AppendToFile(nSnack, "..\\..\\..\\snacksAndDrinks.json");
+                    JsonFile.AppendToFile(nSnack, "../../../snacksAndDrinks.json");
                     message.Replace(
                         new TextListBuilder(addSnack, 1, 14)
                         .Color(Colors.text)

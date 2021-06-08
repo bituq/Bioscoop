@@ -44,8 +44,8 @@ namespace CinemaApplication
                 .Text("Select a movie to edit: ")
                 .Result();
 
-            var MovieList = JsonFile.FileAsList("..\\..\\..\\Movies.json");
-            var TimeslotList = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
+            var MovieList = JsonFile.FileAsList("../../../Movies.json");
+            var TimeslotList = JsonFile.FileAsList("../../../TimeSlots.json");
             var MovieObjects = new List<Movie>();
             var MovieNames = new List<string>();
             var TimeslotCount = new List<int>();

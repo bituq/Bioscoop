@@ -43,7 +43,7 @@ namespace CinemaApplication
             {
                 if (inputList2[0].Value != "")
                 {
-                    string filePath2 = "..\\..\\..\\Reserveringen.json";
+                    string filePath2 = "../../../Reserveringen.json";
                     var root2 = JsonFile.FileAsList(filePath2);
                     static DateTime UnixToDate(int unix)
                     {
@@ -53,7 +53,7 @@ namespace CinemaApplication
                     }
                     static string FilmToText(int id)
                     {
-                        string FilePath4 = "..\\..\\..\\Movies.json";
+                        string FilePath4 = "../../../Movies.json";
                         var root4 = JsonFile.FileAsList(FilePath4);
 
                         for (int L = 0; L < root4.Count; L++)

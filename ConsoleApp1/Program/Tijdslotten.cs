@@ -10,9 +10,9 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static List<JsonElement> timeslotsFile = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
-        static List<JsonElement> hallsFile = JsonFile.FileAsList("..\\..\\..\\Halls.json");
-        static List<JsonElement> moviesFile = JsonFile.FileAsList("..\\..\\..\\Movies.json");
+        static List<JsonElement> timeslotsFile = JsonFile.FileAsList("../../../TimeSlots.json");
+        static List<JsonElement> hallsFile = JsonFile.FileAsList("../../../Halls.json");
+        static List<JsonElement> moviesFile = JsonFile.FileAsList("../../../Movies.json");
         static List<TimeSlot> timeSlots = new List<TimeSlot>();
         public class TimeSlot
         {
@@ -48,7 +48,7 @@ namespace CinemaApplication
 
             public void Init()
             {
-                var file = File.ReadAllText("..\\..\\..\\TimeSlots.json");
+                var file = File.ReadAllText("../../../TimeSlots.json");
                 JsonDocument doc = JsonDocument.Parse(file);
                 JsonElement root = doc.RootElement;
 

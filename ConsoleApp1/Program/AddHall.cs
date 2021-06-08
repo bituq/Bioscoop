@@ -61,7 +61,7 @@ namespace CinemaApplication
                 .SetItems("")
                 .Result();
 
-            var halljson = File.ReadAllText("..\\..\\..\\Halls.json");
+            var halljson = File.ReadAllText("../../../Halls.json");
 
             JsonDocument doc = JsonDocument.Parse(halljson);
             JsonElement root = doc.RootElement;
@@ -114,7 +114,7 @@ namespace CinemaApplication
                     objHall.id = Convert.ToInt32(input[0].Value);
                     objHall.rows = Convert.ToInt32(input[1].Value);
                     objHall.columns = Convert.ToInt32(input[2].Value);
-                    JsonFile.AppendToFile(objHall, "..\\..\\..\\Halls.json");
+                    JsonFile.AppendToFile(objHall, "../../../Halls.json");
                     message.Replace(
                         new TextListBuilder(addhallscreen, 13, 12)
                         .Color(ConsoleColor.Green)

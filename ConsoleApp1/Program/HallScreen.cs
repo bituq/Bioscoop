@@ -51,7 +51,7 @@ namespace CinemaApplication
         static Window hallscreen = new Window();
         static void Halls()
         {
-            var halls = File.ReadAllText("..\\..\\..\\Halls.json");
+            var halls = File.ReadAllText("../../../Halls.json");
 
             JsonDocument doc = JsonDocument.Parse(halls);
 
@@ -119,13 +119,13 @@ namespace CinemaApplication
                 {
                     bool valid = true;
                     int themovie = 0;
-                    List<JsonElement> HallList = JsonFile.FileAsList("..\\..\\..\\Halls.json");
+                    List<JsonElement> HallList = JsonFile.FileAsList("../../../Halls.json");
                     int index = removeButton.Items.IndexOf(item);
                     int id = HallList[index].GetProperty("id").GetInt32();
 
                     item.OnClick = () =>
                     {
-                        List<JsonElement> listylist = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
+                        List<JsonElement> listylist = JsonFile.FileAsList("../../../TimeSlots.json");
                         for (int i = 0; i < listylist.Count; i++)
                         {
                             if (id == listylist[i].GetProperty("hall").GetInt32())
@@ -136,7 +136,7 @@ namespace CinemaApplication
                         }
                         if(valid)
                         {
-                            JsonFile.RemoveFromFile("id", id, "..\\..\\..\\Halls.json");
+                            JsonFile.RemoveFromFile("id", id, "../../../Halls.json");
 
                             var removeIndex = removeButton.SelectedIndex;
 

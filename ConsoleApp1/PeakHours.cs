@@ -19,9 +19,9 @@ namespace CinemaApplication
                 .SetItems("Home/Admin/Peak Hours/")
                 .Result();
 
-            var TimeSlots = File.ReadAllText("..\\..\\..\\TimeSlots.json");
-            var Reserveringen = File.ReadAllText("..\\..\\..\\Reserveringen.json");
-            var Movies = File.ReadAllText("..\\..\\..\\Movies.json");
+            var TimeSlots = File.ReadAllText("../../../TimeSlots.json");
+            var Reserveringen = File.ReadAllText("../../../Reserveringen.json");
+            var Movies = File.ReadAllText("../../../Movies.json");
 
             JsonDocument doc = JsonDocument.Parse(TimeSlots);
             JsonElement root = doc.RootElement;
@@ -32,9 +32,9 @@ namespace CinemaApplication
 
         public static void getActivity(int hours) 
         {
-            var timeFile = File.ReadAllText("..\\..\\..\\TimeSlots.json");
-            var reserveringFile = File.ReadAllText("..\\..\\..\\Reserveringen.json");
-            var movieFile = File.ReadAllText("..\\..\\..\\Movies.json");
+            var timeFile = File.ReadAllText("../../../TimeSlots.json");
+            var reserveringFile = File.ReadAllText("../../../Reserveringen.json");
+            var movieFile = File.ReadAllText("../../../Movies.json");
 
             JsonDocument TimeSlots = JsonDocument.Parse(timeFile);
             JsonDocument Reserveringen = JsonDocument.Parse(reserveringFile);

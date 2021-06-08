@@ -65,7 +65,7 @@ namespace CinemaApplication
                 .SetItems("")
                 .Result();
 
-            var movieFile = File.ReadAllText("..\\..\\..\\Movies.json");
+            var movieFile = File.ReadAllText("../../../Movies.json");
 
             JsonDocument doc = JsonDocument.Parse(movieFile);
             JsonElement root = doc.RootElement;
@@ -84,7 +84,7 @@ namespace CinemaApplication
                 {
                    
                     var nMovie = new MovieAdd();
-                    nMovie.id = JsonFile.FileAsList("..\\..\\..\\Movies.json")[(JsonFile.FileAsList("..\\..\\..\\Movies.json").Count - 1)].GetProperty("id").GetInt32() + 1;
+                    nMovie.id = JsonFile.FileAsList("../../../Movies.json")[(JsonFile.FileAsList("../../../Movies.json").Count - 1)].GetProperty("id").GetInt32() + 1;
                     nMovie.name = input[0].Value;
                     nMovie.duration = duration;
                     nMovie.releaseDate = input[2].Value;
@@ -94,7 +94,7 @@ namespace CinemaApplication
                     nMovie.language = input[6].Value;
                     nMovie.company = input[7].Value;
                     nMovie.description = input[8].Value;
-                    JsonFile.AppendToFile(nMovie, "..\\..\\..\\Movies.json");
+                    JsonFile.AppendToFile(nMovie, "../../../Movies.json");
                     message.Replace(
                         new TextListBuilder(addMovie, 1, 19)
                         .Color(ConsoleColor.Green)

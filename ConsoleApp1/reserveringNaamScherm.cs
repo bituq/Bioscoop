@@ -44,7 +44,7 @@ namespace CinemaApplication
                 successMessage3.Clear();
                 if (inputList3[0].Value != "")
                 {
-                    string filePath3 = "..\\..\\..\\Reserveringen.json";
+                    string filePath3 = "../../../Reserveringen.json";
                     var root3 = JsonFile.FileAsList(filePath3);
                     string heleNaam = inputList3[0].Value;
                     bool checker = false;
@@ -56,7 +56,7 @@ namespace CinemaApplication
                     }
                     static string FilmToText(int id)
                     {
-                        string FilePath4 = "..\\..\\..\\Movies.json";
+                        string FilePath4 = "../../../Movies.json";
                         var root4 = JsonFile.FileAsList(FilePath4);
 
                         for (int L = 0; L < root4.Count; L++)

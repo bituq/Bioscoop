@@ -51,8 +51,8 @@ namespace CinemaApplication
             public List<JsonElement> FilterRoot()
             {
 
-                List<JsonElement> TimeSlotsList = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
-                List<JsonElement> root = JsonFile.FileAsList("..\\..\\..\\Movies.json");
+                List<JsonElement> TimeSlotsList = JsonFile.FileAsList("../../../TimeSlots.json");
+                List<JsonElement> root = JsonFile.FileAsList("../../../Movies.json");
 
                 // filter name
                 root.RemoveAll(x => !x.GetProperty("name").ToString().ToLower().Contains(this.Name));
@@ -154,9 +154,9 @@ namespace CinemaApplication
 
                 terug3[0].OnClick = () =>
                 {
-                    string filePath3 = "..\\..\\..\\TimeSlots.json";
+                    string filePath3 = "../../../TimeSlots.json";
                     var root3 = JsonFile.FileAsList(filePath3);
-                    var root4 = JsonFile.FileAsList("..\\..\\..\\Halls.json");
+                    var root4 = JsonFile.FileAsList("../../../Halls.json");
                     successMessage3.Clear();
 
                     string[] formats = {"d/M/yyyy h:mm tt",
@@ -257,7 +257,7 @@ namespace CinemaApplication
                         nTimeslot.movieId = Id;
                         nTimeslot.time = someFunkyUnixTime;
                         nTimeslot.hall = inputhall;
-                        JsonFile.AppendToFile(nTimeslot, "..\\..\\..\\TimeSlots.json");
+                        JsonFile.AppendToFile(nTimeslot, "../../../TimeSlots.json");
 
                         successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 11)
                             .Color(Colors.text)
@@ -301,7 +301,7 @@ namespace CinemaApplication
                     .Text("Timeslots: ")
                     .Result();
 
-                var TimeSlotList = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json").FindAll(n => n.GetProperty("movieId").GetInt32() == Id);
+                var TimeSlotList = JsonFile.FileAsList("../../../TimeSlots.json").FindAll(n => n.GetProperty("movieId").GetInt32() == Id);
                 var TimeSlotNames = new List<string>();
                 var TimeSlotDates = new List<DateTime>();
                 int MaxLength = 0;
@@ -368,7 +368,7 @@ namespace CinemaApplication
                             if(!isEmpty)
                             {
                                 var timeslot = TimeSlotList[index];
-                                JsonFile.RemoveFromFile("id", timeslot.GetProperty("id").GetInt32(), "..\\..\\..\\TimeSlots.json");
+                                JsonFile.RemoveFromFile("id", timeslot.GetProperty("id").GetInt32(), "../../../TimeSlots.json");
                             }
 
                             if (RemoveButtonList.Count == 0)
@@ -462,7 +462,7 @@ namespace CinemaApplication
                    .LinkWindows(mainMenu)
                    .Result();
 
-            var movies = File.ReadAllText("..\\..\\..\\Movies.json");
+            var movies = File.ReadAllText("../../../Movies.json");
 
             JsonDocument doc = JsonDocument.Parse(movies);
             JsonElement JsonRoot = doc.RootElement;
@@ -487,7 +487,7 @@ namespace CinemaApplication
 
                 for (int i = 0; i < root.Count; i++) // JsonRoot.GetArrayLength()
                 {
-                    timeslotsFile = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
+                    timeslotsFile = JsonFile.FileAsList("../../../TimeSlots.json");
                     var timeSlotsOfMovie = timeslotsFile.FindAll(timeSlots => timeSlots.GetProperty("movieId").GetInt32() == root[i].GetProperty("id").GetInt32());
                     if (timeSlotsOfMovie.Count >= 1) // terug zetten voor eind build
                     {
