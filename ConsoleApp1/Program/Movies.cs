@@ -489,7 +489,7 @@ namespace CinemaApplication
                 {
                     timeslotsFile = JsonFile.FileAsList("../../../TimeSlots.json");
                     var timeSlotsOfMovie = timeslotsFile.FindAll(timeSlots => timeSlots.GetProperty("movieId").GetInt32() == root[i].GetProperty("id").GetInt32());
-                    if (timeSlotsOfMovie.Count >= 1) // terug zetten voor eind build
+                    if (timeSlotsOfMovie.Count >= 0)
                     {
                         movieObjects.Add(new Movie(
                             root[i].GetProperty("name").ToString(),
