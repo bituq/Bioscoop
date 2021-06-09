@@ -20,10 +20,6 @@ namespace CinemaApplication
             hall.rows = 96;
             hall.columns = 32;
 
-
-
-
-
             JsonFile.AppendToFile(new List<halls> { hall }, "halls.json");
             
             Console.WriteLine($"Successfully added \"{hall.name}\"");

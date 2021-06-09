@@ -23,6 +23,7 @@ namespace CinemaUI
             get => _paragraph.TextColor;
             set => _paragraph.TextColor = value;
         }
+
         public ConsoleColor Foreground { get; set; }
         public ConsoleColor Background { get; set; }
 

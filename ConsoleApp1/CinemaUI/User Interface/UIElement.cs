@@ -4,12 +4,6 @@ using System.IO;
 
 namespace CinemaUI
 {
-    /* TO DO:
-     * - Update Table to consist of textlists instead.
-     * - Fix consistency of builder declaration. (i.e. text string and items string[] in .Result())
-     * - Fix selectable paragraph builder asking for textColor
-     * - Fix bugs on textinput
-     */
 
     public enum Space
     {
@@ -65,7 +59,6 @@ namespace CinemaUI
             }
 
         }
-        public Space PositionSpace { get; set; } = Space.Absolute;
         public override Point Position
         {
             get => _position;
@@ -77,6 +70,7 @@ namespace CinemaUI
                     _position = value + Parent?.Position ?? new Point(0, 0);
             }
         }
+        public Space PositionSpace { get; set; } = Space.Absolute;
 
         public UIElement(Window window, int x = 0, int y = 0)
         {

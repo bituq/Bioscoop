@@ -10,6 +10,8 @@ namespace CinemaUI
         internal new List<SelectableText> Items { get; set; } = new List<SelectableText>();
         internal int OrderIndex { get => TextList.Window.SelectionOrder.IndexOf(this); }
         public int SelectedIndex { get => Items.FindIndex(0, item => item.Selected == true); }
+        public Dictionary<ConsoleKey, Action> Events = new Dictionary<ConsoleKey, Action>();
+        public Action KeyEvent(ConsoleKey Key) => Events[Key];
 
         public ConsoleColor Foreground { get; set; }
         public ConsoleColor Background { get; set; }
@@ -92,6 +94,10 @@ namespace CinemaUI
                 case ConsoleKey.Enter:
                     if (!Disabled && !activeItem.Disabled)
                         Enter(activeItem);
+                    break;
+                default:
+                    if (Events.ContainsKey(keyPressed.Key))
+                        Events[keyPressed.Key]();
                     break;
             }
         }
