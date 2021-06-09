@@ -24,7 +24,7 @@ namespace CinemaApplication
                 {
                     client.EnableSsl = true;
                     client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("kappenmetspammennu@gmail.com", "lol nah");
+                    client.Credentials = new NetworkCredential("kappenmetspammennu@gmail.com", "");
                     client.Host = "smtp.gmail.com";
                     client.Port = 587;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
