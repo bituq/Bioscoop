@@ -10,9 +10,9 @@ namespace CinemaApplication
 {
     partial class Program
     {
-        static List<JsonElement> timeslotsFile = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
-        static List<JsonElement> hallsFile = JsonFile.FileAsList("..\\..\\..\\Halls.json");
-        static List<JsonElement> moviesFile = JsonFile.FileAsList("..\\..\\..\\Movies.json");
+        static List<JsonElement> timeslotsFile = JsonFile.FileAsList("../../../TimeSlots.json");
+        static List<JsonElement> hallsFile = JsonFile.FileAsList("../../../Halls.json");
+        static List<JsonElement> moviesFile = JsonFile.FileAsList("../../../Movies.json");
         static List<TimeSlot> timeSlots = new List<TimeSlot>();
         public class TimeSlot
         {
@@ -48,7 +48,7 @@ namespace CinemaApplication
 
             public void Init()
             {
-                var file = File.ReadAllText("..\\..\\..\\TimeSlots.json");
+                var file = File.ReadAllText("../../../TimeSlots.json");
                 JsonDocument doc = JsonDocument.Parse(file);
                 JsonElement root = doc.RootElement;
 
@@ -59,17 +59,17 @@ namespace CinemaApplication
                             occupiedSeats.Add(new Seat(seat.GetProperty("row").GetInt32(), seat.GetProperty("column").GetInt32()));
 
                 var title = new TextBuilder(this.Window, 1, 0)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.title)
                 .Text($"Available seats at {Time.ToString("g")}")
                 .Result();
 
                 var subtitle = new TextBuilder(this.Window, 1, 1)
-                    .Color(ConsoleColor.Red)
+                    .Color(Colors.title)
                     .Text("Movie: " + this.Movie.Name)
                     .Result();
 
                 var subtitle2 = new TextBuilder(this.Window, 1, 2)
-                    .Color(ConsoleColor.Red)
+                    .Color(Colors.undertitle)
                     .Text("Hall: " + this.Hall.Id)
                     .Result();
 
@@ -100,7 +100,7 @@ namespace CinemaApplication
                     var _ = new TextListBuilder(this.Window, 9 + column * 4, 5)
                         .Color(ConsoleColor.DarkGreen)
                         .SetItems(seats)
-                        .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
+                        .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                         .LinkWindows()
                         .DisabledColor(ConsoleColor.DarkRed)
                         .Result();
@@ -117,14 +117,14 @@ namespace CinemaApplication
                 }
                 
                 var goBack = new TextListBuilder(this.Window, 1, 7 + this.Hall.Rows)
-                    .Color(ConsoleColor.Yellow)
+                    .Color(Colors.back)
                     .SetItems("Go back", "Make reservation")
-                    .Selectable(ConsoleColor.White, ConsoleColor.DarkGreen)
+                    .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                     .LinkWindows(Movie.timeSlotWindow)
                     .Result();
 
                 var priceText = new TextListBuilder(this.Window, 1, 10 + this.Hall.Rows)
-                    .Color(ConsoleColor.Blue)
+                    .Color(Colors.text)
                     .SetItems($"Price: ${sum}")
                     .Result();
 
@@ -165,7 +165,7 @@ namespace CinemaApplication
                                 goBack[1].Disable();
                             }
                             priceText.Replace(new TextListBuilder(this.Window, 1, 10 + this.Hall.Rows)
-                                    .Color(ConsoleColor.Blue)
+                                    .Color(Colors.text)
                                     .SetItems($"Price: ${sum}")
                                     .Result()
                             );
@@ -215,9 +215,9 @@ namespace CinemaApplication
                 }
 
                 var goBack = new TextListBuilder(timeSlotWindow, 1, 1)
-                    .Color(ConsoleColor.Yellow)
+                    .Color(Colors.back)
                     .SetItems("Go Back")
-                    .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
+                    .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                     .LinkWindows(Window)
                     .Result();
 
@@ -231,8 +231,7 @@ namespace CinemaApplication
                     listOfTimeslots = new TextListBuilder(timeSlotWindow, 11, 3)
                         .Color(ConsoleColor.White)
                         .SetItems(validTimeSlotNames.ToArray())
-                        .UseNumbers()
-                        .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                        .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                         .LinkWindows(validTimeSlotWindows.ToArray())
                         .Result();
             }

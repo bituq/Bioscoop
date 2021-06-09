@@ -15,18 +15,18 @@ namespace CinemaApplication
         static void RemoveMovie()
         {
             var title = new TextBuilder(removeMovie, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Movie Options/Remove Movie")
                 .Result();
 
             var back = new TextListBuilder(removeMovie, 1, 6)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.back)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(adminMovieWindow)
                 .Result();
 
-            var movieMan = File.ReadAllText("..\\..\\..\\Movies.json");
+            var movieMan = File.ReadAllText("../../../Movies.json");
 
             JsonDocument doc = JsonDocument.Parse(movieMan);
             JsonElement root = doc.RootElement;
@@ -40,7 +40,7 @@ namespace CinemaApplication
             };
 
             var MovieList = new TextListBuilder(removeMovie, 19, 6)
-                .Color(ConsoleColor.DarkMagenta)
+                .Color(Colors.text)
                 .SetItems(movieNames.ToArray())
                 .Result();
 
@@ -65,12 +65,12 @@ namespace CinemaApplication
                 {
                     button.OnClick = () =>
                     {
-                        List<JsonElement> movieMan = JsonFile.FileAsList("..\\..\\..\\Movies.json");
+                        List<JsonElement> movieMan = JsonFile.FileAsList("../../../Movies.json");
 
                         int index = removeButtons.Items.IndexOf(button);
                         int id = movieMan[index].GetProperty("id").GetInt32();
 
-                        JsonFile.RemoveFromFile("id", id, "..\\..\\..\\Movies.json");
+                        JsonFile.RemoveFromFile("id", id, "../../../Movies.json");
 
                         movieNames.RemoveAt(index);
                         removeName.RemoveAt(0);
@@ -92,7 +92,7 @@ namespace CinemaApplication
 
 
                         MovieList.Replace(new TextListBuilder(removeMovie, 19, 6)
-                            .Color(ConsoleColor.DarkMagenta)
+                            .Color(Colors.text)
                             .SetItems(movieNames.ToArray())
                             .Result());
 

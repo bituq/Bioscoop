@@ -15,13 +15,13 @@ namespace CinemaApplication
         public static void peaksDraw() 
         {
             var list = new TextListBuilder(peaksWindow, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .SetItems("Home/Admin/Peak Hours/")
                 .Result();
 
-            var TimeSlots = File.ReadAllText("..\\..\\..\\TimeSlots.json");
-            var Reserveringen = File.ReadAllText("..\\..\\..\\Reserveringen.json");
-            var Movies = File.ReadAllText("..\\..\\..\\Movies.json");
+            var TimeSlots = File.ReadAllText("../../../TimeSlots.json");
+            var Reserveringen = File.ReadAllText("../../../Reserveringen.json");
+            var Movies = File.ReadAllText("../../../Movies.json");
 
             JsonDocument doc = JsonDocument.Parse(TimeSlots);
             JsonElement root = doc.RootElement;
@@ -32,9 +32,9 @@ namespace CinemaApplication
 
         public static void getActivity(int hours) 
         {
-            var timeFile = File.ReadAllText("..\\..\\..\\TimeSlots.json");
-            var reserveringFile = File.ReadAllText("..\\..\\..\\Reserveringen.json");
-            var movieFile = File.ReadAllText("..\\..\\..\\Movies.json");
+            var timeFile = File.ReadAllText("../../../TimeSlots.json");
+            var reserveringFile = File.ReadAllText("../../../Reserveringen.json");
+            var movieFile = File.ReadAllText("../../../Movies.json");
 
             JsonDocument TimeSlots = JsonDocument.Parse(timeFile);
             JsonDocument Reserveringen = JsonDocument.Parse(reserveringFile);
@@ -75,20 +75,20 @@ namespace CinemaApplication
                 }
 
                 var a = new TextBuilder(peaksWindow, 3, yPos)
-                    .Color(ConsoleColor.Gray)
-                    .Text(currTime.ToString() + ":00-" + (currTime + hours) + ":00")
+                    .Color(Colors.text)
+                    .Text(currTime.ToString() + ":00-" + (currTime + hours - 1) + ":59")
                     .Result();
 
                 var b = new TextBuilder(peaksWindow, 15, yPos++)
-                    .Color(ConsoleColor.Gray)
+                    .Color(Colors.text)
                     .Text("- " + people + " people")
                     .Result();
                 currTime += hours;
             }
             var exit = new TextListBuilder(peaksWindow, 1, ++yPos)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.back)
                 .SetItems("Go back")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                 .LinkWindows(AdminScherm)
                 .Result();
         }

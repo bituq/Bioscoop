@@ -37,7 +37,7 @@ namespace CinemaApplication
                 .Result();
 
             var input = new TextListBuilder(addSnack, 14 + inputOptions.Items[3].Text.Length, 7)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.text)
                 .SetItems("", "", "", "")
                 .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
                 .Result();
@@ -59,7 +59,7 @@ namespace CinemaApplication
                 .SetItems("")
                 .Result();
 
-            var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
+            var snacksAndDrinks = File.ReadAllText("../../../snacksAndDrinks.json");
 
             JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
             JsonElement root = doc.RootElement;
@@ -90,10 +90,10 @@ namespace CinemaApplication
                     nSnack.price = price;
                     nSnack.vegetarian = input[2].Value;
                     nSnack.stock = stock;
-                    JsonFile.AppendToFile(nSnack, "..\\..\\..\\snacksAndDrinks.json");
+                    JsonFile.AppendToFile(nSnack, "../../../snacksAndDrinks.json");
                     message.Replace(
                         new TextListBuilder(addSnack, 1, 14)
-                        .Color(ConsoleColor.Green)
+                        .Color(Colors.text)
                         .SetItems($"You have succesfully added {nSnack.name} to the list!", "If you want to add another snack, fill in the above requirements again.")
                         .Result());
                     snacksWindow.Reset();

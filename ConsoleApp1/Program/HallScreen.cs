@@ -25,23 +25,24 @@ namespace CinemaApplication
                 Columns = columns;
 
                 var title1 = new TextBuilder(Window, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text($"Home/Admin/Hall Select/Halls/{Name}")
                 .Result();
 
                 var selectableList = new TextListBuilder(Window, 1, 5)
+                    .Color(Colors.selection)
                     .SetItems("Go back")
-                    .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                    .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                     .LinkWindows(hallscreen)
                     .Result();
 
                 var title2 = new TextBuilder(Window, 13, 5)
-                    .Color(ConsoleColor.Red)
+                    .Color(Colors.title)
                     .Text(name)
                     .Result();
 
                 var description = new TextListBuilder(Window, 13, 7)
-                    .Color(ConsoleColor.Gray)
+                    .Color(Colors.undertitle)
                     .SetItems($"Rows: {rows}", $"Columns: {columns}")
                     .Result();
 
@@ -50,7 +51,7 @@ namespace CinemaApplication
         static Window hallscreen = new Window();
         static void Halls()
         {
-            var halls = File.ReadAllText("..\\..\\..\\Halls.json");
+            var halls = File.ReadAllText("../../../Halls.json");
 
             JsonDocument doc = JsonDocument.Parse(halls);
 
@@ -75,32 +76,32 @@ namespace CinemaApplication
                 //Console.WriteLine($"{i} : {movieNames[i]}");
             }
             var introtexthall = new TextListBuilder(hallscreen, 2, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.undertitle)
                 .SetItems("Select an hall you would like to see.")
                 .Result();
 
             var goBack = new TextListBuilder(hallscreen, 2, 5)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.selection)
                 .SetItems("Go back")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                 .LinkWindows(selecteerHallsScherm)
                 .Result();
 
-            var showhall = new TextListBuilder(hallscreen, 14, 5)
-                .Color(ConsoleColor.Red)
-                .SetItems(hallNames.ToArray())
-                .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
-                .LinkWindows(hallWindows)
-                .Result();
-
-            var removeButton = new TextListBuilder(hallscreen, 31, 5)
+            var removeButton = new TextListBuilder(hallscreen, 14, 5)
                 .Color(ConsoleColor.DarkRed)
                 .SetItems(removeButtonlist.ToArray())
                 .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
                 .Result();
 
+            var showhall = new TextListBuilder(hallscreen, 24, 5)
+                .Color(Colors.selection)
+                .SetItems(hallNames.ToArray())
+                .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
+                .LinkWindows(hallWindows)
+                .Result();
+
             var title = new TextBuilder(hallscreen, 2, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Hall Select/Halls/")
                 .Result();
 
@@ -114,19 +115,17 @@ namespace CinemaApplication
 
             void onRemove()
             {
-
-
                 foreach (var item in removeButton.Items)
                 {
                     bool valid = true;
                     int themovie = 0;
-                    List<JsonElement> HallList = JsonFile.FileAsList("..\\..\\..\\Halls.json");
+                    List<JsonElement> HallList = JsonFile.FileAsList("../../../Halls.json");
                     int index = removeButton.Items.IndexOf(item);
                     int id = HallList[index].GetProperty("id").GetInt32();
 
                     item.OnClick = () =>
                     {
-                        List<JsonElement> listylist = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
+                        List<JsonElement> listylist = JsonFile.FileAsList("../../../TimeSlots.json");
                         for (int i = 0; i < listylist.Count; i++)
                         {
                             if (id == listylist[i].GetProperty("hall").GetInt32())
@@ -137,7 +136,7 @@ namespace CinemaApplication
                         }
                         if(valid)
                         {
-                            JsonFile.RemoveFromFile("id", id, "..\\..\\..\\Halls.json");
+                            JsonFile.RemoveFromFile("id", id, "../../../Halls.json");
 
                             var removeIndex = removeButton.SelectedIndex;
 
@@ -152,17 +151,17 @@ namespace CinemaApplication
                                 removeButton[0].Unselect();
                             }
 
-                            removeButton.Replace(new TextListBuilder(hallscreen, 31, 5)
-                            .Color(ConsoleColor.DarkRed)
-                            .SetItems(removeButtonlist.ToArray())
-                            .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                            showhall.Replace(new TextListBuilder(hallscreen, 24, 5)
+                            .Color(Colors.selection)
+                            .SetItems(hallNames.ToArray())
+                            .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
+                            .LinkWindows(hallWindows)
                             .Result());
 
-                            showhall.Replace(new TextListBuilder(hallscreen, 14, 5)
-                            .Color(ConsoleColor.Red)
-                            .SetItems(hallNames.ToArray())
-                            .Selectable(ConsoleColor.Yellow, ConsoleColor.DarkGray)
-                            .LinkWindows(hallWindows)
+                            removeButton.Replace(new TextListBuilder(hallscreen, 14, 5)
+                            .Color(Colors.selection)
+                            .SetItems(removeButtonlist.ToArray())
+                            .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                             .Result());
 
                             Errormessage.Replace(new TextListBuilder(hallscreen, 43, 5)
@@ -189,7 +188,7 @@ namespace CinemaApplication
                         else
                         {
                             Errormessage.Replace(new TextListBuilder(hallscreen, 43, 5)
-                            .Color(ConsoleColor.Green)
+                            .Color(ConsoleColor.DarkRed)
                             .SetItems($"Not able to remove hall {id}, this hall is used in timeslot id {themovie}")
                             .Result());
                         }

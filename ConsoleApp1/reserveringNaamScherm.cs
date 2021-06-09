@@ -14,12 +14,12 @@ namespace CinemaApplication
         static void ReserveringNaamScherm()
         {
             var list = new TextListBuilder(NaamScherm, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .SetItems("Home/Admin/Select Search/Name Search/")
                 .Result();
 
             var inputInformation3 = new TextListBuilder(NaamScherm, 1, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.input)
                 .SetItems("Full name:")
                 .Result();
 
@@ -29,7 +29,7 @@ namespace CinemaApplication
                 .Result();
 
             var terug3 = new TextListBuilder(NaamScherm, 1, 5)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.submit.Item1)
                 .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
                 .LinkWindows(null, SelecteerZoekScherm)
@@ -44,7 +44,7 @@ namespace CinemaApplication
                 successMessage3.Clear();
                 if (inputList3[0].Value != "")
                 {
-                    string filePath3 = "..\\..\\..\\Reserveringen.json";
+                    string filePath3 = "../../../Reserveringen.json";
                     var root3 = JsonFile.FileAsList(filePath3);
                     string heleNaam = inputList3[0].Value;
                     bool checker = false;
@@ -56,7 +56,7 @@ namespace CinemaApplication
                     }
                     static string FilmToText(int id)
                     {
-                        string FilePath4 = "..\\..\\..\\Movies.json";
+                        string FilePath4 = "../../../Movies.json";
                         var root4 = JsonFile.FileAsList(FilePath4);
 
                         for (int L = 0; L < root4.Count; L++)
@@ -90,7 +90,7 @@ namespace CinemaApplication
                             listOfReservations.AddRange(seatList.Values);
                             listOfReservations.AddRange(new string[2]);
                             successMessage3.Replace(new TextListBuilder(NaamScherm, 1, 8)
-                            .Color(ConsoleColor.Green)
+                            .Color(Colors.text)
                             .SetItems(listOfReservations.ToArray())
                             .Result());
                         }

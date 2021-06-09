@@ -15,18 +15,18 @@ namespace CinemaApplication
         static void RemoveSnack()
         {
             var title = new TextBuilder(removeSnack, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .Text("Home/Admin/Snack Options/Remove Snack")
                 .Result();
 
             var back = new TextListBuilder(removeSnack, 1, 6)
-                .Color(ConsoleColor.Red)
+                .Color(Colors.back)
                 .SetItems("Go back")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .LinkWindows(snackOptions)
                 .Result();
 
-            var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
+            var snacksAndDrinks = File.ReadAllText("../../../snacksAndDrinks.json");
           
             JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
             JsonElement root = doc.RootElement;
@@ -64,12 +64,12 @@ namespace CinemaApplication
                 {
                     button.OnClick = () =>
                     {
-                        List<JsonElement> snacksAndDrinksList = JsonFile.FileAsList("..\\..\\..\\snacksAndDrinks.json");
+                        List<JsonElement> snacksAndDrinksList = JsonFile.FileAsList("../../../snacksAndDrinks.json");
 
                         int index = removeButtons.Items.IndexOf(button);
                         int id = snacksAndDrinksList[index].GetProperty("id").GetInt32();
 
-                        JsonFile.RemoveFromFile("id", id, "..\\..\\..\\snacksAndDrinks.json");
+                        JsonFile.RemoveFromFile("id", id, "../../../snacksAndDrinks.json");
 
                         snackNames.RemoveAt(index);
                         removeName.RemoveAt(0);
@@ -91,7 +91,7 @@ namespace CinemaApplication
 
 
                         SnackList.Replace(new TextListBuilder(removeSnack, 19, 6)
-                            .Color(ConsoleColor.DarkMagenta)
+                            .Color(Colors.text)
                             .SetItems(snackNames.ToArray())
                             .Result());
 

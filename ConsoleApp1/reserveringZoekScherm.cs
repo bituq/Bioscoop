@@ -14,12 +14,12 @@ namespace CinemaApplication
         static void ReserveringZoekScherm()
         {
             var list = new TextListBuilder(ZoekScherm, 1, 2)
-                .Color(ConsoleColor.Cyan)
+                .Color(Colors.breadcrumbs)
                 .SetItems("Home/Admin/Select Search/Code Search/")
                 .Result();
 
             var inputInformation2 = new TextListBuilder(ZoekScherm, 1, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.input)
                 .SetItems("Reservationcode:")
                 .Result();
 
@@ -29,7 +29,7 @@ namespace CinemaApplication
                 .Result();
 
             var terug2 = new TextListBuilder(ZoekScherm, 1, 5)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.submit.Item1)
                 .SetItems("Submit", "Go back")
                 .Selectable(ConsoleColor.Black,ConsoleColor.White)
                 .LinkWindows(null, SelecteerZoekScherm)
@@ -43,7 +43,7 @@ namespace CinemaApplication
             {
                 if (inputList2[0].Value != "")
                 {
-                    string filePath2 = "..\\..\\..\\Reserveringen.json";
+                    string filePath2 = "../../../Reserveringen.json";
                     var root2 = JsonFile.FileAsList(filePath2);
                     static DateTime UnixToDate(int unix)
                     {
@@ -53,7 +53,7 @@ namespace CinemaApplication
                     }
                     static string FilmToText(int id)
                     {
-                        string FilePath4 = "..\\..\\..\\Movies.json";
+                        string FilePath4 = "../../../Movies.json";
                         var root4 = JsonFile.FileAsList(FilePath4);
 
                         for (int L = 0; L < root4.Count; L++)
@@ -93,7 +93,7 @@ namespace CinemaApplication
                             listOfReservations.AddRange(new string[2]);
                             successMessage2.Replace(
                                 new TextListBuilder(ZoekScherm, 1, 8)
-                                .Color(ConsoleColor.Green)
+                                .Color(Colors.text)
                                 .SetItems(listOfReservations.ToArray())
                                 .Result()
                             );

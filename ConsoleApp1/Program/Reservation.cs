@@ -40,18 +40,18 @@ namespace CinemaApplication
             double sumM = 0.00;
             public void ReservationInit()
             {
-                string filePath = "..\\..\\..\\Reserveringen.json";
+                string filePath = "../../../Reserveringen.json";
                 var root = JsonFile.FileAsList(filePath);
 
                 var terug = new TextListBuilder(Window, 1, 1)
-                    .Color(ConsoleColor.Yellow)
+                    .Color(Colors.back)
                     .SetItems("Go Back", "Submit")
-                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                    .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                     .LinkWindows(PaymentsWindow)
                     .Result();
 
                 var title = new TextBuilder(Window, 11, 1)
-                    .Color(ConsoleColor.Red)
+                    .Color(Colors.title)
                     .Text("Make a reservation for " + TimeSlot.Movie.Name)
                     .Result();
 
@@ -61,7 +61,7 @@ namespace CinemaApplication
 
                 var inputList = new TextListBuilder(Window, 12 + inputInformation.Items[2].Text.Length, 3)
                     .SetItems("", "", "")
-                    .AsInput(ConsoleColor.White, ConsoleColor.Black)
+                    .AsInput(Colors.inputBg.Item1, Colors.inputBg.Item2)
                     .Result();
 
                 string seatList = "";
@@ -132,18 +132,18 @@ namespace CinemaApplication
                             );
                         terug.Replace(
                             new TextListBuilder(Window, 1, 1)
-                            .Color(ConsoleColor.Yellow)
+                            .Color(Colors.submit.Item1)
                             .SetItems("Go back", "Submit")
-                            .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                            .Selectable(Colors.submit.Item2, Colors.submit.Item3)
                             .Result()
                             );
                         terug[0].Disable();
                         terug[1].Disable();
 
                         var finish = new TextListBuilder(Window, 1, 14)
-                        .Color(ConsoleColor.Yellow)
+                        .Color(Colors.submit.Item1)
                         .SetItems("Finish")
-                        .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                        .Selectable(Colors.submit.Item2, Colors.submit.Item3)
                         .LinkWindows(TimeSlot.Movie.Window)
                         .Result();
                         terug.Unselect();
@@ -154,7 +154,7 @@ namespace CinemaApplication
                         //VincentCooleQOLFuncties.EmailUser(inputList[2].Value, randomCode, TimeSlot, seatList, sum);
                         TimeSlot.Window.Reset();
 
-                        string timeSlotPath = "..\\..\\..\\TimeSlots.json";
+                        string timeSlotPath = "../../../TimeSlots.json";
                         var thisTimeslot = JsonFile.FileAsList(timeSlotPath).Find(element => element.GetProperty("id").GetInt32() == TimeSlot.id);
                         var newTimeslot = new TimeSlot.Information();
                         newTimeslot.id = thisTimeslot.GetProperty("id").GetInt32();
@@ -207,6 +207,9 @@ namespace CinemaApplication
 
             private void Payments()
             {
+                Window.Reset();
+                ReservationInit();
+                Window.Init();
                 IDEAL();
 
                 var MethodsList = new string[] { "IDEAL", "PayPal", "VISA", "Maestro", "MasterCard" };
@@ -216,15 +219,15 @@ namespace CinemaApplication
                     .Text("Select a payment method.")
                     .Result();
                 var goBack = new TextListBuilder(PaymentsWindow, 1, 1)
-                    .Color(ConsoleColor.Yellow)
+                    .Color(Colors.back)
                     .SetItems("Go back")
-                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                    .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                     .LinkWindows(FoodWindow)
                     .Result();
                 var menu = new TextListBuilder(PaymentsWindow, 11, 3)
-                    .Color(ConsoleColor.Cyan)
+                    .Color(Colors.selection)
                     .SetItems(MethodsList)
-                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                    .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                     .LinkWindows(ideal, Window, Window, Window, Window)
                     .Result();
                 
@@ -239,16 +242,16 @@ namespace CinemaApplication
                     .Result();
 
                 var goBack = new TextListBuilder(ideal, 1, 1)
-                    .Color(ConsoleColor.Yellow)
+                    .Color(Colors.back)
                     .SetItems("Go back")
-                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                    .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                     .LinkWindows(PaymentsWindow)
                     .Result();
 
                 var menu = new TextListBuilder(ideal, 11, 3)
-                    .Color(ConsoleColor.Cyan)
+                    .Color(Colors.selection)
                     .SetItems(IDEALlist)
-                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                    .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                     .LinkWindows(Window, Window, Window, Window, Window, Window)
                     .Result();
             }
@@ -263,19 +266,19 @@ namespace CinemaApplication
                     Name = name;
 
                     var title = new TextBuilder(FoodInfo, 11, 1)
-                        .Color(ConsoleColor.Red)
+                        .Color(Colors.title)
                         .Text(name)
                         .Result();
 
                     var information = new TextListBuilder(FoodInfo, 11, 3)
-                        .Color(ConsoleColor.White)
+                        .Color(Colors.description)
                         .SetItems(price, vegetarian, stock)
                         .Result();
 
                     var goBack = new TextListBuilder(FoodInfo, 1, 1)
-                       .Color(ConsoleColor.White)
+                       .Color(Colors.back)
                        .SetItems("Go back")
-                       .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                       .Selectable(Colors.selectionBg.Item1, Colors.selectionBg.Item2)
                        .LinkWindows(previousWindow)
                        .Result();
                 }
@@ -283,20 +286,20 @@ namespace CinemaApplication
             private void FoodWindows()
             {
                 var goBack = new TextListBuilder(FoodWindow, 1, 1)
-                       .Color(ConsoleColor.Yellow)
-                       .SetItems("Go back", "Continue")
-                       .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                       .LinkWindows(TimeSlot.Window, PaymentsWindow)
+                       .Color(Colors.back)
+                       .SetItems("Go back")
+                       .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
+                       .LinkWindows(TimeSlot.Window)
                        .Result();
 
-                goBack[1].OnClick = () =>
+                goBack[0].OnClick = () =>
                 {
                     this.Window.Reset();
                     ReservationInit();
                     this.Window.Init();
                 };
 
-                var snacksAndDrinks = File.ReadAllText("..\\..\\..\\snacksAndDrinks.json");
+                var snacksAndDrinks = File.ReadAllText("../../../snacksAndDrinks.json");
 
                 JsonDocument doc = JsonDocument.Parse(snacksAndDrinks);
                 JsonElement root = doc.RootElement;
@@ -331,80 +334,84 @@ namespace CinemaApplication
                     infobuttonlist.Add("Info");
                 }
 
-                var title1 = new TextBuilder(FoodWindow, 11, 1)
+                var title1 = new TextBuilder(FoodWindow, 11, 3)
                     .Color(ConsoleColor.Red)
                     .Text("Snacks and drinks:")
                     .Result();
 
-                var title2 = new TextBuilder(FoodWindow, 70, 1)
+                var title2 = new TextBuilder(FoodWindow, 70, 3)
                     .Color(ConsoleColor.Red)
                     .Text("My cart:")
                     .Result();
-                var title3 = new TextBuilder(FoodWindow, 12, snackNames.Length + 10)
+                var title3 = new TextBuilder(FoodWindow, 12, snackNames.Length + 11)
                     .Color(ConsoleColor.Red)
                     .Text("Movie total :")
                     .Result();
-                var title4 = new TextBuilder(FoodWindow, 11, snackNames.Length + 11)
+                var title4 = new TextBuilder(FoodWindow, 11, snackNames.Length + 12)
                     .Color(ConsoleColor.Red)
                     .Text("Snacks total :")
                     .Result();
-                var title5 = new TextBuilder(FoodWindow, 18, snackNames.Length + 12)
+                var title5 = new TextBuilder(FoodWindow, 18, snackNames.Length + 13)
                     .Color(ConsoleColor.Red)
                     .Text("Total :")
                     .Result();
+                var title6 = new TextBuilder(FoodWindow, 30, 1)
+                    .Color(ConsoleColor.Red)
+                    .Text("Get 10% off your snacks and drinks if you order here!")
+                    .Result();
 
-                var snackList = new TextListBuilder(FoodWindow, 11, 4)
-                    .Color(ConsoleColor.DarkMagenta)
+                var snackList = new TextListBuilder(FoodWindow, 11, 5)
+                    .Color(ConsoleColor.White)
                     .SetItems(snackNames)
                     .Result();
 
-                var snackPrices = new TextListBuilder(FoodWindow, 35, 4)
-                    .Color(ConsoleColor.DarkMagenta)
+                var snackPrices = new TextListBuilder(FoodWindow, 35, 5)
+                    .Color(ConsoleColor.White)
                     .SetItems(snackPrice)
                     .Result();
 
-                var addButton = new TextListBuilder(FoodWindow, 46, 4)
-                    .Color(ConsoleColor.Magenta)
+                var addButton = new TextListBuilder(FoodWindow, 46, 5)
+                    .Color(ConsoleColor.Green)
                     .SetItems(addbuttonarray)
-                    .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .Result();
 
-                var infoButton = new TextListBuilder(FoodWindow, 61, 4)
-                    .Color(ConsoleColor.Magenta)
+                var infoButton = new TextListBuilder(FoodWindow, 61, 5)
+                    .Color(ConsoleColor.Green)
                     .SetItems(infobuttonlist.ToArray())
-                    .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .LinkWindows(foodWindows)
                     .Result();
 
-                var shopcart = new TextListBuilder(FoodWindow, 70, 4)
-                    .Color(ConsoleColor.DarkMagenta)
+                var shopcart = new TextListBuilder(FoodWindow, 70, 5)
+                    .Color(ConsoleColor.White)
                     .SetItems(cartlist.ToArray())
                     .Result();
 
-                var shopcartprice = new TextListBuilder(FoodWindow, 94, 4)
-                    .Color(ConsoleColor.DarkMagenta)
+                var shopcartprice = new TextListBuilder(FoodWindow, 94, 5)
+                    .Color(ConsoleColor.White)
                     .SetItems(cartpricelist.ToArray())
                     .Result();
 
-                var removebutton = new TextListBuilder(FoodWindow, 105, 4)
-                        .Color(ConsoleColor.Magenta)
+                var removebutton = new TextListBuilder(FoodWindow, 105, 5)
+                        .Color(ConsoleColor.White)
                         .SetItems("")
-                        .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                        .Selectable(ConsoleColor.Black, ConsoleColor.White)
                         .Result();
 
                
 
-                var totalMovie = new TextListBuilder(FoodWindow, 28, snackNames.Length + 10)
+                var totalMovie = new TextListBuilder(FoodWindow, 28, snackNames.Length + 11)
                     .Color(ConsoleColor.White)
                     .SetItems($"${Math.Round(sumM, 2)}")
                     .Result();
                 
-                var totalSnack = new TextListBuilder(FoodWindow, 28, snackNames.Length + 11)
+                var totalSnack = new TextListBuilder(FoodWindow, 28, snackNames.Length + 12)
                     .Color(ConsoleColor.White)
                     .SetItems($"${sum}")
                     .Result();
 
-                var total = new TextListBuilder(FoodWindow, 28, snackNames.Length + 12)
+                var total = new TextListBuilder(FoodWindow, 28, snackNames.Length + 13)
                     .Color(ConsoleColor.White)
                     .SetItems($"${sum + sumM}")
                     .Result();
@@ -432,30 +439,30 @@ namespace CinemaApplication
                         removebutton[0].Unselect();
                     }
 
-                    shopcart.Replace(new TextListBuilder(FoodWindow, 70, 4)
-                    .Color(ConsoleColor.DarkMagenta)
+                    shopcart.Replace(new TextListBuilder(FoodWindow, 70, 5)
+                    .Color(ConsoleColor.White)
                     .SetItems(cartlist.ToArray())
                     .Result());
 
-                    shopcartprice.Replace(new TextListBuilder(FoodWindow, 94, 4)
-                    .Color(ConsoleColor.DarkMagenta)
+                    shopcartprice.Replace(new TextListBuilder(FoodWindow, 94, 5)
+                    .Color(ConsoleColor.White)
                     .SetItems(cartpricelist.ToArray())
                     .Result());
 
                     removebutton[removeIndex].Unselect();
 
-                    removebutton.Replace(new TextListBuilder(FoodWindow, 105, 4)
-                    .Color(ConsoleColor.Magenta)
+                    removebutton.Replace(new TextListBuilder(FoodWindow, 105, 5)
+                    .Color(ConsoleColor.Green)
                     .SetItems(removebuttonlist.ToArray())
-                    .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
                     .Result());
 
-                    totalSnack.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 11)
+                    totalSnack.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 12)
                     .Color(ConsoleColor.White)
                     .SetItems($"${Math.Round(sum, 2)}")
                     .Result());
 
-                    total.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 12)
+                    total.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 13)
                     .Color(ConsoleColor.White)
                     .SetItems($"${Math.Round(sum + sumM, 2)}")
                     .Result());
@@ -490,28 +497,28 @@ namespace CinemaApplication
 
                         sum += Convert.ToDouble(snackDouble[addIndex]);
                         
-                        shopcart.Replace(new TextListBuilder(FoodWindow, 70, 4)
-                        .Color(ConsoleColor.DarkMagenta)
+                        shopcart.Replace(new TextListBuilder(FoodWindow, 70, 5)
+                        .Color(ConsoleColor.White)
                         .SetItems(cartlist.ToArray())
                         .Result());
 
-                        shopcartprice.Replace(new TextListBuilder(FoodWindow, 94, 4)
-                        .Color(ConsoleColor.DarkMagenta)
+                        shopcartprice.Replace(new TextListBuilder(FoodWindow, 94, 5)
+                        .Color(ConsoleColor.White)
                         .SetItems(cartpricelist.ToArray())
                         .Result());
 
-                        removebutton.Replace(new TextListBuilder(FoodWindow, 105, 4)
-                        .Color(ConsoleColor.Magenta)
+                        removebutton.Replace(new TextListBuilder(FoodWindow, 105, 5)
+                        .Color(ConsoleColor.Green)
                         .SetItems(removebuttonlist.ToArray())
-                        .Selectable(ConsoleColor.Cyan, ConsoleColor.DarkMagenta)
+                        .Selectable(ConsoleColor.Black, ConsoleColor.White)
                         .Result());
 
-                        totalSnack.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 11)
+                        totalSnack.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 12)
                         .Color(ConsoleColor.White)
                         .SetItems($"${Math.Round(sum, 2)}")
                         .Result());
 
-                        total.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 12)
+                        total.Replace(new TextListBuilder(FoodWindow, 28, snackNames.Length + 13)
                         .Color(ConsoleColor.White)
                         .SetItems($"${Math.Round(sum + sumM, 2)}")
                         .Result());
@@ -523,6 +530,12 @@ namespace CinemaApplication
                     }
                     addButton[i].OnClick = OnAdd;
                 }
+                var goContinue = new TextListBuilder(FoodWindow, 1, 22)
+                       .Color(ConsoleColor.Yellow)
+                       .SetItems("Continue")
+                       .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                       .LinkWindows(PaymentsWindow)
+                       .Result();
             }
         }
     }

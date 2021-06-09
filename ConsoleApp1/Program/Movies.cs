@@ -51,8 +51,8 @@ namespace CinemaApplication
             public List<JsonElement> FilterRoot()
             {
 
-                List<JsonElement> TimeSlotsList = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
-                List<JsonElement> root = JsonFile.FileAsList("..\\..\\..\\Movies.json");
+                List<JsonElement> TimeSlotsList = JsonFile.FileAsList("../../../TimeSlots.json");
+                List<JsonElement> root = JsonFile.FileAsList("../../../Movies.json");
 
                 // filter name
                 root.RemoveAll(x => !x.GetProperty("name").ToString().ToLower().Contains(this.Name));
@@ -127,24 +127,24 @@ namespace CinemaApplication
             void addTimeSlots()
             {
                 var list = new TextListBuilder(addNewTimeSlot, 1, 2)
-                    .Color(ConsoleColor.Cyan)
+                    .Color(Colors.breadcrumbs)
                     .SetItems("Home/Admin/Movies/List/Timeslot/Add Timeslot/")
                     .Result();
 
                 var inputInformation3 = new TextListBuilder(addNewTimeSlot, 1, 4)
-                    .Color(ConsoleColor.Gray)
+                    .Color(Colors.text)
                     .SetItems("Timeslot date:", "Timeslot hour:", "Hall number:")
                     .Result();
 
                 var inputList3 = new TextListBuilder(addNewTimeSlot, 16, 4)
                     .SetItems("", "", "")
-                    .AsInput(ConsoleColor.White, ConsoleColor.Black)
+                    .AsInput(Colors.input, Colors.inputBg.Item1)
                     .Result();
 
                 var terug3 = new TextListBuilder(addNewTimeSlot, 1, 8)
-                    .Color(ConsoleColor.Green)
+                    .Color(Colors.back)
                     .SetItems("Submit", "Go back")
-                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                    .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                     .LinkWindows(null, TimeslotEditWindow)
                     .Result();
 
@@ -154,9 +154,9 @@ namespace CinemaApplication
 
                 terug3[0].OnClick = () =>
                 {
-                    string filePath3 = "..\\..\\..\\TimeSlots.json";
+                    string filePath3 = "../../../TimeSlots.json";
                     var root3 = JsonFile.FileAsList(filePath3);
-                    var root4 = JsonFile.FileAsList("..\\..\\..\\Halls.json");
+                    var root4 = JsonFile.FileAsList("../../../Halls.json");
                     successMessage3.Clear();
 
                     string[] formats = {"d/M/yyyy h:mm tt",
@@ -257,10 +257,10 @@ namespace CinemaApplication
                         nTimeslot.movieId = Id;
                         nTimeslot.time = someFunkyUnixTime;
                         nTimeslot.hall = inputhall;
-                        JsonFile.AppendToFile(nTimeslot, "..\\..\\..\\TimeSlots.json");
+                        JsonFile.AppendToFile(nTimeslot, "../../../TimeSlots.json");
 
                         successMessage3.Replace(new TextListBuilder(addNewTimeSlot, 1, 11)
-                            .Color(ConsoleColor.Green)
+                            .Color(Colors.text)
                             .SetItems($"Successfully made a new timeslot for movie: {Name}", $"at time: {someFunkyDate}")
                             .Result());
                     }
@@ -270,10 +270,9 @@ namespace CinemaApplication
             public void InitAdminTimeslot()
             {
                 var Menu = new TextListBuilder(TimeslotEditWindow, 2, 5)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.back)
                 .SetItems("Add a timeslot", "Go back")
-                .UseNumbers()
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                 .LinkWindows(addNewTimeSlot, editMovieList)
                 .Result();
 
@@ -288,12 +287,12 @@ namespace CinemaApplication
                 };
 
                 var Path = new TextBuilder(TimeslotEditWindow, 2, 2)
-                    .Color(ConsoleColor.Cyan)
+                    .Color(Colors.breadcrumbs)
                     .Text("Home/Admin/Movies/List/Timeslot")
                     .Result();
 
                 var Description = new TextBuilder(TimeslotEditWindow, 2, 3)
-                    .Color(ConsoleColor.Gray)
+                    .Color(Colors.description)
                     .Text(Name)
                     .Result();
 
@@ -302,7 +301,7 @@ namespace CinemaApplication
                     .Text("Timeslots: ")
                     .Result();
 
-                var TimeSlotList = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json").FindAll(n => n.GetProperty("movieId").GetInt32() == Id);
+                var TimeSlotList = JsonFile.FileAsList("../../../TimeSlots.json").FindAll(n => n.GetProperty("movieId").GetInt32() == Id);
                 var TimeSlotNames = new List<string>();
                 var TimeSlotDates = new List<DateTime>();
                 int MaxLength = 0;
@@ -322,7 +321,7 @@ namespace CinemaApplication
                 }
 
                 var TimeSlots = new TextListBuilder(TimeslotEditWindow, Title.Position.X, 5)
-                    .Color(ConsoleColor.White)
+                    .Color(Colors.text)
                     .SetItems(TimeSlotNames.ToArray())
                     .Result();
 
@@ -369,7 +368,7 @@ namespace CinemaApplication
                             if(!isEmpty)
                             {
                                 var timeslot = TimeSlotList[index];
-                                JsonFile.RemoveFromFile("id", timeslot.GetProperty("id").GetInt32(), "..\\..\\..\\TimeSlots.json");
+                                JsonFile.RemoveFromFile("id", timeslot.GetProperty("id").GetInt32(), "../../../TimeSlots.json");
                             }
 
                             if (RemoveButtonList.Count == 0)
@@ -379,12 +378,12 @@ namespace CinemaApplication
                             }
 
                             RemoveButtons.Replace(new TextListBuilder(TimeslotEditWindow, Title.Position.X + MaxLength + 1, 5)
-                                .Color(ConsoleColor.Red)
+                                .Color(Colors.remove)
                                 .SetItems(RemoveButtonList.ToArray())
                                 .Selectable(ConsoleColor.White, ConsoleColor.Red)
                                 .Result());
                             TimeSlots.Replace(new TextListBuilder(TimeslotEditWindow, Title.Position.X, 5)
-                                .Color(ConsoleColor.White)
+                                .Color(Colors.text)
                                 .SetItems(TimeSlotNames.ToArray())
                                 .Result());
 
@@ -445,9 +444,9 @@ namespace CinemaApplication
                     .Result();
 
                 var _ = new TextListBuilder(Window, 1, 1)
-                    .Color(ConsoleColor.Green)
+                    .Color(Colors.back)
                     .SetItems("Go back", "Make reservation")
-                    .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                    .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                     .LinkWindows(listOfFilms, timeSlotWindow)
                     .Result();
             }
@@ -457,13 +456,13 @@ namespace CinemaApplication
         static void ListOfFilms()
         {
             var _ = new TextListBuilder(listOfFilms, 1, 1)
-                   .Color(ConsoleColor.Green)
+                   .Color(Colors.back)
                    .SetItems("Go back")
-                   .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                   .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
                    .LinkWindows(mainMenu)
                    .Result();
 
-            var movies = File.ReadAllText("..\\..\\..\\Movies.json");
+            var movies = File.ReadAllText("../../../Movies.json");
 
             JsonDocument doc = JsonDocument.Parse(movies);
             JsonElement JsonRoot = doc.RootElement;
@@ -488,7 +487,7 @@ namespace CinemaApplication
 
                 for (int i = 0; i < root.Count; i++) // JsonRoot.GetArrayLength()
                 {
-                    timeslotsFile = JsonFile.FileAsList("..\\..\\..\\TimeSlots.json");
+                    timeslotsFile = JsonFile.FileAsList("../../../TimeSlots.json");
                     var timeSlotsOfMovie = timeslotsFile.FindAll(timeSlots => timeSlots.GetProperty("movieId").GetInt32() == root[i].GetProperty("id").GetInt32());
                     if (timeSlotsOfMovie.Count >= 1) // terug zetten voor eind build
                     {
@@ -531,7 +530,7 @@ namespace CinemaApplication
                 .Result();
 
             var movieList = new TextListBuilder(listOfFilms, 11, 3)
-                .Color(ConsoleColor.White)
+                .Color(Colors.text)
                 .SetItems(movieNames.ToArray())
                 .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                 .LinkWindows(movieWindows.ToArray())
@@ -546,15 +545,15 @@ namespace CinemaApplication
                 .Result();
 
             var input = new TextListBuilder(listOfFilms, 80 + filterInputs.Items[2].Text.Length, 3)
-                .Color(ConsoleColor.Gray)
+                .Color(Colors.text)
                 .SetItems("", "", "")
                 .AsInput(ConsoleColor.Gray, ConsoleColor.Black)
                 .Result();
 
             var submitButton = new TextListBuilder(listOfFilms, 80, 8)
-                .Color(ConsoleColor.Green)
+                .Color(Colors.submit.Item1)
                 .SetItems("Submit")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .Selectable(Colors.submit.Item2, Colors.submit.Item3)
                 .Result();
 
             var message = new TextListBuilder(listOfFilms)
@@ -588,7 +587,7 @@ namespace CinemaApplication
 
                 GenerateMovieInformation();
                 movieList.Replace(new TextListBuilder(listOfFilms, 11, 3)
-                    .Color(ConsoleColor.White)
+                    .Color(Colors.text)
                     .SetItems(movieNames.ToArray())
                     .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
                     .LinkWindows(movieWindows.ToArray())
