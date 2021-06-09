@@ -36,6 +36,13 @@ namespace CinemaApplication
                 .SetItems("Name: ", "Price: ", "Veggie: ", "Stock: ")
                 .Result();
 
+            var _ = new TextListBuilder(addSnack, 1, 7)
+                .Color(Colors.back)
+                .SetItems("Go back")
+                .Selectable(ConsoleColor.Black, ConsoleColor.White)
+                .LinkWindows(snackOptions)
+                .Result();
+
             var input = new TextListBuilder(addSnack, 14 + inputOptions.Items[3].Text.Length, 7)
                 .Color(Colors.text)
                 .SetItems("", "", "", "")
@@ -47,14 +54,8 @@ namespace CinemaApplication
                 .SetItems("Add")
                 .Selectable(ConsoleColor.Black, ConsoleColor.White)
                 .Result();
-            
-            var _ = new TextListBuilder(addSnack, 1, 7)
-                .Color(Colors.back)
-                .SetItems("Go back")
-                .Selectable(ConsoleColor.Black, ConsoleColor.White)
-                .LinkWindows(snackOptions)
-                .Result();
-            
+
+
             var message = new TextListBuilder(addSnack)
                 .SetItems("")
                 .Result();
