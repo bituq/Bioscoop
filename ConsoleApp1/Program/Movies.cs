@@ -586,16 +586,30 @@ namespace CinemaApplication
 
 
                 GenerateMovieInformation();
-                movieList.Replace(new TextListBuilder(listOfFilms, 11, 3)
-                    .Color(Colors.text)
-                    .SetItems(movieNames.ToArray())
-                    .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
-                    .LinkWindows(movieWindows.ToArray())
-                    .Result()
-                );
-                for (int i = 0; i < movieList.Items.Count; i++)
-                    if (timeslotCounts[i] == 0)
-                        movieList[i].Disable();
+                if (movieNames.Count == 0)
+                {
+                    movieList.Replace(new TextListBuilder(listOfFilms, 11, 3)
+                        .Color(ConsoleColor.Red)
+                        .SetItems(new string[] { "No movies found with current filter(s)..." })
+                        .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
+                        .Result()
+                    );
+                }
+                else 
+                {
+                    movieList.Replace(new TextListBuilder(listOfFilms, 11, 3)
+                        .Color(Colors.text)
+                        .SetItems(movieNames.ToArray())
+                        .Selectable(ConsoleColor.White, ConsoleColor.DarkGray)
+                        .LinkWindows(movieWindows.ToArray())
+                        .Result()
+                    );
+                    for (int i = 0; i < movieList.Items.Count; i++)
+                        if (timeslotCounts[i] == 0)
+                            movieList[i].Disable();
+                }
+                
+                
                 listOfFilms.Init();
             };
         }
