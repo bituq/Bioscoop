@@ -544,6 +544,10 @@ namespace CinemaApplication
                 .SetItems("Name: ", "Genre: ", "Date: ")
                 .Result();
 
+            var dateFormat = new TextListBuilder(listOfFilms, 80, 1)
+                .SetItems("Date must be in 'dd-mm-yyyy' format")
+                .Result();
+
             var input = new TextListBuilder(listOfFilms, 80 + filterInputs.Items[2].Text.Length, 3)
                 .Color(Colors.text)
                 .SetItems("", "", "")
