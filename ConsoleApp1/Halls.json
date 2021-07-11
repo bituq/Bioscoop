@@ -33,5 +33,10 @@
     "id": 13,
     "rows": 35,
     "columns": 45
+  },
+  {
+    "id": 7,
+    "rows": 7,
+    "columns": 7
   }
 ]

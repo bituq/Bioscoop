@@ -460,5 +460,50 @@
       }
     ],
     "timeslotId": 0
+  },
+  {
+    "firstName": "Brent",
+    "lastName": "de Brons",
+    "code": "9279604",
+    "hall": 1,
+    "movieId": 0,
+    "date": 1623596666,
+    "occupiedSeats": [
+      {
+        "row": 2,
+        "column": 15
+      }
+    ],
+    "timeslotId": 0
+  },
+  {
+    "firstName": "Brent",
+    "lastName": "de Brons",
+    "code": "5441175",
+    "hall": 1,
+    "movieId": 0,
+    "date": 1626010901,
+    "occupiedSeats": [
+      {
+        "row": 5,
+        "column": 4
+      }
+    ],
+    "timeslotId": 0
+  },
+  {
+    "firstName": "Brent",
+    "lastName": "de Brons",
+    "code": "7738973",
+    "hall": 1,
+    "movieId": 0,
+    "date": 1626011029,
+    "occupiedSeats": [
+      {
+        "row": 2,
+        "column": 11
+      }
+    ],
+    "timeslotId": 0
   }
 ]

@@ -1,77 +1,5 @@
 [
   {
-    "id": 2,
-    "movieId": 2,
-    "time": 1621946163,
-    "hall": 3,
-    "occupiedSeats": [
-      {
-        "row": 2,
-        "column": 3
-      },
-      {
-        "row": 2,
-        "column": 4
-      },
-      {
-        "row": 2,
-        "column": 5
-      },
-      {
-        "row": 3,
-        "column": 4
-      },
-      {
-        "row": 1,
-        "column": 1
-      },
-      {
-        "row": 1,
-        "column": 2
-      },
-      {
-        "row": 1,
-        "column": 3
-      },
-      {
-        "row": 4,
-        "column": 5
-      },
-      {
-        "row": 4,
-        "column": 6
-      },
-      {
-        "row": 4,
-        "column": 7
-      },
-      {
-        "row": 6,
-        "column": 3
-      },
-      {
-        "row": 6,
-        "column": 2
-      },
-      {
-        "row": 6,
-        "column": 1
-      },
-      {
-        "row": 1,
-        "column": 7
-      },
-      {
-        "row": 1,
-        "column": 8
-      },
-      {
-        "row": 1,
-        "column": 6
-      }
-    ]
-  },
-  {
     "id": 5,
     "movieId": 2,
     "time": 1621788493,
@@ -355,6 +283,90 @@
     "occupiedSeats": []
   },
   {
+    "id": 8,
+    "movieId": 3,
+    "time": 1638709200,
+    "hall": 6,
+    "occupiedSeats": []
+  },
+  {
+    "id": 9,
+    "movieId": 4,
+    "time": 1630707360,
+    "hall": 4,
+    "occupiedSeats": []
+  },
+  {
+    "id": 10,
+    "movieId": 5,
+    "time": 1635341400,
+    "hall": 5,
+    "occupiedSeats": []
+  },
+  {
+    "id": 11,
+    "movieId": 6,
+    "time": 1640991540,
+    "hall": 4,
+    "occupiedSeats": []
+  },
+  {
+    "id": 12,
+    "movieId": 7,
+    "time": 1628928000,
+    "hall": 1,
+    "occupiedSeats": []
+  },
+  {
+    "id": 13,
+    "movieId": 8,
+    "time": 1626603300,
+    "hall": 2,
+    "occupiedSeats": []
+  },
+  {
+    "id": 14,
+    "movieId": 9,
+    "time": 1623762000,
+    "hall": 3,
+    "occupiedSeats": []
+  },
+  {
+    "id": 15,
+    "movieId": 10,
+    "time": 1623859200,
+    "hall": 5,
+    "occupiedSeats": []
+  },
+  {
+    "id": 16,
+    "movieId": 11,
+    "time": 1649592000,
+    "hall": 3,
+    "occupiedSeats": []
+  },
+  {
+    "id": 17,
+    "movieId": 12,
+    "time": 1623334140,
+    "hall": 4,
+    "occupiedSeats": []
+  },
+  {
+    "id": 18,
+    "movieId": 13,
+    "time": 1626012900,
+    "hall": 5,
+    "occupiedSeats": []
+  },
+  {
+    "id": 19,
+    "movieId": 2,
+    "time": 1623765600,
+    "hall": 5,
+    "occupiedSeats": []
+  },
+  {
     "id": 0,
     "movieId": 0,
     "time": 1622032563,
@@ -515,84 +527,19 @@
       {
         "row": 3,
         "column": 7
+      },
+      {
+        "row": 2,
+        "column": 15
+      },
+      {
+        "row": 5,
+        "column": 4
+      },
+      {
+        "row": 2,
+        "column": 11
       }
     ]
-  },
-  {
-    "id": 8,
-    "movieId": 3,
-    "time": 1638709200,
-    "hall": 6,
-    "occupiedSeats": []
-  },
-  {
-    "id": 9,
-    "movieId": 4,
-    "time": 1630707360,
-    "hall": 4,
-    "occupiedSeats": []
-  },
-  {
-    "id": 10,
-    "movieId": 5,
-    "time": 1635341400,
-    "hall": 5,
-    "occupiedSeats": []
-  },
-  {
-    "id": 11,
-    "movieId": 6,
-    "time": 1640991540,
-    "hall": 4,
-    "occupiedSeats": []
-  },
-  {
-    "id": 12,
-    "movieId": 7,
-    "time": 1628928000,
-    "hall": 1,
-    "occupiedSeats": []
-  },
-  {
-    "id": 13,
-    "movieId": 8,
-    "time": 1626603300,
-    "hall": 2,
-    "occupiedSeats": []
-  },
-  {
-    "id": 14,
-    "movieId": 9,
-    "time": 1623762000,
-    "hall": 3,
-    "occupiedSeats": []
-  },
-  {
-    "id": 15,
-    "movieId": 10,
-    "time": 1623859200,
-    "hall": 5,
-    "occupiedSeats": []
-  },
-  {
-    "id": 16,
-    "movieId": 11,
-    "time": 1649592000,
-    "hall": 3,
-    "occupiedSeats": []
-  },
-  {
-    "id": 17,
-    "movieId": 12,
-    "time": 1623334140,
-    "hall": 4,
-    "occupiedSeats": []
-  },
-  {
-    "id": 18,
-    "movieId": 13,
-    "time": 1626012900,
-    "hall": 5,
-    "occupiedSeats": []
   }
 ]

@@ -127,7 +127,7 @@ namespace CinemaApplication
                         successMessage.Replace(
                             new TextListBuilder(Window, 1, 12)
                             .Color(ConsoleColor.Green)
-                            .SetItems("Reservation has been submitted. Your reservation will be sent to you through e-mail.")
+                            .SetItems($"Reservation has been submitted. Your reservationcode is {randomCode}.")
                             .Result()
                             );
                         terug.Replace(
