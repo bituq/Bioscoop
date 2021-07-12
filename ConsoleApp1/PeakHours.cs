@@ -18,6 +18,10 @@ namespace CinemaApplication
                 .Color(Colors.breadcrumbs)
                 .SetItems("Home/Admin/Peak Hours/")
                 .Result();
+            var Date = new TextListBuilder(peaksWindow, 3, 4)
+                .Color(ConsoleColor.DarkMagenta)
+                .SetItems(DateTime.UtcNow.ToString("dd/MM/yyyy"))
+                .Result();
 
             var TimeSlots = File.ReadAllText("../../../TimeSlots.json");
             var Reserveringen = File.ReadAllText("../../../Reserveringen.json");
@@ -51,7 +55,7 @@ namespace CinemaApplication
                 return dtDateTime;
             }
 
-            int yPos = 4;
+            int yPos = 6;
 
             for (int i = 0, currTime = 0; i < 24 / hours; i++)
             {
@@ -85,7 +89,7 @@ namespace CinemaApplication
                     .Result();
                 currTime += hours;
             }
-            var exit = new TextListBuilder(peaksWindow, 1, ++yPos)
+            var exit = new TextListBuilder(peaksWindow, 1, ++yPos + 1)
                 .Color(Colors.back)
                 .SetItems("Go back")
                 .Selectable(Colors.backBg.Item1, Colors.backBg.Item2)
